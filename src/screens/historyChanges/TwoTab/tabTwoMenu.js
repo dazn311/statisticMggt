@@ -80,6 +80,16 @@ const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
+  tabWrap: {
+    border: 'none',
+    display: 'flex',
+    fontSize: 'large',
+    marginTop: '30px',
+    borderTop: '1px solid rebeccapurple',
+    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+  },
+  tabRight: {width: '80%', display: 'flex', overflowY: 'auto', overflowX: 'scroll', scrollbarColor: 'grey red'},
+  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px'},
   datePick: {
     display: 'flex',
     alignItems: 'center',
@@ -177,7 +187,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     fetchAllEventsGraphic('done_rec', dateStart, dateEndPlus);
     fetchAllEventsGraphic('deny_rec', dateStart, dateEndPlus);
     fetchAllEventsGraphic('new_msg', dateStart, dateEndPlus);
-
+ 
   }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
 
   const setUserData = (usersLine=[]) => {
@@ -405,11 +415,18 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
       <Title>Статистика по событиям за периоды</Title>
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
-                
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
             <LineChart  graphicValue={graphicValue}/>
+            <div className={classes.tabWrap}  >
+              <div className={classes.tabLeft}><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
+              <div className={classes.tabRight} >
+                {graphicValue && graphicValue.map(item => {
+                  return <li style={{listStyle:'none', padding: '0 20px', textAlign: 'center'}}><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
+                })}
+              </div> 
+            </div>
       </div>
     </React.Fragment>
   );
