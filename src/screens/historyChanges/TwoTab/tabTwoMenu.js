@@ -24,7 +24,7 @@ import { fetchAllEventsGraphicAsync, fetchAllUsersGraphicAsync } from '../../../
 // selectUsersOnlineGraphOfStaticPage
 // selectNewMessageGraphOfStaticPage
 
-import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
+import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectDenyEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
 
 let InitionalData = [
   // {
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   // usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
   // newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
 
-const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
+const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
   const [graphicValue, setGraphicValue] = useState('');
   const [dateWidth, setDateWidth] = useState(1);
   const [dateStart, setDateStart] = useState(initionalDateStart);
@@ -175,6 +175,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     fetchAllUsersGraphic(dateStart, dateEndPlus);
     fetchAllEventsGraphic('new_rec', dateStart, dateEndPlus);
     fetchAllEventsGraphic('done_rec', dateStart, dateEndPlus);
+    fetchAllEventsGraphic('deny_rec', dateStart, dateEndPlus);
     fetchAllEventsGraphic('new_msg', dateStart, dateEndPlus);
 
   }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
@@ -204,7 +205,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         const m1 = new Date(dateStart).getMonth() + 1;
         const nameDM = d1 + '/' + m1;
         const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,
+          name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
         }; 
         // InitionalData[index] = newObj; 
         InitionalData.push(newObj); 
@@ -252,6 +253,24 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     setGraphicValue(InitionalData);
   }
   
+  const setDenyEventData = (denyEvents=[]) => {
+    let maxUsersOfDay = [];
+    const chunkUsers = chunk(denyEvents,24); 
+
+    for (let index = 0; index < chunkUsers.length; index++) {
+      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
+      // console.log('sum_of array',sum_of_array);
+      maxUsersOfDay.push(sum_of_array);
+      
+    } 
+    maxUsersOfDay.forEach((el,index) => {
+      const newObj = {...InitionalData[index],  deny: el}; 
+        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
+        InitionalData[index] = newObj; 
+    });
+    setGraphicValue(InitionalData);
+  }
+  
   const setNewMessagesData = (usersLine=[]) => {
     let maxUsersOfDay = [];
     const chunkUsers = chunk(usersLine,24); 
@@ -285,7 +304,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         const m1 = '00';
         const nameDM = d1 + ':' + m1;
         const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,
+          name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
         }; 
         // InitionalData[index] = newObj; 
         InitionalData.push(newObj); 
@@ -322,6 +341,21 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
 
     setGraphicValue(InitionalData);
   }
+
+  const setDenyEventOfOneDay = (denyEvent=[]) => {
+    let maxUsersOfDay = denyEvent.slice(8);
+
+    
+    maxUsersOfDay.forEach((el,index) => {
+         
+        const newObj = {...InitionalData[index],  deny: el}; 
+        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
+        InitionalData[index] = newObj;
+    });
+
+    setGraphicValue(InitionalData);
+  }
+  
   const setNewMessageOfOneDay = (newMess=[]) => {
     let maxUsersOfDay = newMess.slice(8);
 
@@ -342,18 +376,21 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
     const newEvent = newEventsGraphOfStaticPage.data.chartData;
     const endEvent = endEventsGraphOfStaticPage.data.chartData;
+    const denyEvent = selectDenyEvents.data.chartData;
     const newMess = newMessageGraphOfStaticPage.data.chartData;
 
     if (dateWidth){
       setUserData(usersLine);
     setNewEventData(newEvent);
     setEndEventData(endEvent);
+    setDenyEventData(denyEvent);
     setNewMessagesData(newMess);
     } else {
       // set of one day
       setUserOfOneDate(usersLine);
       setNewEventOfOneDay(newEvent);
       setEndEventOfOneDay(endEvent);
+      setDenyEventOfOneDay(denyEvent);
       setNewMessageOfOneDay(newMess);
 
 
@@ -386,6 +423,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
 const mapStateToProps = createStructuredSelector ({
   newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы
   endEventsGraphOfStaticPage: selectEndEventsGraphOfStaticPage, // классификация статусов "new_msg"
+  selectDenyEvents: selectDenyEventsGraphOfStaticPage, // классификация статусов "new_msg"
   usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
   newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
 });

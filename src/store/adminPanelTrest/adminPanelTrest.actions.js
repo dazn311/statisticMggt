@@ -92,6 +92,10 @@ export const setDataEndEventToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_END_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE,
   payload: items 
 });
+export const setDataDenyEventToGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_DENY_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
 
 export const setDataNewMessageToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_NEW_MESSAGE_TO_GRAPHIC_TO_STATISTIC_PAGE,
@@ -288,6 +292,9 @@ export const fetchAllEventsGraphicAsync = (type='new_rec',startDate='2021-02-12T
           
         }else if (type === 'done_rec'){
           dispatch(setDataEndEventToGraphicToStaticPage(eventss));
+          
+        }else if (type === 'deny_rec'){
+          dispatch(setDataDenyEventToGraphicToStaticPage(eventss));
           
         }else if (type === 'new_msg'){
           dispatch(setDataNewMessageToGraphicToStaticPage(eventss));

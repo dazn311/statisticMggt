@@ -16,6 +16,10 @@ export const selectEndEventsGraphOfStaticPage = createSelector(
     getSelectPoints,
     adminPanel => adminPanel.endEventsGraphOfStaticPage
 )
+export const selectDenyEventsGraphOfStaticPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.denyEventsGraphOfStaticPage
+)
 
 export const selectUsersOnlineGraphOfStaticPage = createSelector( 
     getSelectPoints,

@@ -410,7 +410,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    usersOnlineGraphOfStaticPage: //events/amount
+    denyEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -419,6 +419,16 @@ const ORGANIZATIONS_DATA = {
         chartMax: 100,
         chartData: []
       }
+    },
+    usersOnlineGraphOfStaticPage: //events/amount
+    {
+      startTime: '2021-01-26T02:00:00.000Z',
+      endTime:   '2021-01-27T02:00:00.000Z',
+      fragments:   24,
+      data: {
+        chartMax: 100,
+        chartData: []
+      } 
     },
     newMessageGraphOfStaticPage: //events/amount
     {

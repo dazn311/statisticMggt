@@ -23,6 +23,7 @@ const INITIAL_STATE = {
     endEventsGraphOfStaticPage: ORGANIZATIONS_DATA.endEventsGraphOfStaticPage,// for GraphOfStaticPage
     usersOnlineGraphOfStaticPage: ORGANIZATIONS_DATA.usersOnlineGraphOfStaticPage,// for GraphOfStaticPage
     newMessageGraphOfStaticPage: ORGANIZATIONS_DATA.newMessageGraphOfStaticPage,// for GraphOfStaticPage
+    denyEventsGraphOfStaticPage: ORGANIZATIONS_DATA.denyEventsGraphOfStaticPage,// for GraphOfStaticPage
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -79,6 +80,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
                 
         case FetchDataStaticPage.FETCH_END_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE:
                 return {...state, endEventsGraphOfStaticPage: action.payload};
+               
+        case FetchDataStaticPage.FETCH_DENY_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, denyEventsGraphOfStaticPage: action.payload};
        
         case FetchDataStaticPage.FETCH_USERS_ONLINE_TO_GRAPHIC_TO_STATISTIC_PAGE:
                 return {...state, usersOnlineGraphOfStaticPage: action.payload};
