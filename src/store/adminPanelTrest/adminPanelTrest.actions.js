@@ -101,6 +101,30 @@ export const setDataNewMessageToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_NEW_MESSAGE_TO_GRAPHIC_TO_STATISTIC_PAGE,
   payload: items 
 });
+
+/////////////////////- TAB 3-//////////////////////////////////// 
+
+export const setDataUsersNewGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_USERS_NEW_TO_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
+
+export const setDataUsersDelGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_USERS_DEL_TO_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
+
+export const setDataUsersEndGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_USERS_END_TO_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
+
+export const setDataUsersBlockGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_USERS_BLOCK_TO_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
+
+/////////////////////////////////////////////////
  
 
 async function postData(url = '', data = {}) {
@@ -177,10 +201,6 @@ export const fetchAmountOGHForDashboardAsync = () => {
   };
 };
 
-// const parseISOString = (s)=> {
-//   var b = s.split(/\D+/);
-//   return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
-// }
 
 export const fetchAmountOGHToDayAsync = () => {
 
@@ -306,6 +326,9 @@ export const fetchAllEventsGraphicAsync = (type='new_rec',startDate='2021-02-12T
 };
 
 
+
+
+
 // Для страницы 2 отчетов "новых событий"
 export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
   return (dispatch) => {
@@ -316,6 +339,34 @@ export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',e
         // let chartData = users.data.chartData.slice(7,17);
         // console.log('fetchAllUsersGraphicAsync ', users); // JSON data parsed by `response.json()` call
         dispatch(setDataUsersOnlineToGraphicToStaticPage(users));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+
+//// setDataUsersNewGraphicToStaticPage setDataUsersDelGraphicToStaticPage setDataUsersEndGraphicToStaticPage setDataUsersBlockGraphicToStaticPage
+// Для страницы 2 отчетов "tab 3"
+export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
+  return (dispatch) => {
+    // dispatch(putDataUsersOnlineStart());
+     
+    postData('http://176.53.160.74:1000/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
+      .then((users) => {
+        // let chartData = users.data.chartData.slice(7,17);
+        if (type === 'new_user'){
+          dispatch(setDataUsersNewGraphicToStaticPage(users));
+          
+        }else if (type === 'del_user'){
+          dispatch(setDataUsersDelGraphicToStaticPage(users));
+          
+        }else if (type === 'end_user'){
+          dispatch(setDataUsersEndGraphicToStaticPage(users));
+          
+        }else if (type === 'block_user'){
+          dispatch(setDataUsersBlockGraphicToStaticPage(users));
+          
+        }
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };

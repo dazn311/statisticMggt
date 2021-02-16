@@ -155,7 +155,7 @@ render() {
     }
      
     return (
-      <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>
+      <div id='graphics' style={{ position:'relative'}}>
         <LineChart width={windthLine} height={200} data={data} >
           <CartesianGrid strokeDasharray="8 1" />
           <XAxis dataKey="name" padding={{ left: leftLine, right: rightLine }} />

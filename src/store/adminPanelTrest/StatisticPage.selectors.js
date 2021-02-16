@@ -34,4 +34,24 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
  //////////////////////////////////////////////////// 
  //////////////////////////////////////////////////// 
   
+ export const selectUsersNewGraphOfStaticPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.usersNewGraphOfStaticPage
+)
+
+ export const selectUsersDelGraphOfStaticPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.usersDelGraphOfStaticPage
+)
+
+ export const selectUsersBlockGraphOfStaticPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.usersBlockGraphOfStaticPage
+)
+
+ export const selectUsersEndGraphOfStaticPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.usersEndGraphOfStaticPage
+)
+
  //statusEnumEventPointColor

@@ -24,6 +24,10 @@ const INITIAL_STATE = {
     usersOnlineGraphOfStaticPage: ORGANIZATIONS_DATA.usersOnlineGraphOfStaticPage,// for GraphOfStaticPage
     newMessageGraphOfStaticPage: ORGANIZATIONS_DATA.newMessageGraphOfStaticPage,// for GraphOfStaticPage
     denyEventsGraphOfStaticPage: ORGANIZATIONS_DATA.denyEventsGraphOfStaticPage,// for GraphOfStaticPage
+    usersNewGraphOfStaticPage: ORGANIZATIONS_DATA.usersNewGraphOfStaticPage,// for GraphOfStaticPage    
+    usersDelGraphOfStaticPage: ORGANIZATIONS_DATA.usersDelGraphOfStaticPage,// for GraphOfStaticPage
+    usersBlockGraphOfStaticPage: ORGANIZATIONS_DATA.usersBlockGraphOfStaticPage,// for GraphOfStaticPage
+    usersEndGraphOfStaticPage: ORGANIZATIONS_DATA.usersEndGraphOfStaticPage,// for GraphOfStaticPage
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -89,6 +93,21 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataStaticPage.FETCH_NEW_MESSAGE_TO_GRAPHIC_TO_STATISTIC_PAGE:
                 return {...state, newMessageGraphOfStaticPage: action.payload};
+
+
+        case FetchDataStaticPage.FETCH_USERS_NEW_TO_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, usersNewGraphOfStaticPage: action.payload};
+
+        case FetchDataStaticPage.FETCH_USERS_DEL_TO_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, usersDelGraphOfStaticPage: action.payload};
+
+        case FetchDataStaticPage.FETCH_USERS_BLOCK_TO_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, usersBlockGraphOfStaticPage: action.payload};
+
+
+        case FetchDataStaticPage.FETCH_USERS_END_TO_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, usersEndGraphOfStaticPage: action.payload};
+
 
         default:
             return state;

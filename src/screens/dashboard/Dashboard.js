@@ -261,8 +261,8 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
             
               <Paper className={fixedHeightPaper}>
                 {/* <Chart /> */}
-                <h6 style={{ textAlign:'center', position:'relative', marginTop:'-15px', left: '0'}}>
-        {lineHeader}</h6>
+                <h4 style={{ textAlign:'center', position:'relative', marginTop:'-15px', left: '0'}}>
+        {lineHeader}</h4>
                 <LineChartWithXAxisPading />
               </Paper>
             </Grid>

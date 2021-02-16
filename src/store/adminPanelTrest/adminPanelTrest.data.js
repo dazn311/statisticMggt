@@ -440,6 +440,46 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
+    usersNewGraphOfStaticPage: //for statics page to third tab 
+    {
+      startTime: '2021-01-26T02:00:00.000Z',
+      endTime:   '2021-01-27T02:00:00.000Z',
+      fragments:   24,
+      data: {
+        chartMax: 100,
+        chartData: []
+      } 
+    },
+    usersDelGraphOfStaticPage: //for statics page to third tab
+    {
+      startTime: '2021-01-26T02:00:00.000Z',
+      endTime:   '2021-01-27T02:00:00.000Z',
+      fragments:   24,
+      data: {
+        chartMax: 100,
+        chartData: []
+      } 
+    },
+    usersBlockGraphOfStaticPage: //for statics page to third tab
+    {
+      startTime: '2021-01-26T02:00:00.000Z',
+      endTime:   '2021-01-27T02:00:00.000Z',
+      fragments:   24,
+      data: {
+        chartMax: 100,
+        chartData: []
+      } 
+    },
+    usersEndGraphOfStaticPage: //for statics page to third tab
+    {
+      startTime: '2021-01-26T02:00:00.000Z',
+      endTime:   '2021-01-27T02:00:00.000Z',
+      fragments:   24,
+      data: {
+        chartMax: 100,
+        chartData: []
+      } 
+    },
 
   };
 
