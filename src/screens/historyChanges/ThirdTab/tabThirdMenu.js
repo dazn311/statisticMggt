@@ -13,7 +13,7 @@ import DatePickerEnd from './DatePickerEnd.thirdTab';
 
 import LineChart from './LineChartWithXAxisPading.thirdTab';
 
-import Title from './Title.thirdTab';
+import Title from './Title.thirdTab'; 
 
 //fetchAllEventsGraphicAsync(type,startDate,endDate)
 //fetchAllUsersGraphicAsync(startDate,endDate)
@@ -61,7 +61,7 @@ let InitionalData = [
   //   name: '18:00', Events: null, Users: null, Closed: null, activeChat: 0,
   // },
 ];
-
+// dd
 
 const initionalDateStart = () => {
   let newDate = new Date();//.toISOString().split('T')[0];
