@@ -35,7 +35,7 @@ import Header from '../../components/header/header.component';
 import TableList from './TableListHistories.sceen';
 
 import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { fetchAmountUsersForGraphicsAsync, fetchEventsPointShortAsync, fetchAmountNewEventsForGraphicAsync,fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync,fetchAmountEndEventsForGraphicAsync, fetchAmountUsersOfStartDayGraphicsAsync, fetchAmountUsersOfEndDayGraphicsAsync} from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
+import { fetchAmountUsersForGraphicsAsync, fetchEventsPointShortAsync, fetchAmountNewEventsForGraphicAsync,fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync,fetchAmountEndEventsForGraphicAsync} from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import './dashboard.styles.scss';
 
@@ -137,8 +137,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- 
-const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewEventsForGraphic, currentUser, isFetchingUserOnline, fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays,fetchAmountEndEventsForGraphic,fetchAmountUsersOfStartDay, fetchAmountUsersOfEndDay}) => {
+
+
+const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewEventsForGraphic, currentUser, isFetchingUserOnline, fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays,fetchAmountEndEventsForGraphic}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState('recents');
   const [lineHeader, setLineHeader] = React.useState('Текущая информация по событиям и пользователям');
@@ -147,53 +148,65 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
   // console.log('isFetchingUserOnline', isFetchingUserOnline);
 
 
-  // const fetchDataForGraphics = () => {
-
-  //   const today = new Date();
-  //   const todayStartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-  //   const todayStartDay2 = today.toISOString().split('T')[0] + '07:00:00.000Z';
-
-  //   const todayStart = today.toISOString().split('T')[0] + '08:00:00.000Z';
-  //   const todayEnd = today.toISOString().split('T')[0] + 'T17:00:00.000Z';
-
-  //   const todayEndDay = today.toISOString().split('T')[0] + 'T18:00:00.000Z';
-  //   const todayEndDay2 = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
-
-  //   fetchAmountNewEventsForGraphic(todayStart,todayEnd);
-  //   fetchAmountEndEventsForGraphic(todayStart,todayEnd);
-
-  //   fetchDataUsersOnline(todayStart,todayEnd);
-  //   fetchAmountUsersOfStartDay(todayStartDay,todayStartDay2);
-  //   fetchAmountUsersOfEndDay(todayEndDay,todayEndDay2);
-
-  // }
-  //smgt
-  useEffect(() => {
-
-    fetchEventsPointShort(); // graphic new_rec
-
-    const today = new Date();
-    // const todayStartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-    // const todayStartDay2 = today.toISOString().split('T')[0] + 'T07:00:00.000Z';
-
-    // const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
-    // const todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
-
-    // const todayEndDay = today.toISOString().split('T')[0] + 'T20:00:00.000Z';
-    // const todayEndDay2 = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
+  const fetchDataForGraphics = () => {
 
     
 
-    // fetchDataUsersOnline(todayStart,todayEnd);
-    // fetchAmountUsersOfStartDay(todayStartDay,todayStartDay2);
-    // fetchAmountUsersOfEndDay(todayEndDay,todayEndDay2);
+    const currentHours = new Date().getHours();
+    
 
-    // const StartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-    // const EndDay = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
+    if ((currentHours < 8 && currentHours >= 0) ) {
+      // отобразить за вчерашний день
+      const currentDayOfWeek = new Date().getDay(); //.toLocaleString()//.toISOString();
+      // console.log('currentDayOfWeek',currentDayOfWeek);
 
-    // fetchAmountNewEventsForGraphic(StartDay,EndDay);
-    // fetchAmountEndEventsForGraphic(StartDay,EndDay);
+      let offsetDay = 0;
+      if ( currentDayOfWeek === 1) {
+        offsetDay += 3
+      }else if ( currentDayOfWeek === 7) {
+        offsetDay += 2
+      }else if ( currentDayOfWeek === 6) {
+        offsetDay += 1
+      }
 
+      const yestoday = new Date();
+      yestoday.setDate(yestoday.getDate() - offsetDay); 
+       
+      let newHeader = 'Информация по событиям и пользователям на ' + yestoday.toLocaleDateString();
+      setLineHeader(newHeader);
+
+      // console.log('yestoday', yestoday.toLocaleDateString());
+
+      const yestodayStart = yestoday.toISOString().split('T')[0] + 'T08:00:00.000Z';
+      const yestodayEnd = yestoday.toISOString().split('T')[0] + 'T19:00:00.000Z';
+
+      fetchAmountNewEventsForGraphic(yestodayStart,yestodayEnd);
+      fetchAmountEndEventsForGraphic(yestodayStart,yestodayEnd);
+      fetchDataUsersOnline(yestodayStart,yestodayEnd);
+    } else {
+      const today = new Date();
+
+      let newHeader = 'Информация по событиям и пользователям на ' + today.toLocaleDateString(); 
+      setLineHeader(newHeader);
+       
+      const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
+      const todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
+
+      fetchAmountNewEventsForGraphic(todayStart,todayEnd);
+      fetchAmountEndEventsForGraphic(todayStart,todayEnd);
+      fetchDataUsersOnline(todayStart,todayEnd);
+    }
+
+    
+  }
+  
+  useEffect(() => {
+    // fetchAmountNewEventsForGraphic(); // graphic new event
+    
+    // fetchDataUsersOnline(); // graphic user on line
+    fetchEventsPointShort(); // graphic new_rec
+    // fetchAmountEndEventsForGraphic(); // graphic end_rec
+    fetchDataForGraphics();
 
     // for "Количество ОГХ"
     fetchAmountOGH();
@@ -202,7 +215,17 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
     fetchAmountOGHToDay();
     fetchAmountOGHToWeek(); 
     fetchAmountOGHToThreeDays();
-  }, [fetchAmountNewEventsForGraphic, fetchAmountEndEventsForGraphic])
+    
+    // const intervalFetch = setInterval(() => {
+    //   fetchDataUsersOnline();
+    //   fetchEventsPointShort();
+    //   fetchAmountNewEventsForGraphic();
+    //   fetchAmountEndEventsForGraphic();
+    // }, 15*60*60);
+    // return () => {
+    //    clearInterval(intervalFetch) 
+    // }
+  }, [])
  
 
 
@@ -288,9 +311,8 @@ const mapStateToProps = createStructuredSelector ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchEventsPointShort: () => dispatch(fetchEventsPointShortAsync()),
+
     fetchDataUsersOnline: (startDate, endDate) => dispatch(fetchAmountUsersForGraphicsAsync(startDate, endDate)),// for graphics
-    fetchAmountUsersOfStartDay: (startDate, endDate) => dispatch(fetchAmountUsersOfStartDayGraphicsAsync(startDate, endDate)),
-    fetchAmountUsersOfEndDay: (startDate, endDate) => dispatch(fetchAmountUsersOfEndDayGraphicsAsync(startDate, endDate)),
     fetchAmountNewEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountNewEventsForGraphicAsync(startDate, endDate)),// for graphics
     fetchAmountEndEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountEndEventsForGraphicAsync(startDate, endDate)),// for graphics
 

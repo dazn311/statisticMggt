@@ -85,11 +85,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     fontSize: 'large',
     marginTop: '30px',
-    borderTop: '1px solid rebeccapurple',
+    padding: '10px',
+    // borderTop: '1px solid rebeccapurple',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
   },
-  tabRight: {width: '80%', display: 'flex', overflowY: 'auto', overflowX: 'scroll', scrollbarColor: 'grey red'},
-  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px'},
+  tabRight: {width: '80%', display: 'flex', overflowY: 'scroll', overflowX: 'scroll', scrollbarColor: 'grey red', cursor: 'all-scroll'},
+  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px'},
   datePick: {
     display: 'flex',
     alignItems: 'center',
@@ -105,13 +106,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//fetchAllEventsGraphicAsync(type,startDate,endDate)
-//fetchAllUsersGraphicAsync(startDate,endDate)
-
-// newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы
-  // endEventsGraphOfStaticPage: selectEndEventsGraphOfStaticPage, // классификация статусов "new_msg"
-  // usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
-  // newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
 
 const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
   const [graphicValue, setGraphicValue] = useState('');
@@ -128,51 +122,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   const daysInMonth = (month, year) => {
     return new Date(year, month, 0).getDate();
   }
-  // eventsLine.forEach((el,index) => {
-  //     const newObj = {...data[index], Events: el};
-      
-  //     data[index] = newObj;
-  //   });
  
-  // const fetchDataForGraphics = ({fetchAmountNewEventsForGraphic, fetchAmountEndEventsForGraphic, fetchAmountUsersForGraphics}) => {
 
-
-  //   const currentHours = new Date().getHours();
-
-  //   if ((currentHours < 8 && currentHours >= 0) ) {
-  //     // отобразить за вчерашний день
-  //     const currentDayOfWeek = new Date().getDay(); //.toLocaleString()//.toISOString();
-
-  //     let offsetDay = 0;
-  //     if ( currentDayOfWeek === 1) {
-  //       offsetDay += 3
-  //     }else if ( currentDayOfWeek === 7) {
-  //       offsetDay += 2
-  //     }else if ( currentDayOfWeek === 6) {
-  //       offsetDay += 1
-  //     }
-
-  //     const yestoday = new Date();
-  //     yestoday.setDate(yestoday.getDate() - offsetDay); 
-       
-  //     // const yestodayStart = yestoday.toISOString().split('T')[0] + 'T08:00:00.000Z';
-  //     // const yestodayEnd = yestoday.toISOString().split('T')[0] + 'T19:00:00.000Z';
-  //     console.log('fetchAmountNewEventsForGraphic');
-  //     // fetchAmountNewEventsForGraphic(yestodayStart,yestodayEnd);
-  //     // fetchAmountEndEventsForGraphic(yestodayStart,yestodayEnd);
-  //     // fetchAmountUsersForGraphics(yestodayStart,yestodayEnd);
-  //   } else {
-  //     // const today = new Date();
-  //     console.log('fetchAmountNewEventsForGraphic2');
-  //     // const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
-  //     // const todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
-
-  //     // fetchAmountNewEventsForGraphic(todayStart,todayEnd);
-  //     // fetchAmountEndEventsForGraphic(todayStart,todayEnd);
-  //     // fetchAmountUsersForGraphics(todayStart,todayEnd);
-  //   }
-
-  // }
    
   useEffect(() => {
 
@@ -189,7 +140,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     fetchAllEventsGraphic('new_msg', dateStart, dateEndPlus);
  
   }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
-
+ 
   const setUserData = (usersLine=[]) => {
     let maxUsersOfDay = [];
     const chunkUsers = chunk(usersLine,24); 
@@ -422,8 +373,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
             <div className={classes.tabWrap}  >
               <div className={classes.tabLeft}><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
               <div className={classes.tabRight} >
-                {graphicValue && graphicValue.map(item => {
-                  return <li style={{listStyle:'none', padding: '0 20px', textAlign: 'center'}}><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
+                {graphicValue && graphicValue.map((item, index) => {
+                  return <li key={index} style={{listStyle:'none', padding: '0 20px', textAlign: 'center'}}><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
                 })}
               </div> 
             </div>
@@ -432,10 +383,6 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   );
 }
 
-// selectNewEventsGraphOfStaticPage
-// selectEndEventsGraphOfStaticPage
-// selectUsersOnlineGraphOfStaticPage
-// selectNewMessageGraphOfStaticPage
 
 const mapStateToProps = createStructuredSelector ({
   newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы

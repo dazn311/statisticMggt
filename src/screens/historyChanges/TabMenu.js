@@ -85,7 +85,7 @@ const TabMenu = ({fetchEventForPeriod}) => {
         >
           <Tab label="Статистика по событиям" {...a11yProps(0)} />
           <Tab label="Статистика по системы" {...a11yProps(1)} />
-          <Tab label="Пользователи онлайн" {...a11yProps(2)} />
+          {/* <Tab label="Пользователи онлайн" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
@@ -95,9 +95,9 @@ const TabMenu = ({fetchEventForPeriod}) => {
       <TabPanel value={value} index={1}>
           <TabTwoMenu />
       </TabPanel> 
-      <TabPanel value={value} index={2}>
+      {/* <TabPanel value={value} index={2}>
       Пользователи онлайн
-      </TabPanel>
+      </TabPanel> */}
       {/* <TabPanel value={value} index={3}>
       таб 4
       </TabPanel> */}

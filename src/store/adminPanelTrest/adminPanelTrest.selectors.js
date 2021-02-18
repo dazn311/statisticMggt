@@ -54,12 +54,21 @@ export const selectIsFetchingUserOnline = createSelector(
 
 
 
-// для "graphics" ////////////////////////////////////////////////////
+// для "graphics" //////////////////////////////////////////////////// selectCountUsersOfStartDayGraph , selectCountUsersOfEndDayGraph
 export const selectCountUsersGraph = createSelector(
     [getSelectPoints],
     adminPanel => adminPanel.countUsersGraph
 )
+export const selectCountUsersOfStartDayGraph = createSelector(
+    [getSelectPoints],
+    adminPanel => adminPanel.countUsersOfStartDayGraph
+)
+export const selectCountUsersOfEndDayGraph = createSelector(
+    [getSelectPoints],
+    adminPanel => adminPanel.countUsersOfEndDayGraph
+)
 
+//--
 export const selectAmountEventGraph = createSelector( 
     getSelectPoints,
     adminPanel => adminPanel.amountEventGraph

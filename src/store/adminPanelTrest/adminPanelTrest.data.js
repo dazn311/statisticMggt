@@ -164,16 +164,27 @@ const ORGANIZATIONS_DATA = {
         objRelatives: 3,
       }
     },
-  countUsersGraph: 
+  countUsersGraph: //graphic of first page
     {
       startTime: '08:20 (21.01.21)',
       endTime:   '2021-02-08T20:48:33.296Z',
       fragments:   24,
       data: {
-        Mocke: 'Mocke',
         chartMax: 100,
         chartData: []
       }
+    },
+  countUsersOfStartDayGraph: //graphic of first page
+    {
+      startTime: '0',
+      endTime:   '0',
+      online: 0
+    },
+  countUsersOfEndDayGraph: //graphic of first page
+    {
+      startTime: '0',
+      endTime:   '0',
+      online: 0
     },
   countEventGraph: 
     {
@@ -383,14 +394,14 @@ const ORGANIZATIONS_DATA = {
       msg_file:   'cart.png',// временно не используется
       msg_geomet:   '2445654654'
     },],
-    fetchDataForEventShortPoints: // for tab bottom and page statistics
+  fetchDataForEventShortPoints: // for tab bottom and page statistics
     {
       limit: 20,
       startDate: "2021-02-06T02:00:00.000Z",
       endDate: "0",
       // endDate: "2021-02-11T22:00:00.000Z",
     },
-    newEventsGraphOfStaticPage: //events/amount
+  newEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',

@@ -6,11 +6,13 @@ const INITIAL_STATE = {
     countUsers: ORGANIZATIONS_DATA.countUsers,
     countOGH: ORGANIZATIONS_DATA.countOGH,
     amountNewOGH: ORGANIZATIONS_DATA.amountNewOGH,
-    amountOGHtoDay: ORGANIZATIONS_DATA.amountOGHtoDay,
-    amountOGHtoWeek: ORGANIZATIONS_DATA.amountOGHtoWeek,
-    amountOGHtoTreeDays: ORGANIZATIONS_DATA.amountOGHtoTreeDays,
+    amountOGHtoDay: ORGANIZATIONS_DATA.amountOGHtoDay,//graphic of first page
+    amountOGHtoWeek: ORGANIZATIONS_DATA.amountOGHtoWeek,//graphic of first page
+    amountOGHtoTreeDays: ORGANIZATIONS_DATA.amountOGHtoTreeDays,//graphic of first page
     countEventGraph: ORGANIZATIONS_DATA.countEventGraph,
-    countUsersGraph: ORGANIZATIONS_DATA.countUsersGraph,
+    countUsersGraph: ORGANIZATIONS_DATA.countUsersGraph, //graphic of first page
+    countUsersOfStartDayGraph: ORGANIZATIONS_DATA.countUsersOfStartDayGraph, //graphic of first page
+    countUsersOfEndDayGraph: ORGANIZATIONS_DATA.countUsersOfEndDayGraph, //graphic of first page
     messagesEventPoints: ORGANIZATIONS_DATA.messagesEventPoints,
     statusEnumEventPoint: ORGANIZATIONS_DATA.statusEnumEventPoint,
     eventPoints: ORGANIZATIONS_DATA.eventPoints,
@@ -33,6 +35,7 @@ const INITIAL_STATE = {
     errorMessage: undefined,
 };
 
+ 
 const adminPandelReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case AdminActionTypes.SET_CURRENT_POINT:
@@ -42,10 +45,16 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
             return {...state, isFetchingUserOnline: true};
 
         case FetchData.GET_USERS_ONLINE_SUCCESS:
-            return {...state, countUsersGraph: action.payload, isFetchingUserOnline: false};
+            return {...state, countUsersGraph: action.payload};
+
+        case FetchData.GET_USERS_ONLINE_START_DAY:
+            return {...state, countUsersOfStartDayGraph: action.payload};
+
+        case FetchData.GET_USERS_ONLINE_END_DAY:
+            return {...state, countUsersOfEndDayGraph: action.payload};
 
         case FetchData.GET_USERS_ONLINE_FAILURE:
-            return {...state, errorMessage: action.payload, isFetchingUserOnline: false};
+            return {...state, errorMessage: action.payload };
 
         case FetchData.GET_EVENTS_POINT_START: // for botton tab
                 return {...state, eventShortPoints: action.payload}; 

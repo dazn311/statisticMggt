@@ -8,7 +8,7 @@ import './App.css';
 
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
-
+//glav control
 function App() {
   return (
     <div className="App">
@@ -19,6 +19,15 @@ function App() {
           </Route>
           <Route path="/ogh">
             <HistoriesChange />
+          </Route>
+          <Route path="/stats">
+            <Dashboard />
+          </Route>
+          <Route path="/stats/ogh">
+            <HistoriesChange />
+          </Route>
+          <Route >
+            <Dashboard />
           </Route>
         </Switch>
       </Router>

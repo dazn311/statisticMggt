@@ -19,8 +19,21 @@ export const putDataUsersOnlineError = (errorMessage) => ({
   payload: errorMessage
 });
 
+
+/// for first page for graphics
+
 export const putDataUsersOnline = (items) => ({
   type: FetchData.GET_USERS_ONLINE_SUCCESS,
+  payload: items 
+});
+
+export const putDataUsersOfStartDayOnline = (items) => ({ 
+  type: FetchData.GET_USERS_ONLINE_START_DAY,
+  payload: items 
+});
+
+export const putDataUsersOfEndDayOnline = (items) => ({
+  type: FetchData.GET_USERS_ONLINE_END_DAY,
   payload: items 
 });
 
@@ -125,7 +138,12 @@ export const setDataUsersBlockGraphicToStaticPage = (items) => ({
 });
 
 /////////////////////////////////////////////////
- 
+const rootURL = 'https://ismggt.ru'; 
+const urlUserOnline = rootURL + '/query/users/online';
+const urlUserOnlineByInterval = rootURL + '/query/users/online/byinterval'; 
+const urlQueryAmount = rootURL + '/query/events/amount'; 
+const urlQueryObjTotal = rootURL + '/query/objects/total'; 
+//'https://ismggt.ru/query/objects/total'
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -150,26 +168,70 @@ async function postData(url = '', data = {}) {
  
 
 // Для верхней таблицы "graphics" пользователей он-лайн
-export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z')  => {
+export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T19:02:00.000Z')  => {
+  
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
-     
-    postData('http://176.53.160.74:1000/query/users/online', { startDate: startDate, endDate: endDate})
+    // https://ismggt.ru/
+    // postData('https://ismggt.ru/query/users/online', { startDate: startDate, endDate: endDate})
+    postData(urlUserOnline, { startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
         console.log('query/users/online', users); // JSON data parsed by `response.json()` call
         dispatch(putDataUsersOnline(users));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  }; 
+};
+
+
+
+
+
+
+
+
+
+
+
+
+// Для верхней таблицы "graphics" пользователей он-лайн
+// putDataUsersOfStartDayOnline  putDataUsersOfEndDayOnline
+export const fetchAmountUsersOfStartDayGraphicsAsync = (startDate='2021-02-16T00:00:00.000Z',endDate='2021-02-12T07:02:00.000Z')  => {
+  return (dispatch) => {
+    postData(urlUserOnlineByInterval, { startDate: startDate, endDate: endDate})
+      .then((users) => {
+        // let chartData = users.data.chartData.slice(7,17);
+        console.log('query/users/online byinterval  start day', users); // JSON data parsed by `response.json()` call
+        dispatch(putDataUsersOfStartDayOnline(users));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
+
+// fetchAmountUsersOfStartDayGraphicsAsync fetchAmountUsersOfEndDayGraphicsAsync
+export const fetchAmountUsersOfEndDayGraphicsAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z')  => {
+  // console.log('fetchAmountUsersOfEndDayGraphicsAsync',startDate, endDate);
+
+  return (dispatch) => {
+    postData(urlUserOnlineByInterval, { startDate: startDate, endDate: endDate})
+      .then((users) => {
+        // let chartData = users.data.chartData.slice(7,17);
+        console.log('query/users/online byinterval end day', users); // JSON data parsed by `response.json()` call
+        dispatch(putDataUsersOfEndDayOnline(users));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+
 
 // Для верхней таблицы "graphics" новые события
 export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z') => {
   
   return (dispatch) => {
-    // postData('http://176.53.160.74:1000/query/events/amount', {type: 'new_rec', startDate: '2021-02-15T01:00:00.000Z'})
-    postData('http://176.53.160.74:1000/query/events/amount', {type: 'new_rec', startDate: startDate, endDate: endDate})
+    // postData('https://ismggt.ru/query/events/amount', {type: 'new_rec', startDate: '2021-02-15T01:00:00.000Z'})
+    postData(urlQueryAmount, {type: 'new_rec', startDate: startDate, endDate: endDate})
       .then((eventss) => {
         console.log('events new_rec',eventss);
         dispatch(putNewEventsGraphic(eventss)); 
@@ -180,7 +242,7 @@ export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:
 // Для верхней таблицы "graphics" завершенные события
 export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z') => {
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/events/amount', {type: 'done_rec', startDate: startDate, endDate: endDate})
+    postData(urlQueryAmount, {type: 'done_rec', startDate: startDate, endDate: endDate})
       .then((eventss) => {
         console.log('events done_rec',eventss);
         dispatch(putEndEventsGraphic(eventss));
@@ -192,7 +254,7 @@ export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:
 // Для нежней таблицы "Количество ОГХ"
 export const fetchAmountOGHForDashboardAsync = () => {
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/objects/total', {})
+    postData(urlQueryObjTotal, {})
       .then((objOGH) => {
         // console.log('objOGH',objOGH);
         dispatch(putOGH(objOGH));
@@ -208,7 +270,7 @@ export const fetchAmountOGHToDayAsync = () => {
   // console.log('start to query/objects/total',start0);
 
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/objects/total', {startDate: start0})
+    postData('https://ismggt.ru/query/objects/total', {startDate: start0})
       .then((objTodayOGH ) => {
         // console.log('objTodayOGH (query/objects/total)',objTodayOGH);
         dispatch(putOGHforToDay(objTodayOGH));
@@ -223,7 +285,7 @@ export const fetchAmountOGHToThreeDaysAsync = () => {
   startDate.setDate(startDate.getDate() - 3); 
   
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/objects/total', {startDate: startDate})
+    postData('https://ismggt.ru/query/objects/total', {startDate: startDate})
       .then((objMonthOGH) => {
         // console.log('objTreeDayshOGH',objMonthOGH);
         dispatch(putOGHforTreeDays(objMonthOGH));
@@ -240,7 +302,7 @@ export const fetchAmountOGHToWeekAsync = () => {
 
 
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/objects/total', {startDate: startDate})
+    postData('https://ismggt.ru/query/objects/total', {startDate: startDate})
       .then((objWeekOGH) => {
         // console.log('objWeekOGH',objWeekOGH);
         dispatch(putOGHforWeek(objWeekOGH));
@@ -253,7 +315,7 @@ export const fetchAmountOGHToWeekAsync = () => {
 // Для нежней таблицы "новых событий"
 export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/events/last/short', {limit:20})
+    postData('https://ismggt.ru/query/events/last/short', {limit:20})
       .then((eventss) => {
         dispatch(putEventsPointShort(eventss));
       })
@@ -272,7 +334,7 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
   }
   return (dispatch) => {
     // console.log('startDate, endDate',startDate, endDate);
-    postData('http://176.53.160.74:1000/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate})
+    postData('https://ismggt.ru/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate})
       .then((eventss) => {
         // console.log('postData then, eventss',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -288,7 +350,7 @@ export const fetchEventFromPeriodAsync = (start, end) => {
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;
-    postData('http://176.53.160.74:1000/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
+    postData('https://ismggt.ru/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
       .then((eventss) => {
         // console.log('postData then, eventss',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -304,7 +366,7 @@ export const fetchEventFromPeriodAsync = (start, end) => {
 // Для страницы 2 отчетов "новых событий"
 export const fetchAllEventsGraphicAsync = (type='new_rec',startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z') => {
   return (dispatch) => {
-    postData('http://176.53.160.74:1000/query/events/amount', {type: type, startDate: startDate, endDate: endDate})
+    postData('https://ismggt.ru/query/events/amount', {type: type, startDate: startDate, endDate: endDate})
       .then((eventss) => {
         // console.log('events all',eventss);
         if (type === 'new_rec'){
@@ -334,7 +396,7 @@ export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',e
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
      
-    postData('http://176.53.160.74:1000/query/users/online', { startDate: startDate, endDate: endDate})
+    postData('https://ismggt.ru/query/users/online', { startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
         // console.log('fetchAllUsersGraphicAsync ', users); // JSON data parsed by `response.json()` call
@@ -351,7 +413,7 @@ export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-0
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
      
-    postData('http://176.53.160.74:1000/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
+    postData('https://ismggt.ru/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
         if (type === 'new_user'){

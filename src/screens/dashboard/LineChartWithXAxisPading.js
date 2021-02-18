@@ -2,18 +2,27 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Avatar from '@material-ui/core/Avatar';
+import { concat, reduce } from 'lodash'; 
 
-import { selectCountUsersGraph, selectIsFetchingUserOnline, selectAmountEventGraph, selectAmountEndEventGraph } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { fetchAmountUsersForGraphicsAsync,fetchAmountNewEventsForGraphicAsync,fetchAmountEndEventsForGraphicAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
+import Avatar from '@material-ui/core/Avatar';
+import Icon from '@material-ui/core/Icon';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
+import { selectCountUsersGraph, selectIsFetchingUserOnline, selectAmountEventGraph, selectAmountEndEventGraph, selectCountUsersOfStartDayGraph , selectCountUsersOfEndDayGraph } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { fetchAmountUsersForGraphicsAsync,fetchAmountNewEventsForGraphicAsync,fetchAmountEndEventsForGraphicAsync,fetchAmountUsersOfStartDayGraphicsAsync, fetchAmountUsersOfEndDayGraphicsAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
+
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 
-
+ 
 
 let data = [
+  {
+    name: '(00-07)', Events: null, Users: null, Closed: null, amt: 3,
+  },
   {
     name: '08:00', Events: null, Users: null, Closed: null, amt: 3,
   },
@@ -46,87 +55,211 @@ let data = [
   {
     name: '18:00', Events: null, Users: null, Closed: null, amt: 0,
   },
+  {
+    name: '(19-23)', Events: null, Users: null, Closed: null, amt: 0,
+  },
 ];
 
 class LineChartWithXAxisPading extends PureComponent {
 //   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/g03265a4/';
- 
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      offset: 0,
+      date: new Date()
+    };
+    this.fetchAll = this.fetchAll.bind(this);
+    this.setOffset = this.setOffset.bind(this);
+  }
+
+  componentDidMount() {
+    // const { fetchCollectionsStartAsync } = this.props;
+    this.fetchAll();
+  }
+
+
+
+  setOffset(ofs) {
+    const dd = new Date();
+    const ofsss = ofs + this.state.offset;
+    dd.setDate(dd.getDate() + ofsss);
+
+    this.setState(({offset}) => ({
+      date: dd,
+      offset: offset + ofs
+    }))
+
+  }
+
+  fetchAll(ofss=0) {
+    const{fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStartDayGraphicsAsync,fetchAmountUsersOfEndDayGraphicsAsync, fetchAmountNewEventsForGraphicAsync,fetchAmountEndEventsForGraphicAsync} = this.props;
+
+    if (ofss === 1 && this.state.offset === 0){return}
+
+    // console.log('this.state.offset',this.state.offset);
+    
+    const ofs = ofss + this.state.offset;
+    // console.log('ofs',ofs);
+
+    this.setOffset(ofss);
+
+    const today = new Date();
+    today.setDate(today.getDate() + ofs);
+    
+    const currentHours = parseInt(today.toISOString().split('T')[1].slice(0,2)) + 3;
+    // console.log('currentHours',currentHours);
+
+    const todayStartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
+    const todayStartDay2 = today.toISOString().split('T')[0] + 'T07:00:00.000Z';
+
+    const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
+    let todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
+
+    const StartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
+    let EndDay = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
+    
+
+    
+    fetchAmountUsersOfStartDayGraphicsAsync(todayStartDay,todayStartDay2);
+
+    if (currentHours > 18){
+      const todayEndDay = today.toISOString().split('T')[0] + 'T20:00:00.000Z';
+      const todayEndDay2 = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
+      fetchAmountUsersOfEndDayGraphicsAsync(todayEndDay,todayEndDay2);
+    }else {
+      todayEnd = today;
+      todayEnd.setDate(today.getDate() + 2);
+      // console.log('todayEnd',todayEnd);
+
+      EndDay = todayEnd;
+    }
+
+    fetchAmountUsersForGraphicsAsync(todayStart,todayEnd);
+    
+    fetchAmountNewEventsForGraphicAsync(StartDay,EndDay);
+    fetchAmountEndEventsForGraphicAsync(StartDay,EndDay);
+  }
 
 
 render() {
-    const {countUsersGraph, fetchAmountUsersForGraphics, isFetchingUserOnline, selectAmountNewEvent, selectAmountEndedEvent,fetchAmountNewEventsForGraphic,fetchAmountEndEventsForGraphic} = this.props;
+    const {countUsersGraph, isFetchingUserOnline, selectAmountNewEvent, selectAmountEndedEvent,selectCountUsersOfStartDay , selectCountUsersOfEndDay} = this.props;
 
-    const fetchDataForGraphics = () => {
-
-
-      const currentHours = new Date().getHours();
-
-      if ((currentHours < 8 && currentHours >= 0) ) {
-        // отобразить за вчерашний день
-        const currentDayOfWeek = new Date().getDay(); //.toLocaleString()//.toISOString();
-
-        let offsetDay = 0;
-        if ( currentDayOfWeek === 1) {
-          offsetDay += 3
-        }else if ( currentDayOfWeek === 7) {
-          offsetDay += 2
-        }else if ( currentDayOfWeek === 6) {
-          offsetDay += 1
-        }
-
-        const yestoday = new Date();
-        yestoday.setDate(yestoday.getDate() - offsetDay); 
-         
-        const yestodayStart = yestoday.toISOString().split('T')[0] + 'T08:00:00.000Z';
-        const yestodayEnd = yestoday.toISOString().split('T')[0] + 'T19:00:00.000Z';
-
-        fetchAmountNewEventsForGraphic(yestodayStart,yestodayEnd);
-        fetchAmountEndEventsForGraphic(yestodayStart,yestodayEnd);
-        fetchAmountUsersForGraphics(yestodayStart,yestodayEnd);
-      } else {
-        const today = new Date();
-
-        const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
-        const todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
-
-        fetchAmountNewEventsForGraphic(todayStart,todayEnd);
-        fetchAmountEndEventsForGraphic(todayStart,todayEnd);
-        fetchAmountUsersForGraphics(todayStart,todayEnd);
+    const { date } = this.state;
+    const today = new Date();
+       const stateDate = date.getDate().toString();
+      const today3=today.getDate().toString();
+      let isToday = false;
+      if (stateDate === today3) {
+        isToday = true;
       }
-
-      
-    }
-
     let usersCount = 0;
     let eventsAmount = 0;
     let endedAmount = 0;
+
     const usersLine = countUsersGraph.data.chartData;
+    const usersLineStartDay = selectCountUsersOfStartDay.online;
+    const usersLineEndDay = selectCountUsersOfEndDay.online;
+
     const eventsLine = selectAmountNewEvent.data.chartData;
     const endedLine = selectAmountEndedEvent.data.chartData;
 
-    usersLine.forEach((el,index) => {
-      const newObj = {...data[index], Users: el};
-      usersCount = el;
-      
-      data[index] = newObj;
-    }); 
+   let ddddd = new Date().toISOString();
+   let nowD = ddddd.split('T')[1].slice(0,2);
 
-    eventsLine.forEach((el,index) => {
-      const newObj = {...data[index], Events: el};
-      eventsAmount = el;
+  //  // console.log('ddddd',ddddd.split('T')[1].slice(0,2)); 
+   
+    const newObj = {...data[0], Users: usersLineStartDay};
+    data[0] = newObj;
+
+    for (let index = 1; index < 12; index++) {
+
+      const indexMinus = index -1;
+      const newObjDay = {...data[index], Users: usersLine[indexMinus]};
+      // if(nowD === data[index].name.slice(0,2)){
+      //   usersCount = usersLine[indexMinus]
+      // }
+      //usersCount
+      data[index] = newObjDay;
       
-      data[index] = newObj;
+    }
+
+    const newObjEndDay = {...data[12], Users: usersLineEndDay};
+    data[12] = newObjEndDay;
+
+    const allArray = concat(usersLine, usersLineStartDay, usersLineEndDay);
+    usersCount = Math.max.apply(Math, allArray);
+    // var max_of_array = Math.max.apply(Math, array);
+    // // console.log('data',data);
+    
+     
+
+    // _.reduce([1, 2], function(sum, n) {
+    //   return sum + n;
+    // }, 0);
+    // => 3
+
+    //////////////////////////////////////
+
+    const startDataNewEvent = eventsLine.slice(0,7);
+    const startDataNewEventSum = reduce(startDataNewEvent,(sum,n)=>(sum + n),0);
+    const newObjs = {...data[0], Events: startDataNewEventSum};
+    data[0] = newObjs;
+
+    const startNewEvent = eventsLine.slice(8,19);
+    startNewEvent.forEach((el,index) => {
+      const indexPlus = index +1;
+      const newObj = {...data[indexPlus], Events: el};
+      data[indexPlus] = newObj;
+      if(nowD === data[indexPlus].name.slice(0,2)){
+        // eventsAmount = el
+      }
     });
-    endedLine.forEach((el,index) => {
-      const newObj = {...data[index], Closed: el};
-      endedAmount = el;
-      
-      data[index] = newObj;
-    }); 
+    
+    eventsLine.forEach((el,index) => {
+      eventsAmount += el
+    });
 
-    // console.log(window.innerWidth);
-    const styleLblUsersGraphic3 = !isFetchingUserOnline ? {position: 'absolute', top: '0px', right: '0px', color:'#483d93'}
-    : {position: 'absolute', top: '0px', right: '0px', color:'#ccc'};
+    //////////////////////////////////////
+
+    const endDataNewEvent = eventsLine.slice(19,23);
+    const endDataNewEventSum = reduce(endDataNewEvent,(sum,n)=>(sum + n),0);
+    const newObjn = {...data[12], Events: endDataNewEventSum};
+    data[12] = newObjn;
+
+
+    //close
+    const startDataClose = endedLine.slice(0,7);
+    const startDataCloseSum = reduce(startDataClose,(sum,n)=>(sum + n),0);
+    const newObjc = {...data[0], Closed: startDataCloseSum};
+    data[0] = newObjc;
+
+    const startClose = endedLine.slice(8,19);
+    startClose.forEach((el,index) => {
+      const indexPlus = index +1;
+      const newObj = {...data[indexPlus], Closed: el};
+      data[indexPlus] = newObj;
+
+      if(nowD === data[indexPlus].name.slice(0,2)){
+        // endedAmount = el
+      }
+    });
+
+    endedLine.forEach((el,index) => {
+      endedAmount += el
+    });
+
+    const endDataClose = endedLine.slice(19,23);
+    const endDataCloseSum = reduce(endDataClose,(sum,n)=>(sum + n),0);
+    const newObjcs = {...data[12], Closed: endDataCloseSum};
+    data[12] = newObjcs;
+
+    
+
+
+    // // console.log(window.innerWidth);
+    const styleLblUsersGraphic3 = !isFetchingUserOnline ? {position: 'absolute', top: '-40px', right: '-15px', color:'#483d93',display: 'flex', alignItems: 'center'}
+    : {position: 'absolute', top: '-30px', right: '0px', color:'#ccc',display: 'flex', alignItems: 'center'};
     
     const styleLblUsersGraphic = !isFetchingUserOnline ? {position: 'absolute', top: '25px', right: '10px', color:'white', backgroundColor:'rgb(136, 132, 216)',width:'30px',height: 30}
     : {position: 'absolute', top: '25px', right: '10px', color:'#ccc',width:'30px',height: 30};
@@ -161,17 +294,23 @@ render() {
           <XAxis dataKey="name" padding={{ left: leftLine, right: rightLine }} />
           <YAxis />
           <Tooltip />
-          <Legend  style={{bottom: '10px'}}/>
+          <Legend  style={{bottom: '0px'}}/>
           <Line type="monotone" dataKey='Users' stroke="#8884d8" name='Польз. он-лайн' activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="Events" name='Новые события' stroke="#82ca9d" />
           <Line type="monotone" dataKey="Closed" name='Закрытые событ.' stroke="#FFc000" />
           
         </LineChart>
-        <div style={styleLblUsersGraphic3}>Текущие</div>
+       
+        <div style={styleLblUsersGraphic3}>
+          <ArrowLeftIcon onClick={() => {this.fetchAll(-1)}} color="secondary" />
+            {date.toISOString().slice(8,10)}/{date.toISOString().slice(5,7)} 
+          <ArrowRightIcon disabled={isToday} onClick={() => {this.fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
+        </div>
+        
         <div><Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar></div>
         <div><Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar></div>
         <div ><Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar></div>
-        <RefreshIcon id='btnUpdateGraphicUsers' onClick={fetchDataForGraphics} style={styleBtnUpdateUsersGraphic}/>
+        <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {this.fetchAll(0)}}/>
       </div>
     );
   } 
@@ -180,15 +319,20 @@ render() {
  
 const mapStateToProps = createStructuredSelector ({
   countUsersGraph: selectCountUsersGraph,
+  selectCountUsersOfStartDay: selectCountUsersOfStartDayGraph,
+  selectCountUsersOfEndDay: selectCountUsersOfEndDayGraph,
   isFetchingUserOnline: selectIsFetchingUserOnline,
   selectAmountNewEvent: selectAmountEventGraph,
   selectAmountEndedEvent: selectAmountEndEventGraph,
 });
  
+
 const mapDispatchToProps = (dispatch) => ({
-  fetchAmountUsersForGraphics: (startDate, endDate) => dispatch(fetchAmountUsersForGraphicsAsync(startDate, endDate)),
-  fetchAmountNewEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountNewEventsForGraphicAsync(startDate, endDate)),
-  fetchAmountEndEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountEndEventsForGraphicAsync(startDate, endDate)),
+  fetchAmountUsersForGraphicsAsync: (startDate, endDate) => dispatch(fetchAmountUsersForGraphicsAsync(startDate, endDate)),
+  fetchAmountUsersOfStartDayGraphicsAsync: (startDate, endDate) => dispatch(fetchAmountUsersOfStartDayGraphicsAsync(startDate, endDate)),
+  fetchAmountUsersOfEndDayGraphicsAsync: (startDate, endDate) => dispatch(fetchAmountUsersOfEndDayGraphicsAsync(startDate, endDate)),
+  fetchAmountNewEventsForGraphicAsync: (startDate, endDate) => dispatch(fetchAmountNewEventsForGraphicAsync(startDate, endDate)),
+  fetchAmountEndEventsForGraphicAsync: (startDate, endDate) => dispatch(fetchAmountEndEventsForGraphicAsync(startDate, endDate)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(LineChartWithXAxisPading);
  
