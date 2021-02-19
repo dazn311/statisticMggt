@@ -9,11 +9,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import DatePicker from './DatePicker.twoTab';
 import DatePickerEnd from './DatePickerEnd.twoTab';
+
+// import DatePickerOne from './DatePickerOne.secondTab';
  
 
 import LineChart from './LineChartWithXAxisPading.twoTab';
 
 import Title from './Title.twoTab';
+
+import './tabTwoMenu.styles.scss';
 
 //fetchAllEventsGraphicAsync(type,startDate,endDate)
 //fetchAllUsersGraphicAsync(startDate,endDate)
@@ -89,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
     // borderTop: '1px solid rebeccapurple',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
   },
-  tabRight: {width: '80%', display: 'flex', overflowY: 'scroll', overflowX: 'scroll', scrollbarColor: 'grey red', cursor: 'all-scroll'},
-  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px'},
+  tabRight: {width: '80%', display: 'flex', overflowY: 'scroll', overflowX: 'scroll', scrollbarColor: 'grey red', cursor: 'all-scroll',boxShadow: '0px 0px 10px 0px darkgrey',textAlign: 'center'},
+  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px',boxShadow: '0px 0px 10px 0px darkgrey', color: 'red'},
   datePick: {
     display: 'flex',
     alignItems: 'center',
@@ -366,15 +370,16 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
       <Title>Статистика по событиям за периоды</Title>
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
+                {/* <DatePickerOne setDataStart={setDateStartFromPicker}/> */}
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
             <LineChart  graphicValue={graphicValue}/>
             <div className={classes.tabWrap}  >
-              <div className={classes.tabLeft}><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
+              <div className={classes.tabLeft} className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
               <div className={classes.tabRight} >
                 {graphicValue && graphicValue.map((item, index) => {
-                  return <li key={index} style={{listStyle:'none', padding: '0 20px', textAlign: 'center'}}><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
+                  return <li key={index}  className='listTab' ><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
                 })}
               </div> 
             </div>

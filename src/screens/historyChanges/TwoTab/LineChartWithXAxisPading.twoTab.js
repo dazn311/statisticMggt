@@ -10,42 +10,7 @@ class LineChartWithXAxisPading extends PureComponent {
  
 render() {
     const { graphicValue} = this.props;
-    // console.log('LineChartWithXAxisPading init');
-    // let data = [];
- 
-    // const usersLine = graphicValue.countUsersGraph.data.chartData;
-    // const eventsLine = graphicValue.selectAmountNewEvent.data.chartData;
     
-    // const endedLine = graphicValue.selectAmountEndedEvent.data.chartData;
-
-    // const eventsLine = graphicValue;
-
-    // console.log('graphicValue',graphicValue);
-    // usersLine.forEach((el,index) => {
-    //   const newObj = {...data[index], Users: el};
-      
-    //   data[index] = newObj;
-    // }); 
-
-    // eventsLine.forEach((el,index) => {
-    //   const newObj = {...data[index], Events: el};
-      
-    //   data[index] = newObj;
-    // });
-
-    // endedLine.forEach((el,index) => {
-    //   const newObj = {...data[index], Closed: el};
-      
-    //   data[index] = newObj;
-    // }); 
-    // endedLine.forEach((el,index) => {
-    //   const newObj = {...data[index], activeChat: el};
-      
-    //   data[index] = newObj;
-    // }); 
-
-    
-     
     return (
       <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>
         <BarChart

@@ -117,6 +117,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
         case FetchDataStaticPage.FETCH_USERS_END_TO_GRAPHIC_TO_STATISTIC_PAGE:
                 return {...state, usersEndGraphOfStaticPage: action.payload};
 
+        case FetchDataStaticPage.FETCH_AMOUNT_NEW_OGH_FOR_GRAPHIC_TO_STATISTIC_PAGE:
+                return {...state, amountNewOGH: action.payload};
+
 
         default:
             return state;

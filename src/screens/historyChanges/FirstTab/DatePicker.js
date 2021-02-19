@@ -53,7 +53,7 @@ const DatePickers =({setDataStartforFetchEvents, fetchEventFromPeriod,dataOfFetc
     <form className={classes.container} noValidate>
       <TextField
         id="dateStart"
-        label="Дата начала диапозона"
+        label="От"
         type="date"
         defaultValue={Data}
         className={classes.textField}

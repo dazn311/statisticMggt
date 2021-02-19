@@ -136,6 +136,10 @@ export const setDataUsersBlockGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_BLOCK_TO_GRAPHIC_TO_STATISTIC_PAGE,
   payload: items 
 });
+export const setNewOGHGraphicToStaticPage = (items) => ({
+  type: FetchDataStaticPage.FETCH_AMOUNT_NEW_OGH_FOR_GRAPHIC_TO_STATISTIC_PAGE,
+  payload: items 
+});
 
 /////////////////////////////////////////////////
 const rootURL = 'https://ismggt.ru'; 
@@ -418,6 +422,34 @@ export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-0
         // let chartData = users.data.chartData.slice(7,17);
         if (type === 'new_user'){
           dispatch(setDataUsersNewGraphicToStaticPage(users));
+          
+        }else if (type === 'del_user'){
+          dispatch(setDataUsersDelGraphicToStaticPage(users));
+          
+        }else if (type === 'end_user'){
+          dispatch(setDataUsersEndGraphicToStaticPage(users));
+          
+        }else if (type === 'block_user'){
+          dispatch(setDataUsersBlockGraphicToStaticPage(users));
+          
+        }
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+
+//// 
+// Для страницы 2 отчетов "tab 3"
+export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
+  return (dispatch) => {
+    // dispatch(putDataUsersOnlineStart());
+     
+    postData('https://ismggt.ru/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
+      .then((users) => {
+        // let chartData = users.data.chartData.slice(7,17);
+        if (type === 'new_user'){
+          dispatch(setNewOGHGraphicToStaticPage(users));
           
         }else if (type === 'del_user'){
           dispatch(setDataUsersDelGraphicToStaticPage(users));

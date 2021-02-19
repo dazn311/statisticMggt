@@ -352,3 +352,14 @@ const mapDispatchToProps = (dispatch) => ({
   
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TabThirdMenu);
+
+// const mapStateToProps = createStructuredSelector ({
+//   amountToDayOGH: selectAmountToDayOGH,
+//   amountToWeekOGH: selectAmountToWeekOGH, 
+//   amountToTreeDaysOGH: selectAmountToTreeDaysOGH,
+//   // countUsersGraph: selectCountUsersGraph,
+//   // statusEventPoint: selectStatusEventPoint,
+// });
+
+
+// export default connect(mapStateToProps)(Deposits);

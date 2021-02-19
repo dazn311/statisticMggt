@@ -143,57 +143,11 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
   const [value, setValue] = React.useState('recents');
   const [lineHeader, setLineHeader] = React.useState('Текущая информация по событиям и пользователям');
 
-  // let lineHeader = 'Текущая информация по событиям и пользователям';
-  // console.log('isFetchingUserOnline', isFetchingUserOnline);
-
-
-  // const fetchDataForGraphics = () => {
-
-  //   const today = new Date();
-  //   const todayStartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-  //   const todayStartDay2 = today.toISOString().split('T')[0] + '07:00:00.000Z';
-
-  //   const todayStart = today.toISOString().split('T')[0] + '08:00:00.000Z';
-  //   const todayEnd = today.toISOString().split('T')[0] + 'T17:00:00.000Z';
-
-  //   const todayEndDay = today.toISOString().split('T')[0] + 'T18:00:00.000Z';
-  //   const todayEndDay2 = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
-
-  //   fetchAmountNewEventsForGraphic(todayStart,todayEnd);
-  //   fetchAmountEndEventsForGraphic(todayStart,todayEnd);
-
-  //   fetchDataUsersOnline(todayStart,todayEnd);
-  //   fetchAmountUsersOfStartDay(todayStartDay,todayStartDay2);
-  //   fetchAmountUsersOfEndDay(todayEndDay,todayEndDay2);
-
-  // }
+  
   //smgt
   useEffect(() => {
 
     fetchEventsPointShort(); // graphic new_rec
-
-    const today = new Date();
-    // const todayStartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-    // const todayStartDay2 = today.toISOString().split('T')[0] + 'T07:00:00.000Z';
-
-    // const todayStart = today.toISOString().split('T')[0] + 'T08:00:00.000Z';
-    // const todayEnd = today.toISOString().split('T')[0] + 'T19:00:00.000Z';
-
-    // const todayEndDay = today.toISOString().split('T')[0] + 'T20:00:00.000Z';
-    // const todayEndDay2 = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
-
-    
-
-    // fetchDataUsersOnline(todayStart,todayEnd);
-    // fetchAmountUsersOfStartDay(todayStartDay,todayStartDay2);
-    // fetchAmountUsersOfEndDay(todayEndDay,todayEndDay2);
-
-    // const StartDay = today.toISOString().split('T')[0] + 'T00:00:00.000Z';
-    // const EndDay = today.toISOString().split('T')[0] + 'T23:00:00.000Z';
-
-    // fetchAmountNewEventsForGraphic(StartDay,EndDay);
-    // fetchAmountEndEventsForGraphic(StartDay,EndDay);
-
 
     // for "Количество ОГХ"
     fetchAmountOGH();
@@ -202,7 +156,7 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
     fetchAmountOGHToDay();
     fetchAmountOGHToWeek(); 
     fetchAmountOGHToThreeDays();
-  }, [fetchAmountNewEventsForGraphic, fetchAmountEndEventsForGraphic])
+  }, [])
  
 
 

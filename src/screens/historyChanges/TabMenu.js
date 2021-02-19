@@ -15,6 +15,7 @@ import Box from '@material-ui/core/Box';
 // import TabOGH from './TabOGH'
 import TabOneMenu from './FirstTab/tabOneMenu'
 import TabTwoMenu from './TwoTab/tabTwoMenu'
+import TabThirdMenu from './ThirdTab/tabThirdMenu'
 
 
 // import { fetchEventForPeriodAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
@@ -85,7 +86,7 @@ const TabMenu = ({fetchEventForPeriod}) => {
         >
           <Tab label="Статистика по событиям" {...a11yProps(0)} />
           <Tab label="Статистика по системы" {...a11yProps(1)} />
-          {/* <Tab label="Пользователи онлайн" {...a11yProps(2)} /> */}
+          <Tab label="Пользователи онлайн" {...a11yProps(2)} />
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
@@ -95,9 +96,9 @@ const TabMenu = ({fetchEventForPeriod}) => {
       <TabPanel value={value} index={1}>
           <TabTwoMenu />
       </TabPanel> 
-      {/* <TabPanel value={value} index={2}>
-      Пользователи онлайн
-      </TabPanel> */}
+      <TabPanel value={value} index={2}>
+      <TabThirdMenu />
+      </TabPanel>
       {/* <TabPanel value={value} index={3}>
       таб 4
       </TabPanel> */}

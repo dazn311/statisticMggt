@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import { concat, reduce } from 'lodash'; 
 
 import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
@@ -147,12 +146,14 @@ render() {
 
     const { date } = this.state;
     const today = new Date();
-       const stateDate = date.getDate().toString();
-      const today3=today.getDate().toString();
-      let isToday = false;
-      if (stateDate === today3) {
-        isToday = true;
-      }
+    const stateDate = date.getDate().toString();
+    const today3=today.getDate().toString();
+    const nowHours=today.getHours().toString();
+    console.log('nowHours',nowHours);
+    let isToday = false;
+    if (stateDate === today3) {
+      isToday = true;
+    }
     let usersCount = 0;
     let eventsAmount = 0;
     let endedAmount = 0;
@@ -172,14 +173,16 @@ render() {
     const newObj = {...data[0], Users: usersLineStartDay};
     data[0] = newObj;
 
-    for (let index = 1; index < 12; index++) {
+    let max_hours = 12;
+    if(isToday) {
+      max_hours = parseInt(nowHours) -6;
+    }
+
+    // for (let index = 1; index < 12; index++) {
+    for (let index = 1; index < max_hours; index++) {
 
       const indexMinus = index -1;
       const newObjDay = {...data[index], Users: usersLine[indexMinus]};
-      // if(nowD === data[index].name.slice(0,2)){
-      //   usersCount = usersLine[indexMinus]
-      // }
-      //usersCount
       data[index] = newObjDay;
       
     }
@@ -206,7 +209,16 @@ render() {
     const newObjs = {...data[0], Events: startDataNewEventSum};
     data[0] = newObjs;
 
-    const startNewEvent = eventsLine.slice(8,19);
+    if(isToday) {
+      max_hours = parseInt(nowHours) +1;
+      if (max_hours >19){
+        max_hours = 19;
+      }
+    }else {
+      max_hours = 19;
+    }
+
+    const startNewEvent = eventsLine.slice(8,max_hours);
     startNewEvent.forEach((el,index) => {
       const indexPlus = index +1;
       const newObj = {...data[indexPlus], Events: el};
@@ -234,7 +246,7 @@ render() {
     const newObjc = {...data[0], Closed: startDataCloseSum};
     data[0] = newObjc;
 
-    const startClose = endedLine.slice(8,19);
+    const startClose = endedLine.slice(8,max_hours);
     startClose.forEach((el,index) => {
       const indexPlus = index +1;
       const newObj = {...data[indexPlus], Closed: el};

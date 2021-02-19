@@ -116,7 +116,7 @@ const ORGANIZATIONS_DATA = {
         users: 80,
       }
     },
-  countOGH: 
+  countOGH:  
     {
       dataTime: '2021-02-08T20:48:33.296Z',
       data:  {
