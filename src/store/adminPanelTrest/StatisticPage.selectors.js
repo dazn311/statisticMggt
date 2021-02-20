@@ -55,3 +55,9 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
 )
 
  //statusEnumEventPointColor
+ 
+ ///////////////////- for Statics Page, tab3 -///////////////////////////////// 
+export const selectAmountNewOGH = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.amountNewOGH
+)

@@ -367,7 +367,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
  
   return (
     <React.Fragment>
-      <Title>Статистика по событиям за периоды</Title>
+      {/* <Title>Статистика по событиям за периоды</Title> */}
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
                 {/* <DatePickerOne setDataStart={setDateStartFromPicker}/> */}
@@ -376,7 +376,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
             </div>
             <LineChart  graphicValue={graphicValue}/>
             <div className={classes.tabWrap}  >
-              <div className={classes.tabLeft} className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
+              <div className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
               <div className={classes.tabRight} >
                 {graphicValue && graphicValue.map((item, index) => {
                   return <li key={index}  className='listTab' ><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>

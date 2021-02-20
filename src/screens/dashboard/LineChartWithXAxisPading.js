@@ -149,7 +149,7 @@ render() {
     const stateDate = date.getDate().toString();
     const today3=today.getDate().toString();
     const nowHours=today.getHours().toString();
-    console.log('nowHours',nowHours);
+    // console.log('nowHours',nowHours);
     let isToday = false;
     if (stateDate === today3) {
       isToday = true;

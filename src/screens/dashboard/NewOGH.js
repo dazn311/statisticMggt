@@ -47,7 +47,7 @@ const Deposits = ({amountToDayOGH,amountToWeekOGH, amountToTreeDaysOGH}) => {
     </React.Fragment>
   );
 }
-
+ 
 const mapStateToProps = createStructuredSelector ({
   amountToDayOGH: selectAmountToDayOGH,
   amountToWeekOGH: selectAmountToWeekOGH, 

@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useCallback } from 'react';
 // import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -34,12 +34,12 @@ export default function Orders() {
   const [fieldValue, setFieldValue] = useState('nameEvent');
   const classes = useStyles();
 
-  const setSearchText = (val) => {setsearchValue(val)};
-  const setField = (val) => {setFieldValue(val)};
-
+  const setSearchText = useCallback((val) => {setsearchValue(val)},[]);
+  const setField = useCallback((val) => {setFieldValue(val)},[]);
+  // console.log('rerender Tab1');
   return (
     <React.Fragment>
-      <Title>Общая статистика по событиям</Title>
+      {/* <Title>Общая статистика по событиям</Title> */}
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
                 <SearchPanel setField={setField} setSearchText={setSearchText}/>

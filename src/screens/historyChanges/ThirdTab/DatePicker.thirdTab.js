@@ -29,7 +29,7 @@ const initional = () => {
 
 
 const DatePickers =({setDataStart}) => {
-  const [Data, setData] = useState(initional);
+  const [Data] = useState(initional);
   const classes = useStyles();
 
   // console.log('DatePickers init');
@@ -37,7 +37,7 @@ const DatePickers =({setDataStart}) => {
 
   const setDate = (e) => {
     const eT = e.target.value.toString();
-    setData(eT);
+    // setData(eT);
     setDataStart(new Date(eT).toISOString());
   }
 
@@ -52,7 +52,7 @@ const DatePickers =({setDataStart}) => {
         InputLabelProps={{
           shrink: true,
         }}
-        onBlur={setDate}
+        onChange={setDate}
       />
     </form>
   );

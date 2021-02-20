@@ -27,51 +27,53 @@ function createData(color, date, nameEvent, userName, type) {
   return { color, date, nameEvent, userName, type };
 }
 
-let rows = [
-  createData('new_rec','22/01/2021 (14:28)', 'Отправка сообщения', 'Тараскина Т.А.', 'новое сообщение в событии'),
-  createData('new_rec','19/01/2021 (08:22)', 'Отправка сообщения', 'Администратор', 'новое сообщение в событии'),
-  createData('new_rec','14/01/2021 (10:44)', 'Создание объекта', 'Васильев В.П.', 'новое сообщение в событии'),
-];
+let rows = [];
 
-const updateData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {
-  rows = [];
+const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {
+  
   let nodesEvent = eventShortPoints;
   if (Array.isArray(eventShortPoints) ) {
       nodesEvent = _.orderBy(eventShortPoints, ['date'], ['desc']);
       
   }
+  if (nodesEvent == null) {
+    return []
+  }
 
+  // console.log('rerender refactData');
+  rows = [];
   nodesEvent.map((nodeE) => {
-    if (nodeE == null) {
-      return []
-    }
-      const dateFormatt =  nodeE.date || '02-02-2021';
-      let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username, statusEventPoint[nodeE.type]);
-      rows.push(newNode);
-      
-      return newNode
+    const dateFormatt =  nodeE.date || '02-02-2021';
+    let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username, statusEventPoint[nodeE.type]);
+    rows.push(newNode);
+    
+    // return newNode
   });
 }
 
-const TabOGH = ({ eventShortPoints, statusEventPoint,statusEnumEventPointColor, fetchEventFromPeriod, dataOfFetchForEvent,searchValue, fieldValue }) => {
+const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, fetchEventFromPeriod, datesOfFetchForEvent,searchValue, fieldValue }) => {
   const [tabValue, settabValue] = useState([]);
   const classes = useStyles();
 
-  // console.log('init fieldValue',fieldValue);
-  useEffect(() => {
-    updateData(eventShortPoints.data.nodes,statusEventPoint, statusEnumEventPointColor);
-    settabValue(rows);
-  },[eventShortPoints,statusEventPoint,statusEnumEventPointColor]);
+  console.log('rerender Tab1 : TabOGH');
 
   useEffect(() => {
-    let endDate   = dataOfFetchForEvent.endDate;
-    let startDate = dataOfFetchForEvent.startDate;
-    // console.log('endDate',endDate);
-    if ( endDate !== '0'){
-      fetchEventFromPeriod(startDate, endDate);
-    }
+    refactData(selectEventShort.data.nodes,statusEventPoint, statusEnumEventPointColor);
+    settabValue(rows);
+    // console.log('useEffect selectEventShort');
+  },[selectEventShort]);
+
+  // useEffect(() => {
+  //   let {startDate, endDate}   = datesOfFetchForEvent;
+  //   // let startDate = datesOfFetchForEvent.startDate;
+  //   // console.log('endDate',endDate);
     
-  },[fetchEventFromPeriod,dataOfFetchForEvent])
+  //   if ( endDate !== '0' && startDate !== '0'){
+  //     // console.log('useEffect datesOfFetchForEvent');
+  //     fetchEventFromPeriod(startDate, endDate);
+  //   }
+    
+  // },[datesOfFetchForEvent])
 
   return (
     <TableContainer component={Paper}>
@@ -104,12 +106,12 @@ const TabOGH = ({ eventShortPoints, statusEventPoint,statusEnumEventPointColor, 
     </TableContainer>
   );
 }
-
+ 
 const mapStateToProps = createStructuredSelector ({
-    eventShortPoints: selectEventShortPoints, // события короткие данные для таблицы
+    selectEventShort: selectEventShortPoints, // события короткие данные для таблицы
     statusEventPoint: selectStatusEventPoint, // классификация статусов "new_msg"
     statusEnumEventPointColor: selectStatusEnumEventPointColor, // for color elements
-    dataOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
+    datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });
   
 const mapDispatchToProps = (dispatch) => ({

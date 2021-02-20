@@ -397,7 +397,7 @@ const ORGANIZATIONS_DATA = {
   fetchDataForEventShortPoints: // for tab bottom and page statistics
     {
       limit: 20,
-      startDate: "2021-02-06T02:00:00.000Z",
+      startDate: "0",
       endDate: "0",
       // endDate: "2021-02-11T22:00:00.000Z",
     },

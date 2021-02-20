@@ -28,7 +28,7 @@ const initional = () => {
 
 
 const DatePickers =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchForEventShort}) => {
-  const [Data, setData] = useState(initional);
+  const [Data] = useState(initional);
   const classes = useStyles();
 
 
@@ -40,7 +40,7 @@ const DatePickers =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchF
   const setDate = (e) => {
     const eT = e.target.value.toString();
     // console.log('eT',eT);
-    setData(eT);
+    // setData(eT);
     let endDate   = eT + 'T22:00:00.000Z';//new Date(eT).toISOString();
 
     setDataEndforFetchEvents(endDate);
@@ -60,7 +60,7 @@ const DatePickers =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchF
         InputLabelProps={{
           shrink: true,
         }}
-        onBlur={setDate}
+        onChange={setDate}
       />
     </form>
   );

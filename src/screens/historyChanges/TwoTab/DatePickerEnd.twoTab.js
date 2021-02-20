@@ -25,7 +25,7 @@ const initional = () => {
 
 
 const DatePickers =({setDataEndforFetchEvents}) => {
-  const [Data, setData] = useState(initional);
+  const [Data] = useState(initional);
   const classes = useStyles();
 
   // console.log('DatePickerEnd init');
@@ -34,7 +34,7 @@ const DatePickers =({setDataEndforFetchEvents}) => {
  
   const setDate = (e) => {
     const eT = e.target.value.toString();
-    setData(eT);
+    // setData(eT);
     setDataEndforFetchEvents(eT);
   }
 
@@ -49,7 +49,7 @@ const DatePickers =({setDataEndforFetchEvents}) => {
         InputLabelProps={{
           shrink: true,
         }}
-        onBlur={setDate}
+        onChange={setDate}
       />
     </form>
   );

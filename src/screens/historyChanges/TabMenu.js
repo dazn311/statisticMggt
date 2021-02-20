@@ -86,7 +86,7 @@ const TabMenu = ({fetchEventForPeriod}) => {
         >
           <Tab label="Статистика по событиям" {...a11yProps(0)} />
           <Tab label="Статистика по системы" {...a11yProps(1)} />
-          <Tab label="Пользователи онлайн" {...a11yProps(2)} />
+          <Tab label="Статистика по ОГХ" {...a11yProps(2)} />
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>

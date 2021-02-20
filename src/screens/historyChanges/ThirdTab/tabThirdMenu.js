@@ -1,67 +1,21 @@
-import React,{ useState,useEffect } from 'react';
+import React,{ useState,useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'; 
-import { chunk, reduce } from 'lodash'; 
-
-
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import DatePicker from './DatePicker.thirdTab';
 import DatePickerEnd from './DatePickerEnd.thirdTab';
  
-
-import LineChart from './LineChartWithXAxisPading.thirdTab';
+import ColomsChart from './ColomsChart';
 
 import Title from './Title.thirdTab'; 
 
-//fetchAllEventsGraphicAsync(type,startDate,endDate)
-//fetchAllUsersGraphicAsync(startDate,endDate)
-import { fetchAllEventsGraphicAsync, fetchAllUsersGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
+import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
-// selectNewEventsGraphOfStaticPage
-// selectEndEventsGraphOfStaticPage
-// selectUsersOnlineGraphOfStaticPage
-// selectNewMessageGraphOfStaticPage
+import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
 
-import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
-
-let InitionalData = [
-  // {
-  //   name: '08:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '09:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '10:00', Events: 7, Users: 0, Closed: 5, activeChat: 4,
-  // },
-  // {
-  //   name: '11:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '12:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '13:00', Events: null, Users: null, Closed: null, activeChat: 14,
-  // },
-  // {
-  //   name: '14:00', Events: null, Users: null, Closed: null, activeChat: 21,
-  // },
-  // {
-  //   name: '15:00', Events: null, Users: null, Closed: null, activeChat: 21,
-  // },
-  // {
-  //   name: '16:00', Events: null, Users: null, Closed: null, activeChat: 32,
-  // },
-  // {
-  //   name: '17:00', Events: null, Users: null, Closed: null, activeChat: 30,
-  // },
-  // {
-  //   name: '18:00', Events: null, Users: null, Closed: null, activeChat: 0,
-  // },
-];
-// dd
+const dataChar = [3,3];
 
 const initionalDateStart = () => {
   let newDate = new Date();//.toISOString().split('T')[0];
@@ -73,8 +27,6 @@ const initionalDateEnd = () => {
   let newDate = new Date();//.toISOString().split('T')[0];
   return newDate.toISOString().split('T')[0];
 }
-
-// const monthArr = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -95,271 +47,60 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//fetchAllEventsGraphicAsync(type,startDate,endDate)
-//fetchAllUsersGraphicAsync(startDate,endDate)
 
-// newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы
-  // endEventsGraphOfStaticPage: selectEndEventsGraphOfStaticPage, // классификация статусов "new_msg"
-  // usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
-  // newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
 
-const TabThirdMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
+const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
   const [graphicValue, setGraphicValue] = useState('');
-  const [dateWidth, setDateWidth] = useState(1);
   const [dateStart, setDateStart] = useState(initionalDateStart);
   const [dateEnd, setDateEnd] = useState(initionalDateEnd);
   const classes = useStyles();
 
-  // console.log('TabThirdMenu init');
-  // console.log('TabThirdMenu dateWidth', dateWidth);
-  const setDateStartFromPicker = (date) => {setDateStart(date)};
-  const setDateEndFromPicker = (date) => {setDateEnd(date)};
+  const setDateStartFromPicker = useCallback((date) => {setDateStart(date)},[]);
+  const setDateEndFromPicker = useCallback((date) => {setDateEnd(date)},[]);
 
-  const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  }
+  // const daysInMonth = (month, year) => {
+  //   return new Date(year, month, 0).getDate();
+  // }
+  // console.log('rerender Tab3');
  
-   
   useEffect(() => {
-
-    const d1 = new Date(dateStart).getDate();
-    const d2 = new Date(dateEnd).getDate();
-    const deltaDate = +d2 - +d1;
-    setDateWidth(deltaDate);
     // console.log('deltaDate',deltaDate);
     const dateEndPlus = dateEnd + 'T18:00:00.000Z';
-    fetchAllUsersGraphic(dateStart, dateEndPlus);
-    fetchAllEventsGraphic('new_rec', dateStart, dateEndPlus);
-    fetchAllEventsGraphic('done_rec', dateStart, dateEndPlus);
-    fetchAllEventsGraphic('new_msg', dateStart, dateEndPlus);
-
-  }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
-
-  const setUserData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      
-      let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-      maxUsersOfDay.push(max_of_array);
-      
-    }
-    // console.log('maxUsersOfDay',maxUsersOfDay); 
-
-    let me1 = new Date(dateStart).getMonth() + 1;
-    let y1 = new Date(dateStart).getYear();
-    const dOm = daysInMonth(me1, y1);
-    
-    InitionalData = [];
-    maxUsersOfDay.forEach((el,index) => {
-        let d1 = new Date(dateStart).getDate() + index;
-        if ( d1 > dOm +1) {
-          d1 -= dOm;
-        }
-        const m1 = new Date(dateStart).getMonth() + 1;
-        const nameDM = d1 + '/' + m1;
-        const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,
-        }; 
-        // InitionalData[index] = newObj; 
-        InitionalData.push(newObj); 
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  const setNewEventData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      // let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    }
-
-    maxUsersOfDay.forEach((el,index) => {
-        
-      const newObj = {...InitionalData[index],  Events: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  
-  const setEndEventData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    } 
-    maxUsersOfDay.forEach((el,index) => {
-      const newObj = {...InitionalData[index],  Closed: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-    setGraphicValue(InitionalData);
-  }
-  
-  const setNewMessagesData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    }
-    maxUsersOfDay.forEach((el,index) => {
-        
-      const newObj = {...InitionalData[index],  activeChat: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-
-    setGraphicValue(InitionalData);
-  }
+    fetchNewOGH('new_obj', dateStart, dateEndPlus);
+  }, [dateStart, dateEnd, fetchNewOGH]);
 
   // for one day ///////////////////////////////////
 
-  const setUserOfOneDate = (usersLine=[]) => {
-    let maxUsersOfDay = usersLine.slice(8);
-
-    InitionalData = [];
-    maxUsersOfDay.forEach((el,index) => {
-        let d1 = 8 + index;
-        
-        const m1 = '00';
-        const nameDM = d1 + ':' + m1;
-        const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,
-        }; 
-        // InitionalData[index] = newObj; 
-        InitionalData.push(newObj); 
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  
-
-  const setNewEventOfOneDay = (newEvent=[]) => {
-    let maxUsersOfDay = newEvent.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  Events: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-
-  const setEndEventOfOneDay = (endEvent=[]) => {
-    let maxUsersOfDay = endEvent.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  Closed: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  const setNewMessageOfOneDay = (newMess=[]) => {
-    let maxUsersOfDay = newMess.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  activeChat: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-
-
   useEffect(() => {
-    
-    const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
-    const newEvent = newEventsGraphOfStaticPage.data.chartData;
-    const endEvent = endEventsGraphOfStaticPage.data.chartData;
-    const newMess = newMessageGraphOfStaticPage.data.chartData;
+    const newOGH = selectAmountNewOGH.data.objMgtt;
+    const newOGHRelatives = selectAmountNewOGH.data.objRelatives;
+    const DataOGH = [newOGH,newOGHRelatives];
+    setGraphicValue(DataOGH);
 
-    if (dateWidth){
-      setUserData(usersLine);
-    setNewEventData(newEvent);
-    setEndEventData(endEvent);
-    setNewMessagesData(newMess);
-    } else {
-      // set of one day
-      setUserOfOneDate(usersLine);
-      setNewEventOfOneDay(newEvent);
-      setEndEventOfOneDay(endEvent);
-      setNewMessageOfOneDay(newMess);
-
-
-    }
-
-    
-    
-  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage])
+  },[selectAmountNewOGH])
  
   return (
     <React.Fragment>
-      <Title>Статистика по событиям за периоды</Title>
+      {/* <Title>Статистика по ОГХ за период</Title> */}
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
-                
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
-            <LineChart  graphicValue={graphicValue}/>
+            <ColomsChart dataArr={graphicValue} />
       </div>
     </React.Fragment>
   );
 }
 
-// selectNewEventsGraphOfStaticPage
-// selectEndEventsGraphOfStaticPage
-// selectUsersOnlineGraphOfStaticPage
-// selectNewMessageGraphOfStaticPage
-
 const mapStateToProps = createStructuredSelector ({
-  newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы
-  endEventsGraphOfStaticPage: selectEndEventsGraphOfStaticPage, // классификация статусов "new_msg"
-  usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
-  newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
+  selectAmountNewOGH: selectAmountNewOGH, // 
 });
-
+ 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAllEventsGraphic: (type, startDate, endDate) => dispatch(fetchAllEventsGraphicAsync(type, startDate, endDate)),
-  fetchAllUsersGraphic: (startDate, endDate) => dispatch(fetchAllUsersGraphicAsync(startDate, endDate)),
+  fetchNewOGH: (type, startDate, endDate) => dispatch(fetchNewOGHThirdTabStaticPageGraphicAsync(type, startDate, endDate)),
   
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(TabThirdMenu);
 
-// const mapStateToProps = createStructuredSelector ({
-//   amountToDayOGH: selectAmountToDayOGH,
-//   amountToWeekOGH: selectAmountToWeekOGH, 
-//   amountToTreeDaysOGH: selectAmountToTreeDaysOGH,
-//   // countUsersGraph: selectCountUsersGraph,
-//   // statusEventPoint: selectStatusEventPoint,
-// });
-
-
-// export default connect(mapStateToProps)(Deposits);

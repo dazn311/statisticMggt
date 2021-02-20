@@ -53,7 +53,7 @@ export default function SearchPanel({setSearchText, setField}) {
   const classes = useStyles();
   const [searchType, setSearchType] = React.useState('nameEvent');
   const [filter, setFilter] = React.useState('');
-  
+  // console.log('rerender SearchPanel');
   const handleChange = (event) => {
     setSearchType(event.target.value);
     setField(event.target.value);

@@ -29,7 +29,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 // import ChangeLog from '../../components/changeLog/ChangeLog.component';
 import LineChartWithXAxisPading from './LineChartWithXAxisPading';
 import Deposits from './Deposits';
-import NewObj from './NewObj';
+import NewOGH from './NewOGH';
 import Header from '../../components/header/header.component';
 
 import TableList from './TableListHistories.sceen';
@@ -203,10 +203,10 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
                 <Deposits /> 
               </Paper>
             </Grid>
-            {/* Последние новости */}
+            {/* Новые ОГХ */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <NewObj />  
+                <NewOGH />  
               </Paper>
             </Grid>
             {/* История последних изменений по объектам */}

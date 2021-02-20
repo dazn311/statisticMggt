@@ -1,6 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect,useCallback} from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+
+// import fns from 'react-date-fns';
+
+import DateFnsUtils from "@date-io/date-fns";
+import { ru } from "date-fns/locale";
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -29,18 +34,19 @@ const initional = () => {
 
 
 const DatePickers =({setDataStartforFetchEvents, fetchEventFromPeriod,dataOfFetchForEventShort}) => {
-  const [Data, setData] = useState(initional);
+  const [Data] = useState(initional);
   const classes = useStyles();
 
   
   useEffect(() => {
     setDataStartforFetchEvents(new Date(Data).toISOString());
+    // console.log('useEffect setDataStartforFetchEvents');
   }, [setDataStartforFetchEvents, Data]);
  
-  const setDate = (e) => {
+  const setDateOnBlur = (e) => {
     const eT = e.target.value.toString();
     // console.log('eT',eT);
-    setData(eT);
+    // setData(eT);
     setDataStartforFetchEvents(new Date(eT).toISOString());
 
     let endDate   = dataOfFetchForEventShort.endDate;
@@ -60,7 +66,8 @@ const DatePickers =({setDataStartforFetchEvents, fetchEventFromPeriod,dataOfFetc
         InputLabelProps={{
           shrink: true,
         }}
-        onBlur={setDate}
+        
+        onChange={setDateOnBlur}
       />
     </form>
   );
