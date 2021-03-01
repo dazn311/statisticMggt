@@ -1,3 +1,4 @@
+'strick'
 import React, { useEffect, useState } from 'react';
 import _ from "lodash";
 
@@ -58,22 +59,22 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
   console.log('rerender Tab1 : TabOGH');
 
   useEffect(() => {
-    refactData(selectEventShort.data.nodes,statusEventPoint, statusEnumEventPointColor);
+    refactData(selectEventShort.data.nodes, statusEventPoint, statusEnumEventPointColor);
     settabValue(rows);
     // console.log('useEffect selectEventShort');
   },[selectEventShort]);
 
-  // useEffect(() => {
-  //   let {startDate, endDate}   = datesOfFetchForEvent;
-  //   // let startDate = datesOfFetchForEvent.startDate;
-  //   // console.log('endDate',endDate);
+  useEffect(() => {
+    let {startDate, endDate}   = datesOfFetchForEvent;
+    // let startDate = datesOfFetchForEvent.startDate;
+    // console.log('endDate',endDate);
     
-  //   if ( endDate !== '0' && startDate !== '0'){
-  //     // console.log('useEffect datesOfFetchForEvent');
-  //     fetchEventFromPeriod(startDate, endDate);
-  //   }
+    if ( endDate !== '0' && startDate !== '0'){
+      // console.log('useEffect datesOfFetchForEvent');
+      fetchEventFromPeriod(startDate, endDate);
+    }
     
-  // },[datesOfFetchForEvent])
+  },[datesOfFetchForEvent])
 
   return (
     <TableContainer component={Paper}>

@@ -41,7 +41,7 @@ const DatePickers =({setDataStartforFetchEvents, fetchEventFromPeriod,dataOfFetc
   useEffect(() => {
     setDataStartforFetchEvents(new Date(Data).toISOString());
     // console.log('useEffect setDataStartforFetchEvents');
-  }, [setDataStartforFetchEvents, Data]);
+  }, []);
  
   const setDateOnBlur = (e) => {
     const eT = e.target.value.toString();

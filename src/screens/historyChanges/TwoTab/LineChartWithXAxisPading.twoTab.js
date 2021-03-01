@@ -10,6 +10,7 @@ class LineChartWithXAxisPading extends PureComponent {
  
 render() {
     const { graphicValue} = this.props;
+    console.log('rerender LineChartWithXAxisPading');
     
     return (
       <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>

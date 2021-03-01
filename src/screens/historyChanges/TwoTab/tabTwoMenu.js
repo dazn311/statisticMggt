@@ -4,6 +4,15 @@ import { createStructuredSelector } from 'reselect';
 import { chunk, reduce } from 'lodash'; 
 
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -107,9 +116,25 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     margin: '10px 0px',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-  }
+  },
+  table: {
+    minWidth: 650,
+  },
 }));
 
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
+let tmpGraphicValue = '';
+let tmpAmountEvents = 0;
 
 const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
   const [graphicValue, setGraphicValue] = useState('');
@@ -167,8 +192,11 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         if ( d1 > dOm +1) {
           d1 -= dOm;
         }
-        const m1 = new Date(dateStart).getMonth() + 1;
-        const nameDM = d1 + '/' + m1;
+        let m1 = new Date(dateStart).getMonth() + 1;
+        m1 = m1 < 10 ? '0' + m1: m1;
+        
+        let y1 = new Date(dateStart).getFullYear();
+        const nameDM = d1 + '/' + m1 + '/' + y1;
         const newObj = {
           name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
         }; 
@@ -176,8 +204,11 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         InitionalData.push(newObj); 
     });
 
-    setGraphicValue(InitionalData);
+    // setGraphicValue(InitionalData);
+    tmpGraphicValue = InitionalData;
   }
+
+  //////////////////////////
   const setNewEventData = (usersLine=[]) => {
     let maxUsersOfDay = [];
     const chunkUsers = chunk(usersLine,24); 
@@ -197,7 +228,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         InitionalData[index] = newObj; 
     });
 
-    setGraphicValue(InitionalData);
+    // setGraphicValue(InitionalData);
+    tmpGraphicValue = InitionalData;
   }
   
   const setEndEventData = (usersLine=[]) => {
@@ -215,7 +247,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
         InitionalData[index] = newObj; 
     });
-    setGraphicValue(InitionalData);
+    // setGraphicValue(InitionalData);
+    tmpGraphicValue = InitionalData;
   }
   
   const setDenyEventData = (denyEvents=[]) => {
@@ -233,7 +266,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
         InitionalData[index] = newObj; 
     });
-    setGraphicValue(InitionalData);
+    // setGraphicValue(InitionalData);
+    tmpGraphicValue = InitionalData;
   }
   
   const setNewMessagesData = (usersLine=[]) => {
@@ -254,7 +288,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
         InitionalData[index] = newObj; 
     });
 
-    setGraphicValue(InitionalData);
+    tmpGraphicValue = InitionalData;
+    setGraphicValue(tmpGraphicValue);
   }
 
   // for one day ///////////////////////////////////
@@ -336,8 +371,16 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   }
 
 
-  useEffect(() => {
+  const amountEventSelects = () => {
+    tmpAmountEvents += 1;
     
+    if(tmpAmountEvents === 5 ){
+      setDataEvants()
+    }
+    
+  };
+
+  const setDataEvants =() => {
     const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
     const newEvent = newEventsGraphOfStaticPage.data.chartData;
     const endEvent = endEventsGraphOfStaticPage.data.chartData;
@@ -346,22 +389,26 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
 
     if (dateWidth){
       setUserData(usersLine);
-    setNewEventData(newEvent);
-    setEndEventData(endEvent);
-    setDenyEventData(denyEvent);
-    setNewMessagesData(newMess);
+      setNewEventData(newEvent);
+      setEndEventData(endEvent);
+      setDenyEventData(denyEvent);
+      setNewMessagesData(newMess);
     } else {
       // set of one day
-      setUserOfOneDate(usersLine);
-      setNewEventOfOneDay(newEvent);
-      setEndEventOfOneDay(endEvent);
-      setDenyEventOfOneDay(denyEvent);
-      setNewMessageOfOneDay(newMess);
+      // setUserOfOneDate(usersLine);
+      // setNewEventOfOneDay(newEvent);
+      // setEndEventOfOneDay(endEvent);
+      // setDenyEventOfOneDay(denyEvent);
+      // setNewMessageOfOneDay(newMess);
 
 
     }
-
+  }
+  useEffect(() => {
     
+    amountEventSelects();
+
+    // console.log('rerender useEffect: TabTwoMenu');
     
   }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents])
  
@@ -376,12 +423,41 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
             </div>
             <LineChart  graphicValue={graphicValue}/>
             <div className={classes.tabWrap}  >
-              <div className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
+
+
+              <TableContainer component={Paper}>
+                <Table className={classes.table} size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Дата(время)</TableCell>
+                      <TableCell align="right">Новые события</TableCell>
+                      <TableCell align="right">Пользователи он-лайн</TableCell>
+                      <TableCell align="right">Закрытые события</TableCell>
+                      <TableCell align="right">Отмененые события</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {graphicValue && graphicValue.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell component="th" scope="row">
+                        {item.name}
+                        </TableCell>
+                        <TableCell align="right">{item.Events}</TableCell>
+                        <TableCell align="right">{item.Users}</TableCell>
+                        <TableCell align="right">{item.Closed}</TableCell>
+                        <TableCell align="right">{item.deny}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              
+              {/* <div className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
               <div className={classes.tabRight} >
                 {graphicValue && graphicValue.map((item, index) => {
                   return <li key={index}  className='listTab' ><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
                 })}
-              </div> 
+              </div>  */}
             </div>
       </div>
     </React.Fragment>

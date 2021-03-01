@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabMenu = ({fetchEventForPeriod}) => {
+const TabMenu = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
