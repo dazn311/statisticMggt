@@ -63,14 +63,15 @@ app.get('/static', (req, res) => {
 // app.post('/api/users/:id', (req, res) => {
 app.post('/api/users', async(req, res) => {
 
-    console.log('query: id ', req.body.data.id );
+    console.log('req.body.data', req.body.data.id );
 
+ 
     let idUser = req.body.data.id ;
     if(!req.body) res.send('error: Bad query data ');
 
     await db.one("SELECT user_fio_lit FROM users WHERE id=$1", idUser)
         .then(function (data) {
-            console.log("user_fio_lit:", data.user_fio_lit);
+            console.log("DATA:", data.user_fio_lit);
             users[2] = data.user_fio_lit;
         })
         .catch(function (error) {
@@ -81,7 +82,10 @@ app.post('/api/users', async(req, res) => {
     if ( !idUser ) {
         res.status('405').send('Не найден пользователь')
     }else {
+        // let otherObject = JSON.stringify({ name: user.name }) ;
         res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        // res.set('Access-Control-Expose-Headers', 'X-json');
+        // res.set('Access-Control-Allow-Headers', '*');
         res.set('Content-Type', 'application/x-www-form-urlencoded');
         res.status(200).json({name: users[2]});
     } 

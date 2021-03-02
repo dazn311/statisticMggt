@@ -19,13 +19,13 @@ import MainListItems from './listItems';
 
 // import { Link } from "react-router-dom";
 
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 
 
 // import { setCurrentUser } from '../../store/user/user.actions';
 
-// import { selectCurrentUser } from '../../store/user/user.selectors';
+import { selectCurrentUser } from '../../store/user/user.selectors';
 
 import './header.styles.scss';
 
@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Header = () => {
+const Header = ({currentUser}) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
@@ -124,8 +124,8 @@ const Header = () => {
 
     const sssd = () => {};
     
-    // let user = currentUser ? currentUser.login : '';
-    let user = '';
+    let user = currentUser ? currentUser : 'Demo';
+    // let user = '';
 
     // console.log('render header');
     return (
@@ -187,10 +187,12 @@ const Header = () => {
 // const mapDispatchToProps = dispatch => ({
 //     logOutUser: () => dispatch(setCurrentUser(null))
 //   });
-
-// const mapStateToProps = (state) => ({
-//     currentUser: selectCurrentUser(state),
-// });
+ 
+const mapStateToProps = (state) => ({
+    currentUser: selectCurrentUser(state),
+});
 
   // export default connect(mapStateToProps, mapDispatchToProps)(Header);
-  export default Header;
+  export default connect(mapStateToProps)(Header);
+
+  // export default Header;

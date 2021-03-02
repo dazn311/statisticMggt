@@ -1,13 +1,15 @@
 import { UserActionTypes } from './user.types';
-import data from '../adminPanelTrest/adminPanelTrest.data';
+// import ORGANIZATIONS_DATA from '../adminPanelTrest/adminPanelTrest.data';
 
 const INITIAL_STATE = {
-  curUser: data.currentUser
+  // curUser: ORGANIZATIONS_DATA.currentUser
+  curUser: ''
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserActionTypes.SET_CURRENT_USER:
+      console.log(' case UserActionTypes.SET_CURRENT_USER:',action.payload);
       return {
         ...state,
         curUser: action.payload
@@ -16,5 +18,5 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
-
+ 
 export default userReducer;

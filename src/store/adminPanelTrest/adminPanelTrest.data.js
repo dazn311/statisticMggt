@@ -19,7 +19,7 @@ const ORGANIZATIONS_DATA = {
       },
     ],
   currentUser: 
-    {
+    { 
       user_id: 0,
       user_fio: 'Петров Владимир Михайлович',
       login: '',

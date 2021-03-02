@@ -177,6 +177,7 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
     let newHeader = 'Информация по событиям';
       setLineHeader(newHeader);
   }
+  
   // console.log('user',user);
   return (
     <div className={classes.root}>

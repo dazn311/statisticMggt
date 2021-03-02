@@ -1,28 +1,19 @@
 // const { static } = require('express')
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors')
+var bodyParser = require('body-parser');
+
 const app = express();
 const port = 3003
-
-const pgp = require("pg-promise")(/*options*/);
-const db = pgp("postgres://dazn311:postgress@localhost:5432/dazn311");
-
-let users = [
+ 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+ 
+const users = [
     {id: 0, name: 'Vasya'},
     {id: 1, name: 'Dima'},
     {id: 2, name: 'Georgiy'},
     {id: 3, name: 'Petr'},
 ]
-
-
- 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
- 
-app.use(cors())
-
-
  
 app.use(express.static(__dirname + '/static'));
 
@@ -61,45 +52,28 @@ app.get('/static', (req, res) => {
 
 
 // app.post('/api/users/:id', (req, res) => {
-app.post('/api/users', async(req, res) => {
+app.post('/api/users',(req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Content-Type', 'application/json');
+    let obj = Object.keys(req.body)[0] ;
+    // console.log('post req.body.id', Object.values(obj)[6] );
 
-    console.log('query: id ', req.body.data.id );
+    let idUser = Object.values(obj)[6];
+    if(!req.body) res.send('error');
 
-    let idUser = req.body.data.id ;
-    if(!req.body) res.send('error: Bad query data ');
+    const user = users.find(function(u) {
+        return u.id === parseInt(idUser)
+    });
 
-    await db.one("SELECT user_fio_lit FROM users WHERE id=$1", idUser)
-        .then(function (data) {
-            console.log("user_fio_lit:", data.user_fio_lit);
-            users[2] = data.user_fio_lit;
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
-
-
+    
     if ( !idUser ) {
         res.status('405').send('Не найден пользователь')
     }else {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-        res.set('Content-Type', 'application/x-www-form-urlencoded');
-        res.status(200).json({name: users[2]});
+        // let otherObject = JSON.stringify({ name: user.name }) ;
+        res.status(200).json({name: user.name});
     } 
 })
 
 app.listen(port, () => {
   console.log(`Starting server at http://localhost:${port}`)
 })
-
-
-
-
-// db.one("SELECT user_fio_lit FROM users WHERE id=$1", 1)
-//     .then(function (data) {
-//         console.log("DATA:", data.user_fio_lit);
-//         users[2] = data.user_fio_lit;
-//     })
-//     .catch(function (error) {
-//         console.log("ERROR:", error);
-//     });
-// console.log('db end');    

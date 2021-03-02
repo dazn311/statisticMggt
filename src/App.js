@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect} from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,10 +8,18 @@ import {
 
 import './App.css';
 
+import { fetchCurrentUserAsync } from './store/user/user.actions'
+
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
 //glav control
-function App() {
+function App({fetchCurrentUser}) {
+
+  useEffect(() => {
+    console.log('app fetchCurrentUser');
+    fetchCurrentUser(2);
+    
+  }, [fetchCurrentUser])
   return (
     <div className="App">
       <Router>
@@ -36,4 +45,10 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrentUser: (id) => dispatch(fetchCurrentUserAsync(id)),
+});
+
+export default connect(null,mapDispatchToProps)(App);
