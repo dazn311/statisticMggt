@@ -31,6 +31,7 @@ const INITIAL_STATE = {
     usersBlockGraphOfStaticPage: ORGANIZATIONS_DATA.usersBlockGraphOfStaticPage,// for GraphOfStaticPage
     usersEndGraphOfStaticPage: ORGANIZATIONS_DATA.usersEndGraphOfStaticPage,// for GraphOfStaticPage
     users: ORGANIZATIONS_DATA.Users,// for UsersPage
+    allUsersOfDB: ORGANIZATIONS_DATA.allUsersOfDB,// for UsersPage
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -124,6 +125,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
         case FetchDataUsersPage.DISPATCH_APPEND_USER_TO_LOCAL_DB_FOR_USERS_PAGE:
                 const newArr = [...state.users, action.payload];
                 return {...state, users: newArr};
+
+        case FetchDataUsersPage.FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE:
+                return {...state, allUsersOfDB: action.payload};
 
 
         default:

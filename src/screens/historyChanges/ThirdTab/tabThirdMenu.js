@@ -9,13 +9,11 @@ import DatePickerEnd from './DatePickerEnd.thirdTab';
  
 import ColomsChart from './ColomsChart';
 
-import Title from './Title.thirdTab'; 
 
 import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
 import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
 
-const dataChar = [3,3];
 
 const initionalDateStart = () => {
   let newDate = new Date();//.toISOString().split('T')[0];
@@ -58,11 +56,6 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
   const setDateStartFromPicker = useCallback((date) => {setDateStart(date)},[]);
   const setDateEndFromPicker = useCallback((date) => {setDateEnd(date)},[]);
 
-  // const daysInMonth = (month, year) => {
-  //   return new Date(year, month, 0).getDate();
-  // }
-  // console.log('rerender Tab3');
- 
   useEffect(() => {
     // console.log('deltaDate',deltaDate);
     const dateEndPlus = dateEnd + 'T18:00:00.000Z';

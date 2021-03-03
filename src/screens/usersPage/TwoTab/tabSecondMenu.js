@@ -1,8 +1,7 @@
-import React from 'react'; 
+import React  from 'react'; 
 import { makeStyles } from '@material-ui/core/styles';
 
-import TabUsersList from './TabUsersList';
-import FormUsersAdd from './Form-add-users.component';
+import TabUsersList from './TabUsersList'; 
 
  
 
@@ -32,13 +31,7 @@ export default function TabOne() {
   return (
     <React.Fragment>
       <div className={classes.seeMore}>
-            <div className={classes.datePick}>
-                {/* <FormUsersAdd setField={setField} /> */}
-                <FormUsersAdd />
-            </div>
-        
-            <TabUsersList />
-            {/* <TabUsersList fieldValue={fieldValue} searchValue={''}/> */}
+            <TabUsersList /> 
       </div>
     </React.Fragment>
   );

@@ -14,7 +14,7 @@ import Box from '@material-ui/core/Box';
 
 // import TabOGH from './TabOGH'
 import TabOneMenu from './FirstTab/tabOneMenu'
-// import TabTwoMenu from './TwoTab/tabTwoMenu'
+import TabTwoMenu from './TwoTab/TabUsersList'
 // import TabThirdMenu from './ThirdTab/tabThirdMenu'
 
  
@@ -85,8 +85,8 @@ const TabMenu = () => {
           aria-label="scrollable auto tabs example"
         >
           <Tab label="Добавление пользователя" {...a11yProps(0)} />
-          {/* <Tab label="Статистика по системы" {...a11yProps(1)} />
-          <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
+          <Tab label="Список всех пользователей" {...a11yProps(1)} />
+          {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
@@ -94,8 +94,7 @@ const TabMenu = () => {
           <TabOneMenu />
       </TabPanel>
       <TabPanel value={value} index={1}>
-          {/* <TabTwoMenu /> */}
-          tab2
+          <TabTwoMenu />
       </TabPanel> 
       <TabPanel value={value} index={2}>
       {/* <TabThirdMenu /> */}

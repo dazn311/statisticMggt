@@ -63,11 +63,11 @@ app.get('/static', (req, res) => {
 // app.post('/api/users/:id', (req, res) => {
 app.post('/api/users', async(req, res) => {
 
-    console.log('query: id ', req.body );
+    console.log('query: id ', req.body.data.id );
 
-    let idUser = req.body.data.id  ? req.body.data.id: 0;
+    let idUser = req.body.data.id ;
     if(!req.body) res.send('error: Bad query data ');
- 
+
     await db.one("SELECT user_fio_lit FROM users WHERE id=$1", idUser)
         .then(function (data) {
             console.log("user_fio_lit:", data.user_fio_lit);
@@ -85,30 +85,6 @@ app.post('/api/users', async(req, res) => {
         res.status(200).json({name: users[2]});
     } 
 })
-       
-app.post('/api/users/all', async(req, res) => {
-
-    console.log('/api/users/all ');
- 
-    let data2 = [];
-     
-    await db.query("SELECT * FROM users limit 11")
-        .then(function (data) {
-            console.log("SELECT * FROM users: ", data );
-            data2 = data;
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
-
-    if ( !data2 ) {
-        res.status('405').send('Не найдены пользователи')
-    }else {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-        res.set('Content-Type', 'application/x-www-form-urlencoded');
-        res.status(200).json(data2);
-    } 
-})
 
 
 // add users
@@ -119,7 +95,8 @@ app.post('/api/users/append', async(req, res) => {
     console.log('query: data.user_fio: ', req.body.data.data.user_fio );
 
     if(!req.body) res.send('error: Bad query data ');
- 
+
+    // const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values ($1,$2,$3,$4) VALUES (" + "'" + [data.user_fio, data.login, data.password, data.user_fio_lit].join("','") + "'" + ") RETURNING *";
     // eslint-disable-next-line no-useless-concat
     const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values(" + "'" + data.user_fio + "'" + ","+ "'" + data.login + "'" + ","+ "'" + data.password + "'" + ","+ "'" + data.user_fio_lit + "'" + ") RETURNING *";
 

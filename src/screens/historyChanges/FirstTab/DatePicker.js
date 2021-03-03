@@ -1,11 +1,7 @@
-import React, { useState, useEffect,useCallback} from 'react';
+import React, { useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// import fns from 'react-date-fns';
-
-import DateFnsUtils from "@date-io/date-fns";
-import { ru } from "date-fns/locale";
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';

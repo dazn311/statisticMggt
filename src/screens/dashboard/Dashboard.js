@@ -8,25 +8,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
-// import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-// import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box'; 
+import Typography from '@material-ui/core/Typography'; 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
+import Link from '@material-ui/core/Link'; 
 import FolderIcon from '@material-ui/icons/Folder';
 import RestoreIcon from '@material-ui/icons/Restore';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-
-// import { mainListItems, secondaryListItems } from './listItems';
-
-// import HistoryObjLast from './History-obj-last';
-// import NewsList from './NewsList';
-// import ChangeLog from '../../components/changeLog/ChangeLog.component';
+ 
 import LineChartWithXAxisPading from './LineChartWithXAxisPading';
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';

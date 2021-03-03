@@ -19,23 +19,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import DatePicker from './DatePicker.twoTab';
 import DatePickerEnd from './DatePickerEnd.twoTab';
 
-// import DatePickerOne from './DatePickerOne.secondTab';
  
-
 import LineChart from './LineChartWithXAxisPading.twoTab';
 
-import Title from './Title.twoTab';
+ 
 
 import './tabTwoMenu.styles.scss';
 
-//fetchAllEventsGraphicAsync(type,startDate,endDate)
-//fetchAllUsersGraphicAsync(startDate,endDate)
+ 
 import { fetchAllEventsGraphicAsync, fetchAllUsersGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
-
-// selectNewEventsGraphOfStaticPage
-// selectEndEventsGraphOfStaticPage
-// selectUsersOnlineGraphOfStaticPage
-// selectNewMessageGraphOfStaticPage
+ 
 
 import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectDenyEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
 
@@ -122,16 +115,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 let tmpGraphicValue = '';
 let tmpAmountEvents = 0;
@@ -293,84 +286,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   }
 
   // for one day ///////////////////////////////////
-
-  const setUserOfOneDate = (usersLine=[]) => {
-    let maxUsersOfDay = usersLine.slice(8);
-
-    InitionalData = [];
-    maxUsersOfDay.forEach((el,index) => {
-        let d1 = 8 + index;
-        
-        const m1 = '00';
-        const nameDM = d1 + ':' + m1;
-        const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
-        }; 
-        // InitionalData[index] = newObj; 
-        InitionalData.push(newObj); 
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  
-
-  const setNewEventOfOneDay = (newEvent=[]) => {
-    let maxUsersOfDay = newEvent.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  Events: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-
-  const setEndEventOfOneDay = (endEvent=[]) => {
-    let maxUsersOfDay = endEvent.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  Closed: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-
-  const setDenyEventOfOneDay = (denyEvent=[]) => {
-    let maxUsersOfDay = denyEvent.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  deny: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-  
-  const setNewMessageOfOneDay = (newMess=[]) => {
-    let maxUsersOfDay = newMess.slice(8);
-
-    
-    maxUsersOfDay.forEach((el,index) => {
-         
-        const newObj = {...InitionalData[index],  activeChat: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj;
-    });
-
-    setGraphicValue(InitionalData);
-  }
-
-
+ 
   const amountEventSelects = () => {
     tmpAmountEvents += 1;
     
@@ -452,12 +368,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
                 </Table>
               </TableContainer>
               
-              {/* <div className='listTab tabLeft'><div>Дата(время)</div><div>Новые события</div><div>Пользователи он-лайн</div><div>Закрытые события</div><div>Отмененые события</div> </div>
-              <div className={classes.tabRight} >
-                {graphicValue && graphicValue.map((item, index) => {
-                  return <li key={index}  className='listTab' ><div>{item.name}</div><div>{item.Events}</div><div>{item.Users}</div><div>{item.Closed}</div><div>{item.deny}</div></li>
-                })}
-              </div>  */}
+               
             </div>
       </div>
     </React.Fragment>

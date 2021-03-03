@@ -38,6 +38,7 @@ const ORGANIZATIONS_DATA = {
       user_last_seen: 0,
     },
     Users:[],
+    allUsersOfDB:[],
   // Users:  
   //   [{
   //     user_id: 0,

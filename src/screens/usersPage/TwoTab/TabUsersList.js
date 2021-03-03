@@ -1,5 +1,5 @@
- 
-import React  from 'react';
+'strick'
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,7 +14,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
  
 
-import { selectUsersPage } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { fetchAllUsersFromDB } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
 
 const useStyles = makeStyles({
   table: {
@@ -27,13 +28,15 @@ const useStyles = makeStyles({
 
 
 
-const TabUsersList = ({ selectUsersPage }) => {
+const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
   const classes = useStyles();
 
-  console.log('rerender UsersTab1 : TabUsersList');
+  useEffect(() => {
+    fetchAllUsers(20);
+  }, [])
 
+  console.log('rerender UsersTab2 : TabUsersList');
  
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -61,15 +64,16 @@ const TabUsersList = ({ selectUsersPage }) => {
     </TableContainer>
   );
 }
- 
+  
 const mapStateToProps = createStructuredSelector ({
-  selectUsersPage: selectUsersPage, // hjk
+  selectUsersPage: selectAllUsersFromDb, // hjk
 });
 
-export default connect(mapStateToProps)(TabUsersList);  
+const mapDispatchToProps = (dispatch) => ({
+    fetchAllUsers: (start,end) => dispatch(fetchAllUsersFromDB(start,end)),
+}); 
+
+export default connect(mapStateToProps,mapDispatchToProps)(TabUsersList);  
   
-// const mapDispatchToProps = (dispatch) => ({
-//     // запрос для событий за период 
-//     fetchEventFromPeriod: (start,end) => dispatch(fetchEventFromPeriodAsync(start,end)),
-// });  
+ 
   

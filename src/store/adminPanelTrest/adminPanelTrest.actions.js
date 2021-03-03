@@ -12,6 +12,11 @@ export const appendUser = (item) => ({
   payload: item
 });
 
+export const  appendAllUsers = (item) => ({
+  type: FetchDataUsersPage.FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE,
+  payload: item
+});
+
 export const setCurrentPoint = (item) => ({
   type: AdminActionTypes.SET_CURRENT_POINT,
   payload: item
@@ -504,6 +509,20 @@ export const appendUserAsync = (data)  => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
           console.log('👉 appendUserAsync then user:',user.data );
           dispatch(appendUser(user.data));
+        })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+}; 
+
+//appendAllUsers fetchAllUsersFromDB
+export const fetchAllUsersFromDB = (limit=20)  => {
+  console.log('👉 appendUserAsync start:' );
+  return (dispatch) => {
+    postDataAx('http://localhost:3003/api/users/all', {'limit':limit})
+      .then((user) => {
+        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+          console.log('👉 appendUserAsync then user:',user );
+          dispatch(appendAllUsers(user));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
