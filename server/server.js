@@ -77,13 +77,79 @@ app.post('/api/users', async(req, res) => {
             console.log("ERROR:", error);
         });
 
-
     if ( !idUser ) {
         res.status('405').send('Не найден пользователь')
     }else {
         res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
         res.set('Content-Type', 'application/x-www-form-urlencoded');
         res.status(200).json({name: users[2]});
+    } 
+})
+
+
+// add users
+app.post('/api/users/append', async(req, res) => {
+
+    let data = req.body.data.data;
+    console.log('query: data ', req.body.data.data );
+    console.log('query: data.user_fio: ', req.body.data.data.user_fio );
+
+    if(!req.body) res.send('error: Bad query data ');
+
+    // const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values ($1,$2,$3,$4) VALUES (" + "'" + [data.user_fio, data.login, data.password, data.user_fio_lit].join("','") + "'" + ") RETURNING *";
+    // eslint-disable-next-line no-useless-concat
+    const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values(" + "'" + data.user_fio + "'" + ","+ "'" + data.login + "'" + ","+ "'" + data.password + "'" + ","+ "'" + data.user_fio_lit + "'" + ") RETURNING *";
+
+    await db.query(queryString, function (error, result) {
+        console.log('query result',result);
+        data = result;
+        console.log('query error',error);
+    });
+    
+    console.log('query data',data);
+    
+
+
+
+    if ( !data ) {
+        res.status('405').send('Не не верно заданы данные')
+    }else {
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        res.status(200).json({data: data});
+    } 
+})
+
+// add users
+app.post('/api/users/append2', async(req, res) => {
+
+    let data = req.body;
+    console.log('query: data ', req.body );
+    console.log('query: data.user_fio: ', req.body.user_fio );
+
+    if(!req.body) res.send('error: Bad query data ');
+
+    // const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values ($1,$2,$3,$4) VALUES (" + "'" + [data.user_fio, data.login, data.password, data.user_fio_lit].join("','") + "'" + ") RETURNING *";
+    // eslint-disable-next-line no-useless-concat
+    const queryString = "INSERT INTO users (user_fio, login, password, user_fio_lit) values(" + "'" + data.user_fio + "'" + ","+ "'" + data.login + "'" + ","+ "'" + data.password + "'" + ","+ "'" + data.user_fio_lit + "'" + ") RETURNING *";
+
+    await db.query(queryString, function (error, result) {
+        console.log('query result',result);
+        data = result;
+        console.log('query error',error);
+    });
+    
+    
+    
+
+
+
+    if ( !data ) {
+        res.status('405').send('Не не верно заданы данные')
+    }else {
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        res.status(200).json({data: data});
     } 
 })
 

@@ -1,5 +1,5 @@
 import ORGANIZATIONS_DATA from './adminPanelTrest.data';
-import AdminActionTypes, {FetchData, FetchDataStaticPage} from './adminPanelTrest.types';
+import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage} from './adminPanelTrest.types';
 // import { fetchDataUsersOnline } from './adminPanelTrest.actions';
   
 const INITIAL_STATE = {
@@ -30,12 +30,13 @@ const INITIAL_STATE = {
     usersDelGraphOfStaticPage: ORGANIZATIONS_DATA.usersDelGraphOfStaticPage,// for GraphOfStaticPage
     usersBlockGraphOfStaticPage: ORGANIZATIONS_DATA.usersBlockGraphOfStaticPage,// for GraphOfStaticPage
     usersEndGraphOfStaticPage: ORGANIZATIONS_DATA.usersEndGraphOfStaticPage,// for GraphOfStaticPage
+    users: ORGANIZATIONS_DATA.Users,// for UsersPage
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
 };
 
- 
+  
 const adminPandelReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case AdminActionTypes.SET_CURRENT_POINT:
@@ -120,11 +121,15 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
         case FetchDataStaticPage.FETCH_AMOUNT_NEW_OGH_FOR_GRAPHIC_TO_STATISTIC_PAGE:
                 return {...state, amountNewOGH: action.payload};
 
+        case FetchDataUsersPage.DISPATCH_APPEND_USER_TO_LOCAL_DB_FOR_USERS_PAGE:
+                const newArr = [...state.users, action.payload];
+                return {...state, users: newArr};
+
 
         default:
             return state;
     }
 }
 
-
+ 
 export default adminPandelReducer;

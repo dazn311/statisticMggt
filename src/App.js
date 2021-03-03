@@ -12,6 +12,7 @@ import { fetchCurrentUserAsync } from './store/user/user.actions'
 
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
+import UsersPage from './screens/usersPage/index'; 
 //glav control
 function App({fetchCurrentUser}) {
 
@@ -24,17 +25,14 @@ function App({fetchCurrentUser}) {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route path="/ogh">
-            <HistoriesChange />
-          </Route>
-          <Route path="/stats">
+          <Route exact path="/stats">
             <Dashboard />
           </Route>
           <Route path="/stats/ogh">
             <HistoriesChange />
+          </Route>
+          <Route path="/stats/users">
+            <UsersPage />
           </Route>
           <Route >
             <Dashboard />

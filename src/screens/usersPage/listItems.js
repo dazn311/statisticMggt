@@ -1,6 +1,4 @@
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,41 +9,38 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import MenuItem from '@material-ui/core/MenuItem';
 
-const MainListItems = ( {location} ) => (
+export const mainListItems = (
   <div>
-    <MenuItem   component={Link} to="/stats"    selected={location.pathname === '/stats'}>
+    <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Главная" />
-    </MenuItem>
-    <MenuItem  component={Link} to="/stats/ogh"  selected={location.pathname === '/stats/ogh'}>
+      <ListItemText primary="Главная2" />
+    </ListItem>
+    <ListItem button>
       <ListItemIcon>
         <HistoryChange />
       </ListItemIcon>
-      <ListItemText primary="Таблица ОГХ" />
-    </MenuItem>
-     
-    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
+      <ListItemText primary="История изм." />
+    </ListItem>
+    <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Пользователи" />
-    </MenuItem>
-     
+    </ListItem>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Текущая статистика"  selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
+      <ListItemText primary="Текущая статистика" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Управление" selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
+      <ListItemText primary="Управление" />
     </ListItem>
   </div>
 );
@@ -73,5 +68,3 @@ export const secondaryListItems = (
     </ListItem>
   </div>
 );
-
-export default withRouter(MainListItems);

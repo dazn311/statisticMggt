@@ -1,10 +1,16 @@
 
+import axios from "axios";
 
 
-import AdminActionTypes,{ FetchData, FetchDataStaticPage } from './adminPanelTrest.types';
+import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
 import moment from 'moment';
 
+
+export const appendUser = (item) => ({
+  type: FetchDataUsersPage.DISPATCH_APPEND_USER_TO_LOCAL_DB_FOR_USERS_PAGE,
+  payload: item
+});
 
 export const setCurrentPoint = (item) => ({
   type: AdminActionTypes.SET_CURRENT_POINT,
@@ -412,6 +418,7 @@ export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',e
 };
 
 
+
 //// setDataUsersNewGraphicToStaticPage setDataUsersDelGraphicToStaticPage setDataUsersEndGraphicToStaticPage setDataUsersBlockGraphicToStaticPage
 // Для страницы 2 отчетов "tab 3"
 export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
@@ -467,10 +474,42 @@ export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
+ 
+////////////////////////////////////////
 
 
+// Для страницы Users
 
+async function postDataAx(url = '', data = {}) {
+    
+  try {
+    axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+    const response = await axios.post(url, 
+      { data: data },
+      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors'});
 
+    return response.data;
+  } catch (e) {
+    console.log(`😱 Axios request failed: ${e}`);
+  }
+  
+  return  {"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}; // parses JSON response into native JavaScript objects
+}
+ 
+export const appendUserAsync = (data)  => {
+  console.log('👉 appendUserAsync start:' );
+  return (dispatch) => {
+    postDataAx('http://localhost:3003/api/users/append', {'data':data})
+      .then((user) => {
+        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+          console.log('👉 appendUserAsync then user:',user.data );
+          dispatch(appendUser(user.data));
+        })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+ 
 
   
 
