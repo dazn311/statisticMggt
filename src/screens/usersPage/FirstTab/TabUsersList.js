@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 const TabUsersList = ({ selectUsersPage }) => {
   const classes = useStyles();
 
-  console.log('rerender UsersTab1 : TabUsersList');
+  console.log('rerender TabUsersList -- selectUsersPage',selectUsersPage);
 
  
 
@@ -45,7 +45,7 @@ const TabUsersList = ({ selectUsersPage }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectUsersPage
+          {selectUsersPage && selectUsersPage
           .filter(item => item.user_fio !== undefined)
           .map((row, index) => (
             <TableRow key={index}>

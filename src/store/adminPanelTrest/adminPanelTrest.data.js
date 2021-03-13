@@ -278,16 +278,16 @@ const ORGANIZATIONS_DATA = {
       amount:   10,
       data: {
         nodes: [
-          {
-            type: 'new_rec',  
-            text: 'Создание нового события на объекте Mocke',
-            date: "2021-01-26T02:00:00.000Z", 
-            user: {
-              userID: 14,  
-              username: 'Томайлов А.В.'  
-            }
+          // {
+          //   type: 'new_rec',  
+          //   text: 'Создание нового события на объекте Mocke',
+          //   date: "2021-01-26T02:00:00.000Z", 
+          //   user: {
+          //     userID: 14,  
+          //     username: 'Томайлов А.В.'  
+          //   }
             
-          },
+          // },
         ],
       },
     },

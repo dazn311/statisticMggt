@@ -8,6 +8,9 @@ import {
 
 import './App.css';
 
+
+import Header from './components/header/header.component';
+
 import { fetchCurrentUserAsync } from './store/user/user.actions'
 
 import Dashboard from './screens/dashboard'; 
@@ -23,10 +26,12 @@ function App({fetchCurrentUser}) {
   }, [fetchCurrentUser])
   return (
     <div className="App">
+      
       <Router>
+      <Header />
         <Switch>
           <Route exact path="/stats">
-            <Dashboard />
+            <Dashboard /> 
           </Route>
           <Route path="/stats/ogh">
             <HistoriesChange />

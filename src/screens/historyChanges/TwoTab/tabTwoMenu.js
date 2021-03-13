@@ -288,11 +288,11 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   // for one day ///////////////////////////////////
  
   const amountEventSelects = () => {
-    tmpAmountEvents += 1;
+    // tmpAmountEvents += 1;
     
-    if(tmpAmountEvents === 5 ){
+    // if(tmpAmountEvents === 5 ){
       setDataEvants()
-    }
+    // }
     
   };
 

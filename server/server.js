@@ -60,6 +60,38 @@ app.get('/static', (req, res) => {
 
 
 
+//  data.user_fio + "'" + ","+ "'" + data.login + "'" + ","+ "'" + data.password + "'" + ","+ "'" + data.user_fio_lit + "
+app.post('/api/user/update', async(req, res) => {
+
+    console.log('/api/user/update -- req.body: ', req.body );
+
+    let idUser = req.body.id  ? req.body.id: -1;
+
+    if(!req.body) res.send('error: Bad query data ');
+    if(idUser < 0 && idUser > 1000000) res.send('error: Bad query id ');
+
+    let data = req.body[0];
+ 
+    // UPDATE films SET kind = 'Dramatic' WHERE kind = 'Drama';
+    await db.none('UPDATE users SET user_fio = $1 "login" = $2 user_fio_lit = $3  WHERE id = $4', [data.user_fio, data.login, data.user_fio_lit, parseInt(data.id)])
+        .then(function (updateData) {
+            console.log("then data:", updateData);
+            data = updateData;
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+            idUser = null;
+        });
+
+    if ( !idUser ) {
+        res.status('405').send('405, Не найден пользователь')
+    }else {
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        res.status(200).json({data: data});
+    } 
+})
+
 // app.post('/api/users/:id', (req, res) => {
 app.post('/api/users', async(req, res) => {
 

@@ -174,7 +174,7 @@ const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewE
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header />
+      {/* <Header />  */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>

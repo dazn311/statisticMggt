@@ -46,3 +46,8 @@ html {
     transform: rotate(360deg);
   }
 }
+
+.MuiDrawer-docked {
+  flex: 0 0 auto;
+  position: absolute;
+}

@@ -147,7 +147,7 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
     getSelectPoints,
     adminPanel => adminPanel.users
 ) 
-
+ 
 /// UsersTab
  export const selectAllUsersFromDb = createSelector( 
     getSelectPoints,

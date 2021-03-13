@@ -12,7 +12,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+
+import DialogUserEdit from './DialogUsersEdit';
  
+
 
 import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { fetchAllUsersFromDB } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
@@ -26,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-
+ 
 
 const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
   const classes = useStyles();
@@ -35,7 +39,8 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
     fetchAllUsers(20);
   }, [])
 
-  console.log('rerender UsersTab2 : TabUsersList');
+  // console.log('rerender UsersTab2 : TabUsersList');
+  // console.log('rerender selectUsersPage : ',selectUsersPage);
  
   return (
     <TableContainer component={Paper}>
@@ -45,18 +50,20 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
             <TableCell>Ф.И.О.</TableCell>
             <TableCell className={classes.borderSel} align="right">Ф.И.О. коротко</TableCell>
             <TableCell className={classes.borderSel} align="right">Логин</TableCell>
+            <TableCell className={classes.borderSel} align="right">Действие</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectUsersPage
+          {selectUsersPage.length > 0 && selectUsersPage
           .filter(item => item.user_fio !== undefined)
           .map((row, index) => (
-            <TableRow key={index}>
+            <TableRow hover key={index}>
               <TableCell component="th" scope="row">
                 { row.user_fio }
               </TableCell>
               <TableCell className={classes.borderSel} align="right">{row.user_fio_lit}</TableCell>
               <TableCell className={classes.borderSel}  align="right">{row.login}</TableCell>
+              <TableCell className={classes.borderSel}  align="right"><DialogUserEdit userData={row}/></TableCell>
             </TableRow>
           ))}
         </TableBody>

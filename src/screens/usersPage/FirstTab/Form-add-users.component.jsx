@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
  
 
-const initanalState = {user_fio:"Матвеев Владимир Олегович",login:"matvey",password:"1234",user_fio_lit:"Матвеев В.О."};
+const initanalState = {user_fio:" ",login:" ",password:" ",user_fio_lit:" "};
 ////////////////////////////////////////////////////
 
 const FormUsersAddToDb = ({appendUser}) => {

@@ -343,14 +343,16 @@ export const fetchEventsPointShortAsync = () => {
 export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 
   if(!startDate){
-    startDate = '2021-02-04T00-00-00.000Z';
+    return false;
+    // startDate = '2021-02-04T00-00-00.000Z';
   }
   if(!startDate){
-    endDate = '2021-02-11T22-00-00.000Z';
+    return false;
+    // endDate = '2021-02-11T22-00-00.000Z';
   }
   return (dispatch) => {
     // console.log('startDate, endDate',startDate, endDate);
-    postData('https://ismggt.ru/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate})
+    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate})
       .then((eventss) => {
         // console.log('postData then, eventss',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -360,15 +362,30 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 };
 
 
-// Для страницы отчетов "новых событий"
+// Для страницы отчетов "новых событий" - /stats/ogh
+// первая вкладка
+export const fetchEventFromPeriodAsync0 = (start, end) => {
+  return (dispatch) => { 
+    const startDate = start;
+    const endDate = end;
+    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
+      .then((eventss) => {
+        console.log('fetchEventFromPeriodAsync then: ',eventss);
+        dispatch(putEventsForPeriodShort(eventss));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
 
+// Для страницы отчетов "новых событий" - /stats/ogh
+// первая вкладка
 export const fetchEventFromPeriodAsync = (start, end) => {
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;
-    postData('https://ismggt.ru/query/events/last/short', {limit:20, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
+    postData('http://localhost:3005/api/new_events', {limit:60, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
       .then((eventss) => {
-        // console.log('postData then, eventss',eventss);
+        console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -427,6 +444,7 @@ export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',e
 //// setDataUsersNewGraphicToStaticPage setDataUsersDelGraphicToStaticPage setDataUsersEndGraphicToStaticPage setDataUsersBlockGraphicToStaticPage
 // Для страницы 2 отчетов "tab 3"
 export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
+  console.log('fetchUsersThirdTabStaticPageGraphicAsync --type:', type);
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
      
@@ -485,13 +503,13 @@ export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-
 
 // Для страницы Users
 
-async function postDataAx(url = '', data = {}) {
+async function postDataAx(url = '', data = {}, type='post') {
     
   try {
-    axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-    const response = await axios.post(url, 
+    axios.defaults.headers.[type]['Content-Type'] ='application/x-www-form-urlencoded';
+    const response = await axios.[type](url, 
       { data: data },
-      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors'});
+      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'cors'});
 
     return response.data;
   } catch (e) {
@@ -500,28 +518,59 @@ async function postDataAx(url = '', data = {}) {
   
   return  {"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}; // parses JSON response into native JavaScript objects
 }
- 
+  
 export const appendUserAsync = (data)  => {
   console.log('👉 appendUserAsync start:' );
   return (dispatch) => {
     postDataAx('http://localhost:3003/api/users/append', {'data':data})
       .then((user) => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 appendUserAsync then user:',user.data );
+          // console.log('👉 appendUserAsync then user:',user.data );
           dispatch(appendUser(user.data));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 }; 
 
-//appendAllUsers fetchAllUsersFromDB
-export const fetchAllUsersFromDB = (limit=20)  => {
-  console.log('👉 appendUserAsync start:' );
+// fetchAllUsersFromDB
+export const fetchAllUsersFromDB0 = (limit=20)  => {
+  console.log('👉 fetchAllUsersFromDB0 start:' );
   return (dispatch) => {
-    postDataAx('http://localhost:3003/api/users/all', {'limit':limit})
+    postDataAx('http://localhost:3005/api/users', {'limit':limit},'get')
       .then((user) => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 appendUserAsync then user:',user );
+          console.log('👉 fetchAllUsersFromDB0 then user:',user );
+          dispatch(appendAllUsers(user));
+        })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+// work with func & proc in postgress fetchAllUsersFromDB
+export const fetchAllUsersFromDB = (limit=20)  => {
+  console.log('👉 fetchAllUsersFromDB start:' );
+  return (dispatch) => {
+    // postDataAx('http://localhost:3005/api/users', {'login':'matvey',"password":"1234"},'post')
+    // postDataAx('http://localhost:3005/api/users', {'login':'mggt_alex',"password":"79y7BdJFtmqJVtJn"},'post')
+    postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post')
+      .then((user) => {
+        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+          console.log('👉 fetchAllUsersFromDB then user:',user );
+          dispatch(appendAllUsers(user));
+        })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+// put http://localhost:3005/api/user (updateUser)
+export const fetchUpdateUsersFromDB = (userData)  => {
+  console.log('👉 fetchUpdateUsersFromDB start:' );
+  const {user_fio, login, password, user_fio_lit, id} = userData;
+  console.log('👉 fetchUpdateUsersFromDB start:',user_fio, login, password, user_fio_lit, id );
+  return (dispatch) => { 
+    postDataAx('http://localhost:3005/api/user', {user_fio:user_fio, login:login, password:password, user_fio_lit:user_fio_lit, id:id},'put')
+      .then((user) => {
+        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+          console.log('👉 fetchUpdateUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -530,5 +579,5 @@ export const fetchAllUsersFromDB = (limit=20)  => {
 
  
 
-  
+   
 
