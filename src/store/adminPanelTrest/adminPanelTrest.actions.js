@@ -193,11 +193,11 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.
     postData(urlUserOnline, { startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
-        console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
+        // console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
         dispatch(putDataUsersOnline(users));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  }; 
+  };  
 };
 
 
@@ -339,7 +339,9 @@ export const fetchEventsPointShortAsync = () => {
   };
 };
 
-// Для страницы отчета о "новых событиях"
+
+
+// Для страницы отчета о "новых событиях" /stats/ogh
 export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 
   if(!startDate){
@@ -359,7 +361,7 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
-};
+}; 
 
 
 // Для страницы отчетов "новых событий" - /stats/ogh
