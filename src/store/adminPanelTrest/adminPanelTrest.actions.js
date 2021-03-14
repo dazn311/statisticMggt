@@ -182,9 +182,9 @@ async function postData(url = '', data = {}) {
 
 
  
-
+////// Stats Page /////
 // Для верхней таблицы "graphics" пользователей он-лайн
-export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T19:02:00.000Z')  => {
+export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.000Z',endDate='2021-02-12T23:52:00.000Z')  => {
   
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
@@ -193,7 +193,7 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T08:00:00.
     postData(urlUserOnline, { startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
-        // console.log('query/users/online', users); // JSON data parsed by `response.json()` call
+        console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
         dispatch(putDataUsersOnline(users));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -364,11 +364,13 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
-export const fetchEventFromPeriodAsync0 = (start, end) => {
+export const fetchEventFromPeriodAsync = (start, end) => {
+  console.log('fetchEventFromPeriodAsync run: ',start,end);
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;
-    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
+    //'2021-02-03T22:00:00.000Z'
+    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate}) 
       .then((eventss) => {
         console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -379,7 +381,7 @@ export const fetchEventFromPeriodAsync0 = (start, end) => {
 
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
-export const fetchEventFromPeriodAsync = (start, end) => {
+export const fetchEventFromPeriodAsync2 = (start, end) => {
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;

@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
-import Header from '../../components/header/header.component';
+// import Header from '../../components/header/header.component';
 import TabMenu from './TabMenu'
 
 import './usersPage.styles.scss';

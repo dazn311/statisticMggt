@@ -76,6 +76,8 @@ class UsersController {
         // const users = await db.func(`get_users`);
         //get_objects( _user_id integer) // получить id объекта
         // get_message( _rec_id integer) // получить сообщения по объекту
+
+        // get_user_meta( _user_id integer) => mggt_users.user_org_id::integer, mggt_organizations.org_name::text
         
         console.log('users',users);
         res.json(users);

@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box'; 
 import Typography from '@material-ui/core/Typography'; 
@@ -12,14 +14,20 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link'; 
+import FolderIcon from '@material-ui/icons/Folder';
+import RestoreIcon from '@material-ui/icons/Restore';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
  
-import LineChartWrap from './LineChart.wrap';
+import LineChartWithXAxisPading from './LineChartWithXAxisPading';
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';
+// import Header from '../../components/header/header.component';
+
 import TableList from './TableListHistories.sceen';
 
 import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import {  fetchEventsPointShortAsync, fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
+import { fetchAmountUsersForGraphicsAsync, fetchEventsPointShortAsync, fetchAmountNewEventsForGraphicAsync,fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync,fetchAmountEndEventsForGraphicAsync, fetchAmountUsersOfStartDayGraphicsAsync, fetchAmountUsersOfEndDayGraphicsAsync} from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import './dashboard.styles.scss';
 
@@ -122,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays}) => {
+const Dashboard = ({fetchDataUsersOnline, fetchEventsPointShort, fetchAmountNewEventsForGraphic, currentUser, isFetchingUserOnline, fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays,fetchAmountEndEventsForGraphic,fetchAmountUsersOfStartDay, fetchAmountUsersOfEndDay}) => {
   const classes = useStyles();
   // const [value, setValue] = React.useState('recents');
   const [lineHeader, setLineHeader] = React.useState('Текущая информация по событиям и пользователям');
@@ -144,6 +152,14 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
  
 
 
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  //   fetchAmountNewEventsForGraphic(); // graphic new event
+  //   fetchDataUsersOnline(); // graphic user on line
+  //   fetchEventsPointShort(); // graphic new_rec
+  //   fetchAmountEndEventsForGraphic(); // graphic end_rec
+  // };
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const winWidth = window.innerWidth;
@@ -163,31 +179,47 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+            {/* Chart */}
+            
             <Grid item xs={12} md={8} lg={6}>
+            
               <Paper className={fixedHeightPaper}>
+                {/* <Chart /> */}
                 <h4 style={{ textAlign:'center', position:'relative', marginTop:'-15px', left: '0'}}>
-                    {lineHeader}</h4>
-                <LineChartWrap />
+        {lineHeader}</h4>
+                <LineChartWithXAxisPading />
               </Paper>
             </Grid>
-            
+            {/* Количество ОГХ */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits /> {/* Количество ОГХ */}
+                <Deposits /> 
               </Paper>
             </Grid>
-            
+            {/* Новые ОГХ */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <NewOGH />  {/* Новые ОГХ */}
+                <NewOGH />  
               </Paper>
             </Grid>
+            {/* История последних изменений по объектам */}
+            {/* <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <HistoryObjLast />
+              </Paper>
+            </Grid> */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <TableList />
               </Paper>
             </Grid>
           </Grid>
+          {/* <BottomNavigation style={{display:'none'}} value={value} onChange={handleChange} className={classes.root}>
+            <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction label="Новости" value="favorites" icon={<EventNoteIcon />} />
+            <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
+            <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+          </BottomNavigation> */}
           <Box pt={4}>
             <Copyright />
           </Box>
@@ -201,11 +233,14 @@ const mapStateToProps = createStructuredSelector ({
   isFetchingUserOnline: selectIsFetchingUserOnline,
 });
 
-
-
 const mapDispatchToProps = (dispatch) => ({
     fetchEventsPointShort: () => dispatch(fetchEventsPointShortAsync()),
-    
+    fetchDataUsersOnline: (startDate, endDate) => dispatch(fetchAmountUsersForGraphicsAsync(startDate, endDate)),// for graphics
+    fetchAmountUsersOfStartDay: (startDate, endDate) => dispatch(fetchAmountUsersOfStartDayGraphicsAsync(startDate, endDate)),
+    fetchAmountUsersOfEndDay: (startDate, endDate) => dispatch(fetchAmountUsersOfEndDayGraphicsAsync(startDate, endDate)),
+    fetchAmountNewEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountNewEventsForGraphicAsync(startDate, endDate)),// for graphics
+    fetchAmountEndEventsForGraphic: (startDate, endDate) => dispatch(fetchAmountEndEventsForGraphicAsync(startDate, endDate)),// for graphics
+
     fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
 
     fetchAmountOGHToDay: () => dispatch(fetchAmountOGHToDayAsync()),

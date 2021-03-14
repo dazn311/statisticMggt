@@ -326,8 +326,8 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
 
     // console.log('rerender useEffect: TabTwoMenu');
     
-  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents])
-  
+  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents,amountEventSelects])
+ 
   return (
     <React.Fragment>
       {/* <Title>Статистика по событиям за периоды</Title> */}

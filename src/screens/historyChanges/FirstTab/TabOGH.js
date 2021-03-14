@@ -48,7 +48,7 @@ const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor)
     let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username,nodeE.user.userID, statusEventPoint[nodeE.type]);
     rows.push(newNode);
     
-    // return newNode
+    return newNode
   });
 }
 
@@ -56,7 +56,7 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
   const [tabValue, settabValue] = useState([]);
   const classes = useStyles();
 
-  console.log('rerender Tab1 : selectEventShort.data.nodes',selectEventShort.data.nodes);
+  console.log('rerender Tab1 : selectEventShort.data.nodes');
 
   const printUserId = (e) => {
     console.log('row.userID',e);
@@ -68,18 +68,18 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
     // console.log('useEffect selectEventShort');
   },[selectEventShort, statusEventPoint, statusEnumEventPointColor]);
 
-  useEffect(() => {
-    let {startDate, endDate}   = datesOfFetchForEvent;
-    // let startDate = datesOfFetchForEvent.startDate;
-    console.log('endDate',endDate);
-    console.log('useEffect fetchEventFromPeriod 1');
-    if ( endDate !== '0' && startDate !== '0' && startDate <= endDate){
-      console.log('useEffect fetchEventFromPeriod 2');
-      fetchEventFromPeriod(startDate, endDate);
+  // useEffect(() => {
+  //   let {startDate, endDate}   = datesOfFetchForEvent;
+  //   // let startDate = datesOfFetchForEvent.startDate;
+  //   // console.log('endDate',endDate);
+  //   // console.log('useEffect fetchEventFromPeriod 1');
+  //   if ( endDate !== '0' && startDate !== '0' && startDate <= endDate){
+  //     // console.log('useEffect fetchEventFromPeriod 2');
+  //     // fetchEventFromPeriod(startDate, endDate);
       
-    }
+  //   }
      
-  },[fetchEventFromPeriod, datesOfFetchForEvent]);
+  // },[fetchEventFromPeriod, datesOfFetchForEvent]);
 
   return (
     <TableContainer component={Paper}>
