@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper';
  
 import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
-import {  selectEventShortPoints, selectStatusEventPoint, selectStatusEnumEventPointColor, fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import {   selectStatusEventPoint, selectStatusEnumEventPointColor, fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsPage } from '../../../store/adminPanelTrest/objsPage.selectors'; 
 
 const useStyles = makeStyles({
@@ -25,8 +25,8 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(color, objName, organization, objType) {
-  return { color, objName, organization, objType };
+function createData(color, objName, organization, objType,objID) {
+  return { color, objName, organization, objType,objID };
 }
  
 let rows = [];
@@ -54,7 +54,7 @@ const refactData = (objectsList,statusEventPoint,statusEnumEventPointColor) => {
   rows = [];
   nodeObjects.map((nodeE) => {
 
-    let newNode = createData('red', nodeE.objName, nodeE.organization.orgname, nodeE.objType);
+    let newNode = createData('red', nodeE.objName, nodeE.organization.orgname, nodeE.objType, nodeE.objID);
     rows.push(newNode);
     
     return newNode
@@ -69,11 +69,11 @@ const UserComponent = ({username,orgname}) => (<>
 </>)
 ////////////////////////////
 
-const TabObjs = ({ selectObjs, fetchObjectsList, selectEventShort, statusEventPoint,statusEnumEventPointColor,  searchValue, fieldValue }) => {
+const TabObjs = ({ selectObjs, fetchObjectsList, statusEventPoint,statusEnumEventPointColor,  searchValue, fieldValue }) => {
   const [tabValue, settabValue] = useState([]);
   const classes = useStyles();
 
-  console.log('rerender Tab1 : selectEventShort.data.nodes');
+  console.log('rerender Tab1 : selectObjs');
 
   const printUserId = (e) => {
     console.log('row.userID',e);
@@ -95,7 +95,7 @@ const TabObjs = ({ selectObjs, fetchObjectsList, selectEventShort, statusEventPo
   useEffect(() => {
      
     fetchObjectsList(2,0);
-    console.log('useEffect selectEventShort');
+    console.log('useEffect fetchObjectsList');
   },[fetchObjectsList]);
 
   // useEffect(() => {
@@ -124,7 +124,7 @@ const TabObjs = ({ selectObjs, fetchObjectsList, selectEventShort, statusEventPo
         </TableHead>
         <TableBody>
           {Object.keys(tabValue).length && tabValue
-          // .filter((item, idx) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
+          .filter((item, idx) => { return typeof item.[fieldValue] === 'string'  ? item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()) :' '})
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { printUserId(row.objID)}}>
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -143,7 +143,6 @@ const TabObjs = ({ selectObjs, fetchObjectsList, selectEventShort, statusEventPo
  
 const mapStateToProps = createStructuredSelector ({
     selectObjs: selectObjsPage, // события короткие данные для таблицы
-    selectEventShort: selectEventShortPoints, // события короткие данные для таблицы
     statusEventPoint: selectStatusEventPoint, // классификация статусов "new_msg"
     statusEnumEventPointColor: selectStatusEnumEventPointColor, // for color elements
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса

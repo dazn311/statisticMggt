@@ -478,7 +478,7 @@ const ORGANIZATIONS_DATA = {
       
       
       
-      data:{objects:{0:{objID: 7398, organization: {orgname: 'df'},objType: '22',objName: "1-й Вешняковский пр. до тупика"}}}},
+      data:{objects:[{objID: 7398, organization: {orgname: 'df'},objType: '22',objName: "1-й Вешняковский пр. до тупика"}]}},
     // objs:  {data:{objects:{}}},
     // [
       // {
