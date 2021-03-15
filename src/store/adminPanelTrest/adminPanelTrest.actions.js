@@ -2,7 +2,7 @@
 import axios from "axios";
 
 
-import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage } from './adminPanelTrest.types';
+import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
 import moment from 'moment';
 
@@ -152,6 +152,24 @@ export const setNewOGHGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_AMOUNT_NEW_OGH_FOR_GRAPHIC_TO_STATISTIC_PAGE,
   payload: items 
 });
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+// for obj page, tab1
+export const setObjForObjsPage = (items) => ({
+  type: FetchDataObjsPage.FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE,
+  payload: items 
+});
+
+
+
+
+
+
 
 /////////////////////////////////////////////////
 const rootURL = 'https://ismggt.ru'; 
@@ -368,14 +386,14 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
 export const fetchEventFromPeriodAsync = (start, end) => {
-  console.log('fetchEventFromPeriodAsync run: ',start,end);
+  // console.log('fetchEventFromPeriodAsync run: ',start,end);
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;
     //'2021-02-03T22:00:00.000Z'
     postData('https://ismggt.ru/query/events/last/short', {limit:160, startDate:startDate, endDate:endDate}) 
       .then((eventss) => {
-        console.log('fetchEventFromPeriodAsync then: ',eventss);
+        // console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -390,7 +408,7 @@ export const fetchEventFromPeriodAsync2 = (start, end) => {
     const endDate = end;
     postData('http://localhost:3005/api/new_events', {limit:160, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
       .then((eventss) => {
-        console.log('fetchEventFromPeriodAsync then: ',eventss);
+        // console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -582,7 +600,22 @@ export const fetchUpdateUsersFromDB = (userData)  => {
   };
 };
 
- 
-
+  
+// Для страницы  "objects" - /stats/objs
+// первая вкладка
+export const fetchObjectsListAsync = (objectType, organization,limit , offset) => {
+  console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset);
+  return (dispatch) => { 
+      
+    //'2021-02-03T22:00:00.000Z'
+    // postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:60, offset: offset}) 
+    postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization}) 
+      .then((eventss) => {
+        console.log('fetchObjectsListAsync then: ',eventss);
+        dispatch(setObjForObjsPage(eventss));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
    
 

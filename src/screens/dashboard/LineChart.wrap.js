@@ -183,19 +183,19 @@ const LineChartWrap = ({fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStart
 
   const fetchAll = (ofss=0) => {
      
-    console.log('fetchAll', ofss);
-    console.log('offSet',offSet);
+    // console.log('fetchAll', ofss);
+    // console.log('offSet',offSet);
     let ofs = 0;
     const curDay = new Date();
     // if (ofss === 1 && offSet === 0){return}
     if (ofss === 1 && offSet === 0){ // останавливает в будущее время
-        console.log('curDay ofs',ofs);
+        // console.log('curDay ofs',ofs);
         return
     } 
   
     ofs = ofss + offSet;
-    console.log('offSet',offSet);
-    console.log('ofs',ofs);
+    // console.log('offSet',offSet);
+    // console.log('ofs',ofs);
     
     ofs = parseInt(ofs);
     setOffs(ofss);
@@ -205,7 +205,7 @@ const LineChartWrap = ({fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStart
      
     
     const currentHours = parseInt(curDay.toISOString().split('T')[1].slice(0,2)) + 3;
-    console.log('currentHours',currentHours);
+    // console.log('currentHours',currentHours);
 
     const todayStartDay = curDay.toISOString().split('T')[0] + 'T00:00:00.000Z';
     const todayStartDay2 = curDay.toISOString().split('T')[0] + 'T07:00:00.000Z';
@@ -248,7 +248,7 @@ const LineChartWrap = ({fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStart
    
  
  
-    console.log('curDate',curDate);
+    // console.log('curDate',curDate);
     const today = new Date();
     const stateDate = curDate.getDate().toString();
     const today3=today.getDate().toString();
@@ -274,9 +274,9 @@ const LineChartWrap = ({fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStart
 
    // обнуление данных
    dataTmp = dataInit;
-   console.log('dataTmp',dataTmp); 
-   console.log('dataInit',dataInit); 
-   console.log('dataInit0',dataInit0); 
+  //  console.log('dataTmp',dataTmp); 
+  //  console.log('dataInit',dataInit); 
+  //  console.log('dataInit0',dataInit0); 
   //  // console.log('ddddd',ddddd.split('T')[1].slice(0,2)); 
    
     const newObj = {...dataInit[0], Users: usersLineStartDay};
@@ -285,7 +285,7 @@ const LineChartWrap = ({fetchAmountUsersForGraphicsAsync,fetchAmountUsersOfStart
 
     let max_hours = 12;
     if(isToday) {
-      console.log('nowHours',nowHours);
+      // console.log('nowHours',nowHours);
       max_hours = parseInt(nowHours);
       // max_hours = parseInt(nowHours) -6;
     }

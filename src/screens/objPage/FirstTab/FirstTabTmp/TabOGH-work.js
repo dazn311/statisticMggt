@@ -24,16 +24,15 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(color, date, nameEvent, userName, orgName, userID, type) {
-  return { color, date, nameEvent, userName, orgName, userID, type };
+function createData(color, date, nameEvent, userName, userID, type) {
+  return { color, date, nameEvent, userName, userID, type };
 }
- 
+
 let rows = [];
 
 const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {
   rows = [];
   let nodesEvent = eventShortPoints;
-  // console.log('refactData -- nodesEvent',nodesEvent);
   if (Array.isArray(eventShortPoints) ) {
       nodesEvent = _.orderBy(eventShortPoints, ['date'], ['desc']);
       rows = nodesEvent;
@@ -46,26 +45,18 @@ const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor)
   rows = [];
   nodesEvent.map((nodeE) => {
     const dateFormatt =  nodeE.date || '02-02-2021';
-    let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username, nodeE.user.orgname,nodeE.user.userID, statusEventPoint[nodeE.type]);
+    let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username,nodeE.user.userID, statusEventPoint[nodeE.type]);
     rows.push(newNode);
     
     return newNode
   });
 }
 
-const UserComponent = ({username,orgname}) => (<>
-  <div style={{display: 'flex', flexDirection:'column'}} >
-    <div>{username}</div>
-    <div style={{fontSize:'12', color:'gray'}}>{orgname}</div>
-  </div>
-</>)
-////////////////////////////
-
 const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, fetchEventFromPeriod, datesOfFetchForEvent,searchValue, fieldValue }) => {
   const [tabValue, settabValue] = useState([]);
   const classes = useStyles();
 
-  // console.log('rerender Tab1 : selectEventShort.data.nodes');
+  console.log('rerender Tab1 : selectEventShort.data.nodes');
 
   const printUserId = (e) => {
     console.log('row.userID',e);
@@ -112,7 +103,7 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
                 {new Date(row.date).toLocaleString('Ru').slice(0,17)}
               </TableCell>
               <TableCell align="right">{row.nameEvent}</TableCell>
-              <TableCell align="right"><UserComponent username= {row.userName} orgname= {row.orgName} /></TableCell>
+              <TableCell align="right">{row.userName}</TableCell>
               <TableCell align="right">{row.type}</TableCell>
             </TableRow>
           ))}

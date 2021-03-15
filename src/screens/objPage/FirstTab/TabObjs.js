@@ -14,9 +14,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
  
-import { fetchEventFromPeriodAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
+import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
-import { selectEventShortPoints, selectStatusEventPoint, selectStatusEnumEventPointColor, fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import {  selectEventShortPoints, selectStatusEventPoint, selectStatusEnumEventPointColor, fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { selectObjsPage } from '../../../store/adminPanelTrest/objsPage.selectors'; 
 
 const useStyles = makeStyles({
   table: {
@@ -24,29 +25,36 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(color, date, nameEvent, userName, orgName, userID, type) {
-  return { color, date, nameEvent, userName, orgName, userID, type };
+function createData(color, objName, organization, objType) {
+  return { color, objName, organization, objType };
 }
  
 let rows = [];
+// let objsType = ['смежные объекты','объекты в разработке (наши)','все объекты'];
+// let objsTypeColor = ['red','green','yellow'];
 
-const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {
+const refactData = (objectsList,statusEventPoint,statusEnumEventPointColor) => {
   rows = [];
-  let nodesEvent = eventShortPoints;
-  // console.log('refactData -- nodesEvent',nodesEvent);
-  if (Array.isArray(eventShortPoints) ) {
-      nodesEvent = _.orderBy(eventShortPoints, ['date'], ['desc']);
-      rows = nodesEvent;
+  if ( Object.keys(objectsList).length === 0 ){
+    return false}
+
+  let nodeObjects = {};
+  console.log('refactData -- nodeObjects',objectsList);
+  if (Array.isArray(objectsList) ) {
+      nodeObjects = _.orderBy(objectsList, ['objName'], ['asc']);
+      rows = nodeObjects;
   }
-  if (nodesEvent == null) {
+  if (nodeObjects == null) {
     rows = []
   }
 
+  if ( Object.keys(nodeObjects).length === 0 ){
+    return false}
   // console.log('rerender refactData');
   rows = [];
-  nodesEvent.map((nodeE) => {
-    const dateFormatt =  nodeE.date || '02-02-2021';
-    let newNode = createData(statusEnumEventPointColor[nodeE.type], dateFormatt, nodeE.text, nodeE.user.username, nodeE.user.orgname,nodeE.user.userID, statusEventPoint[nodeE.type]);
+  nodeObjects.map((nodeE) => {
+
+    let newNode = createData('red', nodeE.objName, nodeE.organization.orgname, nodeE.objType);
     rows.push(newNode);
     
     return newNode
@@ -61,21 +69,34 @@ const UserComponent = ({username,orgname}) => (<>
 </>)
 ////////////////////////////
 
-const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, fetchEventFromPeriod, datesOfFetchForEvent,searchValue, fieldValue }) => {
+const TabObjs = ({ selectObjs, fetchObjectsList, selectEventShort, statusEventPoint,statusEnumEventPointColor,  searchValue, fieldValue }) => {
   const [tabValue, settabValue] = useState([]);
   const classes = useStyles();
 
-  // console.log('rerender Tab1 : selectEventShort.data.nodes');
+  console.log('rerender Tab1 : selectEventShort.data.nodes');
 
   const printUserId = (e) => {
     console.log('row.userID',e);
   }
  
   useEffect(() => {
-    refactData(selectEventShort.data.nodes, statusEventPoint, statusEnumEventPointColor);
+    if (selectObjs.data.objects !== {}){
+      refactData(selectObjs.data.objects, statusEventPoint, statusEnumEventPointColor);
     settabValue(rows);
-    // console.log('useEffect selectEventShort');
-  },[selectEventShort, statusEventPoint, statusEnumEventPointColor]);
+    }
+    
+    console.log('useEffect selectObjs',selectObjs.data.objects);
+  },[selectObjs.data.objects, statusEventPoint, statusEnumEventPointColor]);
+  
+   
+
+  // console.log('TabObjs selectObjs',selectObjs);
+
+  useEffect(() => {
+     
+    fetchObjectsList(2,0);
+    console.log('useEffect selectEventShort');
+  },[fetchObjectsList]);
 
   // useEffect(() => {
   //   let {startDate, endDate}   = datesOfFetchForEvent;
@@ -96,24 +117,22 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
         <TableHead>
           <TableRow>
             <TableCell style={{padding: '6px 0px 6px 0px', width: '4px', maxWidth: '2px'}}></TableCell>
-            <TableCell>Дата</TableCell>
-            <TableCell align="right">Описание события</TableCell>
-            <TableCell align="right">Пользователь</TableCell>
-            <TableCell align="right">Тип изменения</TableCell>
+            <TableCell align="right">Наименование объекта</TableCell> 
+            <TableCell align="right">Балансодержатель</TableCell>
+            <TableCell align="right">Тип</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue && tabValue
-          .filter((item, idx) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
+          {Object.keys(tabValue).length && tabValue
+          // .filter((item, idx) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
           .map((row, index) => (
-            <TableRow key={index} onClick={()=> { printUserId(row.userID)}}>
+            <TableRow key={index} onClick={()=> { printUserId(row.objID)}}>
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
               <TableCell component="th" scope="row">
-                {new Date(row.date).toLocaleString('Ru').slice(0,17)}
+                {row.objName}
               </TableCell>
-              <TableCell align="right">{row.nameEvent}</TableCell>
-              <TableCell align="right"><UserComponent username= {row.userName} orgname= {row.orgName} /></TableCell>
-              <TableCell align="right">{row.type}</TableCell>
+              <TableCell align="right">{row.organization}</TableCell>
+              <TableCell align="right">{row.objType}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -123,14 +142,15 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
 }
  
 const mapStateToProps = createStructuredSelector ({
+    selectObjs: selectObjsPage, // события короткие данные для таблицы
     selectEventShort: selectEventShortPoints, // события короткие данные для таблицы
     statusEventPoint: selectStatusEventPoint, // классификация статусов "new_msg"
     statusEnumEventPointColor: selectStatusEnumEventPointColor, // for color elements
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });
   
-const mapDispatchToProps = (dispatch) => ({
-    // запрос для событий за период 
-    fetchEventFromPeriod: (start,end) => dispatch(fetchEventFromPeriodAsync(start,end)),
-});  
-  export default connect(mapStateToProps,mapDispatchToProps)(TabOGH);
+  const mapDispatchToProps = (dispatch) => ({
+    // Для  
+    fetchObjectsList: (objectType, organization, offset) => dispatch(fetchObjectsListAsync(objectType, organization, offset)),
+  });  
+  export default connect(mapStateToProps,mapDispatchToProps)(TabObjs); 

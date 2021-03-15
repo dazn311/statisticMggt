@@ -272,25 +272,6 @@ const ORGANIZATIONS_DATA = {
     bnd_change_obj:'grey',
   
   },
-  eventShortPoints: // for tab bottom and page statistics
-    {
-      dataTime: "2021-01-26T02:00:00.000Z",
-      amount:   10,
-      data: {
-        nodes: [
-          // {
-          //   type: 'new_rec',  
-          //   text: 'Создание нового события на объекте Mocke',
-          //   date: "2021-01-26T02:00:00.000Z", 
-          //   user: {
-          //     userID: 14,  
-          //     username: 'Томайлов А.В.'  
-          //   }
-            
-          // },
-        ],
-      },
-    },
   eventPoints: 
     [{
       rec_id: 0,
@@ -493,6 +474,30 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
+    objs:  {
+      
+      
+      
+      data:{objects:{0:{objID: 7398, organization: {orgname: 'df'},objType: '22',objName: "1-й Вешняковский пр. до тупика"}}}},
+    // objs:  {data:{objects:{}}},
+    // [
+      // {
+      //   districtID: 13,
+      //   districtName: 13,
+      //   objAsuID: 13,
+      //   objCreationDate: 13,
+      //   objEditDate: 13,
+      //   objID: 13,
+      //   objName: 13,
+      //   objOwn: 13,
+      //   objRelatives: [
+      //     {0:7391}
+      //   ],
+      //   objStatus: 13,
+      //   objType: 13,
+      //   organization: {orgID: 172, orgname: "ГБУ 'Жилищник Рязанского района'"},
+      // },
+    // ],
 
   };
 

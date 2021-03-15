@@ -39,6 +39,10 @@ export const FetchDataUsersPage = {
     DISPATCH_APPEND_USER_TO_LOCAL_DB_FOR_USERS_PAGE: 'DISPATCH_APPEND_USER_TO_LOCAL_DB_FOR_USERS_PAGE', //from UsersPage
     FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE: 'FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE', //from UsersPage
 };
+
+export const FetchDataObjsPage = {
+    FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE: 'FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE', //from UsersPage
+};
     
 export default AdminActionTypes;
   
