@@ -35,7 +35,7 @@ let rows = [];
 
 const refactData = (objectsList,statusEventPoint,statusEnumEventPointColor) => {
   rows = [];
-  if ( Object.keys(objectsList).length === 0 ){
+  if ( objectsList.length === 0 ){
     return false}
 
   let nodeObjects = {};
@@ -48,7 +48,7 @@ const refactData = (objectsList,statusEventPoint,statusEnumEventPointColor) => {
     rows = []
   }
 
-  if ( Object.keys(nodeObjects).length === 0 ){
+  if ( objectsList.length === 0 ){
     return false}
   // console.log('rerender refactData');
   rows = [];
@@ -61,12 +61,12 @@ const refactData = (objectsList,statusEventPoint,statusEnumEventPointColor) => {
   });
 }
 
-const UserComponent = ({username,orgname}) => (<>
-  <div style={{display: 'flex', flexDirection:'column'}} >
-    <div>{username}</div>
-    <div style={{fontSize:'12', color:'gray'}}>{orgname}</div>
-  </div>
-</>)
+// const UserComponent = ({username,orgname}) => (<>
+//   <div style={{display: 'flex', flexDirection:'column'}} >
+//     <div>{username}</div>
+//     <div style={{fontSize:'12', color:'gray'}}>{orgname}</div>
+//   </div>
+// </>)
 ////////////////////////////
 
 const TabObjs = ({ selectObjs, fetchObjectsList, statusEventPoint,statusEnumEventPointColor,  searchValue, fieldValue }) => {
@@ -123,7 +123,7 @@ const TabObjs = ({ selectObjs, fetchObjectsList, statusEventPoint,statusEnumEven
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.keys(tabValue).length && tabValue
+          {tabValue && tabValue
           .filter((item, idx) => { return typeof item.[fieldValue] === 'string'  ? item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()) :' '})
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { printUserId(row.objID)}}>
