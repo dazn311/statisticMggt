@@ -181,11 +181,11 @@ async function postData(url = '', data = {}) {
 
 
 
- 
+  
 ////// Stats Page /////
 // Для верхней таблицы "graphics" пользователей он-лайн
-export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.000Z',endDate='2021-02-12T23:52:00.000Z')  => {
-  
+export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.000Z',endDate)  => {
+  // endDate='2021-02-12T23:52:00.000Z'
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
     // https://ismggt.ru/
@@ -193,7 +193,7 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.
     postData(urlUserOnline, { startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);
-        // console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
+        console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
         dispatch(putDataUsersOnline(users));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -260,7 +260,7 @@ export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:
   return (dispatch) => {
     postData(urlQueryAmount, {type: 'done_rec', startDate: startDate, endDate: endDate})
       .then((eventss) => {
-        // console.log('events done_rec',eventss);
+        console.log('events done_rec',eventss);
         dispatch(putEndEventsGraphic(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -333,6 +333,7 @@ export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
     postData('https://ismggt.ru/query/events/last/short', {limit:20})
       .then((eventss) => {
+        // console.log('fetchEventsPointShortAsync -- eventss',eventss);
         dispatch(putEventsPointShort(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -354,7 +355,7 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
   }
   return (dispatch) => {
     // console.log('startDate, endDate',startDate, endDate);
-    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate})
+    postData('https://ismggt.ru/query/events/last/short', {limit:160, startDate:startDate, endDate:endDate})
       .then((eventss) => {
         // console.log('postData then, eventss',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -372,7 +373,7 @@ export const fetchEventFromPeriodAsync = (start, end) => {
     const startDate = start;
     const endDate = end;
     //'2021-02-03T22:00:00.000Z'
-    postData('https://ismggt.ru/query/events/last/short', {limit:60, startDate:startDate, endDate:endDate}) 
+    postData('https://ismggt.ru/query/events/last/short', {limit:160, startDate:startDate, endDate:endDate}) 
       .then((eventss) => {
         console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -387,7 +388,7 @@ export const fetchEventFromPeriodAsync2 = (start, end) => {
   return (dispatch) => { 
     const startDate = start;
     const endDate = end;
-    postData('http://localhost:3005/api/new_events', {limit:60, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
+    postData('http://localhost:3005/api/new_events', {limit:160, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
       .then((eventss) => {
         console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -479,7 +480,7 @@ export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-0
 export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-01-08T08:00:00.000Z',endDate='2021-02-19T18:00:00.000Z')  => {
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
-    // console.log('fetchNewOGHThirdTabStaticPageGraphicAsync start');
+    console.log('fetchNewOGHThirdTabStaticPageGraphicAsync start');
     postData('https://ismggt.ru/query/objects/total', {startDate: startDate, endDate: endDate})
       .then((users) => {
         // let chartData = users.data.chartData.slice(7,17);

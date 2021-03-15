@@ -81,6 +81,7 @@ export default function SearchPanel({setSearchText, setField}) {
         >
           <MenuItem value='nameEvent'>Описание события</MenuItem>
           <MenuItem value='userName'>Пользователь</MenuItem>
+          <MenuItem value='orgName'>Организации</MenuItem>
           <MenuItem value='type'>Тип изменения</MenuItem>
         </Select>
       </FormControl>

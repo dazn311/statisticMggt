@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 function createData(color, date, nameEvent, userName, orgName, userID, type) {
   return { color, date, nameEvent, userName, orgName, userID, type };
 }
-
+ 
 let rows = [];
 
 const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {

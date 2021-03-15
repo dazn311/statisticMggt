@@ -348,7 +348,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
                       <TableCell>Дата(время)</TableCell>
                       <TableCell align="right">Новые события</TableCell>
                       <TableCell align="right">Пользователи он-лайн</TableCell>
-                      <TableCell align="right">Закрытые события</TableCell>
+                      <TableCell align="right">Выполненых событий</TableCell>
                       <TableCell align="right">Отмененые события</TableCell>
                     </TableRow>
                   </TableHead>
