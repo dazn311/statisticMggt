@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-
 
 import Header from './components/header/header.component';
 
@@ -19,7 +18,7 @@ import UsersPage from './screens/usersPage/index';
 import ObjPage from './screens/objPage'; 
 //glav control
 function App({fetchCurrentUser}) {
-
+//sazonov egor gennadievich
   // useEffect(() => {
   //   // console.log('app fetchCurrentUser');
   //   fetchCurrentUser(2);

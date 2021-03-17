@@ -155,7 +155,9 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
         <TableBody>
           {tabValue && tabValue
           .filter((item, idx) => { return typeof item.[fieldValue] === 'string'  ? item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()) :' '})
-          .filter((item, index) =>{ return index < rowsPerPage * page && index > rowsPerPage * (page -1)})
+          // .filter((item, index) =>{ return index < rowsPerPage * page && index > rowsPerPage * (page -1)})
+          .filter((item, index) =>{ return index < rowsPerPage * page + rowsPerPage && index > rowsPerPage * page})
+          // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { printUserId(row)}}>
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>

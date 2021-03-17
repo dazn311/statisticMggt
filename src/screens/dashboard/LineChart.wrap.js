@@ -203,12 +203,10 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
      
   },[offSet,fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
  
-
   // console.log('currentHours',currentHours);
 
   useEffect(() => {
     fetchAll(0);
-
     setTimeout(() => {
       fetchAll(0);
     }, 500);
@@ -216,13 +214,16 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   }, [fetchAll])
   
   useEffect(() => {
-    // dataTmp = dataInit;
-    // dataInit0 = dataInit;
-    // for (let index = 8; index <= 18; index++) {
-    //   const indexMinus = index -7;
-    //   dataTmp[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
-    //   dataInit0[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
-    // }
+    dataTmp = dataInit;
+    dataInit0 = dataInit;
+    
+    for (let index = 8; index <= 19; index++) {
+      const indexMinus = index -7;
+      dataTmp[indexMinus] = {...dataInit[indexMinus], Events: null, Users: null, Closed: null};
+      dataInit0[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
+    }
+    
+    
   }, [])
   
 
@@ -240,24 +241,27 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     const usersLine3 = reduce(usersLine2,(sum,n)=>(sum + n),0);
     const newObj = {...dataInit[0], Users: usersLine3};
     dataTmp[0] = newObj;
-    usersCount = usersLine3;
+    if (isToDay){usersCount = usersLine3};
 
     //пользователи в середине дня
     for (let index = 8; index <= max_hours; index++) {
       const indexMinus = index -7;
       const newObjDay = {...dataTmp[indexMinus], Users: usersLine[index]};
       dataTmp[indexMinus] = newObjDay;
-      usersCount = usersLine[index];
+      // usersCount = usersLine[index];
+      if (isToDay){
+        usersCount = usersLine[index];
+      }
     }
-    if(!isToDay) {usersCount = null;}
+    // if(!isToDay) {usersCount = null;}
 
     //пользователи в конце дня
-    if (currentHours > 17){
+    if (currentHours > 17 || !isToDay){
       const usersLine4 = usersLine.slice(18);
       const usersSumm = reduce(usersLine4,(sum,n)=>(sum + n),0);
       const newUsrEndDay = {...dataTmp[12], Users: usersSumm};
       dataTmp[12] = newUsrEndDay;
-      usersCount = usersSumm;
+      if (isToDay){usersCount = usersSumm;}
     }
 
   },[selectCountUsers, isToDay]);
@@ -267,42 +271,60 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   ////////////////// -- NewEvents -- ////////////////////
   const getNewEvents = useCallback(() => {
     const eventsLine = selectAmountNewEvent.data.chartData;
+    if(isToDay) {
+      max_hours = currentHours;
+    }else {
+      max_hours = 18;
+    }
 
     const startDataNewEvent = eventsLine.slice(0,7);
     const startDataNewEventSum = reduce(startDataNewEvent,(sum,n)=>(sum + n),0);
     const newObjs = {...dataTmp[0], Events: startDataNewEventSum};
     dataTmp[0] = newObjs;
-    eventsAmount = startDataNewEventSum;
+    if (isToDay){
+      eventsAmount = startDataNewEventSum;
+    }
+    
     
     const startNewEvent = eventsLine.slice(8,max_hours+1);
     startNewEvent.forEach((el,index) => {
       const indexPlus = index +1;
       const newObj = {...dataTmp[indexPlus], Events: el};
       dataTmp[indexPlus] = newObj;
-      eventsAmount = el
+      if (isToDay){
+        eventsAmount = el;
+      }
       
     });
-    if(!isToDay) { eventsAmount = null;}
+    // if(!isToDay) { eventsAmount = null;}
 
     // NewEvents end day
-    if (currentHours > 17){
+    if (currentHours > 17 || !isToDay){
         const endDataNewEvent = eventsLine.slice(18);
         const endDataNewEventSum = reduce(endDataNewEvent,(sum,n)=>(sum + n),0);
         const newObjn = {...dataTmp[12], Events: endDataNewEventSum};
         dataTmp[12] = newObjn;
-        eventsAmount = endDataNewEventSum;
+        if (isToDay){eventsAmount = endDataNewEventSum};
     }
   },[selectAmountNewEvent, isToDay]);
 
   
   const getEndedEvents = useCallback(() => {
     const endedLine = selectAmountEndedEvent.data.chartData;
+    if(isToDay) {
+      max_hours = currentHours;
+    }else {
+      max_hours = 18;
+    }
+
     //Ended Events start Day
     const startDataClose = endedLine.slice(0,7);
     const startDataCloseSum = reduce(startDataClose,(sum,n)=>(sum + n),0);
     const newObjc = {...dataTmp[0], Closed: startDataCloseSum};
     dataTmp[0] = newObjc;
-    endedAmount = startDataCloseSum;
+    if (isToDay){
+       endedAmount = startDataCloseSum;
+    }
 
     //Ended Events middle Day
     const startClose = endedLine.slice(8,max_hours+1);
@@ -310,18 +332,22 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       const indexPlus = index +1;
       const newObj = {...dataTmp[indexPlus], Closed: el};
       dataTmp[indexPlus] = newObj;
-        endedAmount = el
+      if (isToDay){
+        endedAmount = el;
+      }
     });
-    if(!isToDay) { endedAmount = null;}
-
+    // if(!isToDay) { endedAmount = null;}
      
     //Ended Events ended Day
-    if (currentHours > 17){
-    const endDataClose = endedLine.slice(19,23);
-    const endDataCloseSum = reduce(endDataClose,(sum,n)=>(sum + n),0);
-    const newObjcs = {...dataTmp[12], Closed: endDataCloseSum};
-    dataTmp[12] = newObjcs;
-    endedAmount = endDataCloseSum
+    if (currentHours > 17 || !isToDay){
+      const endDataClose = endedLine.slice(19,23);
+      const endDataCloseSum = reduce(endDataClose,(sum,n)=>(sum + n),0);
+      const newObjcs = {...dataTmp[12], Closed: endDataCloseSum};
+      dataTmp[12] = newObjcs;
+      if (isToDay){
+        endedAmount = endDataCloseSum;
+      }
+    
     }
   },[selectAmountEndedEvent, isToDay]);
     
