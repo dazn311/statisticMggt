@@ -68,6 +68,7 @@ render() {
         <div><Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar></div>
         <div><Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar></div>
         <div ><Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar></div>
+        <div style={{position: 'absolute', right:'-12px', transform: 'rotate(270deg)', top: '90px'}}>Данные на данный час</div>
         <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
       </div>
     );
