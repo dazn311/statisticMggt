@@ -87,7 +87,7 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
   // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tabValue.length - page * rowsPerPage);
   // console.log('rerender TabObjs -- emptyRows;',emptyRows);
-  console.log('rerender TabObjs -- tabValue;',tabValue);
+  // console.log('rerender TabObjs -- tabValue;',tabValue);
 
 
   const handleChangePage = (event, newPage) => {

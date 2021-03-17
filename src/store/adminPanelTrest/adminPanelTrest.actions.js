@@ -609,8 +609,8 @@ export const fetchUpdateUsersFromDB = (userData)  => {
   
 // Для страницы  "objects" - /stats/objs
 // первая вкладка
-export const fetchObjectsListAsync = (objectType, organization,limit , offset) => {
-  console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset);
+export const fetchObjectsListAsync = (objectType, organization, limit , offset) => {
+  // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate,endDate);
   return (dispatch) => { 
       
     //'2021-02-03T22:00:00.000Z'
