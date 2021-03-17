@@ -18,8 +18,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { selectObjsPage } from '../../../store/adminPanelTrest/objspages.selectors';  
-
+import { selectObjsPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
+ 
 import EventDetail from './EventDetail';
 
 const useStyles = makeStyles({
@@ -88,6 +88,8 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tabValue.length - page * rowsPerPage);
   // console.log('rerender TabObjs -- emptyRows;',emptyRows);
   console.log('rerender TabObjs -- tabValue;',tabValue);
+
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
     console.log('handleChangePage',newPage);
@@ -139,7 +141,7 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
   //   onChangePage(event, page + 1);
   // };
 
-
+ 
   return (
     <><TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -176,7 +178,6 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
               rowsPerPageOptions={[15, 25, 40, { label: 'Все', value: -1 }]}
               colSpan={5}
               count={rows.length}
-              // rowsPerPage={rowsPerPage}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
