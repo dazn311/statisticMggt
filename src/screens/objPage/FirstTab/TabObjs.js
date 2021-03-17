@@ -86,7 +86,7 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
 
   // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tabValue.length - page * rowsPerPage);
-  // console.log('rerender TabObjs -- emptyRows;',emptyRows);
+  console.log('rerender TabObjs -- emptyRows;',emptyRows);
   // console.log('rerender TabObjs -- tabValue;',tabValue);
 
 
@@ -115,7 +115,8 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
   useEffect(() => {
     if (selectObjs.data.objects !== {}){
       refactData(selectObjs.data.objects);
-    settabValue(rows);
+      settabValue(rows);
+      setPage(0);
     }
     // console.log('useEffect selectObjs',selectObjs.data.objects);
   },[selectObjs.data.objects]);
@@ -127,7 +128,7 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
 
   useEffect(() => {
       //(objectType, organization,limit , offset)
-    fetchObjectsList(2,0,160 ,1);
+    fetchObjectsList(2,0,2160 ,1);
     // console.log('useEffect fetchObjectsList');
   },[fetchObjectsList]);
 
@@ -144,6 +145,7 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
  
   return (
     <><TableContainer component={Paper}>
+      <div style={{alignSelf: 'center',marginLeft:10}}> всего объектов: <span style={{color:'red'}}>{selectObjs.amount}</span> </div>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -174,21 +176,25 @@ const TabObjs = ({ selectObjs,  fetchObjectsList,  searchValue, fieldValue }) =>
         </TableBody>
         
       </Table>
-      <TablePagination
-              rowsPerPageOptions={[15, 25, 40, { label: 'Все', value: -1 }]}
-              colSpan={5}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'объектов на странице' },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              // ActionsComponent={TablePaginationActions}
-            />
+      <div style={{display:'flex'}}>
+        <div style={{alignSelf: 'center',marginLeft:10}}> всего объектов: <span style={{color:'red'}}>{selectObjs.amount}</span> </div>
+        <TablePagination
+                rowsPerPageOptions={[15, 25, 40, { label: 'Все', value: -1 }]}
+                // colSpan={5}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { 'aria-label': 'объектов на странице' },
+                  native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                // ActionsComponent={TablePaginationActions}
+        />
+      </div>
     </TableContainer>
+    
     <EventDetail objID={objIDfE} orgRow={orgRow} tabValue={tabValue} isOpen={isOpen} closeDetail={closeDetail} />
     </>
   );
