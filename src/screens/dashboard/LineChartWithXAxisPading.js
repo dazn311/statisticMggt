@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import RefreshIcon from '@material-ui/icons/Refresh';
+// import RefreshIcon from '@material-ui/icons/Refresh';
 
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
@@ -30,8 +30,8 @@ render() {
     : {position: 'absolute', top: '100px', right: '10px', color:'#ccc',width:'30px',height: 30};
 
 
-    const styleBtnUpdateUsersGraphic = isFetchingUserOnline ? {position: 'absolute', bottom: '10px', right: '18px', cursor:'pointer', transition: 'transform 0.2s'}
-    :{position: 'absolute', bottom: '10px', right: '15px', cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
+    // const styleBtnUpdateUsersGraphic = isFetchingUserOnline ? {position: 'absolute', bottom: '10px', right: '18px', cursor:'pointer', transition: 'transform 0.2s'}
+    // :{position: 'absolute', bottom: '10px', right: '15px', cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
     
     
     const winWidth = window.innerWidth;
@@ -68,7 +68,7 @@ render() {
         <div><Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar></div>
         <div><Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar></div>
         <div ><Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar></div>
-        <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
+        {/* <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/> */}
       </div>
     );
   } 

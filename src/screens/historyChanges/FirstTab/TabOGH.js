@@ -72,7 +72,7 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
   }
  
   useEffect(() => {
-    refactData(selectEventShort.data.nodes, statusEventPoint, statusEnumEventPointColor);
+    refactData(selectEventShort, statusEventPoint, statusEnumEventPointColor);
     settabValue(rows);
     // console.log('useEffect selectEventShort');
   },[selectEventShort, statusEventPoint, statusEnumEventPointColor]);

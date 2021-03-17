@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
  const HistoryObjLast = ({ eventShortPoints, statusEventPoint }) => {
-  console.log('eventShortPoints',eventShortPoints);
+  // console.log('eventShortPoints',eventShortPoints);
   const nodesEvent = eventShortPoints.data.nodes;
 
   const classes = useStyles();

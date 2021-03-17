@@ -42,6 +42,7 @@ export const FetchDataUsersPage = {
 
 export const FetchDataObjsPage = {
     FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE: 'FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE', //from UsersPage
+    FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE: 'FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE', //from UsersPage
 };
     
 export default AdminActionTypes;

@@ -109,7 +109,7 @@ export const selectAmountToTreeDaysOGH = createSelector(
 
 export const selectEventShortPoints = createSelector( 
     getSelectPoints,
-    adminPanel => adminPanel.eventShortPoints
+    adminPanel => adminPanel.eventShortPoints.data.nodes 
 )
 
 

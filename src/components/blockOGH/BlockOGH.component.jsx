@@ -13,7 +13,7 @@ import './blockOGH.styles.scss';
  
 const BlockOGH = ({ users, ogh }) => {
     const usersData =  users.data;
-    console.log(users);
+    // console.log(users);
     const data = React.useMemo(
         () => [
           {

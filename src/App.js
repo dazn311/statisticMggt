@@ -20,11 +20,11 @@ import ObjPage from './screens/objPage';
 //glav control
 function App({fetchCurrentUser}) {
 
-  useEffect(() => {
-    console.log('app fetchCurrentUser');
-    fetchCurrentUser(2);
+  // useEffect(() => {
+  //   // console.log('app fetchCurrentUser');
+  //   fetchCurrentUser(2);
     
-  }, [fetchCurrentUser])
+  // }, [fetchCurrentUser])
   return (
     <div className="App">
       

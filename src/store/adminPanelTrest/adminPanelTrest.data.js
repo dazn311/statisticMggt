@@ -394,7 +394,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    endEventsGraphOfStaticPage: //events/amount
+  endEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -404,7 +404,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    denyEventsGraphOfStaticPage: //events/amount
+  denyEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -414,7 +414,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    usersOnlineGraphOfStaticPage: //events/amount
+  usersOnlineGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -424,7 +424,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    newMessageGraphOfStaticPage: //events/amount
+  newMessageGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -434,7 +434,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    usersNewGraphOfStaticPage: //for statics page to third tab 
+  usersNewGraphOfStaticPage: //for statics page to third tab 
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -444,7 +444,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersDelGraphOfStaticPage: //for statics page to third tab
+  usersDelGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -454,7 +454,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersBlockGraphOfStaticPage: //for statics page to third tab
+  usersBlockGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -464,7 +464,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersEndGraphOfStaticPage: //for statics page to third tab
+  usersEndGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -474,11 +474,11 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    objs:  {
+  objs: {
       
       
       
-      data:{objects:[{objID: 7398, organization: {orgname: 'df'},objType: '22',objName: "1-й Вешняковский пр. до тупика"}]}},
+  data:{objects:[{objID: 7398, organization: {orgname: 'df'},objType: '22',objName: "1-й Вешняковский пр. до тупика"}]}},
     // objs:  {data:{objects:{}}},
     // [
       // {
@@ -498,7 +498,8 @@ const ORGANIZATIONS_DATA = {
       //   organization: {orgID: 172, orgname: "ГБУ 'Жилищник Рязанского района'"},
       // },
     // ],
-
+  objRect: {data:{recs:[]}},
+  eventShortPoints:{data:{nodes:[]}}, 
   };
 
   

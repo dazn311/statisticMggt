@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 
 import { selectAmountOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-
+ 
 const useStyles = makeStyles({
   depositContext: {
     flex: 1,

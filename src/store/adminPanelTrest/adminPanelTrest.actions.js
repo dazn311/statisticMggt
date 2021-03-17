@@ -164,6 +164,11 @@ export const setObjForObjsPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE,
   payload: items 
 });
+// for obj page, tab1
+export const setObjForObjRectPage = (items) => ({
+  type: FetchDataObjsPage.FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE,
+  payload: items 
+});
 
 
 
@@ -261,7 +266,7 @@ export const fetchAmountUsersOfEndDayGraphicsAsync = (startDate='2021-02-12T08:0
 
 
 // Для верхней таблицы "graphics" новые события
-export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z') => {
+export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate) => {
   
   return (dispatch) => {
     // postData('https://ismggt.ru/query/events/amount', {type: 'new_rec', startDate: '2021-02-15T01:00:00.000Z'})
@@ -274,11 +279,11 @@ export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:
   };
 };
 // Для верхней таблицы "graphics" завершенные события
-export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-12T18:00:00.000Z') => {
+export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate) => {
   return (dispatch) => {
     postData(urlQueryAmount, {type: 'done_rec', startDate: startDate, endDate: endDate})
       .then((eventss) => {
-        console.log('events done_rec',eventss);
+        // console.log('events done_rec',eventss);
         dispatch(putEndEventsGraphic(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -530,7 +535,8 @@ async function postDataAx(url = '', data = {}, type='post') {
     
   try {
     axios.defaults.headers.[type]['Content-Type'] ='application/x-www-form-urlencoded';
-    const response = await axios.[type](url, 
+    const response = await axios.[type](
+      url, 
       { data: data },
       {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'cors'});
 
@@ -541,28 +547,28 @@ async function postDataAx(url = '', data = {}, type='post') {
   
   return  {"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}; // parses JSON response into native JavaScript objects
 }
-  
+   
 export const appendUserAsync = (data)  => {
-  console.log('👉 appendUserAsync start:' );
-  return (dispatch) => {
-    postDataAx('http://localhost:3003/api/users/append', {'data':data})
-      .then((user) => {
-        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          // console.log('👉 appendUserAsync then user:',user.data );
-          dispatch(appendUser(user.data));
-        })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  };
+  // console.log('👉 appendUserAsync start:' );
+  // return (dispatch) => {
+  //   postDataAx('http://localhost:3003/api/users/append', {'data':data})
+  //     .then((user) => {
+  //       //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+  //         // console.log('👉 appendUserAsync then user:',user.data );
+  //         dispatch(appendUser(user.data));
+  //       })
+  //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  // };
 }; 
 
 // fetchAllUsersFromDB
 export const fetchAllUsersFromDB0 = (limit=20)  => {
-  console.log('👉 fetchAllUsersFromDB0 start:' );
+  // console.log('👉 fetchAllUsersFromDB0 start:' );
   return (dispatch) => {
     postDataAx('http://localhost:3005/api/users', {'limit':limit},'get')
       .then((user) => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 fetchAllUsersFromDB0 then user:',user );
+          // console.log('👉 fetchAllUsersFromDB0 then user:',user );
           dispatch(appendAllUsers(user));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -570,30 +576,30 @@ export const fetchAllUsersFromDB0 = (limit=20)  => {
 };
 // work with func & proc in postgress fetchAllUsersFromDB
 export const fetchAllUsersFromDB = (limit=20)  => {
-  console.log('👉 fetchAllUsersFromDB start:' );
-  return (dispatch) => {
-    // postDataAx('http://localhost:3005/api/users', {'login':'matvey',"password":"1234"},'post')
-    // postDataAx('http://localhost:3005/api/users', {'login':'mggt_alex',"password":"79y7BdJFtmqJVtJn"},'post')
-    postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post')
-      .then((user) => {
-        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 fetchAllUsersFromDB then user:',user );
-          dispatch(appendAllUsers(user));
-        })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  };
+  // console.log('👉 fetchAllUsersFromDB start:' );
+  // return (dispatch) => {
+  //   // postDataAx('http://localhost:3005/api/users', {'login':'matvey',"password":"1234"},'post')
+  //   // postDataAx('http://localhost:3005/api/users', {'login':'mggt_alex',"password":"79y7BdJFtmqJVtJn"},'post')
+  //   postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post')
+  //     .then((user) => {
+  //       //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+  //         // console.log('👉 fetchAllUsersFromDB then user:',user );
+  //         dispatch(appendAllUsers(user));
+  //       })
+  //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  // };
 };
 
 // put http://localhost:3005/api/user (updateUser)
 export const fetchUpdateUsersFromDB = (userData)  => {
-  console.log('👉 fetchUpdateUsersFromDB start:' );
+  // console.log('👉 fetchUpdateUsersFromDB start:' );
   const {user_fio, login, password, user_fio_lit, id} = userData;
-  console.log('👉 fetchUpdateUsersFromDB start:',user_fio, login, password, user_fio_lit, id );
+  // console.log('👉 fetchUpdateUsersFromDB start:',user_fio, login, password, user_fio_lit, id );
   return (dispatch) => { 
     postDataAx('http://localhost:3005/api/user', {user_fio:user_fio, login:login, password:password, user_fio_lit:user_fio_lit, id:id},'put')
       .then((user) => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 fetchUpdateUsersFromDB then user:',user );
+          // console.log('👉 fetchUpdateUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -604,15 +610,33 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 // Для страницы  "objects" - /stats/objs
 // первая вкладка
 export const fetchObjectsListAsync = (objectType, organization,limit , offset) => {
-  console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset);
+  // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset);
   return (dispatch) => { 
       
     //'2021-02-03T22:00:00.000Z'
     // postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:60, offset: offset}) 
-    postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization}) 
+    postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit, offset: offset})  
       .then((eventss) => {
         console.log('fetchObjectsListAsync then: ',eventss);
         dispatch(setObjForObjsPage(eventss));
+      })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+// Для страницы  "objects" - /stats/objs
+// первая вкладка Список событий на объекте
+// Адрес: https://ismggt.ru/query/object/recs/list
+ 
+export const fetchObjRectListAsync = (objectID, limit=20, offset=0) => {
+  // console.log('fetchObjectsListAsync run: ',objectID,limit, limit, offset);
+  return (dispatch) => { 
+       
+    //'2021-02-03T22:00:00.000Z'
+    // postData('https://ismggt.ru/query/objects/list', {objectType:objectType 5799, organization:organization, limit:60, offset: offset}) 
+    postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})  
+      .then((eventss) => {
+        // console.log('fetchObjRectListAsync then: ',eventss);
+        dispatch(setObjForObjRectPage(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };

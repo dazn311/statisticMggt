@@ -19,49 +19,36 @@ const columns = [
         headerName: 'Пользователь',
         description: 'This column has a value getter and is not sortable.',
         // sortable: false,
-        width: 280,
+        width: 480,
         // valueGetter: (params) =>
         // `${params.getValue('text') || ''} ${params.getValue('type') || ''}`,
     },
     { field: 'type', headerName: 'Тип изменения', width: 280 },
-];
+]; 
 
 let rows = [
-  { id: 1, type: 'Snow', text: 'Jon', date: '35',fullName: 'Vasya' },
-  { id: 2, type: 'Lannister', text: 'Cersei', date: '42',fullName: 'Vasya' },
-  { id: 3, type: 'Lannister', text: 'Jaime', date: '45',fullName: 'Vasya' },
-  { id: 4, type: 'Stark', text: 'Arya', date: '16' ,fullName: 'Vasya'},
-  { id: 5, type: 'Targaryen', text: 'Daenerys', date: 'null',fullName: 'Vasya' },
-  { id: 6, type: 'Melisandre', text: 'null', date: '150' ,fullName: 'Vasya'},
-  { id: 7, type: 'Clifford', text: 'Ferrara', date: '44',fullName: 'Vasya' },
-  { id: 8, type: 'Frances', text: 'Rossini', date: '36',fullName: 'Vasya' },
-  { id: 9, type: 'Roxie', text: 'Harvey', date: '65',fullName: 'Vasya' },
+  // { id: 1, type: 'Snow', text: 'Jon', date: '35',fullName: 'Vasya' },
 ];
 
 
 
 const TableList = ({ eventShortPoints, statusEventPoint,statusEnumEventPointColor }) => {
-    // console.log(statusEnumEventPointColor);
     rows = [];
-    let nodesEvent = eventShortPoints.data.nodes;
-    if (Array.isArray(eventShortPoints.data.nodes) ) {
-      // console.log('trueee');
-      nodesEvent = _.orderBy(eventShortPoints.data.nodes, ['date'], ['desc']);
-      // console.log('eventShortPoints',nodesEvent);
+    let nodesEvent = [];
+    if (Array.isArray(eventShortPoints) ) {
+      nodesEvent = _.orderBy(eventShortPoints, ['date'], ['desc']);
     }
     
     nodesEvent.map((nodeE,index) => {
         const dateFormatt =  nodeE.date.split('T')[0].split('-')[2] + '/' + nodeE.date.split('T')[0].split('-')[1] + '/' + nodeE.date.split('T')[0].split('-')[0] + ' (' +  nodeE.date.split('T')[1].slice(0,5) + ')';
-        let newNode = { id: index, date: dateFormatt, text: nodeE.text, fullName: nodeE.user.username, type: statusEventPoint[nodeE.type]};
+        const orgUsrName = nodeE.user.username + '  (  ' + nodeE.user.orgname + '  )  ';
+        let newNode = { id: index, date: dateFormatt, text: nodeE.text, fullName: orgUsrName, type: statusEventPoint[nodeE.type]};
         rows.push(newNode);
         return newNode
     });
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {/* <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection /> */}
-      <DataGrid rows={rows} columns={columns} pageSize={5} loading={false} icons />
-      {/* {setColorRowPadding()}
-      {setColorRow()} */}
+      <DataGrid rows={rows} columns={columns} onRowHover pageSize={5} loading={false} icons />
     </div>
   );
 }
