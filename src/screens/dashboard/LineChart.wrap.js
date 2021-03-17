@@ -206,7 +206,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
     fetchAmountEndEventsForGraphicAsync(todayStart,todayEnd);
      
-  },[offSet]);
+  },[offSet,fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
  
 
   // console.log('currentHours',currentHours);
