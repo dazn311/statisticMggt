@@ -18,7 +18,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { selectObjsPage } from '../../../store/adminPanelTrest/objsPage.selectors'; 
+import { selectObjsPage } from '../../../store/adminPanelTrest/objspages.selectors';  
 
 import EventDetail from './EventDetail';
 
@@ -65,7 +65,7 @@ const refactData = (objectsList) => {
     return newNode
   });
 }
-
+ 
 // const UserComponent = ({username,orgname}) => (<>
 //   <div style={{display: 'flex', flexDirection:'column'}} >
 //     <div>{username}</div>
