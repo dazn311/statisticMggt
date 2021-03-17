@@ -153,8 +153,13 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   const [curDate,setCurDate] = useState(new Date())
   const [isFetchingUserOnline,setisFetchingUserOnline] = useState(false)
 
+
   // console.log('curDate',curDate.toISOString());
     
+  
+
+
+
 
   const fetchAll = useCallback((ofss=0) => {
     max_hours = 18;
@@ -206,36 +211,55 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 
   // console.log('currentHours',currentHours);
 
+  
   useEffect(() => {
     fetchAll(0);
-
-    setTimeout(() => {
-      fetchAll(0);
-    }, 500);
-    
   }, [fetchAll])
   
-  useEffect(() => {
-    // dataTmp = dataInit;
-    // dataInit0 = dataInit;
-    // for (let index = 8; index <= 18; index++) {
-    //   const indexMinus = index -7;
-    //   dataTmp[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
-    //   dataInit0[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
-    // }
-  }, [])
-  
 
-////////// -- User Online -- ////////////////////////////////////
-  const getUsers = useCallback(() => {
+
+  const getCountUsers = () => {
+    // обнуление данных
+    dataTmp = dataInit;
+    dataInit0 = dataInit;
     const usersLine = selectCountUsers.data.chartData;
+  }
+    
+  useEffect(() => {
+    
+    const usersLine = selectCountUsers.data.chartData;
+
+    const eventsLine = selectAmountNewEvent.data.chartData;
+    const endedLine = selectAmountEndedEvent.data.chartData;
+    // console.log('usersLine',usersLine);
+    // console.log('eventsLine',eventsLine);
+    // console.log('endedLine',endedLine);
+
+   // обнуление данных
+   dataTmp = dataInit;
+   dataInit0 = dataInit;
+   
+
+
+
+ // почистить таблицу
+    for (let index = 8; index <= 18; index++) {
+
+      const indexMinus = index -7;
+      dataTmp[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
+      dataInit0[indexMinus] = {...dataTmp[indexMinus], Events: null, Users: null, Closed: null};
+    }
+
     if(isToDay) {
       max_hours = currentHours;
     }else {
       max_hours = 18;
     }
     // console.log('max_hours',max_hours);
-    //пользователи в начале дня
+  ////////// -- User Online -- ////////////////////////////////////
+
+   //пользователи в начале дня
+    // const newObj = {...dataInit[0], Users: usersLineStartDay};
     const usersLine2 = usersLine.slice(0,7);
     const usersLine3 = reduce(usersLine2,(sum,n)=>(sum + n),0);
     const newObj = {...dataInit[0], Users: usersLine3};
@@ -243,16 +267,21 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     usersCount = usersLine3;
 
     //пользователи в середине дня
+    
     for (let index = 8; index <= max_hours; index++) {
+
       const indexMinus = index -7;
       const newObjDay = {...dataTmp[indexMinus], Users: usersLine[index]};
       dataTmp[indexMinus] = newObjDay;
       usersCount = usersLine[index];
     }
+
     if(!isToDay) {usersCount = null;}
+
 
     //пользователи в конце дня
     if (currentHours > 17){
+      
       const usersLine4 = usersLine.slice(18);
       const usersSumm = reduce(usersLine4,(sum,n)=>(sum + n),0);
       const newUsrEndDay = {...dataTmp[12], Users: usersSumm};
@@ -260,13 +289,15 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       usersCount = usersSumm;
     }
 
-  },[selectCountUsers, isToDay]);
+
+    // _.reduce([1, 2], function(sum, n) {
+    //   return sum + n;
+    // }, 0);
+    // => 3
 
 
 
-  ////////////////// -- NewEvents -- ////////////////////
-  const getNewEvents = useCallback(() => {
-    const eventsLine = selectAmountNewEvent.data.chartData;
+    ////////////////// -- NewEvents -- ////////////////////
 
     const startDataNewEvent = eventsLine.slice(0,7);
     const startDataNewEventSum = reduce(startDataNewEvent,(sum,n)=>(sum + n),0);
@@ -279,24 +310,27 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       const indexPlus = index +1;
       const newObj = {...dataTmp[indexPlus], Events: el};
       dataTmp[indexPlus] = newObj;
-      eventsAmount = el
+      
+        eventsAmount = el
       
     });
+    
+    
     if(!isToDay) { eventsAmount = null;}
 
     // NewEvents end day
+    
     if (currentHours > 17){
-        const endDataNewEvent = eventsLine.slice(18);
-        const endDataNewEventSum = reduce(endDataNewEvent,(sum,n)=>(sum + n),0);
-        const newObjn = {...dataTmp[12], Events: endDataNewEventSum};
-        dataTmp[12] = newObjn;
-        eventsAmount = endDataNewEventSum;
+    
+    const endDataNewEvent = eventsLine.slice(18);
+    const endDataNewEventSum = reduce(endDataNewEvent,(sum,n)=>(sum + n),0);
+    const newObjn = {...dataTmp[12], Events: endDataNewEventSum};
+    dataTmp[12] = newObjn;
+    eventsAmount = endDataNewEventSum;
     }
-  },[selectAmountNewEvent, isToDay]);
 
-  
-  const getEndedEvents = useCallback(() => {
-    const endedLine = selectAmountEndedEvent.data.chartData;
+    ///////// -- Ended Events -- //////////////////////////////
+
     //Ended Events start Day
     const startDataClose = endedLine.slice(0,7);
     const startDataCloseSum = reduce(startDataClose,(sum,n)=>(sum + n),0);
@@ -323,23 +357,20 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     dataTmp[12] = newObjcs;
     endedAmount = endDataCloseSum
     }
-  },[selectAmountEndedEvent, isToDay]);
-    
-  useEffect(() => {
-    getUsers();
-    dataInit0 = dataTmp;
-  },[selectCountUsers.data.chartData,getUsers])   
+    // else {
+    //   const newUsrEndDay = {...dataTmp[12], Closed: null};
+    //   dataTmp[12] = newUsrEndDay;
 
-  useEffect(() => {
-    getNewEvents();
-    dataInit0 = dataTmp;
-  },[selectAmountNewEvent,getNewEvents])  
-  
-  useEffect(() => {
-    getEndedEvents();
+    // }
+
     dataInit0 = dataTmp;
     
-  },[selectAmountEndedEvent,getEndedEvents])  
+    // setData(dataTmp);
+
+ 
+    // setCurDate(curDate); 
+    
+  }, [selectCountUsers,selectAmountEndedEvent,selectAmountNewEvent, isToDay])  
       
     return (
       <LineChartComp data={dataInit0}  isFetchingUserOnline={isFetchingUserOnline} isToday={isToDay} dateLabel={curDate} usersCount={usersCount} eventsAmount={eventsAmount} endedAmount={endedAmount}  fetchAll={fetchAll} />
