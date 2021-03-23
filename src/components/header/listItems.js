@@ -12,6 +12,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuItem from '@material-ui/core/MenuItem';
+import BusinessIcon from '@material-ui/icons/Business';
 
 const MainListItems = ( {location} ) => (
   <div>
@@ -27,8 +28,14 @@ const MainListItems = ( {location} ) => (
       </ListItemIcon>
       <ListItemText primary="Таблица ОГХ" />
     </MenuItem>
-     
-    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
+      
+    <MenuItem  component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
+      <ListItemIcon>
+        <BusinessIcon />
+      </ListItemIcon>
+      <ListItemText primary="Объекты" />
+    </MenuItem> 
+    {/* <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
@@ -46,7 +53,7 @@ const MainListItems = ( {location} ) => (
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Управление" selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
-    </ListItem>
+    </ListItem> */}
   </div>
 );
 

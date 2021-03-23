@@ -10,7 +10,7 @@ class LineChartWithXAxisPading extends PureComponent {
  
 render() {
     const { graphicValue} = this.props;
-    console.log('rerender LineChartWithXAxisPading');
+    // console.log('rerender LineChartWithXAxisPading');
     
     return (
       <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>
@@ -32,7 +32,7 @@ render() {
         <Legend />
         <Bar dataKey='Users'  name='Пользователей' stackId="a" fill="#8884d8" />
         <Bar dataKey="Events" name='Созданные события' stackId="a" fill="#82ca9d" />
-        <Bar dataKey="Closed" name='Выполнено соб-я' stackId="a" fill="#FFc000" />
+        <Bar dataKey="Closed" name='Выполнено соб-ий' stackId="a" fill="#FFc000" />
         <Bar dataKey="deny" name='Отклоненые соб-я' stackId="a" fill="rgb(198 76 164)" />
         <Bar dataKey="activeChat" name='Активность чата' stackId="a" fill="#FF0C00" />
       </BarChart>

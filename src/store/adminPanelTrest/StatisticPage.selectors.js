@@ -61,3 +61,31 @@ export const selectAmountNewOGH = createSelector(
     getSelectPoints,
     adminPanel => adminPanel.amountNewOGH
 )
+
+ //////////////////////////////////////////////////// 
+ /// ObjsTab
+ export const selectObjsPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.objs 
+) 
+/// ObjsTab
+ export const selectObjsInfoPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.objsInfo 
+) 
+ //////////////////////////////////////////////////// 
+ /// ObjsTab
+ export const selectObjRectPage = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.objRect.data.recs // []
+) 
+
+/// ObjsTab
+ export const selectObjRectAmount = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.objRect.amount // []
+) 
+ 
+ //////////////////////////////////////////////////// 
+ //////////////////////////////////////////////////// 
+ //////////////////////////////////////////////////// 

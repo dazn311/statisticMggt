@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react';
+import React,{ useState,useEffect,useCallback } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'; 
 import { chunk, reduce } from 'lodash'; 
@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
 // ];
 
 let tmpGraphicValue = '';
-let tmpAmountEvents = 0;
+// let tmpAmountEvents = 0;
 
 const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
   const [graphicValue, setGraphicValue] = useState('');
@@ -163,69 +163,75 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
  
   }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
  
-  const setUserData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      
-      let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-      maxUsersOfDay.push(max_of_array);
-      
-    }
-    // console.log('maxUsersOfDay',maxUsersOfDay); 
-
-    let me1 = new Date(dateStart).getMonth() + 1;
-    let y1 = new Date(dateStart).getYear();
-    const dOm = daysInMonth(me1, y1);
-    
-    InitionalData = [];
-    maxUsersOfDay.forEach((el,index) => {
-        let d1 = new Date(dateStart).getDate() + index;
-        if ( d1 > dOm +1) {
-          d1 -= dOm;
-        }
-        let m1 = new Date(dateStart).getMonth() + 1;
-        m1 = m1 < 10 ? '0' + m1: m1;
+  const setUserData = useCallback(
+    (usersLine=[]) => {
+      let maxUsersOfDay = [];
+      const chunkUsers = chunk(usersLine,24); 
+  
+      for (let index = 0; index < chunkUsers.length; index++) {
         
-        let y1 = new Date(dateStart).getFullYear();
-        const nameDM = d1 + '/' + m1 + '/' + y1;
-        const newObj = {
-          name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
-        }; 
-        // InitionalData[index] = newObj; 
-        InitionalData.push(newObj); 
-    });
-
-    // setGraphicValue(InitionalData);
-    tmpGraphicValue = InitionalData;
-  }
+        let max_of_array = Math.max.apply(Math, chunkUsers[index]);
+        maxUsersOfDay.push(max_of_array);
+        
+      }
+      // console.log('maxUsersOfDay',maxUsersOfDay); 
+  
+      let me1 = new Date(dateStart).getMonth() + 1;
+      let y1 = new Date(dateStart).getYear();
+      const dOm = daysInMonth(me1, y1);
+      
+      InitionalData = [];
+      maxUsersOfDay.forEach((el,index) => {
+          let d1 = new Date(dateStart).getDate() + index;
+          if ( d1 > dOm +1) {
+            d1 -= dOm;
+          }
+          let m1 = new Date(dateStart).getMonth() + 1;
+          m1 = m1 < 10 ? '0' + m1: m1;
+          
+          let y1 = new Date(dateStart).getFullYear();
+          const nameDM = d1 + '/' + m1 + '/' + y1;
+          const newObj = {
+            name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
+          }; 
+          // InitionalData[index] = newObj; 
+          InitionalData.push(newObj); 
+      });
+  
+      // setGraphicValue(InitionalData);
+      tmpGraphicValue = InitionalData;
+    },
+    [dateStart]
+  )
 
   //////////////////////////
-  const setNewEventData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      // let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    }
-
-    maxUsersOfDay.forEach((el,index) => {
-        
-      const newObj = {...InitionalData[index],  Events: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-
-    // setGraphicValue(InitionalData);
-    tmpGraphicValue = InitionalData;
-  }
+  const setNewEventData = useCallback(
+    (usersLine=[]) => {
+      let maxUsersOfDay = [];
+      const chunkUsers = chunk(usersLine,24); 
   
-  const setEndEventData = (usersLine=[]) => {
+      for (let index = 0; index < chunkUsers.length; index++) {
+        // let max_of_array = Math.max.apply(Math, chunkUsers[index]);
+        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
+        // console.log('sum_of array',sum_of_array);
+        maxUsersOfDay.push(sum_of_array);
+        
+      }
+  
+      maxUsersOfDay.forEach((el,index) => {
+          
+        const newObj = {...InitionalData[index],  Events: el}; 
+          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
+          InitionalData[index] = newObj; 
+      });
+  
+      // setGraphicValue(InitionalData);
+      tmpGraphicValue = InitionalData;
+    },
+    [],
+  )
+  
+  const setEndEventData = useCallback((usersLine=[]) => {
     let maxUsersOfDay = [];
     const chunkUsers = chunk(usersLine,24); 
 
@@ -242,92 +248,103 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
     });
     // setGraphicValue(InitionalData);
     tmpGraphicValue = InitionalData;
-  }
+  },[]);
   
-  const setDenyEventData = (denyEvents=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(denyEvents,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    } 
-    maxUsersOfDay.forEach((el,index) => {
-      const newObj = {...InitionalData[index],  deny: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-    // setGraphicValue(InitionalData);
-    tmpGraphicValue = InitionalData;
-  }
+  const setDenyEventData = useCallback(
+    (denyEvents=[]) => {
+      let maxUsersOfDay = [];
+      const chunkUsers = chunk(denyEvents,24); 
   
-  const setNewMessagesData = (usersLine=[]) => {
-    let maxUsersOfDay = [];
-    const chunkUsers = chunk(usersLine,24); 
-
-    for (let index = 0; index < chunkUsers.length; index++) {
-      
-      let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-      // console.log('sum_of array',sum_of_array);
-      maxUsersOfDay.push(sum_of_array);
-      
-    }
-    maxUsersOfDay.forEach((el,index) => {
+      for (let index = 0; index < chunkUsers.length; index++) {
+        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
+        // console.log('sum_of array',sum_of_array);
+        maxUsersOfDay.push(sum_of_array);
         
-      const newObj = {...InitionalData[index],  activeChat: el}; 
-        // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-        InitionalData[index] = newObj; 
-    });
-
-    tmpGraphicValue = InitionalData;
-    setGraphicValue(tmpGraphicValue);
-  }
+      } 
+      maxUsersOfDay.forEach((el,index) => {
+        const newObj = {...InitionalData[index],  deny: el}; 
+          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
+          InitionalData[index] = newObj; 
+      });
+      // setGraphicValue(InitionalData);
+      tmpGraphicValue = InitionalData;
+    },
+    [],
+  )
+  
+  const setNewMessagesData = useCallback(
+    (usersLine=[]) => {
+      let maxUsersOfDay = [];
+      const chunkUsers = chunk(usersLine,24); 
+  
+      for (let index = 0; index < chunkUsers.length; index++) {
+        
+        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
+        // console.log('sum_of array',sum_of_array);
+        maxUsersOfDay.push(sum_of_array);
+        
+      }
+      maxUsersOfDay.forEach((el,index) => {
+          
+        const newObj = {...InitionalData[index],  activeChat: el}; 
+          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
+          InitionalData[index] = newObj; 
+      });
+  
+      tmpGraphicValue = InitionalData;
+      setGraphicValue(tmpGraphicValue);
+    },
+    [ ],
+  )
 
   // for one day ///////////////////////////////////
  
-  const amountEventSelects = () => {
-    tmpAmountEvents += 1;
+  // const amountEventSelects = () => {
+  //   // tmpAmountEvents += 1;
     
-    if(tmpAmountEvents === 5 ){
-      setDataEvants()
-    }
+  //   // if(tmpAmountEvents === 5 ){
+  //     setDataEvants()
+  //   // }
     
-  };
+  // };
 
-  const setDataEvants =() => {
-    const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
-    const newEvent = newEventsGraphOfStaticPage.data.chartData;
-    const endEvent = endEventsGraphOfStaticPage.data.chartData;
-    const denyEvent = selectDenyEvents.data.chartData;
-    const newMess = newMessageGraphOfStaticPage.data.chartData;
+  const setDataEvants =useCallback(
+    () => {
+      const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
+      const newEvent = newEventsGraphOfStaticPage.data.chartData;
+      const endEvent = endEventsGraphOfStaticPage.data.chartData;
+      const denyEvent = selectDenyEvents.data.chartData;
+      const newMess = newMessageGraphOfStaticPage.data.chartData;
+  
+      if (dateWidth){
+        setUserData(usersLine);
+        setNewEventData(newEvent);
+        setEndEventData(endEvent);
+        setDenyEventData(denyEvent);
+        setNewMessagesData(newMess);
+      } else {
+        // set of one day
+        // setUserOfOneDate(usersLine);
+        // setNewEventOfOneDay(newEvent);
+        // setEndEventOfOneDay(endEvent);
+        // setDenyEventOfOneDay(denyEvent);
+        // setNewMessageOfOneDay(newMess);
+  
+  
+      }
+    },
+    [dateWidth, usersOnlineGraphOfStaticPage.data.chartData, newEventsGraphOfStaticPage.data.chartData, endEventsGraphOfStaticPage.data.chartData, selectDenyEvents.data.chartData, newMessageGraphOfStaticPage.data.chartData, setUserData, setNewEventData, setEndEventData, setDenyEventData, setNewMessagesData  ],
+  )
 
-    if (dateWidth){
-      setUserData(usersLine);
-      setNewEventData(newEvent);
-      setEndEventData(endEvent);
-      setDenyEventData(denyEvent);
-      setNewMessagesData(newMess);
-    } else {
-      // set of one day
-      // setUserOfOneDate(usersLine);
-      // setNewEventOfOneDay(newEvent);
-      // setEndEventOfOneDay(endEvent);
-      // setDenyEventOfOneDay(denyEvent);
-      // setNewMessageOfOneDay(newMess);
-
-
-    }
-  }
   useEffect(() => {
-    
-    amountEventSelects();
+     
+    // amountEventSelects();
+    setDataEvants();
 
     // console.log('rerender useEffect: TabTwoMenu');
     
-  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents])
- 
+  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents,setDataEvants]);
+  
   return (
     <React.Fragment>
       {/* <Title>Статистика по событиям за периоды</Title> */}
@@ -348,13 +365,13 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
                       <TableCell>Дата(время)</TableCell>
                       <TableCell align="right">Новые события</TableCell>
                       <TableCell align="right">Пользователи он-лайн</TableCell>
-                      <TableCell align="right">Закрытые события</TableCell>
+                      <TableCell align="right">Выполненых событий</TableCell>
                       <TableCell align="right">Отмененые события</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {graphicValue && graphicValue.map((item, index) => (
-                      <TableRow key={index}>
+                      <TableRow key={index} style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
                         <TableCell component="th" scope="row">
                         {item.name}
                         </TableCell>

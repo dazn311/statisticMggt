@@ -1,4 +1,9 @@
 import React from "react";
+import {
+  BrowserRouter as 
+  // eslint-disable-next-line no-unused-vars
+  Switch, useLocation
+} from "react-router-dom";
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -117,7 +122,29 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({currentUser}) => {
     const [open, setOpen] = React.useState(false);
+    const [headerTitle, setHeaderTitle] = React.useState(false);
     const classes = useStyles();
+
+
+    
+
+      let location = useLocation();
+
+      React.useEffect(() => {
+        // ga.send(["pageview", location.pathname]);
+        // console.log('dsssss',location.pathname.split('/').pop());
+        const headTitleCur = location.pathname.split('/').pop();
+        if (headTitleCur === 'stats'){
+          setHeaderTitle('Главная страница')
+        }else if (headTitleCur === 'ogh'){
+          setHeaderTitle('События')
+        }else if (headTitleCur === 'objs'){
+          setHeaderTitle('Объекты')
+        }else if (headTitleCur === 'users'){
+          setHeaderTitle('Пользователи')
+        }
+      }, [location]);
+    
 
     const handleDrawerOpen = () => { setOpen(true); };
     const handleDrawerClose = () => { setOpen(false); };
@@ -144,7 +171,7 @@ const Header = ({currentUser}) => {
            <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          Главная страница
+            {headerTitle}
           </Typography>
           {/* <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

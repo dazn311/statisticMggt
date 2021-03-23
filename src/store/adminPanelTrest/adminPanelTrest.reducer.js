@@ -1,5 +1,5 @@
 import ORGANIZATIONS_DATA from './adminPanelTrest.data';
-import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage} from './adminPanelTrest.types';
+import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage} from './adminPanelTrest.types';
 // import { fetchDataUsersOnline } from './adminPanelTrest.actions';
   
 const INITIAL_STATE = {
@@ -32,6 +32,9 @@ const INITIAL_STATE = {
     usersEndGraphOfStaticPage: ORGANIZATIONS_DATA.usersEndGraphOfStaticPage,// for GraphOfStaticPage
     users: ORGANIZATIONS_DATA.Users,// for UsersPage
     allUsersOfDB: ORGANIZATIONS_DATA.allUsersOfDB,// for UsersPage
+    objs: ORGANIZATIONS_DATA.objs,// for Objects Page
+    objsInfo: ORGANIZATIONS_DATA.objsInfo,// for Objects Page
+    objRect: ORGANIZATIONS_DATA.objRect,// for Objects Page
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -128,6 +131,15 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataUsersPage.FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE:
                 return {...state, allUsersOfDB: action.payload};
+
+        case FetchDataObjsPage.FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE:
+                // let ob = state.objs.concat(action.payload) ;
+                return {...state, objs: action.payload}; 
+        case FetchDataObjsPage.FETCH__OBJSINFO_TO_LOCAL_DB_FOR_OBJS_PAGE:
+                return {...state, objsInfo: action.payload};   
+
+        case FetchDataObjsPage.FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE:
+                return {...state, objRect: action.payload};   
 
 
         default:

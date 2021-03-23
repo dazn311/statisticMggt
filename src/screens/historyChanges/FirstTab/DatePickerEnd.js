@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const initional = () => {
     let newDate = new Date();//.toISOString().split('T')[0];
+    //console.log('newDate',newDate); //2021-03-13T23:54:10.763Z // Sun Mar 14 2021 02:55:04 GMT+0300 (Moscow Standard Time)
     return newDate.toISOString().split('T')[0];
 }
 
@@ -34,14 +35,14 @@ const DatePickers =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchF
 
 
   useEffect(() => {
-    setDataEndforFetchEvents(Data + 'T22:00:00.000Z');
+    setDataEndforFetchEvents(Data + 'T23:58:00.000Z');
   }, [setDataEndforFetchEvents, Data]);
  
   const setDate = (e) => {
     const eT = e.target.value.toString();
     // console.log('eT',eT);
     // setData(eT);
-    let endDate   = eT + 'T22:00:00.000Z';//new Date(eT).toISOString();
+    let endDate   = eT + 'T23:59:00.000Z';//new Date(eT).toISOString();
 
     setDataEndforFetchEvents(endDate);
 

@@ -7,12 +7,11 @@ import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
 import TabOGH from './TabOGH';
 
-// import Title from './Title';
 
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3), 
   },
   datePick: {
     display: 'flex',
@@ -31,15 +30,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Orders() {
   const [searchValue, setsearchValue] = useState('');
-  const [fieldValue, setFieldValue] = useState('nameEvent');
+  const [fieldValue, setFieldValue] = useState('nameEvent'); // this default field for search
+  
   const classes = useStyles();
 
   const setSearchText = useCallback((val) => {setsearchValue(val)},[]);
   const setField = useCallback((val) => {setFieldValue(val)},[]);
-  // console.log('rerender Tab1');
   return (
     <React.Fragment>
-      {/* <Title>Общая статистика по событиям</Title> */}
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
                 <SearchPanel setField={setField} setSearchText={setSearchText}/>
@@ -51,4 +49,4 @@ export default function Orders() {
       </div>
     </React.Fragment>
   );
-}
+} 

@@ -50,7 +50,7 @@ const AuthPage = ({currentUser}) => {
     const setUserCurrent = ({username, password}) => {
         postData('http://176.53.160.74:1000/login', {username:username, password: password})
             .then((status) => {
-                console.log('status.ok', status.ok);
+                // console.log('status.ok', status.ok);
                 if (status.ok){
                     setState({username: username});
                     localStorage.setItem('loginMGGT-status',status.ok);

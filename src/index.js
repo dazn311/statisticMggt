@@ -10,11 +10,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
   
 ReactDOM.render( 
+  <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
           <App />
       </PersistGate>
-    </Provider>,
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

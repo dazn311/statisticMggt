@@ -109,7 +109,7 @@ export const selectAmountToTreeDaysOGH = createSelector(
 
 export const selectEventShortPoints = createSelector( 
     getSelectPoints,
-    adminPanel => adminPanel.eventShortPoints
+    adminPanel => adminPanel.eventShortPoints.data.nodes 
 )
 
 
@@ -147,12 +147,21 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
     getSelectPoints,
     adminPanel => adminPanel.users
 ) 
-
+ 
 /// UsersTab
  export const selectAllUsersFromDb = createSelector( 
     getSelectPoints,
     adminPanel => adminPanel.allUsersOfDB
 ) 
+ //////////////////////////////////////////////////// 
+ //////////////////////////////////////////////////// 
+  
+ 
+/// ObjsTab
+//  export const selectAllUsersFromDb = createSelector( 
+//     getSelectPoints,
+//     adminPanel => adminPanel.allUsersOfDB
+// ) 
  //////////////////////////////////////////////////// 
  //////////////////////////////////////////////////// 
   

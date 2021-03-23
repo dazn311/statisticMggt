@@ -272,25 +272,6 @@ const ORGANIZATIONS_DATA = {
     bnd_change_obj:'grey',
   
   },
-  eventShortPoints: // for tab bottom and page statistics
-    {
-      dataTime: "2021-01-26T02:00:00.000Z",
-      amount:   10,
-      data: {
-        nodes: [
-          {
-            type: 'new_rec',  
-            text: 'Создание нового события на объекте Mocke',
-            date: "2021-01-26T02:00:00.000Z", 
-            user: {
-              userID: 14,  
-              username: 'Томайлов А.В.'  
-            }
-            
-          },
-        ],
-      },
-    },
   eventPoints: 
     [{
       rec_id: 0,
@@ -413,7 +394,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    endEventsGraphOfStaticPage: //events/amount
+  endEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -423,7 +404,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    denyEventsGraphOfStaticPage: //events/amount
+  denyEventsGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -433,7 +414,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    usersOnlineGraphOfStaticPage: //events/amount
+  usersOnlineGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -443,7 +424,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    newMessageGraphOfStaticPage: //events/amount
+  newMessageGraphOfStaticPage: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -453,7 +434,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-    usersNewGraphOfStaticPage: //for statics page to third tab 
+  usersNewGraphOfStaticPage: //for statics page to third tab 
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -463,7 +444,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersDelGraphOfStaticPage: //for statics page to third tab
+  usersDelGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -473,7 +454,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersBlockGraphOfStaticPage: //for statics page to third tab
+  usersBlockGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -483,7 +464,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    usersEndGraphOfStaticPage: //for statics page to third tab
+  usersEndGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -493,7 +474,35 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-
+    objs: [], 
+    objsInfo: [],
+  // objs: {
+      
+      
+      
+  // data:{objects:[{objID: 77750985, organization: {orgname: 'df'},objType: '22',objName: "!!test 1-й Вешняковский пр. до тупика"}]}},
+  // data:{objects:[{objID: 77750985, organization: {orgname: 'df'},objType: '22',objName: "!!test 1-й Вешняковский пр. до тупика"}]}},
+    // objs:  {data:{objects:{}}},
+    // [
+      // {
+      //   districtID: 13,
+      //   districtName: 13,
+      //   objAsuID: 13,
+      //   objCreationDate: 13,
+      //   objEditDate: 13,
+      //   objID: 13,
+      //   objName: 13,
+      //   objOwn: 13,
+      //   objRelatives: [
+      //     {0:7391}
+      //   ],
+      //   objStatus: 13,
+      //   objType: 13,
+      //   organization: {orgID: 172, orgname: "ГБУ 'Жилищник Рязанского района'"},
+      // },
+    // ],
+  objRect: {data:{recs:[]}},
+  eventShortPoints:{data:{nodes:[]}}, 
   };
 
   

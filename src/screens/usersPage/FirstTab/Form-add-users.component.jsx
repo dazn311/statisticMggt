@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
  
 
-const initanalState = {user_fio:"Матвеев Владимир Олегович",login:"matvey",password:"1234",user_fio_lit:"Матвеев В.О."};
+const initanalState = {user_fio:" ",login:" ",password:" ",user_fio_lit:" "};
 ////////////////////////////////////////////////////
 
 const FormUsersAddToDb = ({appendUser}) => {
@@ -94,7 +94,7 @@ const FormUsersAddToDb = ({appendUser}) => {
       </div>
       <div>
       <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text" variant="filled" value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
-      <Button onClick={saveData} className={classes.btnSb} variant="contained" color="primary">
+      <Button onClick={()=>{saveData()}} className={classes.btnSb} variant="contained" color="primary">
         Сохранить
       </Button>
       

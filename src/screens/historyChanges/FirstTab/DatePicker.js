@@ -37,17 +37,18 @@ const DatePickers =({setDataStartforFetchEvents, fetchEventFromPeriod,dataOfFetc
   useEffect(() => {
     setDataStartforFetchEvents(new Date(Data).toISOString());
     // console.log('useEffect setDataStartforFetchEvents');
-  }, []);
+  }, [setDataStartforFetchEvents,Data]);
  
-  const setDateOnBlur = (e) => {
+  const setDateOnBlur = async(e) => {
     const eT = e.target.value.toString();
-    // console.log('eT',eT);
+    console.log('eT',eT);
     // setData(eT);
-    setDataStartforFetchEvents(new Date(eT).toISOString());
+    await setDataStartforFetchEvents(new Date(eT).toISOString());
 
     let endDate   = dataOfFetchForEventShort.endDate;
     let startDate = new Date(eT).toISOString();
-    // console.log('endDate',endDate);
+    console.log('startDate',startDate);
+    console.log('endDate',endDate);
     fetchEventFromPeriod(startDate, endDate);
   }
 
@@ -74,7 +75,7 @@ const mapStateToProps = createStructuredSelector ({
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  // Для 
+  // Для  
   setDataStartforFetchEvents: (startDate) => dispatch(dataStartforFetchEventsForPeriod(startDate)),
   fetchEventFromPeriod: (start, end) => dispatch(fetchEventFromPeriodAsync(start, end)),
 });  

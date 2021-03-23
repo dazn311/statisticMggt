@@ -6,10 +6,12 @@ import moment from 'moment/moment';
 // import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+
+
 import Title from './Title';
 
 import { selectAmountOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-
+ 
 const useStyles = makeStyles({
   depositContext: {
     flex: 1,
@@ -36,7 +38,7 @@ const Deposits = ({ amountOGH }) => {
   return (
     <React.Fragment>
       {/* <Title>Количество ОГХ ({moment(amountOGH.data.objTotal).format("dddd, MMM DD at HH:mm a")})</Title> */}
-      <Title>Количество ОГХ ({amountOGH.data.objTotal})</Title>
+      <Title>Количество ОГХ <span style={{color:'red',fontSize:12}}>(Всего: {amountOGH.data.objTotal})</span></Title>
       <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
       <Typography component="p" variant="h4">
         {amountOGH.data.objMgtt}

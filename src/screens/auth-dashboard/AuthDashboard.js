@@ -16,7 +16,7 @@ import Link from '@material-ui/core/Link';
 // import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 // import { mainListItems, secondaryListItems } from './listItems';
-import Header from '../../components/header/header.component';
+// import Header from '../../components/header/header.component';
  
 import Auth from '../../components/auth/auth.component';
 
@@ -135,7 +135,7 @@ export default function AuthDashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header />
+      {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Auth />

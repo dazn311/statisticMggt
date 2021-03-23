@@ -1,4 +1,5 @@
 import { UserActionTypes } from './user.types';
+// import { FetchData } from '../adminPanelTrest/adminPanelTrest.types';
 import { FetchData } from '../adminPanelTrest/adminPanelTrest.types';
 import axios from "axios";
 
@@ -91,16 +92,16 @@ export const fetchCurrentUserAsync = (id)  => {
 // Для страницы 2 отчетов "tab 3"
 export const fetchCurrentUserAsyncOld = (id)  => {
   
-  return (dispatch) => {
-    // postData(`http://localhost:3003/api/users/${id}`, {id:id})
-    console.log('fetchCurrentUserAsync start',id);
-    postData('http://localhost:3003/api/users', {'id':id})
-      .then((user) => {
-        return user.text();
-        // console.log('fetchCurrentUserAsync user',js);
-          // dispatch(setCurrentUser(user.name))
-        })
-        .then(data => dispatch(setCurrentUser(data.name)))
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  };
+  // return (dispatch) => {
+  //   // postData(`http://localhost:3003/api/users/${id}`, {id:id})
+  //   console.log('fetchCurrentUserAsync start',id);
+  //   postData('http://localhost:3003/api/users', {'id':id})
+  //     .then((user) => {
+  //       return user.text();
+  //       // console.log('fetchCurrentUserAsync user',js);
+  //         // dispatch(setCurrentUser(user.name))
+  //       })
+  //       .then(data => dispatch(setCurrentUser(data.name)))
+  //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  // };
 };

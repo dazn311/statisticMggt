@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
-import Header from '../../components/header/header.component';
+// import Header from '../../components/header/header.component';
 import TabMenu from './TabMenu'
 
 import './usersPage.styles.scss';
@@ -86,7 +86,7 @@ export default function UsersPage({eventShortPoints}) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header />
+      {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
