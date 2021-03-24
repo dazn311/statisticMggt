@@ -119,7 +119,7 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
             <TableCell align="right">Балансодержатель</TableCell>
             <TableCell align="right">Тип</TableCell>
             <TableCell align="right">Количество событий</TableCell>
-            {/* <TableCell align="right">Принадлежит</TableCell> */}
+            <TableCell align="right">Принадлежит</TableCell>
             <TableCell align="right">Дата создания</TableCell>
           </TableRow>
         </TableHead>
@@ -135,7 +135,7 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
               <TableCell align="right">{row.organization.orgname}</TableCell>
               <TableCell align="right">{row.objType}</TableCell>
               <TableCell align="right">{row.objRecsAmount}</TableCell>
-              {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
+              <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell>
               <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.objCreationDate)) }</TableCell> 
                
             </TableRow>

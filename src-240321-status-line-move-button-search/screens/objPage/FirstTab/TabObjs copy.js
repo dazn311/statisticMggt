@@ -1,5 +1,5 @@
 'strick'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import _ from "lodash";
 
 import { connect } from 'react-redux';
@@ -24,8 +24,8 @@ import MessAlert from './Messages.alert';
 // import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
-  
+import { selectObjsPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
+ 
 import EventDetail from './EventDetail';
  
 const useStyles = makeStyles({
@@ -38,9 +38,9 @@ const useStyles = makeStyles({
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObjsValue }) => {
+const TabObjs = ({ tabValue, isOpenD=true, rowsPerPage, setRowsPerPage,setPageT,offset,amObjsValue }) => {
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   // const [setPage] = React.useState(0);
   const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false);
@@ -50,14 +50,6 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
   // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
   // console.log('TabObjs -- page',page);
 
-  useEffect(() => {
-    console.log('TabObjs --offset',offset);
-    if (offset === '0'){
-      setPage(1);
-    }
-    
-  },[offset])
-
   const classes = useStyles();
    
   const handleChangePage = (event, newPage) => {
@@ -66,23 +58,23 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
       setPageT(newPage);
       setPage(newPage);
    // }
-     
-    console.log('handleChangePage --newPage',newPage);
+    
+    // console.log('handleChangePage --newPage',newPage);
     // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
   }; 
 
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  //   // console.log('handleChangeRowsPerPage');
-  // };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    // console.log('handleChangeRowsPerPage');
+  };
 
   // для детальной информации
   const closeDetail = () => {
     setIsOpenDetail(false);
   }
-  const showEvents = (row) => {
-    // console.log('showEvents -- row',row);
+  const printUserId = (row) => {
+    // console.log('printUserId -- row',row);
 
     // if (row.objRecsAmount){
       setOrgName(row);
@@ -119,7 +111,7 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
             <TableCell align="right">Балансодержатель</TableCell>
             <TableCell align="right">Тип</TableCell>
             <TableCell align="right">Количество событий</TableCell>
-            {/* <TableCell align="right">Принадлежит</TableCell> */}
+            <TableCell align="right">Принадлежит</TableCell>
             <TableCell align="right">Дата создания</TableCell>
           </TableRow>
         </TableHead>
@@ -127,7 +119,7 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
           {tabValue
           // .filter((row,i) => i < 16)
           .map((row, index) => (
-            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
+            <TableRow key={index} onClick={()=> { printUserId(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
               <TableCell component="th" scope="row">
                 {row.objName}
@@ -135,7 +127,7 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
               <TableCell align="right">{row.organization.orgname}</TableCell>
               <TableCell align="right">{row.objType}</TableCell>
               <TableCell align="right">{row.objRecsAmount}</TableCell>
-              {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
+              <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell>
               <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.objCreationDate)) }</TableCell> 
                
             </TableRow>
@@ -143,8 +135,27 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
         </TableBody>
            
       </Table>
-      <div style={{display:'flex',margin: 18}}> 
-         <Pagination count={selectObjsInfo.totalPages} page={page} onChange={handleChangePage} color="primary" /> 
+      <div style={{display:'flex'}}>
+        {/* <div style={{alignSelf: 'center',marginLeft:10}}> объектов в таблице: <span style={{color:'red'}}>  {tabValue.length} </span>  </div> */}
+        {/* <ThemeProvider theme={(outerTheme) => createMuiTheme(outerTheme, locales[locale])}> */}
+        <TablePagination
+                rowsPerPageOptions={[15, 25, 40, 1000]}
+                // rowsPerPageOptions={[15, 25, 40, { label: 'Все', value: -1 }]}
+                // colSpan={5}
+                // count={rows.length}
+                count={30}
+                rowsPerPage={rowsPerPage}
+                page={0}
+                SelectProps={{
+                  inputProps: { 'aria-label': 'объектов на странице' },
+                  native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                // ActionsComponent={TablePaginationActions}
+        />
+         <Pagination count={2000} color="primary" />
+        {/* </ThemeProvider> */}
       </div>
      
     </TableContainer>
@@ -157,7 +168,6 @@ const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset,amObj
  
 const mapStateToProps = createStructuredSelector ({
     selectObjs: selectObjsPage, // события короткие данные для таблицы
-    selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });
   

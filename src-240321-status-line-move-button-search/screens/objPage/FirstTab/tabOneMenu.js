@@ -6,15 +6,13 @@ import { createStructuredSelector } from 'reselect';
 // import _ from "lodash";
 
 // import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
 // import Grid from '@material-ui/core/Grid';
 // import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 
 import RadioBtnMGGT from '../../../components/radioButtons';
 import RadioBtnIW from '../../../components/radioBtnFow'; 
 import RadioBtnODH from '../../../components/radioBtnODH'; 
-import SelectorMggt from '../../../components/selectorMggt'; 
 
 import DatePicker from './DatePicker';
 import DatePickerEnd from './DatePickerEnd';
@@ -23,7 +21,7 @@ import SearchPanel from './SearchPanel';
 import TabObjs from './TabObjs';
 import StateElements from './stateElements';
 
-
+import Button from '@material-ui/core/Button';
 
   
   
@@ -116,17 +114,15 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   // const [rowsPerPage, setRowsPerPage] = React.useState(15);
   // 19.03.21
   //objectType='2', organization='0', limit='100' , offset='0', startDate='01-01-2021', endDate='21-03-2021', objName='A',  orgName='' , objKind='' , objStatus=10, sortCol='date' , sortType='desc'
-  const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
+  const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
   const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
 
   const classes = useStyles();
 
-  const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
+  const valueForBtnMggt = {other:'0',mggt:'1',all:'2'};
   // const valueForBtnOgh = {other:'ОДХ',mggt:'ОО',all:'ДТ'};
-  const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
-  // const valueForBtnInWork = {newIW:'0',rabIW:'1',endIW:'2',all:'10'};
-  const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
-  // const valueForBtnOgh = {newIW:'ОДХ',rabIW:'ОО',endIW:'ДТ',all:''};
+  const valueForBtnInWork = {newIW:'0',rabIW:'1',endIW:'2',all:'10'};
+  const valueForBtnOgh = {newIW:'ОДХ',rabIW:'ОО',endIW:'ДТ',all:''};
 
  
   console.log('TabOneMenu -- offsetSt',offsetSt);
@@ -144,9 +140,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
       newOffset = (val - 1) * parseInt(stFilterVal.limit);
       newOffset = newOffset.toString();
       // setStFilterVal({...stFilterVal, offset:  newOffset.toString() })
-      let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-      fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, '15', newOffset, stFilterVal.dateStart, stFilterVal.dateEnd, stFilterVal.objName, stFilterVal.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
-      console.log('TabOneMenu -- 1 fetchObjectsList -- newAllKind:',newAllKind);
+      fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, '15', newOffset, stFilterVal.dateStart, stFilterVal.dateEnd, stFilterVal.objName, stFilterVal.orgName,  stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
+      console.log('TabOneMenu -- 1 fetchObjectsList -- val',val);
     // }
     setOffsetSt(val.toString());
 
@@ -176,9 +171,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
     const limitPlus = stFilterVal.limit;
     setOffsetSt('0');
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterVal.objName, stFilterVal.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
-    console.log('TabOneMenu -- 2 newAllKind:',newAllKind);
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterVal.objName, stFilterVal.orgName,  stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
+    console.log('TabOneMenu -- 2 fetchObjectsList');
   }, [stFilterVal])
 
 
@@ -191,9 +185,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     const limitPlus = stFilterVal.limit ;
     // setOffsetSt(0);
     // (objectType='2', organization='0', limit='100' , offset='0', startDate='01-01-2021', endDate='21-03-2021', objName='',  orgName='', objType="ОО" , objKind='' , objStatus=10, sortCol='date' , sortType='desc')
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
-    console.log('TabOneMenu -- 3 fetchObjectsList newAllKind:',newAllKind);
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName,  stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
+    console.log('TabOneMenu -- 3 fetchObjectsList');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[fetchObjectsList, stFilterVal.objectType, stFilterVal.organization,  stFilterVal.dateStart, stFilterVal.dateEnd, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType]);
   
@@ -218,16 +211,14 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
     const limitPlus = stFilterVal.limit;
     setOffsetSt('0');
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName,  stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
     console.log('TabOneMenu -- 4  fetchObjectsList');
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]); 
 
  
   const setRadioValue = useCallback((val) => {setStFilterVal({...stFilterVal, objectType: val, offset: '0' } );console.log('radObjOwnMggt :',val)},[stFilterVal]);
-  const setRadioValInWork = useCallback((val) => {setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );console.log('radObjStatusInWork :',val)},[stFilterVal]);
   const setRadioValOdh = useCallback((val) => {setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );console.log('objKind :',val)},[stFilterVal]);
-  // const setRadioValOdh = useCallback((val) => {setStFilterVal({...stFilterVal, objKind: val === 'allKind' ? '' : val, offset: '0' } );console.log('objKind :',val)},[stFilterVal]);
+  const setRadioValInWork = useCallback((val) => {setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );console.log('radObjStatusInWork :',val)},[stFilterVal]);
 
   const setSearchTextObj = useCallback((val) => {setStFilterSearch({...stFilterSearch, objName: val, offset: '0' } );console.log('stFilterSearch objName :',val)},[stFilterSearch]);
   const setSearchTextOrg = useCallback((val) => {setStFilterSearch({...stFilterSearch, orgName: val, offset: '0' } );console.log('stFilterSearch orgName :',val)},[stFilterSearch]);
@@ -237,7 +228,6 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   
   // const setRadioValInWork = useCallback((val) => {setRadioValIW(val);console.log('setRadioValInWork :',val)},[]);
       
-  const valueItems = {val:10, smeg: 'смежные'};
   return ( 
     <React.Fragment>
        {/* <pre>{JSON.stringify(stFilterVal, null, 2)} </pre> */}
@@ -247,17 +237,13 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
         <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} /> 
             <div  style={{display:'flex', flexWrap:'nowrap'}}  >
-            {/* {valueItems, setType, type=30}// valueItems 10 Смежные МГГТ  Все */}
-              <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}  />
-              {/* <RadioBtnMGGT  defaultVal={stFilterVal.objectType} setRadioValue={setRadioValue} valueForButtons={valueForBtnMggt} /> */}
+              <RadioBtnMGGT  defaultVal={stFilterVal.objectType} setRadioValue={setRadioValue} valueForButtons={valueForBtnMggt} />
             </div>
             <div  style={{display:'flex', flexWrap:'nowrap'}}  >
-              <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
-              {/* <RadioBtnIW   defaultVal={stFilterVal.objStatus}  setRadioValueIW={setRadioValInWork}  valueForButtons={valueForBtnInWork}   /> */}
+              <RadioBtnIW   defaultVal={stFilterVal.objStatus}  setRadioValueIW={setRadioValInWork}  valueForButtons={valueForBtnInWork}   />
             </div>
             <div  style={{display:'flex', flexWrap:'nowrap'}}  >
-            <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
-              {/* <RadioBtnODH   defaultVal={stFilterVal.objKind}  setRadioValue={setRadioValOdh}  valueForButtons={valueForBtnOgh}   /> */}
+              <RadioBtnODH   defaultVal={stFilterVal.objKind}  setRadioValue={setRadioValOdh}  valueForButtons={valueForBtnOgh}   />
             </div>
             <div  style={{display:'flex', flexWrap:'wrap',margin:'4px 8px'}}  >
               <DatePicker setDateStart={setDateStart} /> 
