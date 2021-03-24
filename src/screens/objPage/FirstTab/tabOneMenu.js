@@ -172,12 +172,12 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   
   useEffect(() => {
 
-    // const startDate = new Date(stFilterVal.dateStart).toISOString();
-    // const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    // const limitPlus = stFilterVal.limit;
+    const startDate = new Date(stFilterVal.dateStart).toISOString();
+    const endDate = new Date(stFilterVal.dateEnd).toISOString();
+    const limitPlus = stFilterVal.limit;
     setOffsetSt('0');
-    // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterVal.objName, stFilterVal.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
+    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterVal.objName, stFilterVal.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
     console.log('TabOneMenu -- 2 newAllKind:');
   }, [stFilterVal])
 
