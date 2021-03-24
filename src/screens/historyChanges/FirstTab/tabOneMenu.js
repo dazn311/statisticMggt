@@ -7,7 +7,7 @@ import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
 import TabOGH from './TabOGH';
 
-
+ 
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -15,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
   datePick: {
     display: 'flex',
+    flexWrap:'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: 'rgba(0, 0, 0, 0.87)', 
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     backgroundColor: '#fff',
     padding: '10px',
@@ -40,9 +41,15 @@ export default function Orders() {
     <React.Fragment>
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
+              {/* <div style={{display:'flex'}}> */}
                 <SearchPanel setField={setField} setSearchText={setSearchText}/>
+              {/* </div> */}
+              {/* <div style={{display:'flex'}}> */}
                 <DatePicker />
                 <DatePickerEnd />
+              {/* </div> */}
+                
+                
             </div>
         
             <TabOGH fieldValue={fieldValue} searchValue={searchValue}/>

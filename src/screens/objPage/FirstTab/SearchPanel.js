@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 // import Select from '@material-ui/core/Select';
 // import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export default function SearchPanel({setSearchTextObj, setSearchTextOrg, fetchSearchObj}) {
+export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   const classes = useStyles();
 
   const [filterObj, setFilterObj] = React.useState('');
@@ -76,12 +76,12 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg, fetchSe
     setSearchTextOrg(event.target.value); 
   };
 
-  const fetchSearchObjHandle = useCallback(() => {fetchSearchObj()},[fetchSearchObj]);
+  // const fetchSearchObjHandle = useCallback(() => {fetchSearchObj()},[fetchSearchObj]);
 
   // const fetchSearchObjHandle = () => {fetchSearchObj()};
 
   return (
-    <div style={{ display:'flex', alignItems:'center'}}>
+    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center'}}>
       <FormControl className={classes.margin}>
         <BootstrapInput id="input-obj" placeholder='Поиск по объектам' value={filterObj} onChange={handleFilterObj}/>
        
@@ -90,9 +90,10 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg, fetchSe
       <FormControl className={classes.margin}>
         <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по организациям' value={filterOrg} onChange={handleFilterOrg}/>
       </FormControl>
-      <Button onClick={fetchSearchObjHandle} style={{height: '43px'}} variant="contained" color="primary">
+      
+        {/* <Button onClick={fetchSearchObjHandle} style={{height: '43px'}} variant="contained" color="primary">
           Запрос в бд
-        </Button>
+        </Button> */}
     </div>
   );
 }

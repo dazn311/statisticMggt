@@ -22,12 +22,12 @@ const MainListItems = ( {location} ) => (
       </ListItemIcon>
       <ListItemText primary="Главная" />
     </MenuItem>
-    <MenuItem  component={Link} to="/stats/ogh"  selected={location.pathname === '/stats/ogh'}>
+    {/* <MenuItem  component={Link} to="/stats/ogh"  selected={location.pathname === '/stats/ogh'}>
       <ListItemIcon>
         <HistoryChange />
       </ListItemIcon>
       <ListItemText primary="Таблица ОГХ" />
-    </MenuItem>
+    </MenuItem> */}
       
     <MenuItem  component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
       <ListItemIcon>

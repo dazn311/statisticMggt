@@ -362,7 +362,7 @@ export const fetchAmountOGHToWeekAsync = () => {
 // Для нежней таблицы "новых событий"
 export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
-    postData('https://ismggt.ru/query/events/last/short', {limit:120})
+    postData('https://ismggt.ru/query/events/last/short', {limit:11120})
       .then((eventss) => {
         // console.log('fetchEventsPointShortAsync -- eventss',eventss);
         dispatch(putEventsPointShort(eventss));
@@ -394,7 +394,7 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 }; 
-
+ 
 
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
@@ -627,6 +627,7 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 
   console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType);
   console.log('fetchObjectsListAsync run: objName, orgName', objName, orgName);
+  console.log('fetchObjectsListAsync run:  offset', offset);
   // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate,endDate);
 
   //{"objectType":"2", "organization":"0", "limit":"100" , "offset":"100", "startDate":"2021-02-19T22:00:00.000Z", "endDate":"2021-03-19T22:00:00.000Z", "objName": "", "orgName": "", "objType": "ОО","objKind":"","objStatus": "10", "sortCol":"date","sortType":"desc"}
@@ -636,7 +637,7 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 
     // postData('https://ismggt.ru/query/objects/list', {objectType:objectType})  
       .then((eventss) => {
-        console.log('fetchObjectsListAsync then: ',eventss);
+        console.log('77 fetchObjectsListAsync then: ',eventss);
         dispatch(setObjForObjsPage(eventss));
         dispatch(setObjForObjsInfoPage(eventss));
       })
@@ -650,14 +651,14 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 // Адрес: https://ismggt.ru/query/object/recs/list
  
 export const fetchObjRectListAsync = (objectID, limit=60, offset=0) => {
-  console.log('fetchObjRectListAsync run: ',objectID,limit, offset);
+  // console.log('fetchObjRectListAsync run: ',objectID,limit, offset);
   return (dispatch) => { 
         
     //'2021-02-03T22:00:00.000Z'
     // postData('https://ismggt.ru/query/objects/list', {objectType:objectType 5799, organization:organization, limit:60, offset: offset}) 
     postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:60, offset:offset})  
       .then((eventss) => {
-        console.log('fetchObjRectListAsync then: ',eventss);
+        // console.log('fetchObjRectListAsync then: ',eventss);
         dispatch(setObjForObjRectPage(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));

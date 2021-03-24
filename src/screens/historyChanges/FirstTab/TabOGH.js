@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-
+  
 import MessAlert from './Messages.alert'
  
 import { fetchEventFromPeriodAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
@@ -85,7 +85,8 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
 
   const handleChangeRowsPerPage = (event) => {
     // setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(parseInt(event.target.value, 10));
+    setPage(0);
+    setRowsPerPage(parseInt(event.target.value, 10));
   };
 
   const printUserId = (e) => {

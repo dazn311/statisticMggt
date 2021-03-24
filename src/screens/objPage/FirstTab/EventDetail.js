@@ -65,7 +65,7 @@ const formatDate = (dateStr='2021-03-02T20:23:10.000Z') => {
   }
   
   // return  dateStr.split('T')[1].slice(0,5) + '  (' + dateStr.split('T')[0] + ')';
-  console.log('dateStr',dateStr);
+  // console.log('dateStr',dateStr);
   return  '2021-03-12T20:23:10.000Z';
 }
   
@@ -100,7 +100,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
     // handleClose();
   }; 
 
-  // console.log('rere -- EventDetail');
+  // console.log('rere -- EventDetail -- selectObjRect'.selectObjRect); // undefined
 
   useEffect(() => {
   
@@ -114,21 +114,26 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
    
 
 
-   if( !selectObjRect ) {
-    return (<span>loading</span>)
-   } 
-   if( !orgRow ) {
-    return (<span>loading</span>)
-   } 
+  //  if( !selectObjRect ) {
+  //   console.log('!selectObjRect');
+  //   return (<span>loading</span>)
+  //  } 
+  //  if( !orgRow ) {
+  //   console.log('!orgRow');
+  //   return (<span>loading</span>)
+  //  } 
 
    let orgN = '';
    let objN = '';
    if (orgRow){
+    // console.log('orgRow 222');
      if(orgRow.objName){
+      // console.log('orgRow.objName');
       objN = orgRow.objName;
      }
      
      if(orgRow.organization){
+      // console.log('orgRow.organization');
        if(orgRow.organization.orgname){
         orgN = orgRow.organization.orgname;
        }
@@ -171,7 +176,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                       {userDataS && userDataS
                       // .filter(userKey => (userKey !== 'id' && userKey !== 'password'))
                       .map((rec,index) => (
-                        <ListItem  button onClick={() => selectEvent(index)} key={index}   style={{borderBottom:'1px solid grey', backgroundColor: index === currentIdEvent && 'gold', color: rec.rec_taken ? 'blue':'red'}}   > {rec.rec_name}</ListItem>
+                        <ListItem  button onClick={() => selectEvent(index)} key={index}   style={{borderBottom:'1px solid grey', backgroundColor: index === currentIdEvent && 'rgb(123 119 119 / 11%)', color: rec.rec_taken ? 'blue':'red'}}   > {rec.rec_name}</ListItem>
                         // <li key={rec.rec_id} id={index} data-objectID={rec.rec_id}  className="list-group-item">{rec.rec_name} onClick={selectEvent} </li>
                       ))} 
                     </List>
@@ -191,15 +196,18 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                             </tr> */}
                             <tr>
                                 <td  style={{color:'grey'}}>Дата создания</td>
-                                <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? formatDate(userDataS[currentIdEvent].rec_date) : '16.01.21'}</td>
+                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? formatDate(userDataS[currentIdEvent].rec_date) : '16.01.21'}</td>:'нет данных'}
+                                
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Статус</td>
-                                <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td>
+                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td>:'нет данных'}
+                                {/* <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Тип объекта</td>
-                                <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td>
+                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> :'нет данных'}
+                                {/* <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> */}
                             </tr>
                         </tbody>
                     </table>
@@ -212,7 +220,8 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                         <tbody>
                             <tr>
                                 <td  style={{color:'grey'}}>организация</td>
-                                <td data-objectAccess="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.orgname : 'УК Хорошовская'}</td>
+                                {selectObjRect ? <td data-objectAccess="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.orgname : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectAccess="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.orgname : 'УК Хорошовская'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>статус</td>
@@ -220,16 +229,19 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Адрес</td>
-                                <td data-objectAccess="adres">ул. Хорошовское ш. 22</td>
+                                {selectObjRect ? <td data-objectAccess="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.username : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectAccess="adres">ул. Хорошовское ш. 22</td> */}
                             </tr>
-                            <tr>
-                                <td  style={{color:'grey'}}>Контакты</td>
-                                <td data-objectAccess="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.username : 'УК Хорошовская'}</td>
-                            </tr>
+                            {/* <tr> */}
+                                {/* <td  style={{color:'grey'}}>Контакты</td> */}
+                                {/* <td data-objectAccess="adres">ул. Хорошовское ш. 22</td> */}
+                                {/* {selectObjRect ? <td data-objectAccess="adres">ул. Хорошовское ш. 22</td> :'нет данных'} */}
+                                {/* <td data-objectAccess="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].sender.username : 'УК Хорошовская'}</td> */}
+                            {/* </tr> */}
                         </tbody>
                     </table>
                 </div>
-
+ 
 
                 <div className="admin-list-detail-activeCompany">
                     <div className="admin-list__header header-tab">Организация ответчик события</div>
@@ -239,15 +251,18 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                         <tbody>
                             <tr>
                                 <td  style={{color:'grey'}}>организация</td>
-                                <td data-objectDetailsOtvetchikOrganization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td>
+                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectDetailsOtvetchikOrganization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Объект</td>
-                                <td data-objectDetailsOtvetchikOrganization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td>
+                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectDetailsOtvetchikOrganization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Контакты</td>
-                                <td data-objectDetailsOtvetchikOrganization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td>
+                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> :'нет данных'}
+                                {/* <td data-objectDetailsOtvetchikOrganization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> */}
                             </tr>
                         </tbody>
                     </table>
@@ -265,7 +280,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
           <div style={{display:'flex',flexDirection:'column', alignItems:'flex-start', padding:'4px 15px'}} >
             <p>* красным цветом текст – заявка не взята ни одним оператором МГГТ. синим цветом – заявка была взята в разработку оператором МГГТ</p> 
           </div>
-          <Button onClick={handleSave} color="primary" autoFocus style={{backgroundColor:'#F32DFD'}} >
+          <Button onClick={handleSave} color="primary" autoFocus style={{backgroundColor:'#3f51b5',color: '#fff' }} >
             Закрыть
           </Button>
         </DialogActions>

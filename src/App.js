@@ -22,7 +22,7 @@ function App({fetchCurrentUser}) {
   // useEffect(() => {
   //   // console.log('app fetchCurrentUser');
   //   fetchCurrentUser(2);
-    
+     
   // }, [fetchCurrentUser])
   return (
     <div className="App">

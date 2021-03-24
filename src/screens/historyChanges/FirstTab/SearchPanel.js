@@ -65,7 +65,7 @@ export default function SearchPanel({setSearchText, setField}) {
     // console.log('event.target.value',event.target.value);
   };
   return (
-    <div>
+    <div style={{display:'flex'}}>
       <FormControl className={classes.margin}>
         <InputLabel htmlFor="input-textbox">Поиск</InputLabel>
         <BootstrapInput id="input-textbox" placeholder='поиск..' value={filter} onChange={handleFilter}/>
