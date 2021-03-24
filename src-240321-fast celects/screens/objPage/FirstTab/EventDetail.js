@@ -225,7 +225,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>статус</td>
-                                <td data-objectAccess="status">Представитель Балансодержателя</td>
+                                <td data-objectAccess="status">представитиль баланса содержателя</td>
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Адрес</td>
