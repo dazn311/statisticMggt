@@ -194,9 +194,9 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     //   // console.log('todayEnd 2',todayEnd);
     // }
     
-    console.log('ofs (fetchAll)',ofs);
-    console.log('todayStart (fetchAll)',todayStart);
-    console.log('todayEnd (fetchAll)',todayEnd);
+    // console.log('ofs (fetchAll)',ofs);
+    // console.log('todayStart (fetchAll)',todayStart);
+    // console.log('todayEnd (fetchAll)',todayEnd);
 
     fetchAmountUsers(todayStart,todayEnd);
     fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);

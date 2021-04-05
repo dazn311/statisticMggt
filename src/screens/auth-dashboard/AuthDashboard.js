@@ -26,7 +26,7 @@ import './AuthDashboard.styles.scss';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" component={'span'} color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mggt.ru/">
         МосГеоТрест

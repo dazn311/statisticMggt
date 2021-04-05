@@ -57,57 +57,6 @@ const ORGANIZATIONS_DATA = {
   //     user_org_id: 0,
   //     user_fio_lit: 'Васильев В.М.',
   //     user_last_seen: 0,
-  //   },{
-  //     user_id: 1,
-  //     user_fio: 'Смирнов Дмитрий Михайлович',
-  //     login: '',
-  //     password: '',
-  //     user_status: 1,
-  //     user_active: 1,
-  //     user_role: 2,
-  //     user_reg_date: 152458484848,
-  //     user_end_date: 165454545455,
-  //     user_parent: 0,
-  //     user_child: 2,
-  //     user_perms: 1,
-  //     user_locked: false,
-  //     user_org_id: 0,
-  //     user_fio_lit: 'Смирнов В.М.',
-  //     user_last_seen: 0,
-  //   },{
-  //     user_id: 2,
-  //     user_fio: 'Савельев Петр Михайлович',
-  //     login: '',
-  //     password: '',
-  //     user_status: 1,
-  //     user_active: 1,
-  //     user_role: 2,
-  //     user_reg_date: 152458484848,
-  //     user_end_date: 165454545455,
-  //     user_parent: 0,
-  //     user_child: 2,
-  //     user_perms: 1,
-  //     user_locked: false,
-  //     user_org_id: 0,
-  //     user_fio_lit: 'Савельев В.М.',
-  //     user_last_seen: 0,
-  //   },{
-  //     user_id: 3,
-  //     user_fio: 'Орлов Геннадий Михайлович',
-  //     login: '',
-  //     password: '',
-  //     user_status: 1,
-  //     user_active: 1,
-  //     user_role: 2,
-  //     user_reg_date: 152458484848,
-  //     user_end_date: 165454545455,
-  //     user_parent: 0,
-  //     user_child: 2,
-  //     user_perms: 1,
-  //     user_locked: false,
-  //     user_org_id: 0,
-  //     user_fio_lit: 'Орлов В.М.',
-  //     user_last_seen: 0,
   //   },],
   countUsers: 
     {
@@ -274,54 +223,6 @@ const ORGANIZATIONS_DATA = {
   },
   eventPoints: 
     [{
-      rec_id: 0,
-      rec_obj_id:   2,
-      rec_send_id:   24,
-      rec_recip_id:   24,
-      rec_descrip:   'Расположение дорожных знаков',
-      rec_n:   24,
-      rec_name:   'Дорожные знаки',
-      rec_locat:   '24',// временно не используется
-      rec_status:   2,
-      rec_adres:   '24',// временно не используется
-      rec_date:   2445654654,
-      rec_image:   'image.png',
-      rec_xy:   '55.768510, 37.524506',
-      rec_read:   1,
-      rec_smej_obj_id:   4, 
-    },{
-      rec_id: 1,
-      rec_obj_id:   2,
-      rec_send_id:   24,
-      rec_recip_id:   24,
-      rec_descrip:   'Расположение дорожных знаков',
-      rec_n:   24,
-      rec_name:   'Дорожные знаки',
-      rec_locat:   '24',// временно не используется
-      rec_status:   2,
-      rec_adres:   '24',// временно не используется
-      rec_date:   2445654654,
-      rec_image:   'image.png',
-      rec_xy:   '55.768510, 37.524506',
-      rec_read:   1,
-      rec_smej_obj_id:   4, 
-    },{
-      rec_id: 2,
-      rec_obj_id:   2,
-      rec_send_id:   24,
-      rec_recip_id:   24,
-      rec_descrip:   'Расположение дорожных знаков',
-      rec_n:   24,
-      rec_name:   'Дорожные знаки',
-      rec_locat:   '24',// временно не используется
-      rec_status:   2,
-      rec_adres:   '24',// временно не используется
-      rec_date:   2445654654,
-      rec_image:   'image.png',
-      rec_xy:   '55.768510, 37.524506',
-      rec_read:   1,
-      rec_smej_obj_id:   4, 
-    },{
       rec_id: 3,
       rec_obj_id:   2,
       rec_send_id:   24,
@@ -341,30 +242,6 @@ const ORGANIZATIONS_DATA = {
   ],
   messagesEventPoints: 
     [{
-      msg_id: 0,
-      msg_rec_id:   2,
-      msg_text:   'Эти знаки не принадлежат нашей территории',
-      msg_status:   2,
-      msg_date:   5465464,
-      msg_read:   1,
-      msg_user_id:   2,
-      msg_attch_id:   4,// временно не используется
-      msg_fio:   'Vasilev F.F.',
-      msg_file:   'cart.png',// временно не используется
-      msg_geomet:   '2445654654'
-    },{
-      msg_id: 1,
-      msg_rec_id:   2,
-      msg_text:   'Эти знаки не принадлежат нашей территории',
-      msg_status:   2,
-      msg_date:   5465464,
-      msg_read:   1,
-      msg_user_id:   2,
-      msg_attch_id:   4,// временно не используется
-      msg_fio:   'Vasilev F.F.',
-      msg_file:   'cart.png',// временно не используется
-      msg_geomet:   '2445654654'
-    },{
       msg_id: 2,
       msg_rec_id:   2,
       msg_text:   'Эти знаки не принадлежат нашей территории',
@@ -474,6 +351,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
+    objCurrent: {}, 
     objs: [], 
     objsInfo: [],
   // objs: {

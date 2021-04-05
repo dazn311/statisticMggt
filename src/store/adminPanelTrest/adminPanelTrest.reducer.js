@@ -34,6 +34,7 @@ const INITIAL_STATE = {
     allUsersOfDB: ORGANIZATIONS_DATA.allUsersOfDB,// for UsersPage
     objs: ORGANIZATIONS_DATA.objs,// for Objects Page
     objsInfo: ORGANIZATIONS_DATA.objsInfo,// for Objects Page
+    objCurrent: ORGANIZATIONS_DATA.objCurrent,// for Objects Page
     objRect: ORGANIZATIONS_DATA.objRect,// for Objects Page
     currentPointId: 1,
     isFetchingUserOnline: false,
@@ -140,6 +141,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataObjsPage.FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE:
                 return {...state, objRect: action.payload};   
+
+        case FetchDataObjsPage.FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE:
+                return {...state, objCurrent: action.payload};          
 
 
         default:

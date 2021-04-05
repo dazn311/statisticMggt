@@ -1,5 +1,5 @@
 'strick'
-import React, {useEffect}  from 'react';
+import React  from 'react';
 import _ from "lodash";
 
 import { connect } from 'react-redux';

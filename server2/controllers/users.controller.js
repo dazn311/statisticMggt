@@ -30,13 +30,14 @@ class UsersController {
 
     // get http://localhost:3005/api/users
     async getAllUsers0 (req, res) {
-        // console.log(' get http://localhost:3005/api/users',req);
+        console.log(' get http://localhost:3005/api/users',req);
         res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
         res.set('Content-Type', 'application/x-www-form-urlencoded');
-        const users = await db.query('SELECT * FROM users');
+        // const users = await db.query('SELECT * FROM users');
+        const users = await db.query('SELECT * FROM public.mggt_users ORDER BY user_id ASC LIMIT 1000');
         res.json(users.rows);
     } 
-     
+      
     // post http://localhost:3005/api/users
     async getAllUsers (req, res) {
         console.log(' post http://localhost:3005/api/users',req.body.data); 
@@ -50,10 +51,34 @@ class UsersController {
         const userLogin = login;  
         // const users = await db.func('SELECT * FROM getUsers(userLogin,userPassword)',[userLogin,userPassword]);
         // const users = await db.func('getUsers',[login,password]);
-        const users = await db.func('getUsersAll',[userLogin,userPassword]); 
-        console.log('users',users.rows); 
+        // const users = await db.func('getUsersAll',[userLogin,userPassword]); 
+        // SELECT * FROM public.mggt_message
+
+        const users = await db.func('get_users');  // получение всех пользователей
+        // const users = await db.one('SELECT * FROM public.mggt_message',[{limit:2000}]); 
+        // console.log('users',users); 
+        // console.log('users',users.rows); 
+        console.log('users',users.length); 
         res.json(users); 
     }    
+     // post http://localhost:3005/api/users
+    // async getAllUsers (req, res) {
+    //     console.log(' post http://localhost:3005/api/users',req.body.data); 
+    //     res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+    //     res.set('Content-Type', 'application/x-www-form-urlencoded');
+    //     //         	 SELECT id,login, password, user_fio, user_fio_lit FROM users;
+    //     //     userLogin    character varying; -- use an integer variable
+    //     // 	userPassword character varying;
+    //     const {login, password} = req.body.data; 
+    //     const userPassword = password;
+    //     const userLogin = login;  
+    //     // const users = await db.func('SELECT * FROM getUsers(userLogin,userPassword)',[userLogin,userPassword]);
+    //     // const users = await db.func('getUsers',[login,password]);
+    //     // const users = await db.func('getUsersAll',[userLogin,userPassword]); 
+    //     const users = await db.func('get_users'); 
+    //     console.log('users',users.rows); 
+    //     res.json(users); 
+    // }    
      
     // get http://localhost:3005/api/user/2
     async getUser (req, res) {

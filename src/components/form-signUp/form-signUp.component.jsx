@@ -57,7 +57,7 @@ const FormSignUp = ({login='sss',setAuthorization,setUserCurrent,switchForm}) =>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" component={'span'} variant="h5">
         <div style={{textAlign: 'center'}}>Регистрация пользователей</div>
         </Typography>
         <form className={classes.form} noValidate onSubmit={submitLogin}>

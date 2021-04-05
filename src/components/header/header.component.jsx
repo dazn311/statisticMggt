@@ -20,7 +20,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import List from '@material-ui/core/List';
 
 
-import MainListItems from './listItems';
+import MainListItems from './listItems'; 
 
 // import { Link } from "react-router-dom";
 
@@ -134,6 +134,7 @@ const Header = ({currentUser}) => {
         // ga.send(["pageview", location.pathname]);
         // console.log('dsssss',location.pathname.split('/').pop());
         const headTitleCur = location.pathname.split('/').pop();
+
         if (headTitleCur === 'stats'){
           setHeaderTitle('Главная страница')
         }else if (headTitleCur === 'ogh'){
@@ -142,11 +143,14 @@ const Header = ({currentUser}) => {
           setHeaderTitle('Объекты')
         }else if (headTitleCur === 'users'){
           setHeaderTitle('Пользователи')
+        }else if (headTitleCur === 'gen'){
+          setHeaderTitle('Общая статистика')
         }
+        setOpen(false);
       }, [location]);
-    
+     
 
-    const handleDrawerOpen = () => { setOpen(true); };
+    const handleDrawerOpen = () => { setOpen(true); console.log('handleDrawerOpen'); };
     const handleDrawerClose = () => { setOpen(false); };
 
     const sssd = () => {};
@@ -181,13 +185,15 @@ const Header = ({currentUser}) => {
         </Toolbar>
       </AppBar>
       <Drawer
-        // style={{display:'none'}}
+        style={{display:!open && 'none'}}
         variant="permanent"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          // paper: clsx(classes.toolbarIcon, !open && classes.drawerPaperClose),
         }}
         open={open}
       >
+        {/* <div className={classes.toolbarIcon}> */}
         <div className={classes.toolbarIcon}>
         <div style={{marginLeft: '5px', display:'flex'}}>
           <Avatar className={classes.avatar}>
@@ -200,7 +206,7 @@ const Header = ({currentUser}) => {
         </div>
         <Divider />
         <List >
-          <MainListItems sssd={sssd}/>
+          <MainListItems sssd={sssd} open={open} drawerClose={handleDrawerClose} />
         </List>
         <Divider />
         {/* <List>{secondaryListItems}</List> */}

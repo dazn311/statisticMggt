@@ -36,7 +36,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
   const classes = useStyles();
   const [amUsersDate, setAmUsersDate] = useState(0)
   useEffect(() => {
-    // fetchAllUsers(1000);
+    fetchAllUsers(1000);
   }, [fetchAllUsers])
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
       return new Date(element.user_reg_date) > monthDay ;
     });
 
-    const amUsersLength = amUsers.length;
+    const amUsersLength = amUsers && amUsers.length;
     setAmUsersDate({amUsersLength, lastDayVal, weekDayVal,monthDayVal});
     // console.log('amUsersDate -- lastDayVal, weekDayVal,monthDayVal: ',lastDayVal, weekDayVal,monthDayVal);
     // console.log('amUsers length',amUsers.length);
@@ -81,7 +81,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectUsersPage.length > 0 && selectUsersPage
+          {selectUsersPage && selectUsersPage
           .filter(item => item.user_fio !== undefined)
           // .filter(item => item.user_reg_date > new Date("2021-02-17"))
           .map((row, index) => (

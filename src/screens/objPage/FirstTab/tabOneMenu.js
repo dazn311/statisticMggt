@@ -11,9 +11,9 @@ import { createStructuredSelector } from 'reselect';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import RadioBtnMGGT from '../../../components/radioButtons';
-import RadioBtnIW from '../../../components/radioBtnFow'; 
-import RadioBtnODH from '../../../components/radioBtnODH'; 
+// import RadioBtnMGGT from '../../../components/radioButtons';
+// import RadioBtnIW from '../../../components/radioBtnFow'; 
+// import RadioBtnODH from '../../../components/radioBtnODH'; 
 import SelectorMggt from '../../../components/selectorMggt'; 
 
 import DatePicker from './DatePicker';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     '& hr': {
       margin: theme.spacing(0, 0.5),
     },
-    minWidth:1400,
+    // minWidth:1400,
   },
   amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
   seeMore: {
@@ -103,7 +103,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
+  const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
+  const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
+  const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
 
  
 const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
@@ -118,15 +120,13 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   const classes = useStyles();
 
-  const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
-  const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
-  const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
+
  
  
   // console.log('TabOneMenu -- offsetSt',offsetSt);
 
  
-
+ 
   const setPageT = useCallback((val) => {
     // let newOffset;
     //   newOffset = (val - 1) * parseInt(stFilterVal.limit);
@@ -137,7 +137,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
     setOffsetSt(val.toString());
 
-    // fetchSearchObj(val.toString());
+    // fetchSearchObj(val.toString()); 
 
     const startDate = new Date(stFilterVal.dateStart).toISOString();
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
@@ -147,6 +147,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     // let newOffset = '0';
     // if (offset !== '0'){newOffset = offset;}
     let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
     fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
      
 
@@ -168,22 +169,27 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   
    
   
-   
+  // const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
+  // const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику 
   
-  useEffect(() => {
+  // useEffect(() => {
 
-    const startDate = new Date(stFilterVal.dateStart).toISOString();
-    const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    const limitPlus = stFilterVal.limit;
-    setOffsetSt('0');
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterVal.objName, stFilterVal.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
-    console.log('TabOneMenu -- 2 newAllKind:');
-  }, [stFilterVal])
+  //   if (tabValue.length !== 0){
+  //       const startDate = new Date(stFilterVal.dateStart).toISOString();
+  //       const endDate = new Date(stFilterVal.dateEnd).toISOString();
+  //       const limitPlus = stFilterVal.limit;
+  //       setOffsetSt('0');
+  //       let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+  //       // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, '0', startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName,  newAllKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType  )
+  //       console.log('TabOneMenu -- 2 newAllKind:');
+  //   }
+
+    
+  // }, [stFilterVal])
 
 
 
-
+  console.log('TabOneMenu -- rerender:');
 ///////////////////////////////////////////
   // useEffect(() => {
   //   const startDate = new Date(stFilterVal.dateStart).toISOString();
@@ -196,13 +202,9 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   // },[fetchObjectsList, stFilterVal.objectType, stFilterVal.organization,  stFilterVal.dateStart, stFilterVal.dateEnd, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType]);
   
 
-  ///////////////////////////////////////////
-  useEffect(() => {
-       setTabValue(selectObjs); 
-      
-  },[selectObjs]);
 
-  
+
+   
 ///////////////////////////////////////////
   const fetchSearchObj = useCallback((offset) => {
     const startDate = new Date(stFilterVal.dateStart).toISOString();
@@ -213,16 +215,36 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     if (offset !== '0'){newOffset = offset;}
     let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
     fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
-    console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
+    // console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]); 
 
+    ///////////////////////////////////////////
+  useEffect(() => {
+    
+    setTabValue(selectObjs); 
+    
+  },[selectObjs]);
+
+///////////////////////////////////////////
+  useEffect(() => {
+    
+    if ( selectObjs.length < 1){
+      console.log('TabOneMenu -- 444  fetchObjectsList  offset');
+      fetchSearchObj('0');
+    }
+    
+  },[]);
+
  ///////////////////////////////////////////
+//  const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
+//  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
+
   const setRadioValue = useCallback((val) => {setStFilterVal({...stFilterVal, objectType: val, offset: '0' } );console.log('radObjOwnMggt :',val)},[stFilterVal]);
   const setRadioValInWork = useCallback((val) => {setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );console.log('radObjStatusInWork :',val)},[stFilterVal]);
   const setRadioValOdh = useCallback((val) => {setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );console.log('objKind :',val)},[stFilterVal]);
 
-  const setSearchTextObj = useCallback((val) => {setStFilterSearch({...stFilterSearch, objName: val, offset: '0' } );console.log('stFilterSearch objName :',val)},[stFilterSearch]);
-  const setSearchTextOrg = useCallback((val) => {setStFilterSearch({...stFilterSearch, orgName: val, offset: '0' } );console.log('stFilterSearch orgName :',val)},[stFilterSearch]);
+  const setSearchTextObj = useCallback((val) => {setStFilterSearch({...stFilterSearch, objName: val }); setStFilterVal({...stFilterVal, offset: '0' } ); console.log('stFilterSearch objName :',val)},[stFilterSearch,stFilterVal]);
+  const setSearchTextOrg = useCallback((val) => {setStFilterSearch({...stFilterSearch, orgName: val } );  setStFilterVal({...stFilterVal, offset: '0' } ); console.log('stFilterSearch orgName :',val)},[stFilterSearch,stFilterVal]);
 
   const setDateStart = useCallback((val) => {setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );console.log('dateStart :',val)},[stFilterVal]);
   const setDateEnd = useCallback((val) => {setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );console.log('dateEnd :',val)},[stFilterVal]);
@@ -249,6 +271,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
               <DatePicker setDateStart={setDateStart} /> 
             <DatePickerEnd setDateEnd={setDateEnd} /> 
             </div>
+            {/* <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary"> */}
             <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary">
               Поиск
             </Button>

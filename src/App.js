@@ -6,6 +6,11 @@ import {
   Route
 } from "react-router-dom";
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ruRU } from '@material-ui/core/locale';
+
+import Box from '@material-ui/core/Box'; 
+
 import './App.css';
 
 import Header from './components/header/header.component';
@@ -16,6 +21,16 @@ import Dashboard from './screens/dashboard';
 import HistoriesChange from './screens/historyChanges/index'; 
 import UsersPage from './screens/usersPage/index'; 
 import ObjPage from './screens/objPage'; 
+import ObjCard from './screens/objCard'; 
+import GeneralPage from './screens/gen'; 
+import Footer from './components/footer'; 
+ 
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#1976d2' },
+  },
+}, ruRU);
+
 //glav control
 function App({fetchCurrentUser}) {
 //sazonov egor gennadievich
@@ -26,9 +41,9 @@ function App({fetchCurrentUser}) {
   // }, [fetchCurrentUser])
   return (
     <div className="App">
-      
+      <ThemeProvider theme={theme}>
       <Router>
-      <Header />
+        <Header />
         <Switch>
           <Route exact path="/stats">
             <Dashboard /> 
@@ -39,14 +54,26 @@ function App({fetchCurrentUser}) {
           <Route path="/stats/users">
             <UsersPage />
           </Route>
+          <Route path="/stats/objs/:idobj"> 
+            <ObjCard />
+          </Route>
           <Route path="/stats/objs">
             <ObjPage />
           </Route>
+          <Route path="/stats/gen">
+            <GeneralPage />
+          </Route>
+          
           <Route >
             <Dashboard />
           </Route>
         </Switch>
+        
+        <Box pt={4}>
+           <Footer />
+        </Box>
       </Router>
+      </ThemeProvider>
     </div>
   );
 }

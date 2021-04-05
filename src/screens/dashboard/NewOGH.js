@@ -11,7 +11,7 @@ import Title from './Title';
 
 import { selectAmountToDayOGH, selectAmountToWeekOGH, selectAmountToTreeDaysOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 
-const Deposits = ({amountToDayOGH,amountToWeekOGH, amountToTreeDaysOGH}) => {
+const Deposits = ({amountToDayOGH, amountToTreeDaysOGH, amountToWeekOGH}) => {
   // const classes = useStyles();
   return (
     <React.Fragment>

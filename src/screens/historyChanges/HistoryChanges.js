@@ -1,30 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+// import Box from '@material-ui/core/Box';
+// import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 
 // import Header from '../../components/header/header.component';
 import TabMenu from './TabMenu'
 
 import './historyChanges.styles.scss';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mggt.ru/">
-        МосГеоТрест
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+ 
  
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,9 +90,7 @@ export default function HistoryChanges({eventShortPoints}) {
               </Paper>
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          
         </Container>
       </main>
     </div>

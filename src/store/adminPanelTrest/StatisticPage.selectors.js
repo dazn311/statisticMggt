@@ -66,12 +66,14 @@ export const selectAmountNewOGH = createSelector(
  /// ObjsTab
  export const selectObjsPage = createSelector( 
     getSelectPoints,
-    adminPanel => adminPanel.objs 
+    adminPanel => adminPanel.objs
+    // adminPanel => adminPanel.objsInfo.length ? adminPanel.objsInfo.data.objects : []  
 ) 
 /// ObjsTab
  export const selectObjsInfoPage = createSelector( 
     getSelectPoints,
-    adminPanel => adminPanel.objsInfo 
+    adminPanel => adminPanel.objsInfo
+    // adminPanel => adminPanel.objsInfo 
 ) 
  //////////////////////////////////////////////////// 
  /// ObjsTab

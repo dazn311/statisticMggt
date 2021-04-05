@@ -80,7 +80,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
   const classes = useStyles();
 
  
-  
+  console.log('EventDetail orgRow', orgRow);
 
   const selectEvent =(id) => {
     // console.log('select sss', id);
@@ -103,13 +103,17 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
   // console.log('rere -- EventDetail -- selectObjRect'.selectObjRect); // undefined
 
   useEffect(() => {
-  
-    fetchObjRectList(orgRow.objID); 
+    // console.log('orgRow.objID', orgRow.objID);
+    if (orgRow.objID ){
+      fetchObjRectList(orgRow.objID);
+    }
+     
 
   },[orgRow.objID,fetchObjRectList])
 
   useEffect(() => {
     setUserDataS(selectObjRect); 
+    
   },[selectObjRect])
    
 
@@ -182,32 +186,32 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                     </List>
                 
             </div>
-            <div data-detailID="1" className="admin-list-detail">
+            <div data-detailid="1" className="admin-list-detail">
 
                 <div className="admin-list-detail-activeCompany">
-                    <div className="admin-list__header header-tab">Замечание по событию</div>
+                    <div className="admin-list__header header-tab">Общие сведения по событию</div>
 
                     <table className="table table-hover" data-smegTabID="0">
 
                         <tbody>
                             {/* <tr>
                                 <td>Комментарий</td>
-                                <td data-objectDetails="comments">Проблемы пересечения границ</td>
+                                <td data-objectdetails="comments">Проблемы пересечения границ</td>
                             </tr> */}
                             <tr>
                                 <td  style={{color:'grey'}}>Дата создания</td>
-                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? formatDate(userDataS[currentIdEvent].rec_date) : '16.01.21'}</td>:'нет данных'}
+                                {selectObjRect ? <td data-objectdetails="dataInit">{userDataS[currentIdEvent] ? formatDate(userDataS[currentIdEvent].rec_date) : '16.01.21'}</td>:'нет данных'}
                                 
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Статус</td>
-                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td>:'нет данных'}
-                                {/* <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td> */}
+                                {selectObjRect ? <td data-objectdetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td>:'нет данных'}
+                                {/* <td data-objectdetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].rec_status : '2'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Тип объекта</td>
-                                {selectObjRect ? <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> :'нет данных'}
-                                {/* <td data-objectDetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> */}
+                                {selectObjRect ? <td data-objectdetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> :'нет данных'}
+                                {/* <td data-objectdetails="dataInit">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].objType : '2'}</td> */}
                             </tr>
                         </tbody>
                     </table>
@@ -251,18 +255,18 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
                         <tbody>
                             <tr>
                                 <td  style={{color:'grey'}}>организация</td>
-                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> :'нет данных'}
-                                {/* <td data-objectDetailsOtvetchikOrganization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> */}
+                                {selectObjRect ? <td data-objectdetails-otvetchik-organization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectdetails-otvetchik-organization="organization">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.orgname : 'УК Хорошовская'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Объект</td>
-                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> :'нет данных'}
-                                {/* <td data-objectDetailsOtvetchikOrganization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> */}
+                                {selectObjRect ? <td data-objectdetails-otvetchik-organization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> :'нет данных'}
+                                {/* <td data-objectdetails-otvetchik-organization="adres">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.objname : 'УК Хорошовская'}</td> */}
                             </tr>
                             <tr>
                                 <td  style={{color:'grey'}}>Контакты</td>
-                                {selectObjRect ? <td data-objectDetailsOtvetchikOrganization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> :'нет данных'}
-                                {/* <td data-objectDetailsOtvetchikOrganization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> */}
+                                {selectObjRect ? <td data-objectdetails-otvetchik-organization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> :'нет данных'}
+                                {/* <td data-objectdetails-otvetchik-organization="contacts">{userDataS[currentIdEvent] ? userDataS[currentIdEvent].receip.username : 'нет данных'}</td> */}
                             </tr>
                         </tbody>
                     </table>

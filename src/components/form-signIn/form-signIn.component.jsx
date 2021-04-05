@@ -57,7 +57,7 @@ const FormSignIn = ({login='sss',setAuthorization,setUserCurrent, switchForm}) =
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" component={'span'} variant="h5">
                   <div style={{textAlign: 'center'}}>Вход для администраторов</div>
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={submitLogin}>

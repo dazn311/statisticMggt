@@ -50,7 +50,7 @@ const Scard = ({mes, point}) => {
   const cardPaper = clsx(classes.root, classes.card);
   return(<Card className={cardPaper}>
     <CardContent>
-      <Typography className={classes.title} color="textSecondary" gutterBottom>
+      <Typography className={classes.title} component={'span'}  color="textSecondary" gutterBottom>
       {'21.01.2021 (16:20)'}
       </Typography>
       <Typography  >

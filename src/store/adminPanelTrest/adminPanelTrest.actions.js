@@ -163,6 +163,7 @@ export const setNewOGHGraphicToStaticPage = (items) => ({
 
 export const setObjForObjsPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE,
+  // payload: items
   payload: items.data.objects 
 });
 
@@ -175,6 +176,12 @@ export const setObjForObjsInfoPage = (items) => ({
 // for obj page, tab1
 export const setObjForObjRectPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE,
+  payload: items 
+});
+
+// for obj page, tab1
+export const setObjCurrentForDetailPage = (items) => ({
+  type: FetchDataObjsPage.FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE,
   payload: items 
 });
 
@@ -362,9 +369,9 @@ export const fetchAmountOGHToWeekAsync = () => {
 // Для нежней таблицы "новых событий"
 export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
-    postData('https://ismggt.ru/query/events/last/short', {limit:11120})
+    postData('https://ismggt.ru/query/events/last/short', {limit:35120})
       .then((eventss) => {
-        // console.log('fetchEventsPointShortAsync -- eventss',eventss);
+        console.log('fetchEventsPointShortAsync -- eventss',eventss);
         dispatch(putEventsPointShort(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -404,7 +411,7 @@ export const fetchEventFromPeriodAsync = (start, end) => {
     const startDate = start;
     const endDate = end;
     //'2021-02-03T22:00:00.000Z'
-    postData('https://ismggt.ru/query/events/last/short', {limit:11160, startDate:startDate, endDate:endDate}) 
+    postData('https://ismggt.ru/query/events/last/short', {limit:51160, startDate:startDate, endDate:endDate}) 
       .then((eventss) => {
         console.log('fetchEventFromPeriodAsync then: ',eventss);
         dispatch(putEventsForPeriodShort(eventss));
@@ -553,7 +560,7 @@ async function postDataAx(url = '', data = {}, type='post') {
     console.log(`😱 Axios request failed: ${e}`);
   }
   
-  return  {"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}; // parses JSON response into native JavaScript objects
+  return  [{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}]; // parses JSON response into native JavaScript objects
 }
    
 export const appendUserAsync = (data)  => {
@@ -597,7 +604,7 @@ export const fetchAllUsersFromDB = (limit=20)  => {
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
-
+ 
 // put http://localhost:3005/api/user (updateUser)
 export const fetchUpdateUsersFromDB = (userData)  => {
   // console.log('👉 fetchUpdateUsersFromDB start:' );
@@ -617,6 +624,8 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 
 
     
+// goncharov alex
+
 // Для страницы  "objects" - /stats/objs
 // первая вкладка
 
@@ -625,12 +634,12 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 // export const fetchObjectsListAsync = ({objectType='2', organization='0', limit='100' , offset='0', startDate='2021-02-03T22:00:00.000Z', endDate='2021-03-19T22:00:00.000Z', objName='A'}) => {
 export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') => {
 
-  console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType);
-  console.log('fetchObjectsListAsync run: objName, orgName', objName, orgName);
-  console.log('fetchObjectsListAsync run:  offset', offset);
+  // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType);
+  // console.log('fetchObjectsListAsync run: objName, orgName', objName, orgName);
+  // console.log('fetchObjectsListAsync run:  offset', offset);
   // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate,endDate);
 
-  //{"objectType":"2", "organization":"0", "limit":"100" , "offset":"100", "startDate":"2021-02-19T22:00:00.000Z", "endDate":"2021-03-19T22:00:00.000Z", "objName": "", "orgName": "", "objType": "ОО","objKind":"","objStatus": "10", "sortCol":"date","sortType":"desc"}
+  //{"objectType":"2", "organization":"0", "limit":"100" , "offset":"100", "startDate":"2021-02-19T22:00:00.000Z", "endDate":"2021-03-19T22:00:00.000Z", "objName": "", "orgName": "", "objKind":"","objStatus": "10", "sortCol":"date","sortType":"desc"}
   
   return (dispatch) => { 
     postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit , offset:offset, startDate:startDate, endDate:endDate ,objName:objName , orgName: orgName , objKind:objKind , objStatus:objStatus , sortCol:sortCol , sortType:sortType })
@@ -639,7 +648,7 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
       .then((eventss) => {
         console.log('77 fetchObjectsListAsync then: ',eventss);
         dispatch(setObjForObjsPage(eventss));
-        dispatch(setObjForObjsInfoPage(eventss));
+        dispatch(setObjForObjsInfoPage(eventss));  
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   }; 
@@ -662,6 +671,15 @@ export const fetchObjRectListAsync = (objectID, limit=60, offset=0) => {
         dispatch(setObjForObjRectPage(eventss));
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+}; 
+
+
+
+export const setObjCurrForDetailPageAsync = ( object ) => {
+  console.log('setObjCurrForDetailPageAsync run: ',object );
+  return (dispatch) => {  
+        dispatch(setObjCurrentForDetailPage(object)); 
   };
 };
    

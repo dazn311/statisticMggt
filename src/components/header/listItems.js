@@ -6,21 +6,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import HistoryChange from '@material-ui/icons/History';
+// import HistoryChange from '@material-ui/icons/History';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuItem from '@material-ui/core/MenuItem';
 import BusinessIcon from '@material-ui/icons/Business';
-
-const MainListItems = ( {location} ) => (
-  <div>
-    <MenuItem   component={Link} to="/stats"    selected={location.pathname === '/stats'}>
+ 
+const MainListItems = ( {location, open, drawerClose} ) => (
+  
+  <div style={{display: open ? 'block' : 'none' }} >
+    <MenuItem   component={Link} to="/stats"   selected={location.pathname === '/stats'}>
       <ListItemIcon>
-        <DashboardIcon />
+        <DashboardIcon /> 
       </ListItemIcon>
-      <ListItemText primary="Главная" />
+      <ListItemText primary="Главная" onClick={drawerClose} />
     </MenuItem>
     {/* <MenuItem  component={Link} to="/stats/ogh"  selected={location.pathname === '/stats/ogh'}>
       <ListItemIcon>
@@ -33,27 +34,29 @@ const MainListItems = ( {location} ) => (
       <ListItemIcon>
         <BusinessIcon />
       </ListItemIcon>
-      <ListItemText primary="Объекты" />
+      <ListItemText primary="Объекты" onClick={drawerClose} />
     </MenuItem> 
-    {/* <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
+
+    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Пользователи" />
     </MenuItem>
      
-    <ListItem button>
+    <MenuItem  component={Link} to="/stats/gen"  selected={location.pathname === '/stats/gen'}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Текущая статистика"  selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
-    </ListItem>
+      <ListItemText primary="Текущая статистика"  selected={location.pathname === '/stats/gen'}  />
+    </MenuItem>
+
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Управление" selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
-    </ListItem> */}
+    </ListItem>
   </div>
 );
 

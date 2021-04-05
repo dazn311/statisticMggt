@@ -15,7 +15,7 @@ import './usersPage.styles.scss';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="textSecondary" component={'span'} align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mggt.ru/">
         МосГеоТрест
