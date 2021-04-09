@@ -87,18 +87,37 @@ async function getUsersAmount(){
 
 //Всего согласованых событий.
 // RETURN QUERY SELECT COUNT(*)::bigint as amount from mggt_recombination
-async function getEventEndedAmount(){
+async function getTestAll(){
+	// console.log('start getEventEndedAmount :' );
 	return new Promise ((resolve, reject) => {
-		// let queryText  = ` SELECT count (*) as amount FROM mggt_recombination; `;
-		// let queryText  = ` SELECT *  FROM get_event_ended_all_daz(); `;
-		let queryText  = ` SELECT *  FROM get_rec_mes_am(); `;
+		let queryText  = ` SELECT *  FROM get_rec_mes_am2(); `;
 		query(queryText)
 			.then(function(data){
-				// console.log('getEventEndedAmount -- data.rows[0]:',data.rows[0] );
-				console.log('getEventEndedAmount -- data.rows[0]:',data.rows[0] );
+				// console.log('getTestAll -- data.rows:',data.rows );
 				let result = {
-					// amountEventsEnded: data.rows[0].get_event_ended_all_daz,
-					amountEventsEnded: data.rows[0],
+					resTestAll: data.rows,
+					// amountEventsEnded: data.rows,
+				}
+				resolve(result);
+			})
+			.catch(function(err){console.log(err)});
+	});
+}
+//Всего согласованых событий.
+// RETURN QUERY SELECT COUNT(*)::bigint as amount from mggt_recombination
+async function getEventEndedAmount(){
+	// console.log('start getEventEndedAmount :' );
+	return new Promise ((resolve, reject) => {
+		// let queryText  = ` SELECT count (*) as amount FROM mggt_recombination; `;
+		let queryText  = ` SELECT *  FROM get_event_ended_all_daz(); `;
+		// let queryText  = ` SELECT *  FROM get_rec_mes_am(); `;
+		query(queryText)
+			.then(function(data){
+
+				// console.log('getEventEndedAmount -- data.rows:',data.rows );
+				let result = {
+					amountEventsEnded: data.rows[0].get_event_ended_all_daz,
+					// amountEventsEnded: data.rows,
 				}
 				resolve(result);
 			})
@@ -149,11 +168,13 @@ app.post('/query/users/amount', cors(), async function(req, res){
 		let result = await getUsersAmount(); // get_users_amount2()
 		let result2 = await getEventAllAmount(); // get_event_am()
 		let result3 = await getMessageAllAmount(); //get_messages_am()
+		let resTestAll = await getTestAll(); //get_messages_am()
 		let resultAll = {
 			amountUsers: result.amountUsers || 0,
 			amountEventsEnded: result1.amountEventsEnded || 0,
 			amountEventsAll: result2.amountEventsAll || 0,
 			amountMessagesAll: result3.amountMessagesAll || 0,
+			resTestAll: resTestAll.resTestAll || 0,
 		}
 		console.log('resultAll',resultAll);
 

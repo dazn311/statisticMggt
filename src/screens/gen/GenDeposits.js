@@ -22,28 +22,21 @@ const useStyles = makeStyles({
   },
 });
 
-let amFetch = 0;
 
 const GenDeposits = ({amUsers, amountOGH,fetchAmountUsers }) => {
   const classes = useStyles();
   // const [amUsers, setAmUsers] = useState(undefined)
 
-  // useEffect(()=> {
-  //     setAmUsers(amUsers.amountUsers);
-  // },[amUsers]);
-
   let tt = moment(amountOGH.dataTime).toISOString();
 
   let lastDate = tt.split('T')[0].split('-');
 
-  if (amUsers === 0 ){
-        if(amFetch === 0){
-            fetchAmountUsers();
-            amFetch = 1;
-        }
+  // setTimeout(() => {
+  //     if (amUsers === 0 ){
+  //       fetchAmountUsers();
+  //     }
+  // },5000);
 
-      // console.log('amUsers',amUsers);
-  }
 
   // console.log('amUsers === 0',amUsers);
   return (

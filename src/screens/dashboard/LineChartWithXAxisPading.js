@@ -64,7 +64,7 @@ render() {
           
         </LineChart>
         
-        <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap', backgroundColor:'#d3c1e4', maxWidth: 80, width: '100%', justifyContent: 'center'}} >
+        <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap',  maxWidth: 80, width: '100%', justifyContent: 'center'}} >
             <div style={{position: 'absolute', right:'-8px', transform: 'rotate(270deg)', top: '100px', whiteSpace: 'nowrap'}}>Данные на данный час</div>
             <div style={styleLblUsersGraphicDate}>
               <ArrowLeftIcon onClick={() => {fetchAll(-1)}} color="secondary" />
