@@ -58,7 +58,8 @@ const CardEventInfo = ({orgRow, currObj, objRect, selectObjCurr}) => {
               </Avatar>
             </ListItemAvatar> */} 
             {/* <EventReviewCard  obj={obj} /> */}
-            <ListItemText primary={obj.rec_name} secondary={new Intl.DateTimeFormat('ru-Ru').format(new Date(obj.rec_date)) + ' (статус: ' + obj.rec_status === 5 ? 'согласованно': '(в работе' + ')' + ' (Операторы: ' + obj.operators.username + ')' } />
+            {/* <ListItemText primary={obj.rec_name} secondary={new Intl.DateTimeFormat('ru-Ru').format(new Date(obj.rec_date)) + ' (статус: ' + obj.rec_status === 5 ? 'согласованно': '(в работе' + ')' + ' (Операторы: ' + obj.operators.username + ')' } /> */}
+            <ListItemText primary={obj.rec_name} secondary={new Intl.DateTimeFormat('ru-Ru').format(`${new Date(obj.rec_date)} (статус:  ${obj.rec_status === 5 ? 'согласованно': '(в работе'} ) (Операторы:  ${obj.operators.username}) `)} />
         {/* <ListItemText primary={obj.rec_name} secondary={obj.rec_date + ' (статус: ' + obj.rec_status + ')' + ' (Операторы: ' + obj.operators.username + ')' } /> */}
           </ListItem>
           <Divider variant="inset" component="li" /></>

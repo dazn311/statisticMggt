@@ -2,7 +2,7 @@
 import axios from "axios";
 
 
-import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage } from './adminPanelTrest.types';
+import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
 import moment from 'moment';
 
@@ -182,7 +182,15 @@ export const setObjForObjRectPage = (items) => ({
 // for obj page, tab1
 export const setObjCurrentForDetailPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE,
-  payload: items 
+  payload: items
+});
+
+
+///////////////////////////////////////////////////////////////////
+// for obj page, tab1
+export const setAmountUsersForGenPage = (items) => ({
+  type: FetchDataGenPage.FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE,
+  payload: items
 });
 
 
@@ -366,10 +374,10 @@ export const fetchAmountOGHToWeekAsync = () => {
 };
 
 
-// Для нежней таблицы "новых событий"
+// Для нежней таблицы "новых событий" на Главной странице
 export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
-    postData('https://ismggt.ru/query/events/last/short', {limit:35120})
+    postData('https://ismggt.ru/query/events/last/short', {limit:135120})
       .then((eventss) => {
         console.log('fetchEventsPointShortAsync -- eventss',eventss);
         dispatch(putEventsPointShort(eventss));
@@ -595,10 +603,11 @@ export const fetchAllUsersFromDB = (limit=20)  => {
   return (dispatch) => {
     // postDataAx('http://localhost:3005/api/users', {'login':'matvey',"password":"1234"},'post')
     // postDataAx('http://localhost:3005/api/users', {'login':'mggt_alex',"password":"79y7BdJFtmqJVtJn"},'post')
-    postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post')
+    // postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post') //work
+    postDataAx('http://localhost:3005/query/users', {'login':'s333',"password":"s333"},'post') //work
       .then((user) => {
         //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-          console.log('👉 fetchAllUsersFromDB then user:',user );
+        //   console.log('👉 fetchAllUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -631,22 +640,14 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 
 
 // fetchObjectsList(2,0,1000 , 0 , startDate, endDate, 'A');
-// export const fetchObjectsListAsync = ({objectType='2', organization='0', limit='100' , offset='0', startDate='2021-02-03T22:00:00.000Z', endDate='2021-03-19T22:00:00.000Z', objName='A'}) => {
 export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') => {
 
-  // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType);
-  // console.log('fetchObjectsListAsync run: objName, orgName', objName, orgName);
-  // console.log('fetchObjectsListAsync run:  offset', offset);
-  // console.log('fetchObjectsListAsync run: ',objectType,organization, limit, offset, startDate,endDate);
-
-  //{"objectType":"2", "organization":"0", "limit":"100" , "offset":"100", "startDate":"2021-02-19T22:00:00.000Z", "endDate":"2021-03-19T22:00:00.000Z", "objName": "", "orgName": "", "objKind":"","objStatus": "10", "sortCol":"date","sortType":"desc"}
-  
   return (dispatch) => { 
     postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit , offset:offset, startDate:startDate, endDate:endDate ,objName:objName , orgName: orgName , objKind:objKind , objStatus:objStatus , sortCol:sortCol , sortType:sortType })
 
     // postData('https://ismggt.ru/query/objects/list', {objectType:objectType})  
       .then((eventss) => {
-        console.log('77 fetchObjectsListAsync then: ',eventss);
+        // console.log('77 fetchObjectsListAsync then: ',eventss);
         dispatch(setObjForObjsPage(eventss));
         dispatch(setObjForObjsInfoPage(eventss));  
       })
@@ -672,7 +673,8 @@ export const fetchObjRectListAsync = (objectID, limit=60, offset=0) => {
       })
       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
-}; 
+};
+
 
 
 
@@ -680,6 +682,23 @@ export const setObjCurrForDetailPageAsync = ( object ) => {
   console.log('setObjCurrForDetailPageAsync run: ',object );
   return (dispatch) => {  
         dispatch(setObjCurrentForDetailPage(object)); 
+  };
+};
+
+
+
+//////////Gen Page ///////////
+
+
+export const fetchAmountUsersAsync = () => {
+  console.log('fetchAmountUsersAsync run: ' );
+  return (dispatch) => {
+    postData('http://localhost:3005/query/users/amount', {})
+        .then((data) => {
+          console.log('fetchAmountUsersAsync then: ',data);
+          dispatch(setAmountUsersForGenPage(data));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
    

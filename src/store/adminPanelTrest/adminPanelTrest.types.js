@@ -46,6 +46,10 @@ export const FetchDataObjsPage = {
     FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE: 'FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE', //from UsersPage
     FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE: 'FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE', //from UsersPage
 };
+
+export const FetchDataGenPage = {
+    FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE: 'FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE', //from GenPage
+};
     
 export default AdminActionTypes;
   

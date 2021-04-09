@@ -10,7 +10,9 @@ import Typography from '@material-ui/core/Typography';
 
 import Title from './Title';
 
-import { selectAmountOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { selectAmountOGH, selectAmountUsers } from '../../store/adminPanelTrest/adminPanelTrest.selectors';
+import { fetchAmountUsersAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions';
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
  
 const useStyles = makeStyles({
   depositContext: {
@@ -20,53 +22,62 @@ const useStyles = makeStyles({
   },
 });
 
-//countOGH: 
-// { dataTime: '16:20 (21.01.21)',
-//   data:  {
-//     objTotal: 100,
-//     objMggt: 30,
-//     objRelatives: 70,} }
+let amFetch = 0;
 
-const GenDeposits = ({ amountOGH }) => {
+const GenDeposits = ({amUsers, amountOGH,fetchAmountUsers }) => {
   const classes = useStyles();
-  let tt = moment(amountOGH.dataTime).toISOString(); 
-  let lastDate = tt.split('T')[0].split('-'); 
+  // const [amUsers, setAmUsers] = useState(undefined)
+
+  // useEffect(()=> {
+  //     setAmUsers(amUsers.amountUsers);
+  // },[amUsers]);
+
+  let tt = moment(amountOGH.dataTime).toISOString();
+
+  let lastDate = tt.split('T')[0].split('-');
+
+  if (amUsers === 0 ){
+        if(amFetch === 0){
+            fetchAmountUsers();
+            amFetch = 1;
+        }
+
+      // console.log('amUsers',amUsers);
+  }
+
+  // console.log('amUsers === 0',amUsers);
   return (
     <React.Fragment>
-      {/* <Title>Количество ОГХ ({moment(amountOGH.data.objTotal).format("dddd, MMM DD at HH:mm a")})</Title> */}
-      
       <Title>Данные ОГХ ({amountOGH.data.objTotal})</Title>
       <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
-      {/* {Object.keys(amountOGH.data).map(keyObj => {
-        console.log(amountOGH.data.[keyObj]);
-        console.log(keyObj);
-      })} */}
-       
-       
-      <Typography component="p" variant="h6">
+
+      <Typography component="span" variant="h6">
         {amountOGH.data.objMgtt}
       </Typography>
-      <Typography component="p"  >
+      <Typography component="span"  >
           Всего принадлежащих нам
-      </Typography>
+      </Typography >
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h6">
+
+      <Typography component="span" variant="h6">
         {amountOGH.data.objRelatives}
       </Typography>
-      <Typography component="p"  >
+      <Typography component="span"  >
           Всего объектов смежников
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h6">
-        {'* 552'}
+
+      <Typography component="span" variant="h6">
+        {/*{'* 552'}*/}
+        {amUsers.amountUsers  ? amUsers.amountUsers: <CircularProgress size={14} color="inherit" />}
       </Typography>
-      <Typography component="p"  >
+      <Typography component="span"  >
           Кол-во пользователей
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: '4px'}}/>
-      <Typography color="textSecondary" className={classes.depositContext}>
+
+      <Typography  component="span" color="textSecondary" className={classes.depositContext}>
           Данные на {lastDate[2]}/{lastDate[1]}/{lastDate[0]}
-            
       </Typography>
        
     </React.Fragment>
@@ -75,12 +86,14 @@ const GenDeposits = ({ amountOGH }) => {
  
 
 const mapStateToProps = createStructuredSelector ({
-  amountOGH: selectAmountOGH,
+    amountOGH: selectAmountOGH,
+    amUsers: selectAmountUsers,
   // isFetchingUserOnline: selectIsFetchingUserOnline,
   // selectAmountEvent: selectAmountEventGraph,
 });
  
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
-// });
-export default connect(mapStateToProps)(GenDeposits);
+const mapDispatchToProps = (dispatch) => ({
+    fetchAmountUsers: () => dispatch(fetchAmountUsersAsync()),
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(GenDeposits);

@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import LineChartWrap from './LineChart.wrap'; 
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';
-import TableListHistories from './TableListHistories.sceen';
+import TableList from './TableListHistories.sceen';
 
 import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import {  fetchEventsPointShortAsync, fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
@@ -101,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
     height: 'auto',
-    marginLeft: 0 //нижняя таблица первой страницы
+    marginLeft: -10 //нижняя таблица первой страницы
   },news: {
     '&:hover': {
       background: "#f00",
-   }, 
+   },
   },
   fixedHeight: {
     height: 240,
@@ -125,7 +125,6 @@ const useStyles = makeStyles((theme) => ({
 // ];
 
 let lineHeader = 'Текущая информация по событиям и пользователям';
-let maxWidthGridOGH = '330px';
 
 const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays}) => {
   const classes = useStyles();
@@ -155,11 +154,10 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
 
   const winWidth = window.innerWidth;
   
-  // console.log('winWidth',winWidth);
+  console.log('winWidth',winWidth);
 
-  if (winWidth < 550) {
+  if (winWidth < 500) {
       lineHeader = 'Информация по событиям';
-      maxWidthGridOGH = 'unset'
       // let newHeader = 'Информация по событиям';
       // setLineHeader(newHeader);
   }
@@ -169,9 +167,7 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
     setValueChip(data);
   },[setValueChip]);
   
-
   // console.log('user',user);
-  // console.log('valueChip[0].count',valueChip[0].count);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -179,21 +175,22 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Grid container spacing={3} style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'center'}} >
+          <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6} style={{minWidth: 250,maxWidth: 630,boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 0px'}} >
               {/* <Paper className={fixedHeightPaper}> */}
-                <h4 style={{ textAlign:'center', position:'relative', marginTop:'0px', left: '0'}}> {lineHeader}</h4>
+                <h4 style={{ textAlign:'center', position:'relative', marginTop:'0px', left: '0'}}>
+                    {lineHeader}</h4>
                 <LineChartWrap />
               {/* </Paper> */}
             </Grid>
             
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: 330}} >
               <Paper className={fixedHeightPaper}>
                 <Deposits /> {/* Количество ОГХ */}
               </Paper>
             </Grid>
             
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: 330}} >
               <Paper className={fixedHeightPaper}>
                 <NewOGH />  {/* Новые ОГХ */}
               </Paper>
@@ -201,14 +198,13 @@ const Dashboard = ({ fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDa
             
             <Grid item xs={12}>
               <Paper className={classes.paper2}>
-                {/* краткие данные */}
-                {valueChip  && <ChipsArray data={valueChip} />}
+                <ChipsArray data={valueChip} />
               </Paper>
             </Grid>
 
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <TableListHistories setData={amHenler} />
+                <TableList setData={amHenler} />
               </Paper>
             </Grid>
             

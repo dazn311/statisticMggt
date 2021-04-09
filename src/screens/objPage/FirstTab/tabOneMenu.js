@@ -151,7 +151,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
     fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
      
 
-    },[stFilterVal,stFilterSearch]);
+    },[stFilterVal,stFilterSearch,fetchObjectsList]);
 
 
 
@@ -233,7 +233,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
       fetchSearchObj('0');
     }
     
-  },[]);
+  },[fetchSearchObj,selectObjs.length]);
 
  ///////////////////////////////////////////
 //  const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику

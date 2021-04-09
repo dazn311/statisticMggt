@@ -9,9 +9,14 @@
  
 .recharts-legend-wrapper {
     bottom: 0px !important;
+    position: relative !important;
+    height: auto !important;
 }
 .MuiTableHead-root {
     bottom: 10px !important;
+}
+.recharts-wrapper {
+    height: auto !important;
 }
 
 .MuiDataGrid-row.Mui-even {

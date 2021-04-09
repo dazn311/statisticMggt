@@ -15,9 +15,10 @@ import GenDeposits from './GenDeposits';
 import GenAllPeriod from './GenAllPeriod';  
 import GenOneDayPeriod from './GenOneDayPeriod';  
 
-import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import {   fetchAmountOGHForDashboardAsync , fetchObjectsListAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
- 
+import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors';
+import {   fetchAmountOGHForDashboardAsync , fetchObjectsListAsync, fetchAmountUsersAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions';
+
+
 // import { selectObjsPage, selectObjsInfoPage } from '../../store'; 
 import { selectObjsPage } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
 // import { selectObjsPage, selectObjsInfoPage } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
@@ -115,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-const GenDashboard = ({    fetchAmountOGH,fetchObjectsList, selectObjs}) => {
+const GenDashboard = ({  fetchAmountUsers,  fetchAmountOGH,fetchObjectsList}) => {
   const classes = useStyles();
   // const [value, setValue] = React.useState('recents');
  
@@ -123,16 +124,17 @@ const GenDashboard = ({    fetchAmountOGH,fetchObjectsList, selectObjs}) => {
   useEffect(() => {
     // for "Количество ОГХ"
     fetchAmountOGH();
+    fetchAmountUsers();
     // fetchObjectsList('2', '0', '0', '0', "2021-01-01T00:08:56.306Z", "2021-09-11T20:08:56.306Z", '', '',  '', '2', 'orgName', "desc"  )
 
  
-  }, [ fetchAmountOGH,fetchObjectsList ])
+  }, [ fetchAmountUsers,fetchAmountOGH ])
  
  
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const winWidth = window.innerWidth;
+  // const winWidth = window.innerWidth;
   
  
  
@@ -145,19 +147,19 @@ const GenDashboard = ({    fetchAmountOGH,fetchObjectsList, selectObjs}) => {
           <Grid container spacing={3}>
              
             
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: 330}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
               <Paper className={fixedHeightPaper}>
                 <GenDeposits /> {/* Количество ОГХ */}  
                 
               </Paper>
             </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: 330}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
               <Paper className={fixedHeightPaper}>
               <GenAllPeriod /> {/* Количество ALl */} 
                 
               </Paper>
             </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: 330}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
               <Paper className={fixedHeightPaper}>
               <GenOneDayPeriod />   
                 
@@ -173,17 +175,17 @@ const GenDashboard = ({    fetchAmountOGH,fetchObjectsList, selectObjs}) => {
 
 const mapStateToProps = createStructuredSelector ({
   isFetchingUserOnline: selectIsFetchingUserOnline,
-  selectObjs: selectObjsPage,
+  selectObjs: selectObjsPage
 });
 
 
 
 const mapDispatchToProps = (dispatch) => ({ 
     
-    fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
-
-    fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
-  });  
+  fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
+  fetchAmountUsers: () => dispatch(fetchAmountUsersAsync()),
+  fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
+});
 
 
  

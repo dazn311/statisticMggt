@@ -1,5 +1,5 @@
 import ORGANIZATIONS_DATA from './adminPanelTrest.data';
-import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage} from './adminPanelTrest.types';
+import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage} from './adminPanelTrest.types';
 // import { fetchDataUsersOnline } from './adminPanelTrest.actions';
   
 const INITIAL_STATE = {
@@ -31,6 +31,7 @@ const INITIAL_STATE = {
     usersBlockGraphOfStaticPage: ORGANIZATIONS_DATA.usersBlockGraphOfStaticPage,// for GraphOfStaticPage
     usersEndGraphOfStaticPage: ORGANIZATIONS_DATA.usersEndGraphOfStaticPage,// for GraphOfStaticPage
     users: ORGANIZATIONS_DATA.Users,// for UsersPage
+    amountUsers: ORGANIZATIONS_DATA.amountUsers,// for Gen Page
     allUsersOfDB: ORGANIZATIONS_DATA.allUsersOfDB,// for UsersPage
     objs: ORGANIZATIONS_DATA.objs,// for Objects Page
     objsInfo: ORGANIZATIONS_DATA.objsInfo,// for Objects Page
@@ -144,6 +145,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataObjsPage.FETCH__OBJ_CURRENT_FOR_OBJ_DETAIL_PAGE:
                 return {...state, objCurrent: action.payload};          
+
+        case FetchDataGenPage.FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE:
+                return {...state, amountUsers: action.payload};
 
 
         default:

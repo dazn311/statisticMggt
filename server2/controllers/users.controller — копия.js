@@ -1,90 +1,112 @@
 
-const pool = require('../db');
-
+const db = require('../db');
  
 class UsersController {
-
-
-
-    async  query(q,data){
-        const client = await pool.connect()
-        let res;
-        try {
-            await client.query('BEGIN')
-            try {
-                res = await client.query(q,data)
-                await client.query('COMMIT')
-            } catch (err) {
-                await client.query('ROLLBACK')
-                throw err
-            }
-        } finally {
-            client.release()
-        }
-        return res
+    // post http://localhost:3005/api/user
+    async creatUser0 (req, res) {
+        const {user_fio, login, password, user_fio_lit} = req.body;
+        let result = 0;
+        const newUser = await db.proc('createUser',[user_fio, login, password, user_fio_lit],null,result);
+        console.log('result',result);
+        // const newUser = await db.query('INSERT INTO users (user_fio, login, password, user_fio_lit) values ($1,$2,$3,$4) RETURNING *', 
+        // [user_fio, login, password, user_fio_lit]);
+        // res.json(newUser.rows[0]);
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        res.json({'newUser':newUser});
     }
 
-    //Вызываем функцию для выполнения нашего запроса.
-    async  getOnlineByInterval(vars){
-        console.log(vars);
-        return new Promise ((resolve, reject) => {
-
-            //Проверяем входные параметры и добавляем к строке в случае наличия
-            let queryText, functionVars;
-
-            if(typeof vars != 'undefined'){
-                functionVars = "";
-                if(typeof vars.startDate != 'undefined'){
-                    functionVars += "'"+vars.startDate+"'";
-                }
-                if(typeof vars.endDate != 'undefined'){
-                    functionVars += ",'"+vars.endDate+"'";
-                }
-                queryText = `
-				SELECT * FROM get_online_byinterval(`+functionVars+`);
-			`;
-            } else {
-                queryText = `
-				SELECT * FROM get_online_byinteval();
-			`;
-
-            }
-            console.log(queryText);
-            this.query(queryText)
-                .then(function(data){
-                    //console.log(data.rows[0]);
-                    let result = {
-                        startTime: data.rows[0].starttime,
-                        endTime: data.rows[0].endtime,
-                        online: data.rows[0].online
-                    }
-                    resolve(result);
-                })
-                .catch(function(err){console.log(err)});
-        });
+     // post http://localhost:3005/api/user
+    async creatUser (req, res) {
+        const {user_fio, login, password, user_fio_lit} = req.body;
+        const result = await db.func('addUser',[login, password, user_fio, user_fio_lit]);
+        const userID = result[0].addUser;
+        console.log('userID',userID);
+         
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        res.json({'userID':userID});
     }
 
-
+    // get http://localhost:3005/api/users
+    async getAllUsers0 (req, res) {
+        console.log(' get http://localhost:3005/api/users',req);
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        // const users = await db.query('SELECT * FROM users');
+        const users = await db.query('SELECT * FROM public.mggt_users ORDER BY user_id ASC LIMIT 1000');
+        res.json(users.rows);
+    } 
+      
     // post http://localhost:3005/api/users
     async getAllUsers (req, res) {
         console.log('44 post http://localhost:3005/api/users',req.body.data); 
+        res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+        res.set('Content-Type', 'application/x-www-form-urlencoded');
+        //         	 SELECT id,login, password, user_fio, user_fio_lit FROM users;
+        //     userLogin    character varying; -- use an integer variable
+        // 	userPassword character varying;
+        const {login, password} = req.body.data; 
+        const userPassword = password;
+        const userLogin = login;  
+        // const users = await db.func('SELECT * FROM getUsers(userLogin,userPassword)',[userLogin,userPassword]);
+        // const users = await db.func('getUsers',[login,password]);
+        // const users = await db.func('getUsersAll',[userLogin,userPassword]); 
+        // SELECT * FROM public.mggt_message
 
-        const {login, password} = req.body.data;
-        console.log(req.body);
-        try {
-            let result = await this.getOnlineByInterval(req.body);
-            res.send(result);
-            console.log(result);
-        } catch (e){
-            console.log(e);
-        }
-
+        const users = await db.func('get_users');  // получение всех пользователей
+        // const users = await db.one('SELECT * FROM public.mggt_message',[{limit:2000}]); 
+        // console.log('users',users); 
+        // console.log('users',users.rows); 
+        console.log('users',users.length); 
+        res.json(users); 
     }    
+     // post http://localhost:3005/api/users
+    // async getAllUsers (req, res) {
+    //     console.log(' post http://localhost:3005/api/users',req.body.data); 
+    //     res.set('Access-Control-Allow-Origin', 'http://localhost:3004');
+    //     res.set('Content-Type', 'application/x-www-form-urlencoded');
+    //     //         	 SELECT id,login, password, user_fio, user_fio_lit FROM users;
+    //     //     userLogin    character varying; -- use an integer variable
+    //     // 	userPassword character varying;
+    //     const {login, password} = req.body.data; 
+    //     const userPassword = password;
+    //     const userLogin = login;  
+    //     // const users = await db.func('SELECT * FROM getUsers(userLogin,userPassword)',[userLogin,userPassword]);
+    //     // const users = await db.func('getUsers',[login,password]);
+    //     // const users = await db.func('getUsersAll',[userLogin,userPassword]); 
+    //     const users = await db.func('get_users'); 
+    //     console.log('users',users.rows); 
+    //     res.json(users); 
+    // }    
+     
+    // get http://localhost:3005/api/user/2
+    async getUser (req, res) {
+        const id = req.params.id;
+        const user = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+        // const user = await db.query('CALL yourStoredProcedure();');
+        // const user = await db.proc('SELECT * FROM users WHERE id = $1', [id]);
+        res.json(user.rows[0]);
+    }  
+ 
+    // put http://localhost:3005/api/user
+    async updateUser (req, res) {
+        const {user_fio, login, password, user_fio_lit, id} = req.body.data;
+        console.log(user_fio, login, password, user_fio_lit, id);
+        console.log(req.body);
 
+        const newUser = await db.query('UPDATE users SET user_fio = $1, login = $2, password = $3, user_fio_lit = $4 WHERE id = $5 RETURNING *', 
+        [user_fio, login, password, user_fio_lit, id]);
+        res.json(newUser.rows[0]);
 
+    }
 
-
-
+    // delete http://localhost:3005/api/user/13
+    async deleteUser (req, res) {
+        const id = req.params.id;
+        const user = await db.query('DELETE FROM users WHERE id = $1', [id]);
+        res.json(user.rows[0]);
+    }
 
     
 }

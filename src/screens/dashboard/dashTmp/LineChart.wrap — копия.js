@@ -145,13 +145,11 @@ let usersCount = 0;
 let eventsAmount = 0;
 let endedAmount = 0;
 
-let offSet = 0;
-let isToDay = true;
 const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fetchAmountEndEventsForGraphicAsync,selectCountUsers,selectAmountEndedEvent,selectAmountNewEvent}) => { 
   
-  // const [offSet,setOffset] = useState(0);
+  const [offSet,setOffset] = useState(0);
   // const [data,setData] = useState(dataInit);
-  // const [isToDay,setIsToDay] = useState(true);
+  const [isToDay,setIsToDay] = useState(true);
   const [curDate,setCurDate] = useState(new Date())
   const [isFetchingUserOnline] = useState(false)
   // const [isFetchingUserOnline,setisFetchingUserOnline] = useState(false)
@@ -165,17 +163,16 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     let ofs = 0;
     const curDay = new Date();
     if (ofsParam === -1 && offSet === 0){ // оста
-      isToDay = false;
-        // setIsToDay(false);
+        setIsToDay(false);
         
     }else if (ofsParam === 0 && offSet < 0){ // оста
-      isToDay = false;
+        setIsToDay(false);
         
     }else if (ofsParam === 1 && offSet === -1){ // оста
-      isToDay = true;
+        setIsToDay(true);
         
     }else if (ofsParam === 0 && offSet === 0){ // оста
-      isToDay = true;
+        setIsToDay(true);
         
     }else if (ofsParam === 1 && offSet === 0){ // оста
         // setIsToDay(true);
@@ -187,16 +184,15 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     //   setIsToDay(false);
     // }
     
-    // console.log('isToDay',isToDay);
+    console.log('isToDay',isToDay);
 
     ofs = ofsParam + offSet;
 
-    // console.log('ofsParam',ofsParam);
-    // console.log('offSet',offSet);
+    console.log('ofsParam',ofsParam);
+    console.log('offSet',offSet);
     
     ofs = parseInt(ofs);
-    offSet =ofs;
-    // setOffset(ofs);
+    setOffset(ofs);
     curDay.setDate(curDay.getDate() + ofs);
     // console.log('curDay',curDay);
 
@@ -223,7 +219,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
     fetchAmountEndEventsForGraphicAsync(todayStart,todayEnd);
      
-  },[fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
+  },[offSet,fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
  
   // console.log('currentHours',currentHours);
 
@@ -257,7 +253,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     }else {
       max_hours = 18;
     }
-    // console.log('getUsers -- max_hours',max_hours);
+    console.log('getUsers -- max_hours',max_hours);
 
     for (let index = 7; index <= 19; index++) {
       const indexMinus = index -7;
@@ -287,7 +283,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 
     //пользователи в конце дня
     if (currentHours > 17 || !isToDay){
-      // console.log('if (currentHours > 17 || !isToDay)');
+      console.log('if (currentHours > 17 || !isToDay)');
       const usersLine4 = usersLine.slice(18);
       const usersSumm = reduce(usersLine4,(sum,n)=>(sum + n),0);
       const newUsrEndDay = {...dataTmp[12], Users: usersSumm};
@@ -295,7 +291,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       if (isToDay){usersCount = usersSumm;}
     }
 
-  },[selectCountUsers]);
+  },[selectCountUsers, isToDay]);
 
 
 
@@ -342,7 +338,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
         dataTmp[12] = newObjn;
         if (isToDay){eventsAmount = endDataNewEventSum};
     }
-  },[selectAmountNewEvent]);
+  },[selectAmountNewEvent, isToDay]);
 
   
   const getEndedEvents = useCallback(() => {
@@ -390,7 +386,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       }
     
     }
-  },[selectAmountEndedEvent]);
+  },[selectAmountEndedEvent, isToDay]);
     
   useEffect(() => {
     getUsers();

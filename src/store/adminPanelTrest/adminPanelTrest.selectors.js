@@ -164,5 +164,11 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
 // ) 
  //////////////////////////////////////////////////// 
  //////////////////////////////////////////////////// 
-  
- //amountNewOGH
+
+
+////////////////////////////////////////////////////
+/// UsersTab
+export const selectAmountUsers = createSelector(
+    getSelectPoints,
+    adminPanel => adminPanel.amountUsers
+)

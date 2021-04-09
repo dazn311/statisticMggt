@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import moment from 'moment/moment';
+// import moment from 'moment/moment';
 
 // import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,15 +40,15 @@ const GenOneDayPeriod = ({ selectObjsInfo, selectObjsPage, selectEvent }) => {
  
 
   let amoutAllMessagesOfLastDay = 0;
-  let amoutEventsEndedOfLastDay = 0;
+  // let amoutEventsEndedOfLastDay = 0;
   let amoutEventsOfLastDay = 0;
 
 
             
   
-  console.log('selectEvent[0]',selectEvent[0]);
-  console.log('selectObjsInfo',selectObjsInfo);
-  console.log('selectObjsPage',selectObjsPage);
+  // console.log('selectEvent[0]',selectEvent[0]);
+  // console.log('selectObjsInfo',selectObjsInfo);
+  // console.log('selectObjsPage',selectObjsPage);
 
   if ( selectObjsInfo  === undefined) {
     // if ( selectObjsInfo.data.objects.length === 0) {
@@ -65,13 +65,15 @@ const GenOneDayPeriod = ({ selectObjsInfo, selectObjsPage, selectEvent }) => {
         amoutAllMessagesOfLastDay += 1;
         if (nodeE.type === 'new_rec'){
           amoutEventsOfLastDay += 1;
-        }else if (nodeE.type === 'done_rec'){
-          amoutEventsEndedOfLastDay += 1;
         }
+        // else if (nodeE.type === 'done_rec'){
+        //   amoutEventsEndedOfLastDay += 1;
+        // }
       }
       return 'newNode'
   });
 
+  // console.log('amoutEventsEndedOfLastDay',amoutEventsEndedOfLastDay)
 
   return (
     <React.Fragment>
@@ -83,25 +85,25 @@ const GenOneDayPeriod = ({ selectObjsInfo, selectObjsPage, selectEvent }) => {
         console.log(amountOGH.data.[keyObj]);
         console.log(keyObj);
       })} */}
-      <Typography component="p" variant="h6">
+      <Typography component="span" variant="h6">
         {amoutEventsOfLastDay}
       </Typography>
-      <Typography component="p"  >
-        Всего событий за последние сутки
+      <Typography component="span"  >
+        Всего событий за сегодняшний день
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h6">
+      <Typography component="span" variant="h6">
         {amoutAllMessagesOfLastDay}
       </Typography>
-      <Typography component="p"  >
-        Всего сообщений за последние сутки
+      <Typography component="span"  >
+        Всего сообщений за сегодняшний день
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h6">
+      <Typography component="span" variant="h6">
         {'*0'}
       </Typography>
-      <Typography component="p"  >
-        Всего согласованых событий за последние сутки
+      <Typography component="span"  >
+        Всего согласованых событий за сегодняшний день
       </Typography>
         
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: '4px'}}/>
@@ -121,8 +123,8 @@ const mapStateToProps = createStructuredSelector ({
   
 });
  
-const mapDispatchToProps = (dispatch) => ({
+// const mapDispatchToProps = (dispatch) => ({
   // fetchObjectsList: () => dispatch(fetchObjectsListAsync()),
   
-});  
+// });  
 export default connect(mapStateToProps)(GenOneDayPeriod);

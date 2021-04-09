@@ -13,13 +13,14 @@ import Title from './Title';
 import { selectAmountOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsPage, selectObjsInfoPage } from '../../store/adminPanelTrest/StatisticPage.selectors';  
 
-import { selectEventShortPoints } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+import { selectEventShortPoints, selectAmountUsers } from '../../store/adminPanelTrest/adminPanelTrest.selectors';
 import { fetchEventsPointShortAsync, fetchObjectsListAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
 
  
 
-import BackdropForAllPage from '../../components/blackDrop/black-drop.component';
-import { Loader } from 'semantic-ui-react';
+// import BackdropForAllPage from '../../components/blackDrop/black-drop.component';
+// import { Loader } from 'semantic-ui-react';
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
  
 const useStyles = makeStyles({
   depositContext: {
@@ -33,18 +34,18 @@ const useStyles = makeStyles({
  
 
  
-const GenAllPeriod = ({ amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchEventsPointShort, fetchObjectsList}) => {
+const GenAllPeriod = ({ selectAmountUsers, amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchEventsPointShort, fetchObjectsList}) => {
   const classes = useStyles();
   let tt = moment(amountOGH.dataTime).toISOString(); 
   let lastDate = tt.split('T')[0].split('-'); 
 
 
   //all
-  let amoutAllMessage = selectEvent.length;
-  let amoutEventsAll = 0;
+  let amountAllMessage = selectEvent.length;
+  let amountEventsAll = 0;
   // of last day
  
-  console.log('selectEvent[0]',selectEvent[0]);
+  // console.log('selectEvent[0]',selectEvent[0]);
   
 
   React.useEffect(() => {
@@ -55,7 +56,7 @@ const GenAllPeriod = ({ amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchE
     // (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') 
     fetchObjectsList('2', '0', '10' , '0', '2021-01-01T10:00:00.000Z', endDate, '',  '',  '' , '2', 'date' , 'desc');
     
-    console.log('fetchEventsPointShort');
+    // console.log('fetchEventsPointShort');
   },[fetchEventsPointShort, fetchObjectsList])
 
   // React.useEffect(() => {
@@ -67,9 +68,10 @@ const GenAllPeriod = ({ amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchE
   // },[])
 
 
-  if ( selectEvent.length == 0  ) {
-    console.log('if ( selectEvent.length == 0 -- loading' );
-    return(<div style={{position:'relative'}} ><Loader /> loading...</div>)
+  if ( selectEvent.length === 0  ) {
+    // console.log('if ( selectEvent.length == 0 -- loading' );
+      return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}>  <CircularProgress size={34} color="secondary" /> </div>)
+    // return(<div style={{position:'relative'}} ><Loader /> loading...</div>)
   }
   // if ( selectObjsInfo.data === {}  ) {
   //   console.log('if ( selectObjsInfo.data === {} -- loading' );
@@ -79,26 +81,26 @@ const GenAllPeriod = ({ amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchE
   
   selectEvent.map((nodeE,index) => {
       if (nodeE.type === 'new_rec'){
-        amoutEventsAll += 1;
+        amountEventsAll += 1;
       }
       return 'newNode'
   });
 
   // console.log('selectObjsInfoPage.data.objects',selectObjsInfoPage.data.objects);
-  console.log('selectObjsInfo.totalAmount',selectObjsInfo.totalAmount);
+  // console.log('selectObjsInfo.totalAmount',selectObjsInfo.totalAmount);
   return (
     <React.Fragment>
       <Title>Данные за весь период</Title>
       <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
       <Typography component="p" variant="h6">
-        {amoutEventsAll}
+        {amountEventsAll}
       </Typography>
       <Typography component="p"  >
           Всего событий
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
       <Typography component="p" variant="h6">
-        {amoutAllMessage}
+        {amountAllMessage}
       </Typography>
       <Typography component="p"  >
         Всего сообщений
@@ -112,7 +114,8 @@ const GenAllPeriod = ({ amountOGH,selectEvent ,selectObjsInfo, selectObjs,fetchE
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: '4px'}}/>
       <Typography component="p" variant="h6">
-        {/* {73+43} */}*0.
+        {/* {73+43} */}
+          {selectAmountUsers.amountEventsEnded}
       </Typography>
       <Typography component="p"  >
           Всего согласованых событий
@@ -132,6 +135,7 @@ const mapStateToProps = createStructuredSelector ({
   selectEvent: selectEventShortPoints, // события короткие данные для таблицы
   selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
   selectObjs: selectObjsPage, // события короткие данные для таблицы
+    selectAmountUsers: selectAmountUsers, //
 });
  
 const mapDispatchToProps = (dispatch) => ({

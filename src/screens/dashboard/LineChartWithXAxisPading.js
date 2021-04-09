@@ -16,37 +16,42 @@ render() {
 
 
     // // console.log(window.innerWidth);
-    const styleLblUsersGraphic3 = !isFetchingUserOnline ? {position: 'absolute', top: '-40px', right: '-15px', color:'#483d93',display: 'flex', alignItems: 'center'}
-    : {position: 'absolute', top: '-30px', right: '0px', color:'#ccc',display: 'flex', alignItems: 'center'};
-    
-    const styleLblUsersGraphic = !isFetchingUserOnline ? {position: 'absolute', top: '25px', right: '10px', color:'white', backgroundColor:'rgb(136, 132, 216)',width:'30px',height: 30}
-    : {position: 'absolute', top: '25px', right: '10px', color:'#ccc',width:'30px',height: 30};
-
-    const styleLblEventsGraphic = !isFetchingUserOnline ? {position: 'absolute', top: '60px', right: '10px', color:'black', backgroundColor:'rgb(130, 202, 157)',width:'30px',height: 30}
-    : {position: 'absolute', top: '60px', right: '10px', backgroundColor:'#91c1b4', color:'#ccc',width:'30px',height: 30};
-
-    
-    const styleLblEndedGraphic = !isFetchingUserOnline ? {position: 'absolute', top: '100px', right: '10px', color:'black', backgroundColor:'rgb(255, 192, 0)',width:'30px',height: 30}
-    : {position: 'absolute', top: '100px', right: '10px', color:'#ccc',width:'30px',height: 30};
-
-
-    const styleBtnUpdateUsersGraphic = isFetchingUserOnline ? {position: 'absolute', bottom: '10px', right: '18px', cursor:'pointer', transition: 'transform 0.2s'}
-    :{position: 'absolute', bottom: '10px', right: '15px', cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
     
     
+     
     const winWidth = window.innerWidth;
     let windthLine = 500;
     let leftLine = 30;
     let rightLine = 30;
+    let displayVal = 'flex';
 
-    if (winWidth < 400){
-      windthLine = 250;
+    if (winWidth < 550){
+      windthLine = 350;
       leftLine = 10;
       rightLine = 10;
+      displayVal = 'none';
     }
-     
+
+    const styleLblUsersGraphicDate = !isFetchingUserOnline ? {position: 'relative',  color:'#483d93',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
+    : {position: 'relative' , color:'#ccc',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
+    
+    const styleLblUsersGraphic = !isFetchingUserOnline ? {position: 'relative', color:'white',display: displayVal, backgroundColor:'rgb(136, 132, 216)',width:'30px',height: 30, margin: '4px 25px'}
+    : {position: 'relative', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+
+    const styleLblEventsGraphic = !isFetchingUserOnline ? {position: 'relative',  color:'black',display: displayVal, backgroundColor:'rgb(130, 202, 157)',width:'30px',height: 30, margin: '4px 25px'}
+    : {position: 'relative',  backgroundColor:'#91c1b4', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+
+    
+    const styleLblEndedGraphic = !isFetchingUserOnline ? {position: 'relative', color:'black',display: displayVal, backgroundColor:'rgb(255, 192, 0)',width:'30px',height: 30, margin: '4px 25px'}
+    : {position: 'relative',  color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+
+
+    const styleBtnUpdateUsersGraphic = isFetchingUserOnline ? {position: 'relative',display: displayVal, cursor:'pointer', transition: 'transform 0.2s'}
+    :{position: 'relative',display: displayVal, cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
+
+    // console.log('winWidth',window.innerWidth);
     return (
-      <div id='graphics' style={{ position:'relative'}}>
+      <div id='graphics' style={{ position:'relative', display:'flex',   justifyContent: 'space-between'}}>
         <LineChart width={windthLine} height={200} data={data} >
           <CartesianGrid strokeDasharray="8 1" />
           <XAxis dataKey="name" padding={{ left: leftLine, right: rightLine }} />
@@ -58,18 +63,21 @@ render() {
           <Line type="monotone" dataKey="Closed" name='Закрытые событ.' stroke="#FFc000" />
           
         </LineChart>
-       
-        <div style={styleLblUsersGraphic3}>
-          <ArrowLeftIcon onClick={() => {fetchAll(-1)}} color="secondary" />
-            {dateLabel.toISOString().slice(8,10)}/{dateLabel.toISOString().slice(5,7)} 
-          <ArrowRightIcon disabled={isToday} onClick={() => {fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
-        </div>
         
-        <div><Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar></div>
-        <div><Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar></div>
-        <div ><Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar></div>
-        <div style={{position: 'absolute', right:'-12px', transform: 'rotate(270deg)', top: '90px'}}>Данные на данный час</div>
-        <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
+        <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap', backgroundColor:'#d3c1e4', maxWidth: 80, width: '100%', justifyContent: 'center'}} >
+            <div style={{position: 'absolute', right:'-8px', transform: 'rotate(270deg)', top: '100px', whiteSpace: 'nowrap'}}>Данные на данный час</div>
+            <div style={styleLblUsersGraphicDate}>
+              <ArrowLeftIcon onClick={() => {fetchAll(-1)}} color="secondary" />
+                <div style={{alignSelf:'center'}} >{dateLabel.toISOString().slice(8,10)}/{dateLabel.toISOString().slice(5,7)} </div> 
+              <ArrowRightIcon disabled={isToday} onClick={() => {fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
+            </div>
+            
+            <Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar> 
+            <Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar> 
+            <Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar> 
+            
+            <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
+        </div>
       </div>
     );
   } 

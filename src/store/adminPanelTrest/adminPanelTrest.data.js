@@ -380,7 +380,8 @@ const ORGANIZATIONS_DATA = {
       // },
     // ],
   objRect: {data:{recs:[]}},
-  eventShortPoints:{data:{nodes:[]}}, 
+  eventShortPoints:{data:{nodes:[]}},
+    amountUsers: 0,
   };
 
   
