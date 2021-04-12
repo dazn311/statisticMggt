@@ -51,7 +51,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
     let weekDayVal = 0;
     let monthDayVal = 0;
 
-    const amUsers =selectUsersPage && selectUsersPage.usersAll.filter(element => {
+    const amUsers =selectUsersPage.length && selectUsersPage.usersAll.filter(element => {
       lastDayVal += new Date(element.user_reg_date) > lastDay ? 1 : 0;
       weekDayVal += new Date(element.user_reg_date) > weekDay ? 1 : 0;
       monthDayVal += new Date(element.user_reg_date) > monthDay ? 1 : 0;
@@ -81,7 +81,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectUsersPage && selectUsersPage.usersAll
+          {selectUsersPage.length && selectUsersPage.usersAll
           .filter(item => item.user_fio !== undefined)
           // .filter(item => item.user_reg_date > new Date("2021-02-17"))
           .map((row, index) => (

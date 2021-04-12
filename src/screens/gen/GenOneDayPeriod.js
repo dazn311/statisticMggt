@@ -89,7 +89,7 @@ const GenOneDayPeriod = ({ selectObjsInfo, selectObjsPage, selectEvent }) => {
         {amoutEventsOfLastDay}
       </Typography>
       <Typography component="span"  >
-        Всего событий за сегодняшний день
+        Всего новых событий за сегодняшний день
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
       <Typography component="span" variant="h6">
