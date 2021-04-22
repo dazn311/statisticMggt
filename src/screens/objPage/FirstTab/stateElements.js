@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    justifyContent: 'center',
     flexWrap:'wrap',
     width: 'auto',
     border: `1px solid ${theme.palette.divider}`,
@@ -31,15 +32,6 @@ const useStyles = makeStyles((theme) => ({
      
 
 
-
-
-
-
-
-
-
-
-
 ///////////////////////////////////////////
 export default function StateElements({amObjsValue, amObjsValueCurrent}) { 
 
@@ -49,17 +41,12 @@ export default function StateElements({amObjsValue, amObjsValueCurrent}) {
     <React.Fragment>
       <Grid container alignItems="center" className={classes.root}>
           <div className={classes.amObjs}> всего объектов: <span style={{color:'#5a809e'}}>{amObjsValue.totalAmount}</span><span style={{color:'grey'}}> ({amObjsValueCurrent.totalAmount})</span></div>
-        <Divider orientation="vertical" flexItem />
-         {/* <div className={classes.amObjs}>в работе: <span style={{color:'red'}}>{amObjsValue.inWork}</span> </div>
-        <Divider orientation="vertical" flexItem />
-          <div className={classes.amObjs}>согласованные: <span style={{color:'green'}}>{amObjsValue.inEndWork}</span> </div>
-        <Divider orientation="vertical" flexItem /> */}
+        <Divider orientation="vertical" flexItem  />
           <div className={classes.amObjs}>имеют события: <span style={{color:'green'}}>{amObjsValue.withRecs}</span> <span style={{color:'grey'}}> ({amObjsValueCurrent.withRecs})</span></div>
         <Divider orientation="vertical" flexItem />
           <div className={classes.amObjs}>не имеют события: <span style={{color:'red'}}>{amObjsValue.withoutRecs}</span> <span style={{color:'grey'}}> ({amObjsValueCurrent.withoutRecs})</span></div>
         <Divider orientation="vertical" flexItem />  
-          {/* <div className={classes.amObjs}> <button className={classes.btnUpdateAll} >Обновить данные</button>  </div>
-        <Divider orientation="vertical" flexItem />   */}
+          
       </Grid>
     </React.Fragment> 
   );

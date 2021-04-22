@@ -37,6 +37,7 @@ const INITIAL_STATE = {
     objsInfo: ORGANIZATIONS_DATA.objsInfo,// for Objects Page
     objCurrent: ORGANIZATIONS_DATA.objCurrent,// for Objects Page
     objRect: ORGANIZATIONS_DATA.objRect,// for Objects Page
+    genStats: ORGANIZATIONS_DATA.genStats,// for Objects Page
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -148,6 +149,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataGenPage.FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE:
                 return {...state, amountUsers: action.payload};
+
+        case FetchDataGenPage.FETCH__ALL_DATA_FOR_GEN_PAGE:
+                return {...state, genStats: action.payload};
 
 
         default:

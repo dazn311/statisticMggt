@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
   tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px',boxShadow: '0px 0px 10px 0px darkgrey', color: 'red'},
   datePick: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
@@ -355,14 +356,13 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   
   return (
     <React.Fragment>
-      {/* <Title>Статистика по событиям за периоды</Title> */}
       <div className={classes.seeMore}>
             <div className={classes.datePick}>
-                {/* <DatePickerOne setDataStart={setDateStartFromPicker}/> */}
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
             <LineChart  graphicValue={graphicValue}/>
+            
             <div className={classes.tabWrap}  >
 
 

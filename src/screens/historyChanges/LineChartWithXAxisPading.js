@@ -11,9 +11,7 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 
- 
-// import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
+  
 let data = [
   {
     name: '08:00', Events: null, Users: null, Closed: null, amt: 3,

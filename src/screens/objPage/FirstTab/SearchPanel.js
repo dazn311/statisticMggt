@@ -11,7 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(3), 
     },
   },
   input: {
@@ -46,7 +46,7 @@ const BootstrapInput = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
-    minWidth: 185,
+    minWidth: 285,
   },
 }));
 
@@ -81,7 +81,7 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   // const fetchSearchObjHandle = () => {fetchSearchObj()};
 
   return (
-    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center'}}>
+    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-around'}}>
       <FormControl className={classes.margin}>
         <BootstrapInput id="input-obj" placeholder='Поиск по объектам' value={filterObj} onChange={handleFilterObj}/>
        

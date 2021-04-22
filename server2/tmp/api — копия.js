@@ -216,72 +216,42 @@ app.post('/query/users/amount', cors(), async function(req, res){
 	}
 })
 
-// ///////// get_recombination_one // 20.04.21 // to daz DB ///////////////////////////
-// async function get_recombination_one(msgID){
-// 	console.log('3. start get_recombination_one --msgID:',msgID );
-// 	const msgID2 = parseInt(msgID);
-// 	return new Promise ((resolve, reject) => {
-// 		let queryText  = ` SELECT rec_name FROM get_recombination_one(388); `;
-// 		// let queryText  = ` SELECT * FROM get_recombination_one(${msgID2}); `;
-// 		query(queryText)
-// 			.then(function(data){
-
-// 				// console.log('4. get_recombination_one -- data.rows:',data.rows[0] );
-// 				let result = {
-// 					messageDetail: data.rows[0]
-// 				}
-// 				resolve(result);
-// 			})
-// 			.catch(function(err){ reject(err); console.log(err)});
-// 	});
-// }
-
-// //API для первой страницы, для нижней таблицы, для вывода одного сообщения в строке // get_recombination_one
-// app.post('/query/recombination/one', cors(), async function(req, res){ 
-// 	console.log( '1. Запрос /query/recombination/one --req.body.msgID',req.body.msgID);
-	 
-// 	const msgID = parseInt(req.body.msgID);
-// 	try {
-// 		let result = await get_recombination_one(req.body.msgID); // get_event_ended_all_daz()
-// 		console.log( '2. Запрос /query/recombination/one --result.messageDetail:',result.messageDetail);
-// 		if(result.messageDetail){
-// 			res.send(result);
-// 		}else {
-// 			res.send({result:'undefined'});
-// 		}
-		
-// 	} catch (e){
-// 		console.log(e);
-// 	}
-// })
-
 ///////// get_recombination_one // 20.04.21 // to daz DB ///////////////////////////
 async function get_recombination_one(msgID){
-	
+	console.log('3. start get_recombination_one --msgID:',msgID );
+	const msgID2 = parseInt(msgID);
 	return new Promise ((resolve, reject) => {
-		let queryText  = ` SELECT * FROM get_recombination_one(${msgID2}); `;
+		// let queryText  = ` SELECT rec_name FROM public.mggt_recombination WHERE  rec_id=388 `; // work
+		// let queryText  = ` SELECT rec_name FROM public.mggt_recombination WHERE  rec_id=${msgID2} `; // no work for my tables
+		// let queryText  = ` SELECT rec_name  FROM public.mggt_recombination WHERE mggt_recombination.rec_id=${msgID2} `;
+
+		let queryText  = ` SELECT rec_name FROM get_recombination_one(388); `;
+		// let queryText  = ` SELECT * FROM get_recombination_one(${msgID2}); `;
 		query(queryText)
 			.then(function(data){
+
+				// console.log('4. get_recombination_one -- data.rows:',data.rows[0] );
 				let result = {
 					messageDetail: data.rows[0]
 				}
 				resolve(result);
 			})
-			.catch(function(err){ reject(err); console.log(err)});
+			.catch(function(err){console.log(err)});
 	});
 }
 
 //API для первой страницы, для нижней таблицы, для вывода одного сообщения в строке // get_recombination_one
 app.post('/query/recombination/one', cors(), async function(req, res){ 
+	console.log( '1. Запрос /query/recombination/one --req.body.msgID',req.body.msgID);
+	 
+	const msgID = parseInt(req.body.msgID);
 	try {
-		if(req.body.msgID){
-			let result = await get_recombination_one(req.body.msgID); // get_event_ended_all_daz()
-			console.log( '2. Запрос /query/recombination/one --result.messageDetail:',result.messageDetail);
-			if(result.messageDetail){
-				res.send(result);
-			}else {
-				res.send({result:'undefined'});
-			}
+		let result = await get_recombination_one(req.body.msgID); // get_event_ended_all_daz()
+		console.log( '2. Запрос /query/recombination/one --result.messageDetail:',result.messageDetail);
+		if(result.messageDetail){
+			res.send(result);
+		}else {
+			res.send({result:'undefined'});
 		}
 		
 	} catch (e){

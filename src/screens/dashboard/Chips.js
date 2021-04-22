@@ -21,16 +21,19 @@ const useStyles = makeStyles((theme) => ({
  
 export default function ChipsArray({data}) {
   const classes = useStyles();
-  const [chipData, setChipData] = React.useState([]);
+  const [chipData, setChipData] = React.useState(['block','block','block','block']);
 
   const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) => chips.filter((chip) => chip.name !== chipToDelete.name));
+    // setChipData((chips) => chips.filter((chip) => chip.name !== chipToDelete.name));
+    // setChipData([...chipData,chipData[chipToDelete] = 'none']);
   };
   // console.log('data',data);
 
 
+  const {total_recs,total_messages, total_sogl_objects, total_sogl_recs} = data;
   React.useEffect(() => {
-    setChipData(data);
+    // setChipData(data);
+    console.log('21 data',data);
   },[data])
 
 
@@ -38,24 +41,16 @@ export default function ChipsArray({data}) {
     return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}>  <CircularProgress size={34} color="secondary" /> </div>)
   }
 
+  let icon;
+  icon = <TagFacesIcon  />; 
+
   return (
-    <Paper component="ul" className={classes.root}>
-      {chipData.map((item, index) => {
-        let icon;
-
-        // if (item.label === 'React') {
-          icon = <TagFacesIcon  />;
-        // }
-
-        return (
-          <li key={index}>
-            {item.count === 0 ? '':<Chip key={index + item.name} icon={icon} label={item.name + ' (' + item.count + ') '}
-                onDelete={item.name === 'React' ? undefined : handleDelete(item)} className={classes.chip}
-            />}
-
-          </li>
-        );
-      })}
+    <Paper component="ul" className={classes.root}> 
+        <Chip style={{color: 'black'}} label={' Всего событий' + ' (' + total_recs + ') '}  className={classes.chip} /> 
+        <Chip  style={{color: 'black'}} label={' Всего сообщений' + ' (' + total_messages + ') '}  className={classes.chip} /> 
+        <Chip  style={{color: 'black'}} label={' Всего согл-ых объектов' + ' (' + total_sogl_objects + ') '}   className={classes.chip} /> 
+        <Chip style={{color: 'black'}}  label={' Всего согл. событий' + ' (' + total_sogl_recs + ') '}  className={classes.chip} /> 
+        {/* <Chip icon={icon} label={' Всего согл. событий' + ' (' + total_sogl_recs + ') '} onDelete={total_recs === 'React' ? undefined : handleDelete(4)} className={classes.chip} />  */}
     </Paper>
   );
 }

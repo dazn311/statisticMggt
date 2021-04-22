@@ -8,11 +8,11 @@ const AuthDash = () => {
     let currentUser = {username: 'demo'};
 
     return (
-            <GenDashboard currentUser={currentUser}/>
+        <GenDashboard currentUser={currentUser}/>
     )
 }
- 
-  
 
- 
+
+
+
 export default AuthDash;

@@ -14,15 +14,14 @@ import LineChartWrap from './LineChart.wrap';
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';
 import TableListHistories from './TableListHistories.sceen';
-import './dashboard.styles.scss';
-import ChipsArray from './Chips';
 
 import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import {  fetchEventsPointShortAsync, fetchAmountOGHForDashboardAsync ,fetchAmountOGHToDayAsync,fetchAmountOGHToWeekAsync, fetchAmountOGHToThreeDaysAsync, fetchGenStatsAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { selectGenStats } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
 
-
+import './dashboard.styles.scss';
+import ChipsArray from './Chips';
 
  
 
@@ -95,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
-    // paddingLeft: 10,
     // paddingLeft: theme.spacing(10),
     // minWidth: 1400,
   },
@@ -112,20 +110,30 @@ const useStyles = makeStyles((theme) => ({
    }, 
   },
   fixedHeight: {
-    minHeight: 240,
+    height: 240,
   },
   // paper2: {height: 240,}
 }));
 
   
-
+//all
+// let amoutEventsEndedAll = 0;
+// // of last day
+// let amoutAllMessagesOfLastDay = 0;
+// let amoutMessagesEndedOfLastDay = 0;
+  
+// let allData = [
+//   { name: 'Всего сообщений за последние сутки ', count: 3}
+// ];
 
 let lineHeader = 'Текущая информация по событиям и пользователям';
 let maxWidthGridOGH = '330px';
 
 const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays}) => {
   const classes = useStyles();
+  // const [value, setValue] = React.useState('recents');
   const [valueChip, setValueChip] = React.useState([]);
+  // const [lineHeader, setLineHeader] = React.useState('Текущая информация по событиям и пользователям');
 
   
   //smgt
@@ -149,56 +157,56 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const winWidth = window.innerWidth; 
+  const winWidth = window.innerWidth;
+  
+  // console.log('winWidth',winWidth);
 
   if (winWidth < 550) {
       lineHeader = 'Информация по событиям';
-      maxWidthGridOGH = 'unset' //по событиям'; 
+      maxWidthGridOGH = 'unset'
+      // let newHeader = 'Информация по событиям';
+      // setLineHeader(newHeader);
   }
 
   const amHenler = React.useCallback( (data) => {
+    // console.log('data',data); 
     setValueChip(data);
   },[setValueChip]);
    
 
+  // console.log('user',user);
+  // console.log('valueChip[0].count',valueChip);
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {/* <Header />  */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Grid container spacing={3} style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
-            <Grid item xs={12} md={12} lg={6} style={{
-              // minWidth: 250,
-              maxWidth: 630,
-              // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
-              }} >
-              <Paper className={fixedHeightPaper} >
+          <Grid container spacing={3} style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'center'}} >
+            <Grid item xs={12} md={6} lg={6} style={{minWidth: 250,maxWidth: 630,boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 0px'}} >
+              {/* <Paper className={fixedHeightPaper}> */}
                 <h4 style={{ textAlign:'center', position:'relative', marginTop:'0px', left: '0'}}> {lineHeader}</h4>
-                <LineChartWrap  />
+                <LineChartWrap />
+              {/* </Paper> */}
+            </Grid>
+            
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
+              <Paper className={fixedHeightPaper}>
+                <Deposits /> {/* Количество ОГХ */}
               </Paper>
             </Grid>
             
-            
-            <Grid xs={12} md={12} lg={6} style={{display:'flex', flexWrap:'wrap' , justifyContent:'center'}}>
-                <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH, marginRight:'8px'}} >
-                  <Paper className={fixedHeightPaper}>
-                    <Deposits /> {/* Количество ОГХ */}
-                  </Paper>
-                  
-                </Grid>
-                
-                <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
-                  <Paper className={fixedHeightPaper}>
-                    <NewOGH />  {/* Новые ОГХ */}
-                  </Paper>
-                </Grid>
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
+              <Paper className={fixedHeightPaper}>
+                <NewOGH />  {/* Новые ОГХ */}
+              </Paper>
             </Grid>
             
             <Grid item xs={12}>
               <Paper className={classes.paper2}>
                 {/* краткие данные */}
-                 <ChipsArray data={genStatsAll} />
+                {valueChip  && <ChipsArray data={genStatsAll} />}
               </Paper>
             </Grid>
 

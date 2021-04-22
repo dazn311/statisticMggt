@@ -37,12 +37,12 @@ const MainListItems = ( {location, open, drawerClose} ) => (
       <ListItemText primary="Объекты" onClick={drawerClose} />
     </MenuItem> 
 
-    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
+    {/* <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Пользователи" />
-    </MenuItem>
+    </MenuItem> */}
      
     <MenuItem  component={Link} to="/stats/gen"  selected={location.pathname === '/stats/gen'}>
       <ListItemIcon>

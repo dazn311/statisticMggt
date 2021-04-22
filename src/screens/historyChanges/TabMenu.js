@@ -1,10 +1,7 @@
 import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 
-
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-
+ 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -17,9 +14,7 @@ import TabOneMenu from './FirstTab/tabOneMenu'
 import TabTwoMenu from './TwoTab/tabTwoMenu'
 import TabThirdMenu from './ThirdTab/tabThirdMenu'
 
-
-// import { fetchEventForPeriodAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
-
+ 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

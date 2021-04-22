@@ -18,27 +18,15 @@ const useStyles = makeStyles({
   },
 });
 
-//countOGH: 
-// { dataTime: '16:20 (21.01.21)',
-//   data:  {
-//     objTotal: 100,
-//     objMggt: 30,
-//     objRelatives: 70,} }
+ 
 
 const Deposits = ({ amountOGH }) => {
   const classes = useStyles();
-  let tt = moment(amountOGH.dataTime).toISOString();
-  //tt 2021-02-08T21:12:01.440Z
-  // tt.format("DD MMM (HH:mm) ");
-  //tt Tue Feb 09 2021 00:12:01 GMT+0300 (Moscow Standard Time)
-  // tt 2021-02-08T21:16:02.549Z
-  let lastDate = tt.split('T')[0].split('-');
-  // console.log('lastDate',lastDate);
-  //lastDate 2021-02-08
+  let tt = moment(amountOGH.dataTime).toISOString(); 
+  let lastDate = tt.split('T')[0].split('-'); 
   return (
-    <React.Fragment>
-      {/* <Title>Количество ОГХ ({moment(amountOGH.data.objTotal).format("dddd, MMM DD at HH:mm a")})</Title> */}
-      <Title>Количество ОГХ <span style={{color:'red',fontSize:12}}>(Всего: {amountOGH.data.objTotal})</span></Title>
+    <React.Fragment> 
+      <Title>Количество ОГХ <span style={{color:'red',fontSize:12,verticalAlign: 'middle'}}>(Всего: {amountOGH.data.objTotal})</span></Title>
       <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
       <Typography component="p" variant="h4">
         {amountOGH.data.objMgtt}
@@ -57,24 +45,14 @@ const Deposits = ({ amountOGH }) => {
       <Typography color="textSecondary" className={classes.depositContext}>
         Данные на {lastDate[2]}/{lastDate[1]}/{lastDate[0]}
          
-      </Typography>
-      <div>
-        {/* <Link color="primary" href="#" onClick={preventDefault}>
-          Смотреть подробно
-        </Link> */}
-      </div>
+      </Typography> 
     </React.Fragment>
   );
 }
  
 
 const mapStateToProps = createStructuredSelector ({
-  amountOGH: selectAmountOGH,
-  // isFetchingUserOnline: selectIsFetchingUserOnline,
-  // selectAmountEvent: selectAmountEventGraph,
+  amountOGH: selectAmountOGH, 
 });
- 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
-// });
+  
 export default connect(mapStateToProps)(Deposits);

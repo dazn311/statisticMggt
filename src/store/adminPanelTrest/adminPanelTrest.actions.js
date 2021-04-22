@@ -14,7 +14,7 @@ export const appendUser = (item) => ({
 
 export const  appendAllUsers = (item) => ({
   type: FetchDataUsersPage.FETCH__USERS_TO_LOCAL_DB_FOR_USERS_PAGE,
-  payload: item 
+  payload: item
 });
 
 export const setCurrentPoint = (item) => ({
@@ -35,68 +35,68 @@ export const putDataUsersOnlineError = (errorMessage) => ({
 
 export const putDataUsersOnline = (items) => ({
   type: FetchData.GET_USERS_ONLINE_SUCCESS,
-  payload: items 
+  payload: items
 });
 
-export const putDataUsersOfStartDayOnline = (items) => ({ 
+export const putDataUsersOfStartDayOnline = (items) => ({
   type: FetchData.GET_USERS_ONLINE_START_DAY,
-  payload: items 
+  payload: items
 });
 
 export const putDataUsersOfEndDayOnline = (items) => ({
   type: FetchData.GET_USERS_ONLINE_END_DAY,
-  payload: items 
+  payload: items
 });
- 
+
 export const putEventsPointShort = (items) => ({
   type: FetchData.GET_EVENTS_POINT_START,
-  payload: items 
+  payload: items
 });
 /////////// -- for Statics page --////////////////////////////////////////////////
 
 export const putEventsForPeriodShort = (items) => ({
   type: FetchData.FETCH_EVENT_TYPE_OF_DATE_FOR_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const dataStartforFetchEventsForPeriod = (startDate) => ({
   type: FetchData.DATA_START_FOR_FETCH_EVENT_TYPE_OF_DATE_FOR_STATISTIC_PAGE,
-  payload: startDate 
+  payload: startDate
 });
 
 export const dataEndforFetchEventsForPeriod = (endDate) => ({
   type: FetchData.DATA_END_FOR_FETCH_EVENT_TYPE_OF_DATE_FOR_STATISTIC_PAGE,
-  payload: endDate 
+  payload: endDate
 });
 
 /////////// -- for Graphics --////////////////////////////////////////////////
 export const putNewEventsGraphic = (items) => ({
   type: FetchData.GET_NEW_EVENTS_FOR_GRAPHIC_START,
-  payload: items 
+  payload: items
 });
 
 export const putEndEventsGraphic = (items) => ({
   type: FetchData.GET_END_EVENTS_FOR_GRAPHIC_START, //amountEndEventGraph
-  payload: items 
+  payload: items
 });
 ///////////////////////////////////////////////////////////
 
 export const putOGH = (items) => ({
   type: FetchData.FETCH_COUNT_OGH_FOR_DASHBOARD, //amountEndEventGraph
-  payload: items 
+  payload: items
 });
 
 export const putOGHforToDay = (items) => ({
   type: FetchData.FETCH_AMOUNT_OGH_TO_DAY_FOR_DASHBOARD, //amountEndEventGraph
-  payload: items 
+  payload: items
 });
 export const putOGHforWeek = (items) => ({
   type: FetchData.FETCH_AMOUNT_OGH_TO_WEEK_FOR_DASHBOARD, //amountEndEventGraph
-  payload: items 
+  payload: items
 });
 export const putOGHforTreeDays = (items) => ({
   type: FetchData.FETCH_AMOUNT_OGH_TO_TREE_DAYS_FOR_DASHBOARD, //amountEndEventGraph
-  payload: items 
+  payload: items
 });
 
 //////////////////////////////////////////////////
@@ -104,53 +104,53 @@ export const putOGHforTreeDays = (items) => ({
 
 export const setDataUsersOnlineToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_ONLINE_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataNewEventToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_NEW_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataEndEventToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_END_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 export const setDataDenyEventToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_DENY_EVENT_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataNewMessageToGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_NEW_MESSAGE_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 /////////////////////- TAB 3-//////////////////////////////////// 
 
 export const setDataUsersNewGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_NEW_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataUsersDelGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_DEL_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataUsersEndGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_END_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 export const setDataUsersBlockGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_USERS_BLOCK_TO_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 // for static page, tab3
 export const setNewOGHGraphicToStaticPage = (items) => ({
   type: FetchDataStaticPage.FETCH_AMOUNT_NEW_OGH_FOR_GRAPHIC_TO_STATISTIC_PAGE,
-  payload: items 
+  payload: items
 });
 
 
@@ -164,7 +164,7 @@ export const setNewOGHGraphicToStaticPage = (items) => ({
 export const setObjForObjsPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJS_TO_LOCAL_DB_FOR_OBJS_PAGE,
   // payload: items
-  payload: items.data.objects 
+  payload: items.data.objects
 });
 
 // for obj page, tab1
@@ -176,7 +176,7 @@ export const setObjForObjsInfoPage = (items) => ({
 // for obj page, tab1
 export const setObjForObjRectPage = (items) => ({
   type: FetchDataObjsPage.FETCH__OBJS_EVENTS_TO_LOCAL_DB_FOR_OBJS_PAGE,
-  payload: items 
+  payload: items
 });
 
 // for obj page, tab1
@@ -193,22 +193,28 @@ export const setAmountUsersForGenPage = (items) => ({
   payload: items
 });
 
+export const setGenStatsPage = (items) => ({
+  type: FetchDataGenPage.FETCH__ALL_DATA_FOR_GEN_PAGE,
+  payload: items
+});
 
 
 
+ 
 
 
 
 /////////////////////////////////////////////////
-const rootURL = 'https://ismggt.ru'; 
+const rootURL = 'https://ismggt.ru';
 const urlUserOnline = rootURL + '/query/users/online';
-const urlUserOnlineByInterval = rootURL + '/query/users/online/byinterval'; 
-const urlQueryAmount = rootURL + '/query/events/amount'; 
-const urlQueryObjTotal = rootURL + '/query/objects/total'; 
+const urlUserOnlineByInterval = rootURL + '/query/users/online/byinterval';
+const urlQueryAmount = rootURL + '/query/events/amount';
+const urlQueryObjTotal = rootURL + '/query/objects/total';
 //'https://ismggt.ru/query/objects/total'
 
 async function postData(url = '', data = {}) {
-  // Default options are marked with *
+    // console.log('postData -- url,data',url,data)
+    // Default options are marked with *
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -227,7 +233,7 @@ async function postData(url = '', data = {}) {
 
 
 
-  
+
 ////// Stats Page /////
 // Для верхней таблицы "graphics" пользователей он-лайн
 export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.000Z',endDate)  => {
@@ -237,13 +243,13 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.
     // https://ismggt.ru/
     // postData('https://ismggt.ru/query/users/online', { startDate: startDate, endDate: endDate})
     postData(urlUserOnline, { startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
-        dispatch(putDataUsersOnline(users));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  };  
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          // console.log('fetchAmountUsersForGraphicsAsync -- query/users/online -- then: ', users); // JSON data parsed by `response.json()` call
+          dispatch(putDataUsersOnline(users));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
 };
 
 
@@ -262,12 +268,12 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.
 export const fetchAmountUsersOfStartDayGraphicsAsync = (startDate='2021-02-16T00:00:00.000Z',endDate='2021-02-12T07:02:00.000Z')  => {
   return (dispatch) => {
     postData(urlUserOnlineByInterval, { startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        // console.log('query/users/online byinterval  start day', users); // JSON data parsed by `response.json()` call
-        dispatch(putDataUsersOfStartDayOnline(users));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          // console.log('query/users/online byinterval  start day', users); // JSON data parsed by `response.json()` call
+          dispatch(putDataUsersOfStartDayOnline(users));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -277,12 +283,12 @@ export const fetchAmountUsersOfEndDayGraphicsAsync = (startDate='2021-02-12T08:0
 
   return (dispatch) => {
     postData(urlUserOnlineByInterval, { startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        // console.log('query/users/online byinterval end day', users); // JSON data parsed by `response.json()` call
-        dispatch(putDataUsersOfEndDayOnline(users));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          // console.log('query/users/online byinterval end day', users); // JSON data parsed by `response.json()` call
+          dispatch(putDataUsersOfEndDayOnline(users));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -290,26 +296,26 @@ export const fetchAmountUsersOfEndDayGraphicsAsync = (startDate='2021-02-12T08:0
 
 // Для верхней таблицы "graphics" новые события
 export const fetchAmountNewEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate) => {
-  
+
   return (dispatch) => {
     // postData('https://ismggt.ru/query/events/amount', {type: 'new_rec', startDate: '2021-02-15T01:00:00.000Z'})
     postData(urlQueryAmount, {type: 'new_rec', startDate: startDate, endDate: endDate})
-      .then((eventss) => {
-        // console.log('events new_rec',eventss);
-        dispatch(putNewEventsGraphic(eventss)); 
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('events new_rec',eventss);
+          dispatch(putNewEventsGraphic(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 // Для верхней таблицы "graphics" завершенные события
 export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:00.000Z',endDate) => {
   return (dispatch) => {
     postData(urlQueryAmount, {type: 'done_rec', startDate: startDate, endDate: endDate})
-      .then((eventss) => {
-        // console.log('events done_rec',eventss);
-        dispatch(putEndEventsGraphic(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('events done_rec',eventss);
+          dispatch(putEndEventsGraphic(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -317,11 +323,11 @@ export const fetchAmountEndEventsForGraphicAsync = (startDate='2021-02-12T08:00:
 export const fetchAmountOGHForDashboardAsync = () => {
   return (dispatch) => {
     postData(urlQueryObjTotal, {})
-      .then((objOGH) => {
-        // console.log('objOGH',objOGH);
-        dispatch(putOGH(objOGH));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((objOGH) => {
+          // console.log('objOGH',objOGH);
+          dispatch(putOGH(objOGH));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -333,43 +339,43 @@ export const fetchAmountOGHToDayAsync = () => {
 
   return (dispatch) => {
     postData('https://ismggt.ru/query/objects/total', {startDate: start0})
-      .then((objTodayOGH ) => {
-        // console.log('objTodayOGH (query/objects/total)',objTodayOGH);
-        dispatch(putOGHforToDay(objTodayOGH));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((objTodayOGH ) => {
+          // console.log('objTodayOGH (query/objects/total)',objTodayOGH);
+          dispatch(putOGHforToDay(objTodayOGH));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
 
 export const fetchAmountOGHToThreeDaysAsync = () => {
   const startDate = new Date();
-  startDate.setDate(startDate.getDate() - 3); 
-  
+  startDate.setDate(startDate.getDate() - 3);
+
   return (dispatch) => {
     postData('https://ismggt.ru/query/objects/total', {startDate: startDate})
-      .then((objMonthOGH) => {
-        // console.log('objTreeDayshOGH',objMonthOGH);
-        dispatch(putOGHforTreeDays(objMonthOGH));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((objMonthOGH) => {
+          // console.log('objTreeDayshOGH',objMonthOGH);
+          dispatch(putOGHforTreeDays(objMonthOGH));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
 export const fetchAmountOGHToWeekAsync = () => {
   const startDate = new Date();
   // console.log(startDate.getDate() - 7);
-  startDate.setDate(startDate.getDate() - 7); 
+  startDate.setDate(startDate.getDate() - 7);
   // console.log('startDate',startDate);
 
 
   return (dispatch) => {
     postData('https://ismggt.ru/query/objects/total', {startDate: startDate.toISOString()})
-      .then((objWeekOGH) => {
-        // console.log('objWeekOGH',objWeekOGH);
-        dispatch(putOGHforWeek(objWeekOGH));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((objWeekOGH) => {
+          // console.log('objWeekOGH',objWeekOGH);
+          dispatch(putOGHforWeek(objWeekOGH));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -378,11 +384,11 @@ export const fetchAmountOGHToWeekAsync = () => {
 export const fetchEventsPointShortAsync = () => {
   return (dispatch) => {
     postData('https://ismggt.ru/query/events/last/short', {limit:135120})
-      .then((eventss) => {
-        console.log('fetchEventsPointShortAsync -- eventss',eventss);
-        dispatch(putEventsPointShort(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('fetchEventsPointShortAsync -- events',eventss);
+          dispatch(putEventsPointShort(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -402,44 +408,44 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
   return (dispatch) => {
     // console.log('startDate, endDate',startDate, endDate);
     postData('https://ismggt.ru/query/events/last/short', {limit:11160, startDate:startDate, endDate:endDate})
-      .then((eventss) => {
-        // console.log('postData then, eventss',eventss);
-        dispatch(putEventsForPeriodShort(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('postData then, eventss',eventss);
+          dispatch(putEventsForPeriodShort(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
-}; 
- 
+};
+
 
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
 export const fetchEventFromPeriodAsync = (start, end) => {
   console.log('fetchEventFromPeriodAsync run: ',start,end);
-  return (dispatch) => { 
+  return (dispatch) => {
     const startDate = start;
     const endDate = end;
     //'2021-02-03T22:00:00.000Z'
-    postData('https://ismggt.ru/query/events/last/short', {limit:51160, startDate:startDate, endDate:endDate}) 
-      .then((eventss) => {
-        console.log('fetchEventFromPeriodAsync then: ',eventss);
-        dispatch(putEventsForPeriodShort(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+    postData('https://ismggt.ru/query/events/last/short', {limit:51160, startDate:startDate, endDate:endDate})
+        .then((eventss) => {
+          console.log('fetchEventFromPeriodAsync then: ',eventss);
+          dispatch(putEventsForPeriodShort(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка
 export const fetchEventFromPeriodAsync2 = (start, end) => {
-  return (dispatch) => { 
+  return (dispatch) => {
     const startDate = start;
     const endDate = end;
     postData('http://localhost:3005/api/new_events', {limit:160, startDate:startDate, endDate:endDate}) //'2021-02-03T22:00:00.000Z'
-      .then((eventss) => {
-        // console.log('fetchEventFromPeriodAsync then: ',eventss);
-        dispatch(putEventsForPeriodShort(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('fetchEventFromPeriodAsync then: ',eventss);
+          dispatch(putEventsForPeriodShort(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -451,23 +457,23 @@ export const fetchEventFromPeriodAsync2 = (start, end) => {
 export const fetchAllEventsGraphicAsync = (type='new_rec',startDate='2021-02-12T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z') => {
   return (dispatch) => {
     postData('https://ismggt.ru/query/events/amount', {type: type, startDate: startDate, endDate: endDate})
-      .then((eventss) => {
-        // console.log('events all',eventss);
-        if (type === 'new_rec'){
-          dispatch(setDataNewEventToGraphicToStaticPage(eventss));
-          
-        }else if (type === 'done_rec'){
-          dispatch(setDataEndEventToGraphicToStaticPage(eventss));
-          
-        }else if (type === 'deny_rec'){
-          dispatch(setDataDenyEventToGraphicToStaticPage(eventss));
-          
-        }else if (type === 'new_msg'){
-          dispatch(setDataNewMessageToGraphicToStaticPage(eventss));
-          
-        }
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((eventss) => {
+          // console.log('events all',eventss);
+          if (type === 'new_rec'){
+            dispatch(setDataNewEventToGraphicToStaticPage(eventss));
+
+          }else if (type === 'done_rec'){
+            dispatch(setDataEndEventToGraphicToStaticPage(eventss));
+
+          }else if (type === 'deny_rec'){
+            dispatch(setDataDenyEventToGraphicToStaticPage(eventss));
+
+          }else if (type === 'new_msg'){
+            dispatch(setDataNewMessageToGraphicToStaticPage(eventss));
+
+          }
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -479,14 +485,14 @@ export const fetchAllEventsGraphicAsync = (type='new_rec',startDate='2021-02-12T
 export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
-     
+
     postData('https://ismggt.ru/query/users/online', { startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        // console.log('fetchAllUsersGraphicAsync ', users); // JSON data parsed by `response.json()` call
-        dispatch(setDataUsersOnlineToGraphicToStaticPage(users));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          // console.log('fetchAllUsersGraphicAsync ', users); // JSON data parsed by `response.json()` call
+          dispatch(setDataUsersOnlineToGraphicToStaticPage(users));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
@@ -498,29 +504,29 @@ export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-0
   console.log('fetchUsersThirdTabStaticPageGraphicAsync --type:', type);
   return (dispatch) => {
     // dispatch(putDataUsersOnlineStart());
-     
+
     postData('https://ismggt.ru/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        if (type === 'new_user'){
-          dispatch(setDataUsersNewGraphicToStaticPage(users));
-          
-        }else if (type === 'del_user'){
-          dispatch(setDataUsersDelGraphicToStaticPage(users));
-          
-        }else if (type === 'end_user'){
-          dispatch(setDataUsersEndGraphicToStaticPage(users));
-          
-        }else if (type === 'block_user'){
-          dispatch(setDataUsersBlockGraphicToStaticPage(users));
-          
-        }
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          if (type === 'new_user'){
+            dispatch(setDataUsersNewGraphicToStaticPage(users));
+
+          }else if (type === 'del_user'){
+            dispatch(setDataUsersDelGraphicToStaticPage(users));
+
+          }else if (type === 'end_user'){
+            dispatch(setDataUsersEndGraphicToStaticPage(users));
+
+          }else if (type === 'block_user'){
+            dispatch(setDataUsersBlockGraphicToStaticPage(users));
+
+          }
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
- 
+
 //// 
 // Для страницы 2 отчетов "tab 3"
 export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-01-08T08:00:00.000Z',endDate='2021-02-19T18:00:00.000Z')  => {
@@ -528,49 +534,49 @@ export const fetchNewOGHThirdTabStaticPageGraphicAsync = (type, startDate='2021-
     // dispatch(putDataUsersOnlineStart());
     console.log('fetchNewOGHThirdTabStaticPageGraphicAsync start');
     postData('https://ismggt.ru/query/objects/total', {startDate: startDate, endDate: endDate})
-      .then((users) => {
-        // let chartData = users.data.chartData.slice(7,17);
-        // console.log('fetchNewOGHThirdTabStaticPageGraphicAsync ',users);
-        if (type === 'new_obj'){
-          dispatch(setNewOGHGraphicToStaticPage(users));
-          
-        }else if (type === 'del_user2'){
-          dispatch(setDataUsersDelGraphicToStaticPage(users));
-          
-        }else if (type === 'end_user2'){
-          dispatch(setDataUsersEndGraphicToStaticPage(users));
-          
-        }else if (type === 'block_user2'){
-          dispatch(setDataUsersBlockGraphicToStaticPage(users));
-          
-        }
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .then((users) => {
+          // let chartData = users.data.chartData.slice(7,17);
+          // console.log('fetchNewOGHThirdTabStaticPageGraphicAsync ',users);
+          if (type === 'new_obj'){
+            dispatch(setNewOGHGraphicToStaticPage(users));
+
+          }else if (type === 'del_user2'){
+            dispatch(setDataUsersDelGraphicToStaticPage(users));
+
+          }else if (type === 'end_user2'){
+            dispatch(setDataUsersEndGraphicToStaticPage(users));
+
+          }else if (type === 'block_user2'){
+            dispatch(setDataUsersBlockGraphicToStaticPage(users));
+
+          }
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
- 
+
 ////////////////////////////////////////
 
 
 // Для страницы Users
 
 async function postDataAx(url = '', data = {}, type='post') {
-    
+
   try {
-    axios.defaults.headers.[type]['Content-Type'] ='application/x-www-form-urlencoded';
-    const response = await axios.[type](
-      url, 
-      { data: data },
-      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors'});
+    axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+    const response = await axios.post(
+        url,
+        { data: data },
+        {mode: 'no-cors', 'Content-Type': 'application/x-www-form-urlencoded'});
 
     return response.data;
   } catch (e) {
     console.log(`😱 Axios request failed: ${e}`);
   }
-  
+
   return  [{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}]; // parses JSON response into native JavaScript objects
 }
-   
+
 export const appendUserAsync = (data)  => {
   // console.log('👉 appendUserAsync start:' );
   // return (dispatch) => {
@@ -582,19 +588,19 @@ export const appendUserAsync = (data)  => {
   //       })
   //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   // };
-}; 
+};
 
 // fetchAllUsersFromDB
 export const fetchAllUsersFromDB0 = (limit=20)  => {
   // console.log('👉 fetchAllUsersFromDB0 start:' );
   return (dispatch) => {
     postDataAx('http://localhost:3005/api/users', {'limit':limit},'get')
-      .then((user) => {
-        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+        .then((user) => {
+          //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
           // console.log('👉 fetchAllUsersFromDB0 then user:',user );
           dispatch(appendAllUsers(user));
         })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 // work with func & proc in postgress fetchAllUsersFromDB 18.03.21
@@ -605,34 +611,34 @@ export const fetchAllUsersFromDB = (limit=20)  => {
     // postDataAx('http://localhost:3005/api/users', {'login':'mggt_alex',"password":"79y7BdJFtmqJVtJn"},'post')
     // postDataAx('http://localhost:3005/api/users', {'login':'s333',"password":"s333"},'post') //work
     postDataAx('http://localhost:3005/query/users', {'login':'s333',"password":"s333"},'post') //work
-      .then((user) => {
-        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-        //   console.log('👉 fetchAllUsersFromDB then user:',user );
+        .then((user) => {
+          //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+          //   console.log('👉 fetchAllUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
- 
+
 // put http://localhost:3005/api/user (updateUser)
 export const fetchUpdateUsersFromDB = (userData)  => {
   // console.log('👉 fetchUpdateUsersFromDB start:' );
   const {user_fio, login, password, user_fio_lit, id} = userData;
   // console.log('👉 fetchUpdateUsersFromDB start:',user_fio, login, password, user_fio_lit, id );
-  return (dispatch) => { 
+  return (dispatch) => {
     postDataAx('http://localhost:3005/api/user', {user_fio:user_fio, login:login, password:password, user_fio_lit:user_fio_lit, id:id},'put')
-      .then((user) => {
-        //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+        .then((user) => {
+          //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
           // console.log('👉 fetchUpdateUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
 
 
-    
+
 // goncharov alex
 
 // Для страницы  "objects" - /stats/objs
@@ -642,46 +648,46 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 // fetchObjectsList(2,0,1000 , 0 , startDate, endDate, 'A');
 export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') => {
 
-  return (dispatch) => { 
+  return (dispatch) => {
     postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit , offset:offset, startDate:startDate, endDate:endDate ,objName:objName , orgName: orgName , objKind:objKind , objStatus:objStatus , sortCol:sortCol , sortType:sortType })
 
-    // postData('https://ismggt.ru/query/objects/list', {objectType:objectType})  
-      .then((eventss) => {
-        // console.log('77 fetchObjectsListAsync then: ',eventss);
-        dispatch(setObjForObjsPage(eventss));
-        dispatch(setObjForObjsInfoPage(eventss));  
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  }; 
+        // postData('https://ismggt.ru/query/objects/list', {objectType:objectType})
+        .then((eventss) => {
+          // console.log('77 fetchObjectsListAsync then: ',eventss);
+          dispatch(setObjForObjsPage(eventss));
+          dispatch(setObjForObjsInfoPage(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
 };
 
 
 // Для страницы  "objects" - /stats/objs
 // первая вкладка Список событий на объекте
 // Адрес: https://ismggt.ru/query/object/recs/list
- 
+
 export const fetchObjRectListAsync = (objectID, limit=60, offset=0) => {
   // console.log('fetchObjRectListAsync run: ',objectID,limit, offset);
-  return (dispatch) => { 
-        
+  return (dispatch) => {
+
     //'2021-02-03T22:00:00.000Z'
     // postData('https://ismggt.ru/query/objects/list', {objectType:objectType 5799, organization:organization, limit:60, offset: offset}) 
-    postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:60, offset:offset})  
-      .then((eventss) => {
-        // console.log('fetchObjRectListAsync then: ',eventss);
-        dispatch(setObjForObjRectPage(eventss));
-      })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+    postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:60, offset:offset})
+        .then((eventss) => {
+          // console.log('fetchObjRectListAsync then: ',eventss);
+          dispatch(setObjForObjRectPage(eventss));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
 
-
+ 
 
 export const setObjCurrForDetailPageAsync = ( object ) => {
   console.log('setObjCurrForDetailPageAsync run: ',object );
-  return (dispatch) => {  
-        dispatch(setObjCurrentForDetailPage(object)); 
+  return (dispatch) => {
+    dispatch(setObjCurrentForDetailPage(object));
   };
 };
 
@@ -691,12 +697,24 @@ export const setObjCurrForDetailPageAsync = ( object ) => {
 
 
 export const fetchAmountUsersAsync = () => {
-  console.log('fetchAmountUsersAsync run: ' );
+  // console.log('fetchAmountUsersAsync run: ' );
   return (dispatch) => {
     postData('http://localhost:3005/query/users/amount', {})
         .then((data) => {
-          console.log('fetchAmountUsersAsync then: ',data);
+          // console.log('fetchAmountUsersAsync then: ',data);
           dispatch(setAmountUsersForGenPage(data));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+export const fetchGenStatsAsync = () => {
+  // console.log('fetchAmountUsersAsync run: ' );
+  return (dispatch) => {
+    postData('https://ismggt.ru/query/stats/daily', {})
+        .then((data) => {
+          // console.log('fetchGenStatsAsync then: ',data);
+          dispatch(setGenStatsPage(data));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };

@@ -14,11 +14,7 @@ class LineChartWithXAxisPading extends PureComponent {
 render() {
     const {fetchAll, data, isFetchingUserOnline,  isToday,dateLabel ,usersCount, eventsAmount, endedAmount} = this.props;
 
-
-    // // console.log(window.innerWidth);
-    
-    
-     
+ 
     const winWidth = window.innerWidth;
     let windthLine = 500;
     let leftLine = 30;

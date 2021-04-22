@@ -87,6 +87,12 @@ export const selectAmountNewOGH = createSelector(
     getSelectPoints,
     adminPanel => adminPanel.objRect.amount // []
 ) 
+
+/// Gen page Tab
+ export const selectGenStats = createSelector( 
+    getSelectPoints,
+    adminPanel => adminPanel.genStats // []
+) 
  
  //////////////////////////////////////////////////// 
  //////////////////////////////////////////////////// 

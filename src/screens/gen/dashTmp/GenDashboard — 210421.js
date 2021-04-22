@@ -9,14 +9,24 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-  
+ 
+// import LineChartWrap from './LineChart.wrap'; 
 import GenDeposits from './GenDeposits';  
 import GenAllPeriod from './GenAllPeriod';  
 import GenOneDayPeriod from './GenOneDayPeriod';  
 
 import { selectGenStats } from '../../store/adminPanelTrest/StatisticPage.selectors';
-import {  fetchGenStatsAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions';
- 
+
+
+/////////////// delete
+import { selectIsFetchingUserOnline } from '../../store/adminPanelTrest/adminPanelTrest.selectors';
+import {   fetchAmountOGHForDashboardAsync , fetchObjectsListAsync, fetchAmountUsersAsync, fetchGenStatsAsync  } from '../../store/adminPanelTrest/adminPanelTrest.actions';
+
+
+// import { selectObjsPage, selectObjsInfoPage } from '../../store'; 
+import { selectObjsPage } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
+// import { selectObjsPage, selectObjsInfoPage } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
+  
 import './dashboard.styles.scss';
 
  
@@ -110,16 +120,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-const GenDashboard = ({fetchGenStats, genStatsAll}) => {
+const GenDashboard = ({  fetchAmountUsers,  fetchAmountOGH,fetchObjectsList, genStatsAll}) => {
   const classes = useStyles();
-   
+  // const [value, setValue] = React.useState('recents');
+ 
+  //smgt
   useEffect(() => {
-    fetchGenStats();
-  }, [ fetchGenStats ])
+    // for "Количество ОГХ"
+    fetchAmountOGH();
+    fetchAmountUsers();
+    // fetchObjectsList('2', '0', '0', '0', "2021-01-01T00:08:56.306Z", "2021-09-11T20:08:56.306Z", '', '',  '', '2', 'orgName', "desc"  )
+
+  }, [ fetchAmountUsers,fetchAmountOGH ])
  
  
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
- 
+
+  // const winWidth = window.innerWidth;
+  
+  console.log('2121 genStatsAll',genStatsAll);
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -130,17 +151,17 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
 
             <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
               <Paper className={fixedHeightPaper}>
-                <GenDeposits data={genStatsAll} /> {/* Количество ОГХ */}
-              </Paper> 
-            </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
-              <Paper className={fixedHeightPaper}>
-              <GenAllPeriod data={genStatsAll} /> {/* Количество ALl */}
+                <GenDeposits /> {/* Количество ОГХ */}
               </Paper>
             </Grid>
             <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
               <Paper className={fixedHeightPaper}>
-              <GenOneDayPeriod data={genStatsAll} />
+              <GenAllPeriod /> {/* Количество ALl */}
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
+              <Paper className={fixedHeightPaper}>
+              <GenOneDayPeriod />
               </Paper>
             </Grid>
           </Grid>
@@ -150,12 +171,16 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
   );
 }
 
-const mapStateToProps = createStructuredSelector ({ 
+const mapStateToProps = createStructuredSelector ({
+  isFetchingUserOnline: selectIsFetchingUserOnline,
+  selectObjs: selectObjsPage,
   genStatsAll: selectGenStats,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchGenStats: () => dispatch(fetchGenStatsAsync()), 
+  fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
+  fetchAmountUsers: () => dispatch(fetchAmountUsersAsync()),
+  fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
 });
 
 

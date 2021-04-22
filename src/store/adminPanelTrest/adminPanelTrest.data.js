@@ -379,9 +379,23 @@ const ORGANIZATIONS_DATA = {
       //   organization: {orgID: 172, orgname: "ГБУ 'Жилищник Рязанского района'"},
       // },
     // ],
-  objRect: {data:{recs:[]}},
-  eventShortPoints:{data:{nodes:[]}},
+    objRect: {data:{recs:[]}},
+    eventShortPoints:{data:{nodes:[]}},
     amountUsers: 0,
+    genStats: {
+      "total_objects": null,
+      "total_mggt_objects": null,
+      "total_rel_objects": null,
+      "total_sogl_objects": null,
+      "total_recs": null,
+      "total_sogl_recs": null,
+      "daily_recs": null,
+      "daily_sogl_recs": null,
+      "total_messages": null,
+      "daily_messages": null,
+      "total_users": null
+    }
+
   };
 
   

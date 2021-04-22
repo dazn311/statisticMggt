@@ -7,7 +7,11 @@ import {
 
 class LineChartWithXAxisPading extends PureComponent {
 //   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/g03265a4/';
- 
+constructor(props) {
+  super(props);
+  this.state = {widthWin: window.innerWidth};
+}
+
 render() {
     const { graphicValue} = this.props;
     console.log('rerender LineChartWithXAxisPading');
@@ -15,7 +19,7 @@ render() {
     return (
       <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>
         <BarChart
-        width={1000}
+        width={this.state.widthWin}
         height={300}
         data={graphicValue}
         margin={{

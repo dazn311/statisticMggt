@@ -148,25 +148,18 @@ let endedAmount = 0;
 let offSet = 0;
 let isToDay = true;
 const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fetchAmountEndEventsForGraphicAsync,selectCountUsers,selectAmountEndedEvent,selectAmountNewEvent}) => { 
-  
-  // const [offSet,setOffset] = useState(0);
-  // const [data,setData] = useState(dataInit);
-  // const [isToDay,setIsToDay] = useState(true);
+   
   const [curDate,setCurDate] = useState(new Date())
-  const [isFetchingUserOnline] = useState(false)
-  // const [isFetchingUserOnline,setisFetchingUserOnline] = useState(false)
-
-  // console.log('curDate',curDate.toISOString());
+  const [isFetchingUserOnline] = useState(false) 
+ 
     
 
   const fetchAll = useCallback((ofsParam=0) => {
-    max_hours = 18;
-    // console.log('fetchAll -- ofsParam: ', ofsParam);
+    max_hours = 18; 
     let ofs = 0;
     const curDay = new Date();
     if (ofsParam === -1 && offSet === 0){ // оста
-      isToDay = false;
-        // setIsToDay(false);
+      isToDay = false; 
         
     }else if (ofsParam === 0 && offSet < 0){ // оста
       isToDay = false;
@@ -181,13 +174,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
         // setIsToDay(true);
         return
     } 
-    // if (ofsParam === 1 && offSet === -1){ // оста
-    //   setIsToDay(true);
-    // }else if(offSet < 0){
-    //   setIsToDay(false);
-    // }
     
-    // console.log('isToDay',isToDay);
 
     ofs = ofsParam + offSet;
 
@@ -195,10 +182,8 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     // console.log('offSet',offSet);
     
     ofs = parseInt(ofs);
-    offSet =ofs;
-    // setOffset(ofs);
-    curDay.setDate(curDay.getDate() + ofs);
-    // console.log('curDay',curDay);
+    offSet =ofs; 
+    curDay.setDate(curDay.getDate() + ofs); 
 
     setCurDate(curDay);
 
@@ -206,26 +191,14 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     
     const todayStart = curDay.toISOString().split('T')[0] + 'T00:00:00.000Z';
 
-    let todayEnd = curDay.toISOString().split('T')[0] + 'T23:00:00.000Z';
-    // console.log('todayEnd 1',todayEnd);
-    // if(isToDay){
-    // if (ofsParam === 1 && offSet === 0){
-    //   const currentHoursPlusOne = currentHours + 1;
-    //   todayEnd = curDay.toISOString().split('T')[0] +'T'+ currentHoursPlusOne + ':00:00.000Z';
-    //   // console.log('todayEnd 2',todayEnd);
-    // }
-    
-    // console.log('ofs (fetchAll)',ofs);
-    // console.log('todayStart (fetchAll)',todayStart);
-    // console.log('todayEnd (fetchAll)',todayEnd);
+    let todayEnd = curDay.toISOString().split('T')[0] + 'T23:00:00.000Z';  
 
     fetchAmountUsers(todayStart,todayEnd);
     fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
     fetchAmountEndEventsForGraphicAsync(todayStart,todayEnd);
      
   },[fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
- 
-  // console.log('currentHours',currentHours);
+  
 
   useEffect(() => {
     fetchAll(0);
@@ -256,8 +229,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       max_hours = currentHours;
     }else {
       max_hours = 18;
-    }
-    // console.log('getUsers -- max_hours',max_hours);
+    } 
 
     for (let index = 7; index <= 19; index++) {
       const indexMinus = index -7;

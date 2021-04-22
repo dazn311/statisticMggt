@@ -49,6 +49,7 @@ export const FetchDataObjsPage = {
 
 export const FetchDataGenPage = {
     FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE: 'FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE', //from GenPage
+    FETCH__ALL_DATA_FOR_GEN_PAGE: 'FETCH__ALL_DATA_FOR_GEN_PAGE', //from GenPage
 };
     
 export default AdminActionTypes;
