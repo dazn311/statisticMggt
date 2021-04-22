@@ -33,7 +33,7 @@ export default function ChipsArray({data}) {
   const {total_recs,total_messages, total_sogl_objects, total_sogl_recs} = data;
   React.useEffect(() => {
     // setChipData(data);
-    console.log('21 data',data);
+    // console.log('21 data',data);
   },[data])
 
 

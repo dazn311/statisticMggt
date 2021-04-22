@@ -10,8 +10,8 @@ import Typography from '@material-ui/core/Typography';
 
 import Title from './Title';
 
-import { selectAmountOGH, selectAmountUsers } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+import { selectAmountOGH } from '../../store/adminPanelTrest/adminPanelTrest.selectors'; 
+// import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 const useStyles = makeStyles({
     depositContext: {

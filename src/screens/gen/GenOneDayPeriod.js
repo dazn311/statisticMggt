@@ -16,11 +16,7 @@ const useStyles = makeStyles({
 let endDate = new Date();
 endDate = endDate.toISOString();
 let lastDate = endDate.split('T')[0].split('-');
-
-let thisDate = new Date();
-thisDate = thisDate.toISOString();
-thisDate = thisDate.split('T')[0];
-
+ 
 const GenOneDayPeriod = ({ data }) => {
     const classes = useStyles();
 

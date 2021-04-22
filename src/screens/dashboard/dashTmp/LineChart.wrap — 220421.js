@@ -215,18 +215,9 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 
     setIsFetchingUserOnline(3);
 
-    const isData = dataBig.find(elem => { return elem[curDate2]})
-
-    console.log('isData',isData);
-    if(!isData){
-      fetchAmountUsers(todayStart,todayEnd);
-      fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
-      fetchAmountEndEventsForGraphicAsync(todayStart,todayEnd);
-
-    }else {
-      setIsFetchingUserOnline(0);
-    }
-    
+    fetchAmountUsers(todayStart,todayEnd);
+    fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
+    fetchAmountEndEventsForGraphicAsync(todayStart,todayEnd);
      
 
     dataInit0 = dataTmp;
