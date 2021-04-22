@@ -165,11 +165,11 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   const [isFetchingUserOnline, setIsFetchingUserOnline] = useState(0) 
  
     
-  console.log('curDate2', curDate2);
+  // console.log('curDate2', curDate2);
 
   /////////////////////////// - fetchAll - ///////////////////////////////////
   const fetchAll = useCallback((ofsParam=0) => {
-    console.log('fetchAll -- ofsParam',ofsParam);
+    // console.log('fetchAll -- ofsParam',ofsParam);
     max_hours = 18; 
     let ofs = 0;
     const curDay = new Date();
@@ -217,7 +217,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 
     const isData = dataBig.find(elem => { return elem[curDate2]})
 
-    console.log('isData',isData);
+    // console.log('isData',isData);
     if(!isData){
       fetchAmountUsers(todayStart,todayEnd);
       fetchAmountNewEventsForGraphicAsync(todayStart,todayEnd);
@@ -264,7 +264,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 ////////// -- User Online -- ////////////////////////////////////
   const getUsers = useCallback(() => {
     const usersLine = selectCountUsers.data.chartData;
-    console.log('selectCountUsers.data.chartData',selectCountUsers);
+    // console.log('selectCountUsers.data.chartData',selectCountUsers);
     if(isToDay) {
       max_hours = currentHours;
     }else {
@@ -309,9 +309,9 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     }
 
     // dataBig[curDate2] = dataInit0;
-    console.log('setDataBig1 -- dataInit0',dataInit0);
+    // console.log('setDataBig1 -- dataInit0',dataInit0);
     setDataBig(prev => prev[curDate2] = dataInit0);
-    console.log('getUsers1 -- setDataBig',setDataBig);
+    // console.log('getUsers1 -- setDataBig',setDataBig);
 
   },[selectCountUsers]);
 
@@ -358,9 +358,9 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
         dataInit0[12] = newObjn;
         if (isToDay){eventsAmount = endDataNewEventSum};
     }
-    console.log('setDataBig2 -- dataInit0',dataInit0);
+    // console.log('setDataBig2 -- dataInit0',dataInit0);
     setDataBig(prev => prev[curDate2] = dataInit0);
-    console.log('getNewEvents2 -- setDataBig',setDataBig);
+    // console.log('getNewEvents2 -- setDataBig',setDataBig);
   },[selectAmountNewEvent]);
   
   const getEndedEvents = useCallback(() => {
@@ -408,10 +408,10 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
       }
     
     }
-    console.log('setDataBig3 -- dataInit0',dataInit0);
+    // console.log('setDataBig3 -- dataInit0',dataInit0);
     setDataBig(prev => prev[curDate2] = dataInit0);
-    console.log('getEndedEvents3 -- dataTmp',dataTmp);
-    console.log('getEndedEvents3 -- dataBig',dataBig);
+    // console.log('getEndedEvents3 -- dataTmp',dataTmp);
+    // console.log('getEndedEvents3 -- dataBig',dataBig);
   },[selectAmountEndedEvent]);
     
   useEffect(() => {
@@ -437,8 +437,8 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     
   },[selectAmountEndedEvent.data.chartData,getEndedEvents])  
 
-  console.log('selectAmountNewEvent',selectAmountNewEvent.data.chartMax);
-  console.log('selectAmountEndedEvent',selectAmountEndedEvent.data.chartMax);
+  // console.log('selectAmountNewEvent',selectAmountNewEvent.data.chartMax);
+  // console.log('selectAmountEndedEvent',selectAmountEndedEvent.data.chartMax);
 
   if(isFetchingUserOnline ){
     return (<LineChartComp data={dataInit}  isFetchingUserOnline={isFetchingUserOnline} isToday={isToDay} dateLabel={curDate} usersCount={usersCount} eventsAmount={eventsAmount} endedAmount={endedAmount}  fetchAll={fetchAll} />)
