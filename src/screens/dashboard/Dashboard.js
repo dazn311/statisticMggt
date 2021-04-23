@@ -24,8 +24,6 @@ import { selectGenStats } from '../../store/adminPanelTrest/StatisticPage.select
 
 
 
- 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -201,6 +199,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
                  <ChipsArray data={genStatsAll} />
               </Paper>
             </Grid>
+            
 
             <Grid item xs={12}>
               <Paper className={classes.paper}>

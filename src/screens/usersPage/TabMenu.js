@@ -85,8 +85,8 @@ const TabMenu = () => {
           aria-label="scrollable auto tabs example"
         >
           <Tab label="Добавление пользователя" {...a11yProps(0)} />
-          <Tab label="Список всех пользователей" {...a11yProps(1)} />
-          {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
+          <Tab label="Список всех польз-ей" {...a11yProps(1)} />
+          <Tab label="Статистика по польз-ям" {...a11yProps(2)} />
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>

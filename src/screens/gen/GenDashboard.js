@@ -117,6 +117,7 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
     fetchGenStats();
   }, [ fetchGenStats ])
  
+  // console.log('genStatsAll',genStatsAll);
  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
  
@@ -128,17 +129,17 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
         <Container maxWidth="xl" className={classes.container}>
           <Grid container spacing={3}>
 
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
               <Paper className={fixedHeightPaper}>
                 <GenDeposits data={genStatsAll} /> {/* Количество ОГХ */}
               </Paper> 
             </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
               <Paper className={fixedHeightPaper}>
               <GenAllPeriod data={genStatsAll} /> {/* Количество ALl */}
               </Paper>
             </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292}} >
+            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
               <Paper className={fixedHeightPaper}>
               <GenOneDayPeriod data={genStatsAll} />
               </Paper>

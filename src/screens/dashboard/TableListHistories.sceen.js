@@ -146,7 +146,7 @@ const TableList = ({ eventShortPoints, statusEventPoint,statusEnumEventPointColo
                 }
                   
                 
-                 
+                  
               })
               .catch(error => console.log(error.message));
         
@@ -160,6 +160,7 @@ const TableList = ({ eventShortPoints, statusEventPoint,statusEnumEventPointColo
         }
         
     }
+
 
     return (
         <div style={{ height: '400px', width: '100%' }}>

@@ -68,6 +68,10 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
 
   // console.log('rerender UsersTab2 : TabUsersList');
   // console.log('rerender selectUsersPage : ',selectUsersPage);
+
+  if(!selectUsersPage){
+    return (<div>Loading..</div>)
+  }
  
   return (
     <TableContainer component={Paper}>
@@ -82,8 +86,8 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectUsersPage.length && selectUsersPage
-          .filter(item => item.user_fio !== undefined)
+          {selectUsersPage.usersAll && selectUsersPage.usersAll
+          .filter(item => item.user_fio )
           // .filter(item => item.user_reg_date > new Date("2021-02-17"))
           .map((row, index) => (
             <TableRow hover key={index}>

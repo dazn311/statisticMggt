@@ -271,12 +271,43 @@ async function get_recombination_one(msgID){
 	});
 }
 
+///////// get_users_all_stats_byinterval // 22.04.21 // to daz DB ///////////////////////////
+async function get_users_all_stats_byinterval(start_date,end_date){
+	console.log( 'Запрос /query/users/amount  ',start_date,end_date);
+	const _start_date = new Date(start_date) 
+	const _end_date = new Date(end_date) 
+	return new Promise ((resolve, reject) => { 
+		// let queryText  = ` SELECT count(*) FROM mggt_users_log WHERE (user_log_user_id = 1) AND (user_log_date > '${start_date}') AND (user_log_date < '${end_date}') and user_log_type = 'login'; `;
+		// let queryText  = ` SELECT count(user_log_user_id), user_log_user_id FROM mggt_users_log WHERE  (user_log_date > '${start_date}') AND (user_log_date < '${end_date}') and user_log_text = 'Успешный вход' GROUP BY user_log_user_id; `;
+		
+		// let queryText  = ` SELECT 	count(user_log_user_id), 
+		// 							user_log_user_id::bigint 
+		// 						FROM 
+		// 							mggt_users_log 
+		// 						WHERE  
+		// 							(user_log_date > '${start_date}') AND (user_log_date < '${end_date}') and user_log_text = 'Успешный вход' 	
+		// 						GROUP BY 
+		// 							user_log_user_id 	; `;
+
+		let queryText  = ` SELECT * FROM mggt_users_log WHERE (user_log_user_id = 1) and user_log_type = 'new_msg'; `;
+		// let queryText  = ` SELECT count(*) FROM mggt_users_log WHERE (user_log_user_id = 1)  and user_log_type = 'login'; `;
+		
+		query(queryText)
+			.then(function(data){
+				console.log( '5. get_users_all_stats_byinterval --data.rows:',data.rows);
+				 
+				resolve(data.rows);
+			})
+			.catch(function(err){ reject(err); console.log(err)});
+	});
+}
+
 //API для первой страницы, для нижней таблицы, для вывода одного сообщения в строке // get_recombination_one
 app.post('/query/recombination/one', cors(), async function(req, res){ 
 	try {
 		if(req.body.msgID){
 			let result = await get_recombination_one(req.body.msgID); // get_event_ended_all_daz()
-			console.log( '2. Запрос /query/recombination/one --result.messageDetail:',result.messageDetail);
+			console.log( '2. Запрос /query/recombination/one --result:',result);
 			if(result.messageDetail){
 				res.send(result);
 			}else {
@@ -299,6 +330,25 @@ app.post('/query/users', cors(), async function(req, res){
 		let resUsersAll = await getUsersAll();
 		let resultAll = {
 			usersAll: resUsersAll.usersAll || 0,
+		}
+		console.log('resultAll',resultAll);
+
+
+		res.send(resultAll);
+	} catch (e){
+		console.log(e);
+	}
+})
+
+//API endpoint public.get_users_all_stats_byinterval
+app.post('/query/users/active', cors(), async function(req, res){
+	// console.log( 'Запрос /query/users/amount  ',req.body);
+	// console.log(req.body);
+	const {start_date, end_date} = req.body;
+	try {
+		let resUsersAll = await get_users_all_stats_byinterval(start_date, end_date);
+		let resultAll = {
+			usersActive: resUsersAll || 0,
 		}
 		console.log('resultAll',resultAll);
 

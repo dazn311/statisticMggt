@@ -61,7 +61,7 @@ render() {
         </LineChart>
         
         <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap',  maxWidth: 80, width: '100%', justifyContent: 'center'}} >
-            <div style={{position: 'absolute', right:'8px', transform: 'rotate(270deg)', top: '100px', whiteSpace: 'nowrap'}}>Текущие данные</div>
+            <div style={{position: 'absolute', right:'12px', transform: 'rotate(270deg)', top: '100px', whiteSpace: 'nowrap'}}>Текущие данные</div>
             <div style={styleLblUsersGraphicDate}>
               <ArrowLeftIcon onClick={() => {fetchAll(-1)}} color="secondary" />
                 <div style={{alignSelf:'center'}} >{dateLabel.toISOString().slice(8,10)}/{dateLabel.toISOString().slice(5,7)} </div> 
