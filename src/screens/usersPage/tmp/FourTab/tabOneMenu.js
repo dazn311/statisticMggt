@@ -93,7 +93,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   // console.log('TabOneMenu -- offsetSt',offsetSt);
 
- 
+
 
   const setPageT = useCallback((val) => {
 
@@ -150,12 +150,12 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 ///////////////////////////////////////////
   useEffect(() => {
 
-    if ( selectObjs && selectObjs.length < 1){
+    if ( selectObjs.length < 1){
       console.log('TabOneMenu -- 444  fetchObjectsList  offset');
       fetchSearchObj('0');
     }
 
-  },[fetchSearchObj,selectObjs]);
+  },[fetchSearchObj,selectObjs.length]);
 
   ///////////////////////////////////////////
 

@@ -1,23 +1,15 @@
-import React,{ useState, useCallback,useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from 'react';
 
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+
 import SearchPanel from './SearchPanel';
+// import TabUsers from './TabUsers';
 import StateElements from './stateElements';
-
-
-
-
-import { fetchAllUsersFromDB  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
-import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
-
 import TabUsersComponent from "./TabUsers.component";
+// import EventDetail from "./EventDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,26 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const TabOneMenuComponent = ({ tabValue, fetchSearchObj , showEvents, handleChangePage }) => {
 
-
-/////////////////////////////////////////////////////////////////////
-
-const TabOneMenu = ({ fetchAllUsers, selectAllUsers }) => {
-
- const classes = useStyles();
-
- useEffect(() => {fetchAllUsers()},[fetchAllUsers])
-
-  const fetchSearchObj = () => {
-    console.log('sd')}
-
-  const showEvents = () => {
-    console.log('showEvents')}
-
-  const handleChangePage = () => {
-    console.log('handleChangePage')}
-
-    console.log('selectAllUsers',selectAllUsers);
+  const classes = useStyles();
 
 
   return (
@@ -90,7 +65,7 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers }) => {
   
           </div>
           <TabUsersComponent
-              tabValue={selectAllUsers}
+              tabValue={tabValue}
               showEvents={showEvents}
               handleChangePage={handleChangePage}
           />
@@ -101,11 +76,5 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers }) => {
 }
 
 
-const mapStateToProps = createStructuredSelector ({
-  selectAllUsers: selectAllUsersFromDb, // события короткие данные для таблицы
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchAllUsers: () => dispatch(fetchAllUsersFromDB())
-});
-export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 
+export default  TabOneMenuComponent ;

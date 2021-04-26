@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import LineChartWrap from './LineChart.wrap'; 
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';
-import TableListHistories from './TableListHistories.sceen';
+import TableListHistories from './TableListHistories';
 import './dashboard.styles.scss';
 import ChipsArray from './Chips';
 
@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   // paper2: {height: 240,}
 }));
 
-  
+   
 
 
 let lineHeader = 'Текущая информация по событиям и пользователям';
@@ -123,7 +123,7 @@ let maxWidthGridOGH = '330px';
 
 const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays}) => {
   const classes = useStyles();
-  const [valueChip, setValueChip] = React.useState([]);
+  // const [valueChip, setValueChip] = React.useState([]);
 
   
   //smgt
@@ -155,8 +155,9 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
   }
 
   const amHenler = React.useCallback( (data) => {
-    setValueChip(data);
-  },[setValueChip]);
+    // setValueChip(data);
+  },[]);
+  // },[setValueChip]);
    
 
   return (
@@ -165,7 +166,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Grid container spacing={3} style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
+          <Grid container   style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
             <Grid item xs={12} md={12} lg={6} style={{
               // minWidth: 250,
               maxWidth: 630,
@@ -215,7 +216,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
   );
 }
 
- 
+
 
 const mapStateToProps = createStructuredSelector ({
   genStatsAll: selectGenStats,

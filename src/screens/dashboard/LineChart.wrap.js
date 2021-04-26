@@ -231,17 +231,11 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
 
     dataInit0 = dataTmp;
 
-  },[fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync]);
+  },[fetchAmountUsers, fetchAmountNewEventsForGraphicAsync, fetchAmountEndEventsForGraphicAsync, dataBig, curDate2]);
   
   /////////////////////////// - end fetchAll - ///////////////////////////////////
 
-  // useEffect(() => {
-    // fetchAll(0);
-    // setTimeout(() => {
-    //   fetchAll(0);
-    // }, 500);
-    
-  // }, [fetchAll])
+
    
   useEffect(() => {
 
@@ -313,7 +307,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     setDataBig(prev => prev[curDate2] = dataInit0);
     // console.log('getUsers1 -- setDataBig',setDataBig);
 
-  },[selectCountUsers]);
+  },[selectCountUsers, curDate2]);
 
   ////////////////// -- NewEvents -- ////////////////////
   const getNewEvents = useCallback(() => {
@@ -361,7 +355,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     // console.log('setDataBig2 -- dataInit0',dataInit0);
     setDataBig(prev => prev[curDate2] = dataInit0);
     // console.log('getNewEvents2 -- setDataBig',setDataBig);
-  },[selectAmountNewEvent]);
+  },[selectAmountNewEvent,curDate2]);
   
   const getEndedEvents = useCallback(() => {
     const endedLine = selectAmountEndedEvent.data.chartData;
@@ -412,33 +406,22 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
     setDataBig(prev => prev[curDate2] = dataInit0);
     // console.log('getEndedEvents3 -- dataTmp',dataTmp);
     // console.log('getEndedEvents3 -- dataBig',dataBig);
-  },[selectAmountEndedEvent]);
+  },[selectAmountEndedEvent,curDate2]);
     
   useEffect(() => {
     setIsFetchingUserOnline(prev => prev -1);
     getUsers();
-    // dataInit0 = dataTmp;
   },[selectCountUsers.data.chartData,getUsers])   
 
   useEffect(() => {
     setIsFetchingUserOnline(prev => prev -1);
     getNewEvents();
-    // dataInit0 = dataTmp;
   },[selectAmountNewEvent.data.chartData,getNewEvents])  
   
   useEffect(() => {
-    // if(selectAmountEndedEvent.data.chartMax){
       setIsFetchingUserOnline(prev => prev -1);
       getEndedEvents();
-    // }
-    
-    // dataInit0 = dataTmp;
-    
-    
   },[selectAmountEndedEvent.data.chartData,getEndedEvents])  
-
-  // console.log('selectAmountNewEvent',selectAmountNewEvent.data.chartMax);
-  // console.log('selectAmountEndedEvent',selectAmountEndedEvent.data.chartMax);
 
   if(isFetchingUserOnline ){
     return (<LineChartComp data={dataInit}  isFetchingUserOnline={isFetchingUserOnline} isToday={isToDay} dateLabel={curDate} usersCount={usersCount} eventsAmount={eventsAmount} endedAmount={endedAmount}  fetchAll={fetchAll} />)

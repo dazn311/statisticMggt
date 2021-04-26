@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
-import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+// import TagFacesIcon from '@material-ui/icons/TagFaces';
+// import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
  
 export default function ChipsArray({data}) {
   const classes = useStyles();
-  const [chipData, setChipData] = React.useState(['block','block','block','block']);
+  // const [chipData, setChipData] = React.useState(['block','block','block','block']);
 
-  const handleDelete = (chipToDelete) => () => {
-    // setChipData((chips) => chips.filter((chip) => chip.name !== chipToDelete.name));
-    // setChipData([...chipData,chipData[chipToDelete] = 'none']);
-  };
+  // const handleDelete = (chipToDelete) => () => {
+  //   // setChipData((chips) => chips.filter((chip) => chip.name !== chipToDelete.name));
+  //   // setChipData([...chipData,chipData[chipToDelete] = 'none']);
+  // };
   // console.log('data',data);
 
 
@@ -37,19 +37,19 @@ export default function ChipsArray({data}) {
   },[data])
 
 
-  if (chipData.length === 0){
-    return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}>  <CircularProgress size={34} color="secondary" /> </div>)
-  }
+  // if (chipData.length === 0){
+  //   return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}>  <CircularProgress size={34} color="secondary" /> </div>)
+  // }
 
-  let icon;
-  icon = <TagFacesIcon  />; 
+  // let icon;
+  // icon = <TagFacesIcon  />; 
 
   return (
     <Paper component="ul" className={classes.root}> 
-        <Chip style={{color: 'black'}} label={' Всего событий' + ' (' + total_recs + ') '}  className={classes.chip} /> 
-        <Chip  style={{color: 'black'}} label={' Всего сообщений' + ' (' + total_messages + ') '}  className={classes.chip} /> 
-        <Chip  style={{color: 'black'}} label={' Всего согл-ых объектов' + ' (' + total_sogl_objects + ') '}   className={classes.chip} /> 
-        <Chip style={{color: 'black'}}  label={' Всего согл. событий' + ' (' + total_sogl_recs + ') '}  className={classes.chip} /> 
+        <Chip style={{color: 'black'}} label={ ` Всего событий ( ${total_recs} ) `}  className={classes.chip} /> 
+        <Chip  style={{color: 'black'}} label={` Всего сообщений ( ${total_messages} )`}  className={classes.chip} /> 
+        <Chip  style={{color: 'black'}} label={` Всего согл-ых объектов ( ${total_sogl_objects} )`}   className={classes.chip} /> 
+        <Chip style={{color: 'black'}}  label={` Всего согл. событий (${total_sogl_recs})`}  className={classes.chip} /> 
         {/* <Chip icon={icon} label={' Всего согл. событий' + ' (' + total_sogl_recs + ') '} onDelete={total_recs === 'React' ? undefined : handleDelete(4)} className={classes.chip} />  */}
     </Paper>
   );

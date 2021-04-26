@@ -83,6 +83,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
     // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
   }; 
 
+ 
   // для детальной информации
   const closeDetail = () => {
     setIsOpenDetail(false);
@@ -90,6 +91,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
 
 
   const showEvents = (row) => { 
+ 
       setOrgName(row);
       setObjCurrForDetailPage(row); 
       // history.push(`/stats/objs/${row.objID}`); 

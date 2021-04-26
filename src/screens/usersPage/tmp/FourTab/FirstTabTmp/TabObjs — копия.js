@@ -1,6 +1,5 @@
 'strick'
 import React, { useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
 // import _ from "lodash";
 
 import { connect } from 'react-redux';
@@ -14,15 +13,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import TablePagination from '@material-ui/core/TablePagination';
+import TablePagination from '@material-ui/core/TablePagination';
 import Pagination from '@material-ui/lab/Pagination';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-// import * as locales from '@material-ui/core/locale';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import * as locales from '@material-ui/core/locale';
 // import BackDrop from  '../../../components/blackDrop/black-drop.component'
-  
+ 
 import MessAlert from './Messages.alert';
   
-import { setObjCurrForDetailPageAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
+// import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
@@ -36,34 +35,23 @@ const useStyles = makeStyles({
   },
 }); 
 
-
-
-
-
-
-
-
-
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset }) => {
+const TabObjs = ({ tabValue, selectObjsInfo, isOpenD=true, setPageT,offset }) => {
 
   const [page, setPage] = React.useState(1);
   // const [setPage] = React.useState(0);
   const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false);
-  // const [locale, setLocale] = React.useState('ruRU');
-  
-  const history = useHistory();
+  const [locale, setLocale] = React.useState('ruRU');
   
   // const {currentPage, totalPages, amount} = amObjsValue;
   // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
   // console.log('TabObjs -- page',page);
-  console.log('TabObjs -- rerender:');
 
   useEffect(() => {
-    // console.log('TabObjs --offset',offset);
+    console.log('TabObjs --offset',offset);
     if (offset === '0'){
       setPage(1);
     }
@@ -83,40 +71,37 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
     // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
   }; 
 
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(parseInt(event.target.value, 10));
+  //   setPage(0);
+  //   // console.log('handleChangeRowsPerPage');
+  // };
+
   // для детальной информации
   const closeDetail = () => {
     setIsOpenDetail(false);
   }
+  const showEvents = (row) => {
+    // console.log('showEvents -- row',row);
 
-
-  const showEvents = (row) => { 
+    // if (row.objRecsAmount){
       setOrgName(row);
-      setObjCurrForDetailPage(row); 
-      // history.push(`/stats/objs/${row.objID}`); 
-      
-      history.push({
-        pathname: `/stats/objs/${row.objID}`,
-        // search: '?query=obj',
-         row: row
-      });
+      setIsOpenDetail(true);
+    // }
   }
+   
+  // console.log('TabObjs -- rowsPerPage',rowsPerPage);
+  // console.log('TabObjs -- tabValue',tabValue);
+ 
+ // перенести поиск в tabOneMenu
 
-//   const someEventHandler = event => {
-//     history.push({
-//         pathname: '/stats/objs',
-//         search: '?query=obj',
-//         state: { row: row }
-//     });
-//  };
-    
-
-  let openRed = false, openGreen = false;
+  let openRed, openGreen;
 
  
   if (!tabValue) { 
     openRed = true;
     // openGreen = false;
-    // return (<><div >Нет данных с таким фильтом</div><MessAlert  openRed={openRed} openGreen={openGreen} /></>);
+    return (<><div >Нет данных с таким фильтом</div><MessAlert  openRed={openRed} openGreen={openGreen} /></>);
     // return (<BackDrop isOpen={true} />);
   }else {
     openRed = false;
@@ -139,7 +124,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue && tabValue
+          {tabValue
           // .filter((row,i) => i < 16)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
@@ -179,6 +164,5 @@ const mapStateToProps = createStructuredSelector ({
   const mapDispatchToProps = (dispatch) => ({
     // Для  
     // fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate)),
-    setObjCurrForDetailPage: (object ) => dispatch(setObjCurrForDetailPageAsync(object )),
   });  
   export default connect(mapStateToProps,mapDispatchToProps)(TabObjs); 

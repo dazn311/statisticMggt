@@ -604,7 +604,7 @@ export const fetchAllUsersFromDB0 = (limit=20)  => {
   };
 };
 // work with func & proc in postgress fetchAllUsersFromDB 18.03.21
-export const fetchAllUsersFromDB = (limit=20)  => {
+export const fetchAllUsersFromDB2 = (limit=20)  => {
   console.log('👉 fetchAllUsersFromDB start:' );
   return (dispatch) => {
     // postDataAx('http://localhost:3005/api/users', {'login':'matvey',"password":"1234"},'post')
@@ -614,6 +614,21 @@ export const fetchAllUsersFromDB = (limit=20)  => {
         .then((user) => {
           //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
           //   console.log('👉 fetchAllUsersFromDB then user:',user );
+          dispatch(appendAllUsers(user));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+// work with func & proc in postgress fetchAllUsersFromDB 18.03.21
+export const fetchAllUsersFromDB = (limit=20)  => {
+  console.log('👉 fetchAllUsersFromDB start:' );
+  return (dispatch) => {
+
+    postDataAx('https://ismggt.ru/query/users/list', {},'post') //work
+        .then((user) => {
+          //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
+            console.log('👉 fetchAllUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));

@@ -16,21 +16,23 @@ import Button from '@material-ui/core/Button';
 // import RadioBtnODH from '../../../components/radioBtnODH'; 
 import SelectorMggt from '../../../components/selectorMggt';
 
-import DatePicker from './DatePicker';
-import DatePickerEnd from './DatePickerEnd';
+// import DatePicker from './DatePicker';
+// import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
 // import SearchPanelSec from './SearchPanelSecond';
-import TabObjs from './TabObjs';
+import TabUsers from './TabUsers';
 import StateElements from './stateElements';
 
 
 
 
 
-import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
+import { fetchAllUsersFromDB, fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
 // import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
+
+import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 
 // let rows = [];
 
@@ -76,11 +78,11 @@ const valueForBtnInWork = {'Новые':'0','В работе':'1','соглас�
 const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
 
 
-const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
+const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectUsersPage }) => {
 
   const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
   const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
-  const [tabValue, setTabValue] = useState([]); // выводить статистику
+  // const [tabValue, setTabValue] = useState([]); // выводить статистику
   const [offsetSt, setOffsetSt] = useState('0'); // выводить статистику
   // 19.03.21
   const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
@@ -93,7 +95,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   // console.log('TabOneMenu -- offsetSt',offsetSt);
 
- 
+
 
   const setPageT = useCallback((val) => {
 
@@ -141,34 +143,53 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);
 
   ///////////////////////////////////////////
-  useEffect(() => {
+  // login: ""
+// password: ""
+// user_active: 1
+// user_child: []
+// user_email: ""
+// user_end_date: "2022-03-09T11:36:47.323Z"
+// user_fio: "Префектура ВАО"
+// user_fio_lit: ""
+// user_id: 527
+// user_locked: false
+// user_org_id: 204
+// user_parent: 29
+// user_perms: []
+// user_post: ""
+// user_reg_date: "2021-03-09T11:36:47.323Z"
+// user_role: 3
+// user_status: 1
+// user_tel: ""
 
-    setTabValue(selectObjs);
+  // useEffect(() => {
 
-  },[selectObjs]);
+  //   // setTabValue(selectObjs);
+
+  // },[selectObjs]);
 
 ///////////////////////////////////////////
   useEffect(() => {
 
-    if ( selectObjs && selectObjs.length < 1){
+    if ( selectObjs.length < 1){
       console.log('TabOneMenu -- 444  fetchObjectsList  offset');
       fetchSearchObj('0');
     }
 
-  },[fetchSearchObj,selectObjs]);
+  },[fetchSearchObj,selectObjs.length]);
 
   ///////////////////////////////////////////
 
 
-  const setRadioValue = useCallback((val) => {setStFilterVal({...stFilterVal, objectType: val, offset: '0' } );console.log('radObjOwnMggt :',val)},[stFilterVal]);
-  const setRadioValInWork = useCallback((val) => {setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );console.log('radObjStatusInWork :',val)},[stFilterVal]);
-  const setRadioValOdh = useCallback((val) => {setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );console.log('objKind :',val)},[stFilterVal]);
+  // const setRadioValue = useCallback((val) => {setStFilterVal({...stFilterVal, objectType: val, offset: '0' } );console.log('radObjOwnMggt :',val)},[stFilterVal]);
+  // const setRadioValInWork = useCallback((val) => {setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );console.log('radObjStatusInWork :',val)},[stFilterVal]);
+  // const setRadioValOdh = useCallback((val) => {setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );console.log('objKind :',val)},[stFilterVal]);
 
   const setSearchTextObj = useCallback((val) => {setStFilterSearch({...stFilterSearch, objName: val }); setStFilterVal({...stFilterVal, offset: '0' } ); console.log('stFilterSearch objName :',val)},[stFilterSearch,stFilterVal]);
   const setSearchTextOrg = useCallback((val) => {setStFilterSearch({...stFilterSearch, orgName: val } );  setStFilterVal({...stFilterVal, offset: '0' } ); console.log('stFilterSearch orgName :',val)},[stFilterSearch,stFilterVal]);
 
-  const setDateStart = useCallback((val) => {setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );console.log('dateStart :',val)},[stFilterVal]);
-  const setDateEnd = useCallback((val) => {setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );console.log('dateEnd :',val)},[stFilterVal]);
+  // const setDateStart = useCallback((val) => {setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );console.log('dateStart :',val)},[stFilterVal]);
+  // const setDateEnd = useCallback((val) => {setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );console.log('dateEnd :',val)},[stFilterVal]);
 
   ///////////////////////////////////////////
   // const valueItems = {val:10, smeg: 'смежные'};
@@ -178,7 +199,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
           <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} />
           <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
-            <div style={{display: 'flex'}} >
+            {/* <div style={{display: 'flex'}} >
                 <div  style={{display:'flex', flexWrap:'nowrap', width:'100%', justifyContent: 'center'}}  >
                   <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}  />
                 </div>
@@ -188,17 +209,17 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
                 <div  style={{display:'flex', flexWrap:'nowrap'}}  >
                   <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
                 </div>
-            </div>
-            <div  style={{display:'flex', flexWrap:'wrap',margin:'4px 8px'}}  >
+            </div> */}
+            {/* <div  style={{display:'flex', flexWrap:'wrap',margin:'4px 8px'}}  >
               <DatePicker setDateStart={setDateStart} />
               <DatePickerEnd setDateEnd={setDateEnd} />
-            </div> 
+            </div>  */}
             <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary">
               Поиск
             </Button>
-
+  
           </div>
-          <TabObjs tabValue={tabValue} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
+          <TabUsers tabValue={selectObjs} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
 
         </div>
       </React.Fragment>
