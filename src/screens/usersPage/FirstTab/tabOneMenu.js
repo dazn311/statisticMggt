@@ -1,4 +1,4 @@
-import React,{ useState, useCallback,useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ import StateElements from './stateElements';
 
 
 
-import { fetchAllUsersFromDB  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
+import { fetchAllUsersFromDB , setUsersNameFilterTxtForUsersPage } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 
 import TabUsersComponent from "./TabUsers.component";
@@ -55,35 +55,55 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
-
+const filterSearchTextUser = (selectAllUsers=[], filterUser) => {   
+  // console.log('filterSearchTextUser',filterUser)
+  return [{user_name:'va'},{user_name:'vs'}].filter((elem) => elem.user_name.includes(filterUser))
+  // return selectAllUsers.filter((elem) => elem.user_name.includes(filterUser))
+  
+} 
 /////////////////////////////////////////////////////////////////////
 
-const TabOneMenu = ({ fetchAllUsers, selectAllUsers }) => {
+const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter }) => {
 
- const classes = useStyles();
+  // const [filterUser, setFilterUser] = React.useState('');
+  const [filterOrg, setFilterOrg] = React.useState('');
 
- useEffect(() => {fetchAllUsers()},[fetchAllUsers])
+  const classes = useStyles();
+  const history = useHistory();
 
-  const fetchSearchObj = () => {
-    console.log('sd')}
+  useEffect(() => {
+    if (!selectAllUsers.length){
+      fetchAllUsers();
+      console.log('fetchAllUsers');
+    }
+  },[fetchAllUsers])
 
-  const showEvents = () => {
-    console.log('showEvents')}
+  const fetchSearchObj = () => { console.log('sd')}
 
-  const handleChangePage = () => {
-    console.log('handleChangePage')}
+  const setSearchTextUser = (val) => { setUsersFilter(val); console.log('setSearchTextUser',val)}
+  const setSearchTextOrg = (val) => { setFilterOrg(val); console.log('setSearchTextUser',val)}
 
-    console.log('selectAllUsers',selectAllUsers);
+  // const showEvents = () => { console.log('showEvents')}
 
+  const handleChangePage = () => { console.log('handleChangePage')}
 
+  const showEvents = (row) => {  
+    // history.push(`/stats/objs/${row.objID}`); 
+    console.log('showEvents row',row) 
+    history.push({
+
+      pathname: `/stats/user/${row.user_id}`,
+      // search: '?query=obj',
+       row: row
+    });
+}
+ 
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
-          <StateElements amObjsValue={'amObjsValue'} amObjsValueCurrent={'amObjsValueCurrent'} />
+          <StateElements amObjsValue={selectAllUsers.length} amObjsValueCurrent={'0'} />
           <div className={classes.datePick}>
-            <SearchPanel  setSearchTextObj={'setSearchTextObj'} setSearchTextOrg={'setSearchTextOrg'} />
+            <SearchPanel  setSearchTextUser={setSearchTextUser} setSearchTextOrg={setSearchTextOrg} />
             <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary">
               Поиск
             </Button>
@@ -101,11 +121,19 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers }) => {
 }
 
 
+// const mapStateToProps = createStructuredSelector ({
+//   selectAllUsers: filterSearchTextUser(selectAllUsersFromDb, 'ав'), // события короткие данные для таблицы
+// });
 const mapStateToProps = createStructuredSelector ({
   selectAllUsers: selectAllUsersFromDb, // события короткие данные для таблицы
 });
 
+// const mapStateToProps = createStructuredSelector ({
+//   selectAllUsers: filterUser => selectAllUsersFromDb.filter((elem) => elem.user_name.contains(filterUser)), // события короткие данные для таблицы
+// });
+
 const mapDispatchToProps = (dispatch) => ({
-  fetchAllUsers: () => dispatch(fetchAllUsersFromDB())
+  fetchAllUsers: () => dispatch(fetchAllUsersFromDB()),
+  setUsersFilter: (val) => dispatch(setUsersNameFilterTxtForUsersPage(val))
 });
 export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 

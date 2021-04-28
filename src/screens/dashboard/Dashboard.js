@@ -23,7 +23,6 @@ import {  fetchEventsPointShortAsync, fetchAmountOGHForDashboardAsync ,fetchAmou
 import { selectGenStats } from '../../store/adminPanelTrest/StatisticPage.selectors'; 
 
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -103,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
     height: 'auto',
+    // elevation: 3,
     marginLeft: 0 //нижняя таблица первой страницы
   },news: {
     '&:hover': {
@@ -115,9 +115,6 @@ const useStyles = makeStyles((theme) => ({
   // paper2: {height: 240,}
 }));
 
-   
-
-
 let lineHeader = 'Текущая информация по событиям и пользователям';
 let maxWidthGridOGH = '330px';
 
@@ -125,12 +122,11 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
   const classes = useStyles();
   // const [valueChip, setValueChip] = React.useState([]);
 
-  
   //smgt
   useEffect(() => {
 
-    fetchEventsPointShort(); // graphic new_rec
-
+    fetchEventsPointShort({limit: 1200, offset: 0}); // graphic new_rec
+    console.log('fetchEventsPointShort',fetchEventsPointShort)
     // for "Количество ОГХ"
     fetchAmountOGH();
 
@@ -142,8 +138,6 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
     fetchGenStats();
     
   }, [fetchEventsPointShort, fetchAmountOGH, fetchAmountOGHToDay, fetchAmountOGHToWeek, fetchAmountOGHToThreeDays])
- 
-
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -172,7 +166,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
               maxWidth: 630,
               // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
               }} >
-              <Paper className={fixedHeightPaper} >
+              <Paper elevation={3} className={fixedHeightPaper} >
                 <h4 style={{ textAlign:'center', position:'relative', marginTop:'0px', left: '0'}}> {lineHeader}</h4>
                 <LineChartWrap  />
               </Paper>
@@ -181,14 +175,14 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
             
             <Grid xs={12} md={12} lg={6} style={{display:'flex', flexWrap:'wrap' , justifyContent:'center'}}>
                 <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH, marginRight:'8px'}} >
-                  <Paper className={fixedHeightPaper}>
+                  <Paper elevation={3} className={fixedHeightPaper}>
                     <Deposits /> {/* Количество ОГХ */}
                   </Paper>
                   
                 </Grid>
                 
                 <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
-                  <Paper className={fixedHeightPaper}>
+                  <Paper elevation={3} className={fixedHeightPaper}>
                     <NewOGH />  {/* Новые ОГХ */}
                   </Paper>
                 </Grid>
@@ -217,17 +211,15 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
 }
 
 
-
 const mapStateToProps = createStructuredSelector ({
   genStatsAll: selectGenStats,
   isFetchingUserOnline: selectIsFetchingUserOnline,
 });
 
 
-
 const mapDispatchToProps = (dispatch) => ({
     fetchGenStats: () => dispatch(fetchGenStatsAsync()), 
-    fetchEventsPointShort: () => dispatch(fetchEventsPointShortAsync()),
+    fetchEventsPointShort: ({limit, offset}) => dispatch(fetchEventsPointShortAsync({limit, offset})),
     
     fetchAmountOGH: () => dispatch(fetchAmountOGHForDashboardAsync()),
 

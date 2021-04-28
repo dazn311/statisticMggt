@@ -18,7 +18,7 @@ const BootstrapInput = withStyles((theme) => ({
     borderRadius: 4,
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
+    border: '1px solid #6aa4de',
     fontSize: 16,
     padding: '10px 26px 10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
@@ -58,17 +58,17 @@ const useStyles = makeStyles((theme) => ({
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
+export default function SearchPanel({setSearchTextUser, setSearchTextOrg}) {
   const classes = useStyles();
 
-  const [filterObj, setFilterObj] = React.useState('');
+  const [filterObj, setFilterUser] = React.useState('');
   const [filterOrg, setFilterOrg] = React.useState('');
 
   // console.log('rerender SearchPanel');
 
   const handleFilterObj = (event) => { 
-    setFilterObj(event.target.value);
-    setSearchTextObj(event.target.value); 
+    setFilterUser(event.target.value);
+    setSearchTextUser(event.target.value); 
   };
 
   const handleFilterOrg = (event) => {
@@ -83,7 +83,7 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   return (
     <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-around'}}>
       <FormControl className={classes.margin}>
-        <BootstrapInput id="input-obj" placeholder='Поиск по объектам' value={filterObj} onChange={handleFilterObj}/>
+        <BootstrapInput   id="input-obj" placeholder='Поиск по пользователям' value={filterObj} onChange={handleFilterObj}/>
        
       </FormControl>
       

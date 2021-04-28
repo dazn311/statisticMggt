@@ -16,6 +16,7 @@ let thisDate = new Date();
 thisDate = thisDate.toISOString();
 thisDate = thisDate.split('T')[0];
 
+//////////////////////////
 async function postData(url = '', data = {}) { 
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -37,16 +38,16 @@ let rows = [
         // { id: 1, type: 'Snow', text: 'Jon', date: '35',fullName: 'Vasya' },
     ];
     let allData = [];
-
+//////////////////////////
 const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
     const [dataTab, setDataTab] = useState([]); 
     const [currentMess, setCurrentMess] = useState([]); 
 
   const [openGreenf, setOpenGreen] = React.useState(false);
 
-    
-    
 
+
+//////////////////////////
     useEffect(() => {
         let amountEventsAll = 0;
 
@@ -102,11 +103,11 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
         setDataTab(rows); 
     },[eventShortPoints, setData, statusEventPoint])
 
-
+//////////////////////////
     if ( dataTab.length === 0){
         return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>)
     }
-
+//////////////////////////
     const addMess = (msgID,messText) => { 
         const newData = dataTab.map((elem) => {
             if(elem.id === msgID){
@@ -118,6 +119,7 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
         // console.log('setDataTab: ', messText);
         setDataTab(newData);
     }
+//////////////////////////
     const fetchMessageOneAsync = (rowID,msgID=0)  => { 
         const urlUserOnline = 'https://ismggt.ru/query/message/data';
         // const urlUserOnline = 'http://localhost:3005/query/recombination/one';
@@ -133,14 +135,14 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
               .catch(error => console.log(error.message));
         
       };
-
+//////////////////////////
     const handleClickOpenFmConfigForm = (row) => {   
         if(row.msg_id.msg_id){
             fetchMessageOneAsync(row.id,row.msg_id.msg_id); 
         }
         
     }
-
+//////////////////////////
 
     return (
         <>

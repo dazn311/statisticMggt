@@ -1,4 +1,3 @@
-'strick'
 import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
@@ -72,7 +71,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
   if(!selectUsersPage){
     return (<div>Loading..</div>)
   }
- 
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">

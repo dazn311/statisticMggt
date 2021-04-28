@@ -40,7 +40,7 @@ export default function StateElements({amObjsValue, amObjsValueCurrent}) {
   return ( 
     <React.Fragment>
       <Grid container alignItems="center" className={classes.root}>
-          <div className={classes.amObjs}> всего ползователей: <span style={{color:'#5a809e'}}>{amObjsValue.totalAmount}</span><span style={{color:'grey'}}> ({amObjsValueCurrent.totalAmount})</span></div>
+          <div className={classes.amObjs}> всего ползователей: <span style={{color:'#5a809e'}}>{amObjsValue}</span><span style={{color:'grey'}}> ({amObjsValueCurrent})</span></div>
         <Divider orientation="vertical" flexItem  />
           <div className={classes.amObjs}>МГГТ: <span style={{color:'green'}}>{amObjsValue.withRecs}</span> <span style={{color:'grey'}}> ({amObjsValueCurrent.withRecs})</span></div>
         <Divider orientation="vertical" flexItem />

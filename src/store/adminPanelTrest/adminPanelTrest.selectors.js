@@ -146,16 +146,48 @@ export const selectNewMessageGraphOfStaticPage = createSelector(
  export const selectUsersPage = createSelector( 
     getSelectPoints,
     adminPanel => adminPanel.users
-) 
+);
  
 /// UsersTab
- export const selectAllUsersFromDb = createSelector( 
+//  export const selectAllUsersFromDb = (state, props) => {
+//     if (state.adminPanel.allUsersOfDB.length) {
+//         return state.adminPanel.allUsersOfDB.filter(usr => usr.user_name.include(state.adminPanel.filterTextUserForUsersPage));
+//     }else {
+//         return [];
+//     }
+    
+//  };
+
+export const selectAllUsersFromDb = createSelector(
     getSelectPoints,
-    adminPanel => adminPanel.allUsersOfDB
-) 
+    adminPanel => {
+        if (adminPanel.allUsersOfDB.length > 0){
+            return  adminPanel.allUsersOfDB.filter(elem => elem.user_name.toLowerCase().includes(adminPanel.filterTextUserForUsersPage.toLowerCase()));
+        }else {
+            return [];
+        }
+    }
+        
+)
+
+// export const selectAllUsersFromDb = createSelector(
+//     getSelectPoints,
+//     (allUsersOfDB, filterTextUserForUsersPage) => allUsersOfDB.filter(usr => usr.user_name.include(filterTextUserForUsersPage))
+// )
+            
+
+
+// const getVisibilityFilter = (state, props) =>
+//   state.todoLists[props.listId].visibilityFilter;
+
+/// UsersTab
+//  export const selectAllUsersFromDb = createSelector( 
+//     getSelectPoints,
+//     adminPanel => adminPanel.allUsersOfDB
+// ) 
  //////////////////////////////////////////////////// 
  //////////////////////////////////////////////////// 
-  
+   
  
 /// ObjsTab
 //  export const selectAllUsersFromDb = createSelector( 

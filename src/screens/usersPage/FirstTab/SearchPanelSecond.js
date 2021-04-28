@@ -17,7 +17,7 @@ const BootstrapInput = withStyles((theme) => ({
     borderRadius: 4,
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
+    border: '1px solid #6aa4de',
     fontSize: 16,
     padding: '10px 26px 10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
@@ -68,7 +68,7 @@ export default function SearchPanel({setSearchText, setField}) {
     <div style={{ display:'flex', alignItems:'center'}}>
       <FormControl className={classes.margin}>
         <InputLabel htmlFor="input-textbox">Поиск</InputLabel>
-        <BootstrapInput id="input-textbox" placeholder='поиск..' value={filter} onChange={handleFilter}/>
+        <BootstrapInput color='primary' id="input-textbox" placeholder='поиск..' value={filter} onChange={handleFilter}/>
       </FormControl>
       <FormControl className={classes.margin}>
         <InputLabel id="input-select-label">Тип поиска</InputLabel>

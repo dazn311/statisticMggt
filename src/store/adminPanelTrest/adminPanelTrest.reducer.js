@@ -1,5 +1,5 @@
 import ORGANIZATIONS_DATA from './adminPanelTrest.data';
-import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage} from './adminPanelTrest.types';
+import AdminActionTypes, {FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage, dataUsersPage} from './adminPanelTrest.types';
 // import { fetchDataUsersOnline } from './adminPanelTrest.actions';
   
 const INITIAL_STATE = {
@@ -38,6 +38,8 @@ const INITIAL_STATE = {
     objCurrent: ORGANIZATIONS_DATA.objCurrent,// for Objects Page
     objRect: ORGANIZATIONS_DATA.objRect,// for Objects Page
     genStats: ORGANIZATIONS_DATA.genStats,// for Objects Page
+    filterTextUserForUsersPage: ORGANIZATIONS_DATA.filterTextUserForUsersPage,// for User Page for filters
+    filterTextOrgNameForUsersPage: ORGANIZATIONS_DATA.filterTextOrgNameForUsersPage,// for User Page for filters
     currentPointId: 1,
     isFetchingUserOnline: false,
     errorMessage: undefined,
@@ -152,6 +154,9 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
 
         case FetchDataGenPage.FETCH__ALL_DATA_FOR_GEN_PAGE:
                 return {...state, genStats: action.payload};
+
+        case dataUsersPage.SET_USER_FILTER_FOR_USERS_PAGE:
+                return {...state, filterTextUserForUsersPage: action.payload};
 
 
         default:

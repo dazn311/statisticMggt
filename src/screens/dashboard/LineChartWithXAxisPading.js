@@ -28,24 +28,28 @@ render() {
       displayVal = 'none';
     }
 
-    const styleLblUsersGraphicDate = !isFetchingUserOnline ? {position: 'relative',  color:'#483d93',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
-    : {position: 'relative' , color:'#ccc',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
+    const styleLblUsersGraphicDate = !isFetchingUserOnline
+        ? {position: 'relative',  color:'#483d93',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
+        : {position: 'relative' , color:'#ccc',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
     
-    const styleLblUsersGraphic = !isFetchingUserOnline ? {position: 'relative', color:'white',display: displayVal, backgroundColor:'rgb(136, 132, 216)',width:'30px',height: 30, margin: '4px 25px'}
-    : {position: 'relative', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+    const styleLblUsersGraphic = !isFetchingUserOnline
+        ? {position: 'relative', color:'white',display: displayVal, backgroundColor:'#8884d8',width:'30px',height: 30, margin: '4px 25px'}
+        : {position: 'relative', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px', backgroundColor:'#8884d8'};
 
-    const styleLblEventsGraphic = !isFetchingUserOnline ? {position: 'relative',  color:'black',display: displayVal, backgroundColor:'rgb(130, 202, 157)',width:'30px',height: 30, margin: '4px 25px'}
-    : {position: 'relative',  backgroundColor:'#91c1b4', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+    const styleLblEventsGraphic = !isFetchingUserOnline
+        ? {position: 'relative',  color:'black',display: displayVal, backgroundColor:'rgb(130, 202, 157)',width:'30px',height: 30, margin: '4px 25px'}
+        : {position: 'relative',  backgroundColor:'#91c1b4', color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
 
     
-    const styleLblEndedGraphic = !isFetchingUserOnline ? {position: 'relative', color:'black',display: displayVal, backgroundColor:'rgb(255, 192, 0)',width:'30px',height: 30, margin: '4px 25px'}
-    : {position: 'relative',  color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px'};
+    const styleLblEndedGraphic = !isFetchingUserOnline
+        ? {position: 'relative', color:'black',display: displayVal, backgroundColor:'#FFc000',width:'30px',height: 30, margin: '4px 25px'}
+        : {position: 'relative',  color:'#ccc',display: displayVal,width:'30px',height: 30, margin: '4px 25px', backgroundColor:'#FFc000'};
 
 
-    const styleBtnUpdateUsersGraphic = isFetchingUserOnline ? {position: 'relative',display: displayVal, cursor:'pointer', transition: 'transform 0.2s'}
-    :{position: 'relative',display: displayVal, cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
+    const styleBtnUpdateUsersGraphic = isFetchingUserOnline
+        ? {position: 'relative',display: displayVal, cursor:'pointer', transition: 'transform 0.2s'}
+        :{position: 'relative',display: displayVal, cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
 
-    // console.log('winWidth',window.innerWidth);
     return (
       <div id='graphics' style={{ position:'relative', display:'flex',   justifyContent: 'space-between'}}>
         <LineChart width={windthLine} height={200} data={data} >
@@ -68,7 +72,7 @@ render() {
               <ArrowRightIcon disabled={isToday} onClick={() => {fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
             </div>
             
-            <Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar> 
+            <Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar>
             <Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar> 
             <Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar> 
             

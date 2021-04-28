@@ -1,4 +1,4 @@
-'strick'
+
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 // import _ from "lodash";
@@ -35,12 +35,6 @@ const useStyles = makeStyles({
     borderTop: '1px solid rgb(130 119 119 / 47%)'
   },
 }); 
-
-
-
-
-
-
 
 
 
@@ -95,7 +89,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
       // history.push(`/stats/objs/${row.objID}`); 
       
       history.push({
-        pathname: `/stats/objs/${row.objID}`,
+        pathname: `/stats/obj/${row.objID}`,
         // search: '?query=obj',
          row: row
       });

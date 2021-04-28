@@ -51,6 +51,11 @@ export const FetchDataGenPage = {
     FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE: 'FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE', //from GenPage
     FETCH__ALL_DATA_FOR_GEN_PAGE: 'FETCH__ALL_DATA_FOR_GEN_PAGE', //from GenPage
 };
+
+export const dataUsersPage = {
+    SET_USER_FILTER_FOR_USERS_PAGE: 'SET_USER_FILTER_FOR_USERS_PAGE', //from USERS Page 
+    SET_ORG_NAME_FILTER_FOR_USERS_PAGE: 'SET_ORG_NAME_FILTER_FOR_USERS_PAGE', //from USERS Page 
+};
     
 export default AdminActionTypes;
   

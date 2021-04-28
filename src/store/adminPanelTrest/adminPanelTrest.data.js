@@ -394,7 +394,9 @@ const ORGANIZATIONS_DATA = {
       "total_messages": null,
       "daily_messages": null,
       "total_users": null
-    }
+    },
+    filterTextUserForUsersPage: '',
+    filterTextOrgNameForUsersPage: '',
 
   };
 

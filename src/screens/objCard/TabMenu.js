@@ -70,7 +70,7 @@ const TabMenu = ({idObj, currObj}) => {
     // console.log(newValue); 
   };
 
- 
+
  
   return (
     <div className={classes.root}>

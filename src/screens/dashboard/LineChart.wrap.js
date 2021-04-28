@@ -162,7 +162,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   const [curDate2,setCurDate2] = useState(initational);
   const [dataBig,setDataBig] = useState([]); 
   const [curDate,setCurDate] = useState(new Date())
-  const [isFetchingUserOnline, setIsFetchingUserOnline] = useState(0) 
+  const [isFetchingUserOnline, setIsFetchingUserOnline] = useState(3)
  
     
   // console.log('curDate2', curDate2);
@@ -257,6 +257,7 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   
 ////////// -- User Online -- ////////////////////////////////////
   const getUsers = useCallback(() => {
+
     const usersLine = selectCountUsers.data.chartData;
     // console.log('selectCountUsers.data.chartData',selectCountUsers);
     if(isToDay) {
@@ -424,9 +425,10 @@ const LineChartWrap = ({fetchAmountUsers,fetchAmountNewEventsForGraphicAsync,fet
   },[selectAmountEndedEvent.data.chartData,getEndedEvents])  
 
   if(isFetchingUserOnline ){
+    setIsFetchingUserOnline(0);
     return (<LineChartComp data={dataInit}  isFetchingUserOnline={isFetchingUserOnline} isToday={isToDay} dateLabel={curDate} usersCount={usersCount} eventsAmount={eventsAmount} endedAmount={endedAmount}  fetchAll={fetchAll} />)
   }
-  
+
   return (
       <LineChartComp data={dataBig[curDate2]}  isFetchingUserOnline={isFetchingUserOnline} isToday={isToDay} dateLabel={curDate} usersCount={usersCount} eventsAmount={eventsAmount} endedAmount={endedAmount}  fetchAll={fetchAll} />
     )

@@ -2,7 +2,7 @@
 import axios from "axios";
 
 
-import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage } from './adminPanelTrest.types';
+import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage, dataUsersPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
 import moment from 'moment';
 
@@ -197,6 +197,17 @@ export const setGenStatsPage = (items) => ({
   type: FetchDataGenPage.FETCH__ALL_DATA_FOR_GEN_PAGE,
   payload: items
 });
+///////////////////////////////////////////////////////////////////
+// for users page, tab1
+export const setUsersFilterForUsersPage = (items) => ({
+  type: dataUsersPage.SET_USER_FILTER_FOR_USERS_PAGE,
+  payload: items
+});
+
+export const setOrgNameFilterForUsersPage = (items) => ({
+  type: dataUsersPage.SET_ORG_NAME_FILTER_FOR_USERS_PAGE,
+  payload: items
+});
 
 
 
@@ -381,11 +392,17 @@ export const fetchAmountOGHToWeekAsync = () => {
 
 
 // Для нежней таблицы "новых событий" на Главной странице
-export const fetchEventsPointShortAsync = () => {
+export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => {
+    console.log('start fetchEventsPointShortAsync');
+
   return (dispatch) => {
-    postData('https://ismggt.ru/query/events/last/short', {limit:135120})
+    postData('https://ismggt.ru/query/events/last/short', {
+        limit:limit,
+        offset: offset
+        // limit:135120
+    })
         .then((eventss) => {
-          // console.log('fetchEventsPointShortAsync -- events',eventss);
+          console.log('fetchEventsPointShortAsync -- events',eventss);
           dispatch(putEventsPointShort(eventss));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -628,7 +645,7 @@ export const fetchAllUsersFromDB = (limit=20)  => {
     postDataAx('https://ismggt.ru/query/users/list', {},'post') //work
         .then((user) => {
           //{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}
-            console.log('👉 fetchAllUsersFromDB then user:',user );
+            // console.log('👉 fetchAllUsersFromDB then user:',user );
           dispatch(appendAllUsers(user));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -732,6 +749,16 @@ export const fetchGenStatsAsync = () => {
           dispatch(setGenStatsPage(data));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+
+///////for users page //////////////
+
+export const setUsersNameFilterTxtForUsersPage = (userNameFilter) => {
+  console.log('setUsersNameFilterTxtForUsersPage run: ' );
+  return (dispatch) => { 
+          dispatch(setUsersFilterForUsersPage(userNameFilter)); 
   };
 };
    

@@ -5,6 +5,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { TransitionGroup } from 'react-transition-group'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ruRU } from '@material-ui/core/locale';
@@ -20,6 +21,7 @@ import { fetchCurrentUserAsync } from './store/user/user.actions'
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
 import UsersPage from './screens/usersPage/index'; 
+import UserDetails from './screens/userDetails';
 import ObjPage from './screens/objPage'; 
 import ObjCard from './screens/objCard'; 
 import GeneralPage from './screens/gen'; 
@@ -42,37 +44,44 @@ function App({fetchCurrentUser}) {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
+      <TransitionGroup  timeout={150} >
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/stats">
-            <Dashboard /> 
-          </Route>
-          <Route path="/stats/ogh">
+          <Route exact path="/stats/ogh">
             <HistoriesChange />
           </Route>
-          <Route path="/stats/users">
+          <Route  path="/stats/user/:iduser">
+            {/*render={({ match }) => <UserDetails match={match} />}*/}
+            <UserDetails />
+          </Route>
+          <Route exact path="/stats/users">
             <UsersPage />
           </Route>
-          <Route path="/stats/objs/:idobj"> 
+          <Route  path="/stats/obj/:idobj">
             <ObjCard />
           </Route>
-          <Route path="/stats/objs">
+          <Route exact path="/stats/objs">
             <ObjPage />
           </Route>
           <Route path="/stats/gen">
             <GeneralPage />
           </Route>
-          
+          <Route exact path="/stats">
+            <Dashboard />
+          </Route>
           <Route >
             <Dashboard />
           </Route>
+
+
         </Switch>
         
         <Box pt={4}>
            <Footer />
         </Box>
       </Router>
+      </TransitionGroup>
       </ThemeProvider>
     </div>
   );
