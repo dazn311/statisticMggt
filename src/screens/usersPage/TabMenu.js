@@ -33,7 +33,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={0} marginTop={1} >
           {children}
         </Box>
       )}
@@ -78,6 +78,7 @@ const TabMenu = () => {
       <AppBar position="static" color="default">
         <Tabs
           value={value}
+          orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+// import { connect } from 'react-redux';
+// import { createStructuredSelector } from 'reselect';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -33,7 +33,7 @@ const initional = () => {
 }
 
  
-const DatePickers =({setDateEnd}) => {
+const DatePickerEnd =({setDateEnd}) => {
   const [Data] = useState(initional);
   const classes = useStyles();
  
@@ -57,11 +57,12 @@ const DatePickers =({setDateEnd}) => {
     </form>
   );
 }
-
-const mapStateToProps = createStructuredSelector ({ 
-  });
-
-const mapDispatchToProps = (dispatch) => ({ 
-  
-});  
-export default connect(mapStateToProps, mapDispatchToProps)(DatePickers);
+//
+// const mapStateToProps = createStructuredSelector ({
+//   });
+//
+// const mapDispatchToProps = (dispatch) => ({
+//
+// });
+// export default connect(mapStateToProps, mapDispatchToProps)(DatePickerEnd);
+export default  DatePickerEnd;

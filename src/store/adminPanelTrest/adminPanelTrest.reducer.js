@@ -159,6 +159,10 @@ const adminPandelReducer = (state = INITIAL_STATE, action) => {
                 return {...state, filterTextUserForUsersPage: action.payload};
 
 
+        case dataUsersPage.SET_ORG_NAME_FILTER_FOR_USERS_PAGE:
+                return {...state, filterTextOrgNameForUsersPage: action.payload};
+
+
         default:
             return state;
     }

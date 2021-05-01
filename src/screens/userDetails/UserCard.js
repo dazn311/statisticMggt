@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 // import Header from '../../components/header/header.component';
 import TabMenu from './TabMenu'
    
-import './historyChanges.styles.scss';
+import './userDetails.styles.scss';
 
 function Copyright() {
   return (
@@ -76,14 +76,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
-    flexDirection: 'column',
+    // flexDirection: 'column',
   },
   fixedHeight: {
     height: 240,
   },
 }));
 //<HistoryChanges eventShortPoints={eventShortPoints}/>
-
+ 
 export default function UserCard({eventShortPoints, idUser}) {
   const classes = useStyles();
   const location = useLocation();
@@ -99,7 +99,7 @@ export default function UserCard({eventShortPoints, idUser}) {
           <Grid container spacing={3}>
             
             {/* Recent Orders */}
-            <Grid item xs={12}>
+            <Grid item sm={12} md={12} xs={12}>
               <Paper className={classes.paper}>
                 <TabMenu idUser={idUser} curUser={curUser} />
               </Paper>

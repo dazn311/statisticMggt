@@ -66,7 +66,7 @@ const UserComponent = ({username,orgname}) => (<>
 </>)
 ////////////////////////////
 
-const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, fetchEventFromPeriod, datesOfFetchForEvent,searchValue, fieldValue }) => {
+const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, searchValue, fieldValue }) => {
   // const [tabValue, settabValue] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -172,7 +172,7 @@ const mapStateToProps = createStructuredSelector ({
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });
   
-const mapDispatchToProps = (dispatch) => ({ 
-    fetchEventFromPeriod: (start,end) => dispatch(fetchEventFromPeriodAsync(start,end)),
-});  
-  export default connect(mapStateToProps,mapDispatchToProps)(TabOGH);
+// const mapDispatchToProps = (dispatch) => ({
+//     fetchEventFromPeriod: (start,end) => dispatch(fetchEventFromPeriodAsync(start,end)),
+// });
+  export default connect(mapStateToProps)(TabOGH);

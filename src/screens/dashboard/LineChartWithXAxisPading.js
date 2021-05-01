@@ -15,18 +15,57 @@ render() {
     const {fetchAll, data, isFetchingUserOnline,  isToday,dateLabel ,usersCount, eventsAmount, endedAmount} = this.props;
 
  
-    const winWidth = window.innerWidth;
-    let windthLine = 500;
+    const winWidth = window.innerWidth; 
+    let windthLine = 500 - 20;
     let leftLine = 30;
     let rightLine = 30;
     let displayVal = 'flex';
+    let mleft = -35, mbottom = -0, mright = 0;
 
-    if (winWidth < 550){
-      windthLine = 350;
-      leftLine = 10;
-      rightLine = 10;
+    if (winWidth === 320){
+      windthLine = 280;
+      leftLine = 15;
+      rightLine = 15;
       displayVal = 'none';
-    }
+      mleft = -35; mbottom = -0; mright = 20;
+    }else if (winWidth === 375){
+      windthLine = 340;
+      leftLine = 10;
+      rightLine = 20;
+      displayVal = 'none';
+      mleft = -35; mbottom = -0; mright = 10;
+    }else if (winWidth === 414){
+      windthLine = 370;
+      leftLine = 10;
+      rightLine = 20;
+      displayVal = 'none';
+      mleft = -35; mbottom = -0; mright = 0;
+    }else if (winWidth === 412){ // Samsung A51
+      windthLine = 360;
+      leftLine = 10;
+      rightLine = 20;
+      displayVal = 'none';
+      mleft = -35; mbottom = -0; mright = 0;
+    } else if (winWidth === 360){ // Samsung A51
+      windthLine = 320;
+      leftLine = 10;
+      rightLine = 20;
+      displayVal = 'none';
+      mleft = -35; mbottom = -0; mright = 0;
+    } else if (winWidth === 1024){ // Samsung A51
+      windthLine = 450;
+      leftLine = 10;
+      rightLine = 20;
+      displayVal = 'none';
+      mleft = -35; mbottom = -0; mright = 0; 
+    } 
+    //  else if (winWidth < 360){ // Samsung A51
+    //   windthLine = 280;
+    //   leftLine = 10;
+    //   rightLine = 10;
+    //   displayVal = 'none';
+    //   mleft = -35; mbottom = -35; mright = 10;
+    // } 
 
     const styleLblUsersGraphicDate = !isFetchingUserOnline
         ? {position: 'relative',  color:'#483d93',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
@@ -51,14 +90,14 @@ render() {
         :{position: 'relative',display: displayVal, cursor:'pointer', transform: 'rotate(-45deg)', color:'red'};
 
     return (
-      <div id='graphics' style={{ position:'relative', display:'flex',   justifyContent: 'space-between'}}>
-        <LineChart width={windthLine} height={200} data={data} >
-          <CartesianGrid strokeDasharray="8 1" />
+      <div id='graphics' style={{ position:'relative', display:'flex',   justifyContent: 'space-between',width:'100%' }}>
+        <LineChart width={windthLine} height={200} data={data} margin={{left: mleft, bottom: mbottom, right: mright}}  >
+          <CartesianGrid strokeDasharray="8 5" />
           <XAxis dataKey="name" padding={{ left: leftLine, right: rightLine }} />
           <YAxis />
           <Tooltip />
-          <Legend  style={{bottom: '0px'}}/>
-          <Line type="monotone" dataKey='Users' stroke="#8884d8" name='Польз. он-лайн' activeDot={{ r: 8 }} />
+          <Legend  margin={{bottom:0}} />
+          <Line type="monotone" dataKey='Users' stroke="#8884d8" name='Польз. он-лайн'  activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="Events" name='Новые события' stroke="#82ca9d" />
           <Line type="monotone" dataKey="Closed" name='Закрытые событ.' stroke="#FFc000" />
           

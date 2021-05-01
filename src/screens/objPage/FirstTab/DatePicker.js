@@ -39,10 +39,8 @@ const DatePickers =({setDateStart}) => {
   const [Data] = useState(initional);
   const classes = useStyles();
 
-  
   const setDateOnBlur = async(e) => {
-    setDateStart(e.target.value)
-
+    setDateStart(e.target.value) ;
   } 
  
   return (
@@ -67,9 +65,9 @@ const mapStateToProps = createStructuredSelector ({
   dataOfFetchForEventShort: fetchDataForEventShortPoints, 
   });
 
-const mapDispatchToProps = (dispatch) => ({
-  // Для  
- 
-  
-});  
-export default connect(mapStateToProps, mapDispatchToProps)(DatePickers);
+// const mapDispatchToProps = (dispatch) => ({
+//
+//
+//
+// });
+export default connect(mapStateToProps)(DatePickers);

@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
     minWidth: 285,
+    width: window.innerWidth < 756 ? '100%' : '40%'
   },
 }));
 
@@ -81,7 +82,7 @@ export default function SearchPanel({setSearchTextUser, setSearchTextOrg}) {
   // const fetchSearchObjHandle = () => {fetchSearchObj()};
 
   return (
-    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-around'}}>
+    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'start-flex' , width: window.innerWidth < 756 ? '100%' : '90%' }}>
       <FormControl className={classes.margin}>
         <BootstrapInput   id="input-obj" placeholder='Поиск по пользователям' value={filterObj} onChange={handleFilterObj}/>
        

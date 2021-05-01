@@ -28,7 +28,7 @@ const initional = () => {
 
 
 
-const DatePickers =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchForEventShort}) => {
+const DatePickerEnd =({setDataEndforFetchEvents, fetchEventFromPeriod,dataOfFetchForEventShort}) => {
   const [Data] = useState(initional);
   const classes = useStyles();
 
@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch) => ({
   setDataEndforFetchEvents: (startDate) => dispatch(dataEndforFetchEventsForPeriod(startDate)),
   fetchEventFromPeriod: (start, end) => dispatch(fetchEventFromPeriodAsync(start, end)),
 });  
-export default connect(mapStateToProps, mapDispatchToProps)(DatePickers);
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickerEnd);

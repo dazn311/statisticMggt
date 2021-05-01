@@ -3,36 +3,23 @@ import React,{ useState, useCallback,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// import _ from "lodash";
-
-// import Link from '@material-ui/core/Link';
-// import Grid from '@material-ui/core/Grid';
-// import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';  
 import Button from '@material-ui/core/Button';
 
-// import RadioBtnMGGT from '../../../components/radioButtons';
-// import RadioBtnIW from '../../../components/radioBtnFow'; 
-// import RadioBtnODH from '../../../components/radioBtnODH'; 
 import SelectorMggt from '../../../components/selectorMggt';
 
 import DatePicker from './DatePicker';
 import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
-// import SearchPanelSec from './SearchPanelSecond';
 import TabObjs from './TabObjs';
 import StateElements from './stateElements';
 
 
-
-
-
 import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
-// import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
 
-// let rows = [];
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
   seeMore: {
-    marginTop: theme.spacing(0), 
+    marginTop: theme.spacing(1), 
 
   },
   datePick: {
@@ -70,11 +57,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
 const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
 const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
-
 
 const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
@@ -88,28 +73,17 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   const classes = useStyles();
 
-
-
-
-  // console.log('TabOneMenu -- offsetSt',offsetSt);
-
- 
-
   const setPageT = useCallback((val) => {
 
     setOffsetSt(val.toString());
-
-    // fetchSearchObj(val.toString()); 
 
     const startDate = new Date(stFilterVal.dateStart).toISOString();
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
 
     const limitPlus = stFilterVal.limit;
     let newOffset = (val -1) * stFilterVal.limit;
-    // let newOffset = '0';
-    // if (offset !== '0'){newOffset = offset;}
     let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
+    // console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
     fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDate, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
 
 
@@ -142,7 +116,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   ///////////////////////////////////////////
   useEffect(() => {
-
+ 
     setTabValue(selectObjs);
 
   },[selectObjs]);
@@ -198,8 +172,9 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
             </Button>
 
           </div>
-          <TabObjs tabValue={tabValue} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
-
+           
+             <TabObjs tabValue={tabValue} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
+           
         </div>
       </React.Fragment>
   );
@@ -212,8 +187,6 @@ const mapStateToProps = createStructuredSelector ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // Для  {"objectType":"2", "organization":"0", "limit":"100" , "offset":"100", "startDate":"2021-02-19T22:00:00.000Z", "endDate":"2021-03-19T22:00:00.000Z", "objName": "", "orgName": "", "objType": "ОО"}
-
-  fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
+    fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
 });
 export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 

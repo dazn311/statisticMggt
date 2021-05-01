@@ -76,6 +76,7 @@ const TabMenu = ({idObj, currObj}) => {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
+          orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"

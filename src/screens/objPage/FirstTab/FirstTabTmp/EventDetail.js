@@ -80,7 +80,7 @@ const EventDetail = ({ orgRow, fetchObjRectList,selectObjRect, isOpen, closeDeta
   const classes = useStyles();
 
  
-  // console.log('EventDetail orgRow', orgRow);
+  console.log('EventDetail orgRow', orgRow);
 
   const selectEvent =(id) => {
     // console.log('select sss', id);

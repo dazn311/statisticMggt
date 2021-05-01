@@ -32,7 +32,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={0}>
           {children}
         </Box>
       )}
@@ -77,10 +77,11 @@ const TabMenu = ({idUser, curUser}) => {
       <AppBar position="static" color="default">
         <Tabs
           value={value}
+          orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          variant="scrollable"
+          variant="standard"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >

@@ -90,9 +90,10 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
-    // paddingLeft: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
     // paddingLeft: theme.spacing(10),
     // minWidth: 1400,
   },
@@ -110,13 +111,14 @@ const useStyles = makeStyles((theme) => ({
    }, 
   },
   fixedHeight: {
-    minHeight: 240,
+    minHeight: 282,
+    marginTop: -15
   },
-  // paper2: {height: 240,}
+  chip: {margin: 0,}
 }));
 
 let lineHeader = 'Текущая информация по событиям и пользователям';
-let maxWidthGridOGH = '330px';
+let maxWidthGridOGH = '295px';
 
 const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetchAmountOGH,fetchAmountOGHToDay,fetchAmountOGHToWeek, fetchAmountOGHToThreeDays}) => {
   const classes = useStyles();
@@ -126,10 +128,10 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
   useEffect(() => {
 
     fetchEventsPointShort({limit: 1200, offset: 0}); // graphic new_rec
-    console.log('fetchEventsPointShort',fetchEventsPointShort)
+    // console.log('fetchEventsPointShort',fetchEventsPointShort)
     // for "Количество ОГХ"
     fetchAmountOGH();
-
+ 
     // for "Новые ОГХ"
     fetchAmountOGHToDay();
     fetchAmountOGHToWeek(); 
@@ -142,10 +144,21 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const winWidth = window.innerWidth; 
+  let minWidthOGH = 320; 
 
   if (winWidth < 550) {
       lineHeader = 'Информация по событиям';
       maxWidthGridOGH = 'unset' //по событиям'; 
+  }else if (winWidth === 1024) {
+    minWidthOGH = 252;
+  }else if (winWidth === 768) {
+    minWidthOGH = 252;
+  }else if (winWidth === 1280) {
+    minWidthOGH = 252;
+  }
+  
+  if (winWidth === 320) {
+    minWidthOGH = 230;
   }
 
   const amHenler = React.useCallback( (data) => {
@@ -160,10 +173,11 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Grid container   style={{display:'flex', flexDirection:'row', justifyContent:'center', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
-            <Grid item xs={12} md={12} lg={6} style={{
+          <Grid container   style={{display:'flex', gap: '4px 5px', flexDirection:'row', justifyContent:'flex-start', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
+            
+            <Grid item xs={12} md={5} lg={6} style={{
               // minWidth: 250,
-              maxWidth: 630,
+              maxWidth: 600,
               // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
               }} >
               <Paper elevation={3} className={fixedHeightPaper} >
@@ -173,23 +187,22 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
             </Grid>
             
             
-            <Grid xs={12} md={12} lg={6} style={{display:'flex', flexWrap:'wrap' , justifyContent:'center'}}>
-                <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH, marginRight:'8px'}} >
-                  <Paper elevation={3} className={fixedHeightPaper}>
-                    <Deposits /> {/* Количество ОГХ */}
-                  </Paper>
+            <Grid xs={12} md={6} lg={6} style={{display:'flex', gap: 4 , flexWrap:'wrap' , justifyContent:'flex-start', marginLeft: 0}}>
+                  <Grid item xs={12} md={6} lg={3} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH, marginRight:0}} >
+                    <Paper elevation={3} className={fixedHeightPaper}>
+                      <Deposits /> {/* Количество ОГХ */}
+                    </Paper> 
+                  </Grid>
                   
-                </Grid>
-                
-                <Grid item xs={12} md={6} lg={3} style={{minWidth: 292,maxWidth: maxWidthGridOGH}} >
-                  <Paper elevation={3} className={fixedHeightPaper}>
-                    <NewOGH />  {/* Новые ОГХ */}
-                  </Paper>
-                </Grid>
+                  <Grid item xs={12} md={6} lg={3} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH}} >
+                    <Paper elevation={3} className={fixedHeightPaper}>
+                      <NewOGH />  {/* Новые ОГХ */}
+                    </Paper>
+                  </Grid> 
             </Grid>
             
-            <Grid item xs={12}>
-              <Paper className={classes.paper2}>
+            <Grid item  xs={12}>
+              <Paper className={classes.chip}>
                 {/* краткие данные */}
                  <ChipsArray data={genStatsAll} />
               </Paper>

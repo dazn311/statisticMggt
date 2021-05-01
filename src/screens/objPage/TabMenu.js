@@ -25,7 +25,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box  style={{padding: '22px 0'}} >
+        <Box  style={{padding: 0}} >
           {children}
         </Box>
       )}
@@ -63,17 +63,18 @@ const TabMenu = () => {
     setValue(newValue); 
   };
  
- 
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
+          orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
+          variant="standard"
+          // scrollButtons="auto"
           aria-label="scrollable auto tabs example" 
            
         >

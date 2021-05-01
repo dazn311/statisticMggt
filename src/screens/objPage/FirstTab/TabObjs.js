@@ -25,7 +25,7 @@ import MessAlert from './Messages.alert';
 import { setObjCurrForDetailPageAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
-import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
+import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
   
 import EventDetail from './EventDetail';
  
@@ -54,7 +54,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
   // const {currentPage, totalPages, amount} = amObjsValue;
   // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
   // console.log('TabObjs -- page',page);
-  console.log('TabObjs -- rerender:');
+  // console.log('TabObjs -- rerender:');
 
   useEffect(() => {
     // console.log('TabObjs --offset',offset);
@@ -165,7 +165,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
 }
  
 const mapStateToProps = createStructuredSelector ({
-    selectObjs: selectObjsPage, // события короткие данные для таблицы
+    // selectObjs: selectObjsPage, // события короткие данные для таблицы
     selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });

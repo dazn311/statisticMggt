@@ -29,7 +29,7 @@ let data = {
   ],
 }
 
-const DoughnutChart = ({dataArr}) => {
+const ColomsChart = ({dataArr}) => {
     // console.log('dataArr',dataArr);
     data.datasets[0].data = dataArr;
     data.labels[0] = 'В разработке ОГХ МГГТ (' + dataArr[0] +')';
@@ -42,4 +42,4 @@ const DoughnutChart = ({dataArr}) => {
       )
 }
 
-export default DoughnutChart
+export default ColomsChart

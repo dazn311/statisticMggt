@@ -18,18 +18,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import DatePicker from './DatePicker.twoTab';
 import DatePickerEnd from './DatePickerEnd.twoTab';
-
- 
 import LineChart from './LineChartWithXAxisPading.twoTab';
-
- 
 
 import './tabTwoMenu.styles.scss';
 
  
 import { fetchAllEventsGraphicAsync, fetchAllUsersGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
- 
-
 import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectDenyEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
 
 let InitionalData = [
@@ -356,8 +350,6 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
             </div>
             <LineChart  graphicValue={graphicValue}/>
             <div className={classes.tabWrap}  >
-
-
               <TableContainer component={Paper}>
                 <Table className={classes.table} size="small" aria-label="a dense table">
                   <TableHead>
@@ -406,4 +398,5 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAllUsersGraphic: (startDate, endDate) => dispatch(fetchAllUsersGraphicAsync(startDate, endDate)),
   
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(TabTwoMenu);

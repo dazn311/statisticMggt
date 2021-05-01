@@ -14,13 +14,14 @@ render() {
     return (
       <div id='graphics' style={{ position:'relative',overflow: 'hidden'}}>
         <BarChart
-        width={1000}
+        width={'100%'}
+        maxWinth={1000}
         height={300}
         data={graphicValue}
         margin={{
           top: 20,
-          right: 30,
-          left: 20,
+          right: 10,
+          left: 10,
           bottom: 15,
         }}
       >

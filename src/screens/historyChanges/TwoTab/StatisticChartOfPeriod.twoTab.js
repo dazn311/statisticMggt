@@ -46,7 +46,7 @@ const data = [
   },
 ];
 
-export default class Example extends PureComponent {
+export default class StatisticChartOfPeriodTwoTab extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/90v76x08/';
 
   render() {

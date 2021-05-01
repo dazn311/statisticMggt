@@ -162,12 +162,12 @@ export const selectAllUsersFromDb = createSelector(
     getSelectPoints,
     adminPanel => {
         if (adminPanel.allUsersOfDB.length > 0){
-            return  adminPanel.allUsersOfDB.filter(elem => elem.user_name.toLowerCase().includes(adminPanel.filterTextUserForUsersPage.toLowerCase()));
-        }else {
-            return [];
-        }
-    }
-        
+            const ftArr =  adminPanel.allUsersOfDB.filter(elem => (elem.user_name || '').toLowerCase().includes(adminPanel.filterTextUserForUsersPage.toLowerCase())) ;
+            return ftArr.filter(elem => {
+                if (elem.user_org_id) {return elem.user_org_id.toString().includes(adminPanel.filterTextOrgNameForUsersPage)} 
+            }); 
+        }else { return []; }
+    }     
 )
 
 // export const selectAllUsersFromDb = createSelector(

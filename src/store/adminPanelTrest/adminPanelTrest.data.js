@@ -38,7 +38,7 @@ const ORGANIZATIONS_DATA = {
       user_last_seen: 0,
     },
     Users:[],
-    allUsersOfDB:[],
+    allUsersOfDB:[], //290421 Users page Tab1
   // Users:  
   //   [{
   //     user_id: 0,
@@ -67,7 +67,7 @@ const ORGANIZATIONS_DATA = {
         users: 80,
       }
     },
-  countOGH:  
+  countOGH:    //290421 Dashboard page
     {
       dataTime: '2021-02-08T20:48:33.296Z',
       data:  {
@@ -76,78 +76,88 @@ const ORGANIZATIONS_DATA = {
         objRelatives: 70,
       }
     },
-  amountNewOGH: 
-    {
-      dataTime: '2021-02-08T20:48:33.296Z',
-      data:  {
-        objTotal: 100,
-        objTotalToday: 100,
-        objTotalLastWeek: 100,
-        objTotalMonth: 100,
-        objMggt: 30,
-        objRelatives: 70,
-      }
+    amountNewOGH: //290421 Objects page Tab2
+      {
+        dataTime: '2021-02-08T20:48:33.296Z',
+        data:  {
+          objTotal: 100,
+          objTotalToday: 100, // нет
+          objTotalLastWeek: 100, // нет
+          objTotalMonth: 100, // нет
+          objMggt: 30, 
+          objRelatives: 70, 
+        }
     },
-  amountOGHtoDay: 
-    {
-      dataTime: '2021-02-08T20:48:33.296Z',
-      data:  {
-        objTotal: 1,
-        objMggt: 2,
-        objRelatives: 3,
-      }
+    amountOGHtoDay:   //290421 Dashboard page
+      {
+        dataTime: '2021-02-08T20:48:33.296Z',
+        data:  {
+          objTotal: 1,
+          objMggt: 2,
+          objRelatives: 3,
+        }
     },
-  amountOGHtoWeek: 
-    {
-      dataTime: '2021-02-08T20:48:33.296Z',
-      data:  {
-        objTotal: 0,
-        objMggt: 0,
-        objRelatives: 0,
-      }
+    amountOGHtoWeek:  //290421 Dashboard page
+      {
+        dataTime: '2021-02-08T20:48:33.296Z',
+        data:  {
+          objTotal: 0,
+          objMggt: 0,
+          objRelatives: 0,
+        }
     },
-  amountOGHtoTreeDays: 
-    {
-      dataTime: '2021-02-08T20:48:33.296Z',
-      data:  {
-        objTotal: 1,
-        objMggt: 2,
-        objRelatives: 3,
-      }
+    amountOGHtoTreeDays:   //290421 Dashboard page
+      {
+        dataTime: '2021-02-08T20:48:33.296Z',
+        data:  {
+          objTotal: 1,
+          objMggt: 2,
+          objRelatives: 3,
+        }
     },
-  countUsersGraph: //graphic of first page
-    {
-      startTime: '08:20 (21.01.21)',
-      endTime:   '2021-02-08T20:48:33.296Z',
-      fragments:   24,
-      data: {
-        chartMax: 100,
-        chartData: []
-      }
+    countUsersGraph: //graphic of first page
+      {
+        startTime: '08:20 (21.01.21)',
+        endTime:   '2021-02-08T20:48:33.296Z',
+        fragments:   24,
+        data: {
+          chartMax: 100,
+          chartData: []
+        }
     },
-  countUsersOfStartDayGraph: //graphic of first page
-    {
-      startTime: '0',
-      endTime:   '0',
-      online: 0
+    countUsersOfStartDayGraph: //graphic of first page
+      {
+        startTime: '0',
+        endTime:   '0',
+        online: 0
     },
-  countUsersOfEndDayGraph: //graphic of first page
-    {
-      startTime: '0',
-      endTime:   '0',
-      online: 0
+    countUsersOfEndDayGraph: //graphic of first page
+      {
+        startTime: '0',
+        endTime:   '0',
+        online: 0
+      },
+    countEventGraph: 
+      {
+        startTime: '08:20 (21.01.21)',
+        endTime:   '2021-02-08T20:48:33.296Z',
+        fragments:   24,
+        data: {
+          chartMax: 100,
+          chartData: []
+        }
     },
-  countEventGraph: 
-    {
-      startTime: '08:20 (21.01.21)',
-      endTime:   '2021-02-08T20:48:33.296Z',
-      fragments:   24,
-      data: {
-        chartMax: 100,
-        chartData: []
-      }
+    amountEventGraph: //events/amount
+      {
+        startTime: '2021-01-26T02:00:00.000Z',
+        endTime:   '2021-01-27T02:00:00.000Z',
+        fragments:   24,
+        data: {
+          chartMax: 100,
+          chartData: []
+        }
     },
-  amountEventGraph: //events/amount
+    amountEndEventGraph: //events/amount
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -157,90 +167,80 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-  amountEndEventGraph: //events/amount
-    {
-      startTime: '2021-01-26T02:00:00.000Z',
-      endTime:   '2021-01-27T02:00:00.000Z',
-      fragments:   24,
-      data: {
-        chartMax: 100,
-        chartData: []
-      }
+    statusEnumEventPoint:  {
+      new_rec:'создание нового события',
+      deny_rec:'отклонение события (оператором)',
+      done_rec:'выполнение/завершение события',
+      del_rec:'удаление события',
+      new_msg:'новое сообщение в событии',
+      new_user:'добавление нового пользователя',
+      del_user:'удаление пользователя',
+      block_user:'локировка пользователя администратором',
+      end_user:'завершение действия аккаунта пользователя',
+      new_org:'добавление организации',
+      del_org:'удаление организации',
+      change_org:'изменение в организации (состав пользователей организации, изменение данных по организации',
+      block_org:'блокировка организации администратором',
+      login:'авторизация в системе была произведена',
+      logout:'выход из системы был произведен',
+      open_obj:'объект',
+      save_obj:'сохранение/пересохранение объекта',
+      new_obj:'новый объект добавлен в систему',
+      del_obj:'объект был удален из системы',
+      change_obj:'изменение описания объекта/характеристик',
+      move_obj:'перенос объекта в другую организацию и/или к другому пользователю',
+      rel_add_obj:'добавление смежника к объекту',
+      bnd_add_obj:'добавление границы к объекту',
+      bnd_change_obj:'изменение в границе объекта',
+    
     },
-  statusEnumEventPoint:  {
-    new_rec:'создание нового события',
-    deny_rec:'отклонение события (оператором)',
-    done_rec:'выполнение/завершение события',
-    del_rec:'удаление события',
-    new_msg:'новое сообщение в событии',
-    new_user:'добавление нового пользователя',
-    del_user:'удаление пользователя',
-    block_user:'локировка пользователя администратором',
-    end_user:'завершение действия аккаунта пользователя',
-    new_org:'добавление организации',
-    del_org:'удаление организации',
-    change_org:'изменение в организации (состав пользователей организации, изменение данных по организации',
-    block_org:'блокировка организации администратором',
-    login:'авторизация в системе была произведена',
-    logout:'выход из системы был произведен',
-    open_obj:'объект',
-    save_obj:'сохранение/пересохранение объекта',
-    new_obj:'новый объект добавлен в систему',
-    del_obj:'объект был удален из системы',
-    change_obj:'изменение описания объекта/характеристик',
-    move_obj:'перенос объекта в другую организацию и/или к другому пользователю',
-    rel_add_obj:'добавление смежника к объекту',
-    bnd_add_obj:'добавление границы к объекту',
-    bnd_change_obj:'изменение в границе объекта',
-  
-  },
-  statusEnumEventPointColor:  {
-    new_rec:'red',
-    deny_rec:'orange',
-    done_rec:'green',
-    del_rec:'orange',
-    new_msg:'orange',
-    new_user:'red',
-    del_user:'orange',
-    block_user:'grey',
-    end_user:'orange',
-    new_org:'red',
-    del_org:'orange',
-    change_org:'grey',
-    block_org:'orange',
-    login:'grey',
-    logout:'grey',
-    open_obj:'grey',
-    save_obj:'grey',
-    new_obj:'red',
-    del_obj:'orange',
-    change_obj:'grey',
-    move_obj:'orange',
-    rel_add_obj:'red',
-    bnd_add_obj:'red',
-    bnd_change_obj:'grey',
-  
-  },
-  eventPoints: 
+    statusEnumEventPointColor:  {
+      new_rec:'red',
+      deny_rec:'orange',
+      done_rec:'green',
+      del_rec:'orange',
+      new_msg:'orange',
+      new_user:'red',
+      del_user:'orange',
+      block_user:'grey',
+      end_user:'orange',
+      new_org:'red',
+      del_org:'orange',
+      change_org:'grey',
+      block_org:'orange',
+      login:'grey',
+      logout:'grey',
+      open_obj:'grey',
+      save_obj:'grey',
+      new_obj:'red',
+      del_obj:'orange',
+      change_obj:'grey',
+      move_obj:'orange',
+      rel_add_obj:'red',
+      bnd_add_obj:'red',
+      bnd_change_obj:'grey',
+    
+    },
+    eventPoints: 
     [{
-      rec_id: 3,
-      rec_obj_id:   2,
-      rec_send_id:   24,
-      rec_recip_id:   24,
-      rec_descrip:   'Расположение дорожных знаков',
-      rec_n:   24,
-      rec_name:   'Дорожные знаки',
-      rec_locat:   '24',// временно не используется
-      rec_status:   2,
-      rec_adres:   '24',// временно не используется
-      rec_date:   2445654654,
-      rec_image:   'image.png',
-      rec_xy:   '55.768510, 37.524506',
-      rec_read:   1,
-      rec_smej_obj_id:   4, 
-    },
-  ],
-  messagesEventPoints: 
+        rec_id: 3,
+        rec_obj_id:   2,
+        rec_send_id:   24,
+        rec_recip_id:   24,
+        rec_descrip:   'Расположение дорожных знаков',
+        rec_n:   24,
+        rec_name:   'Дорожные знаки',
+        rec_locat:   '24',// временно не используется
+        rec_status:   2,
+        rec_adres:   '24',// временно не используется
+        rec_date:   2445654654,
+        rec_image:   'image.png',
+        rec_xy:   '55.768510, 37.524506',
+        rec_read:   1,
+        rec_smej_obj_id:   4, 
+      },
+    ],
+    messagesEventPoints: ///??
     [{
       msg_id: 2,
       msg_rec_id:   2,
@@ -254,14 +254,14 @@ const ORGANIZATIONS_DATA = {
       msg_file:   'cart.png',// временно не используется
       msg_geomet:   '2445654654'
     },],
-  fetchDataForEventShortPoints: // for tab bottom and page statistics
+    fetchDataForEventShortPoints: // for tab bottom and page statistics
     {
       limit: 20,
       startDate: "0",
       endDate: "0",
       // endDate: "2021-02-11T22:00:00.000Z",
     },
-  newEventsGraphOfStaticPage: //events/amount
+    newEventsGraphOfStaticPage: //events/amount    //290421 Objects page Tab2
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -271,7 +271,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-  endEventsGraphOfStaticPage: //events/amount
+    endEventsGraphOfStaticPage: //events/amount //290421 Objects page Tab2
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -281,7 +281,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-  denyEventsGraphOfStaticPage: //events/amount
+    denyEventsGraphOfStaticPage: //events/amount //290421 Objects page Tab2
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -291,7 +291,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-  usersOnlineGraphOfStaticPage: //events/amount
+    usersOnlineGraphOfStaticPage: //events/amount //290421 Objects page Tab2
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -301,7 +301,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-  newMessageGraphOfStaticPage: //events/amount
+    newMessageGraphOfStaticPage: //events/amount //290421 Objects page Tab2
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -311,7 +311,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       }
     },
-  usersNewGraphOfStaticPage: //for statics page to third tab 
+    usersNewGraphOfStaticPage: //for statics page to third tab 
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -321,7 +321,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-  usersDelGraphOfStaticPage: //for statics page to third tab
+    usersDelGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -331,7 +331,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-  usersBlockGraphOfStaticPage: //for statics page to third tab
+    usersBlockGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -341,7 +341,7 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-  usersEndGraphOfStaticPage: //for statics page to third tab
+    usersEndGraphOfStaticPage: //for statics page to third tab
     {
       startTime: '2021-01-26T02:00:00.000Z',
       endTime:   '2021-01-27T02:00:00.000Z',
@@ -351,9 +351,9 @@ const ORGANIZATIONS_DATA = {
         chartData: []
       } 
     },
-    objCurrent: {}, 
-    objs: [], 
-    objsInfo: [],
+    objCurrent: {},  //290421 Карточка объекта Tab1
+    objs: [],   //290421 Dashboard page
+    objsInfo: [],   //290421 Dashboard page
   // objs: {
       
       
@@ -380,9 +380,9 @@ const ORGANIZATIONS_DATA = {
       // },
     // ],
     objRect: {data:{recs:[]}},
-    eventShortPoints:{data:{nodes:[]}},
+    eventShortPoints:{data:{nodes:[]}},  //290421 Users page
     amountUsers: 0,
-    genStats: {
+    genStats: {  //290421 dashboard page
       "total_objects": null,
       "total_mggt_objects": null,
       "total_rel_objects": null,
@@ -395,8 +395,8 @@ const ORGANIZATIONS_DATA = {
       "daily_messages": null,
       "total_users": null
     },
-    filterTextUserForUsersPage: '',
-    filterTextOrgNameForUsersPage: '',
+    filterTextUserForUsersPage: '', //290421 Users page
+    filterTextOrgNameForUsersPage: '', //290421 Users page
 
   };
 

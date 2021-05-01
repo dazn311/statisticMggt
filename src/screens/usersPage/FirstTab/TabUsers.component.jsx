@@ -16,20 +16,74 @@ import Pagination from '@material-ui/lab/Pagination';
  
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
-    borderTop: '1px solid rgb(130 119 119 / 47%)',
+    // minWidth: 650,
+    maxWidth: '100%',
+    borderTop: '1px solid rgb(130 119 119 / 47%)', 
   },
 }); 
 
+const TabCellMobile = ({row}) => {
+  const cell = <div style={{width: '100%' }} ><div style={{width: '100%', borderBottom: '1px solid lightgrey'}}  >{row.user_name}</div><div>УК {row.user_org_id}</div></div>
+  return cell;
+}
+
 ////////////////////////////
-
+ 
 // let pageCoutnt = 0;
-const TabUsersComponent = ({  tabValue, showEvents, handleChangePage}) => {
+const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) => {
+  const classes = useStyles();
+  const amPage2 = parseInt(tabValue.length / 10) +1;
+  const widthW = window.innerWidth;
 
- const classes = useStyles();
+  if ( widthW < 420) {
+    return ( 
+      <>
+      <TableContainer style={{ overflowX: 'unset', marginTop: 8, maxWidth:'100%'}} component={Paper}>
+        <Table  className={classes.table} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{padding: '6px 2px', textAlign:'center',  borderRight:'1px solid #8080805c'}}>id</TableCell>
+              <TableCell style={{padding: '6px 4px', textAlign:'center',  borderRight:'1px solid #8080805c'}} align="right">ФИО/Огр</TableCell> 
+              <TableCell style={{padding: '6px 4px', textAlign:'center',  borderRight:'1px solid #8080805c'}} align="right">активность</TableCell>
+              {/* <TableCell align="right">последняя активность</TableCell> 
+              <TableCell align="right">Дата активности</TableCell> */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tabValue && tabValue
+            .filter((row,i) => i >= (page * 10 - 10) && i < (page * 10) )
+            .filter((row,i) => row.user_name.split(' ').length > 1)
+            .map((row, index) => (
+              <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
+                <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 2px', textAlign:'center',  borderRight:'1px solid #8080805c'}}>{row.user_id}</TableCell>
+                <TableCell component="th" scope="row" style={{borderRight:'1px solid #8080805c'}} >
+                  <TabCellMobile row={row} /> 
+                </TableCell>
+                <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_role}</TableCell>
+                {/* <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_role}</TableCell>
+                <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_post}</TableCell> */}
+                 
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+  
+        <div style={{display: tabValue.length ? 'flex': 'none', margin: 18, padding:5}}> 
+           <Pagination  count={amPage2} page={page} onChange={handleChangePage} color="primary" />
+        </div>
+       
+      </TableContainer>
+       
+      {/*<EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />*/}
+      {/*<MessAlert  openRed={openRed} openGreen={openGreen} />*/}
+      </>
+    );
+  }
+ 
+ 
   return ( 
     <>
-    <TableContainer style={{ overflowX: 'unset'}} component={Paper}>
+    <TableContainer style={{ overflowX: 'unset', marginTop: 8, maxWidth:'100%'}} component={Paper}>
       <Table  className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -42,7 +96,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage}) => {
         </TableHead>
         <TableBody>
           {tabValue && tabValue
-          .filter((row,i) => i < 11)
+          .filter((row,i) => i >= (page * 10 - 10) && i < (page * 10) )
           .filter((row,i) => row.user_name.split(' ').length > 1)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
@@ -59,8 +113,8 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage}) => {
         </TableBody>
       </Table>
 
-      <div style={{display: tabValue.length ? 'flex': 'none', margin: 18}}> 
-         <Pagination count={15} page={0} onChange={handleChangePage} color="primary" />
+      <div style={{display: tabValue.length ? 'flex': 'none', margin: 18, padding:5}}> 
+         <Pagination  count={amPage2} page={page} onChange={handleChangePage} color="primary" />
       </div>
      
     </TableContainer>

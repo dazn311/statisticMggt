@@ -15,7 +15,7 @@ const UserCardPage = () => {
      
     let { iduser } = useParams();
 
-    console.log('8989 HistoryPage iduser & row', iduser);
+    // console.log('8989 HistoryPage iduser & row', iduser);
     return (
             <UserCard idUser={iduser} />
             // <div  style={{height:300, backgroundColor:'red'}} >sdfdsf card {match} </div>

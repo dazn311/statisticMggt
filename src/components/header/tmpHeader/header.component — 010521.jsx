@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
@@ -32,15 +32,12 @@ import { connect } from 'react-redux';
 
 import { selectCurrentUser } from '../../store/user/user.selectors';
 
-import './header.styles.scss'; 
+import './header.styles.scss';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
-        // flexGrow: 1,
-        // display: 'flex',
-        position:'relative',
-        // minWidth: '100%'
+        display: 'flex',
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -54,13 +51,6 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    main: { 
-        // width: '100%',
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -87,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
-        height: '100vh',
+        height: '100%',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -128,8 +118,8 @@ const useStyles = makeStyles((theme) => ({
         height: 240,
     },
 }));
- 
-const Header = ({currentUser, children}) => {
+
+const Header = ({currentUser}) => {
     const [open, setOpen] = React.useState(false);
     const [headerTitle, setHeaderTitle] = React.useState(false);
     const classes = useStyles();
@@ -175,14 +165,14 @@ const Header = ({currentUser, children}) => {
 
     const sssd = () => {};
 
-    let user = currentUser ? currentUser : 'Пользователь';
+    let user = currentUser ? currentUser : 'Demo';
     // let user = '';
 
     // console.log('render header');
     return (
-        <div className={classes.root} >
+        <div className="Admin-header">
 
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="fixed" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         // style={{display:'none'}}
@@ -204,9 +194,7 @@ const Header = ({currentUser, children}) => {
             </Badge>
           </IconButton> */}
                 </Toolbar>
-                
             </AppBar>
-            
             <Drawer
                 style={{display:!open && 'none'}}
                 variant="permanent"
@@ -234,10 +222,6 @@ const Header = ({currentUser, children}) => {
                 <Divider />
                 {/* <List>{secondaryListItems}</List> */}
             </Drawer>
-            <main className={clsx(classes.main, open && classes.appBarShift)}>
-                {children}
-            </main>
-            
         </div>
     )
 
@@ -253,7 +237,6 @@ const mapStateToProps = (state) => ({
 });
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Header);
-// export default connect(mapStateToProps)(Header );
-export default connect(mapStateToProps)(withStyles(useStyles)(Header) );
+export default connect(mapStateToProps)(Header);
 
 // export default Header;

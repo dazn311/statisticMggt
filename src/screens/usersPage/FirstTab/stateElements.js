@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider';
 
 
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   
 }));
      
-
 
 ///////////////////////////////////////////
 export default function StateElements({amObjsValue, amObjsValueCurrent}) { 

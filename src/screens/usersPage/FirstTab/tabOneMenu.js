@@ -10,14 +10,10 @@ import Button from '@material-ui/core/Button';
 
 import SearchPanel from './SearchPanel';
 import StateElements from './stateElements';
-
-
-
-
-import { fetchAllUsersFromDB , setUsersNameFilterTxtForUsersPage } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
-import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
-
 import TabUsersComponent from "./TabUsers.component";
+
+import { fetchAllUsersFromDB , setUsersNameFilterTxtForUsersPage, setOrgNameFilterTxtForUsersPage } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
+import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +33,10 @@ const useStyles = makeStyles((theme) => ({
   amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
   seeMore: {
     marginTop: theme.spacing(0), 
-
+    width:'100%'
+ 
   },
-  datePick: {
+  searchPanel: {
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -48,9 +45,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'rgba(0, 0, 0, 0.87)',
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     backgroundColor: '#fff',
-    padding: '10px',
+    padding: '4px',
+    marginTop: '8px',
     borderRadius: '4px',
-    margin: '10px 0px',
+    margin: '0px 0px',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
   }
 }));
@@ -63,10 +61,9 @@ const filterSearchTextUser = (selectAllUsers=[], filterUser) => {
 } 
 /////////////////////////////////////////////////////////////////////
 
-const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter }) => {
-
-  // const [filterUser, setFilterUser] = React.useState('');
-  const [filterOrg, setFilterOrg] = React.useState('');
+const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter }) => {
+ 
+  const [page, setPage] = React.useState(1); 
 
   const classes = useStyles();
   const history = useHistory();
@@ -78,43 +75,52 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter }) => {
     }
   },[fetchAllUsers])
 
+  useEffect(() => {
+    if (!selectAllUsers.length){
+       
+      setPage(1); 
+    }
+  },[selectAllUsers.length])
+ 
+  console.log('Page',page); 
+  console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
+
   const fetchSearchObj = () => { console.log('sd')}
 
-  const setSearchTextUser = (val) => { setUsersFilter(val); console.log('setSearchTextUser',val)}
-  const setSearchTextOrg = (val) => { setFilterOrg(val); console.log('setSearchTextUser',val)}
+  const setSearchTextUser = (val) => { setPage(1); setUsersFilter(val); console.log('setSearchTextUser',val)}
+  const setSearchTextOrg = (val) => { setPage(1); setOrgNameFilter(val); console.log('setSearchTextUser',val)}
 
   // const showEvents = () => { console.log('showEvents')}
 
-  const handleChangePage = () => { console.log('handleChangePage')}
+  const handleChangePage = (event, page) => { console.log('handleChangePage',page); setPage(page);}
 
   const showEvents = (row) => {  
     // history.push(`/stats/objs/${row.objID}`); 
     console.log('showEvents row',row) 
     history.push({
-
       pathname: `/stats/user/${row.user_id}`,
       // search: '?query=obj',
        row: row
     });
 }
- 
+  
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
           <StateElements amObjsValue={selectAllUsers.length} amObjsValueCurrent={'0'} />
-          <div className={classes.datePick}>
+          <div className={classes.searchPanel}>
             <SearchPanel  setSearchTextUser={setSearchTextUser} setSearchTextOrg={setSearchTextOrg} />
-            <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary">
+            <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px', marginLeft: 8}} variant="contained" color="primary">
               Поиск
             </Button>
   
           </div>
-          <TabUsersComponent
+          <TabUsersComponent 
               tabValue={selectAllUsers}
               showEvents={showEvents}
               handleChangePage={handleChangePage}
+              page={page} 
           />
-
         </div>
       </React.Fragment>
   );
@@ -134,6 +140,7 @@ const mapStateToProps = createStructuredSelector ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllUsers: () => dispatch(fetchAllUsersFromDB()),
-  setUsersFilter: (val) => dispatch(setUsersNameFilterTxtForUsersPage(val))
+  setUsersFilter: (val) => dispatch(setUsersNameFilterTxtForUsersPage(val)),
+  setOrgNameFilter: (val) => dispatch(setOrgNameFilterTxtForUsersPage(val)),
 });
 export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 
