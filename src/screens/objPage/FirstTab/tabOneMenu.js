@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { makeStyles } from '@material-ui/core/styles';  
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import SelectorMggt from '../../../components/selectorMggt';
 
@@ -20,7 +21,7 @@ import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPane
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
 
 
-
+ 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 'fit-content',
@@ -65,7 +66,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
   const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
   const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
-  const [tabValue, setTabValue] = useState([]); // выводить статистику
+  // const [tabValue, setTabValue] = useState([]); // выводить статистику
+  const [isLoading, setIsLoading] = useState([]); // выводить статистику
   const [offsetSt, setOffsetSt] = useState('0'); // выводить статистику
   // 19.03.21
   const [stFilterVal, setStFilterVal] = useState({ objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: '2021-05-05',  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }); // выводить статистику
@@ -76,6 +78,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   const setPageT = useCallback((val) => {
 
     setOffsetSt(val.toString());
+    setIsLoading(true);
 
     const startDate = new Date(stFilterVal.dateStart).toISOString();
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
@@ -103,6 +106,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 
 ///////////////////////////////////////////
   const fetchSearchObj = useCallback((offset) => {
+    setIsLoading(true);
     const startDate = new Date(stFilterVal.dateStart).toISOString();
     const endDate = new Date(stFilterVal.dateEnd).toISOString();
     const limitPlus = stFilterVal.limit;
@@ -117,15 +121,16 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   ///////////////////////////////////////////
   useEffect(() => {
  
-    setTabValue(selectObjs);
-
+    // setTabValue(selectObjs);
+    setIsLoading(false);
   },[selectObjs]);
 
 ///////////////////////////////////////////
   useEffect(() => {
 
     if ( selectObjs && selectObjs.length < 1){
-      console.log('TabOneMenu -- 444  fetchObjectsList  offset');
+      // console.log('TabOneMenu -- 444  fetchObjectsList  offset');
+      setIsLoading(true);
       fetchSearchObj('0');
     }
 
@@ -167,13 +172,16 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
               <DatePicker setDateStart={setDateStart} />
               <DatePickerEnd setDateEnd={setDateEnd} />
             </div> 
-            <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary">
+            <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary" disabled={isLoading} >
               Поиск
             </Button>
 
           </div>
-           
-             <TabObjs tabValue={tabValue} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
+            {/* {selectObjs.length && !isLoading
+              ? <TabObjs tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} /> 
+              : <div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>
+            } */}
+            <TabObjs tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} /> 
            
         </div>
       </React.Fragment>

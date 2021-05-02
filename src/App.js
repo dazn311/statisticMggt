@@ -20,6 +20,7 @@ import { fetchCurrentUserAsync } from './store/user/user.actions'
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
@@ -62,6 +63,7 @@ function App({fetchCurrentUser}) {
   return (
     // <div className="App">
     <div className={clsx(classes.root )} >
+      <CssBaseline />
       <ThemeProvider theme={theme}>
       <TransitionGroup  timeout={150} >
       <Router>

@@ -74,7 +74,7 @@ const TabMenu = ({idUser, curUser}) => {
  
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      {/* <AppBar position="static" color="default"> */}
         <Tabs
           value={value}
           orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
@@ -90,7 +90,7 @@ const TabMenu = ({idUser, curUser}) => {
           {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
-      </AppBar>
+      {/* </AppBar> */}
       <TabPanel   value={value} index={0}>
           <TabOneMenu idUser={idUser} curUser={curUser} />
       </TabPanel>

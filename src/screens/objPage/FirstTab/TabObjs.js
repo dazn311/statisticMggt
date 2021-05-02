@@ -14,6 +14,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 // import TablePagination from '@material-ui/core/TablePagination';
 import Pagination from '@material-ui/lab/Pagination';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -41,7 +43,7 @@ const useStyles = makeStyles({
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset }) => {
+const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset, isLoading }) => {
 
   const [page, setPage] = React.useState(1);
   // const [setPage] = React.useState(0);
@@ -133,10 +135,11 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue && tabValue
+          {tabValue.length &&  
+           tabValue
           // .filter((row,i) => i < 16)
           .map((row, index) => (
-            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
+            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
               <TableCell component="th" scope="row">
                 {row.objName}
@@ -148,11 +151,13 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
               <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.objCreationDate)) }</TableCell> 
                
             </TableRow>
-          ))}
-        </TableBody>
-           
+          ))
+          // : <div style={{position: 'absolute', width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={134} color='primary' /> </div>
+
+        }
+        </TableBody> 
       </Table>
-      <div style={{display:'flex',margin: 18}}> 
+      <div style={{display:'flex',margin: 18, opacity: isLoading ? .3 : 1}}> 
          <Pagination count={selectObjsInfo.totalPages} page={page} onChange={handleChangePage} color="primary" /> 
       </div>
      
@@ -163,7 +168,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
     </>
   );
 }
- 
+
 const mapStateToProps = createStructuredSelector ({
     // selectObjs: selectObjsPage, // события короткие данные для таблицы
     selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы

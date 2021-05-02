@@ -21,6 +21,7 @@ import List from '@material-ui/core/List';
 
 
 import MainListItems from './listItems';
+import BlackDrop from '../blackDrop/BlackDrop.component';
 
 // import { Link } from "react-router-dom";
 
@@ -94,14 +95,15 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     drawerPaperClose: {
+        // display: 'none',
         overflowX: 'hidden',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        width: theme.spacing(7),
+        width: theme.spacing(0),
         [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
+            // width: theme.spacing(9),
         },
     },
     appBarSpacer: theme.mixins.toolbar,
@@ -208,7 +210,7 @@ const Header = ({currentUser, children}) => {
             </AppBar>
             
             <Drawer
-                style={{display:!open && 'none'}}
+                // style={{display:!open && 'none'}}
                 variant="permanent"
                 classes={{
                     paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -235,6 +237,7 @@ const Header = ({currentUser, children}) => {
                 {/* <List>{secondaryListItems}</List> */}
             </Drawer>
             <main className={clsx(classes.main, open && classes.appBarShift)}>
+                <BlackDrop isOpen={open} />
                 {children}
             </main>
             

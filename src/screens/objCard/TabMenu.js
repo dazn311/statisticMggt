@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // import { createStructuredSelector } from 'reselect';
 
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
+// import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
@@ -74,7 +74,7 @@ const TabMenu = ({idObj, currObj}) => {
  
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      {/* <AppBar position="static" color="default"> */}
         <Tabs
           orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           value={value}
@@ -90,7 +90,7 @@ const TabMenu = ({idObj, currObj}) => {
           {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
-      </AppBar>
+      {/* </AppBar> */}
       <TabPanel   value={value} index={0}>
           <TabOneMenu idObj={idObj} currObj={currObj} /> 
       </TabPanel>
