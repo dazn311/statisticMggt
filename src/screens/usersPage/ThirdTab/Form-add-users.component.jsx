@@ -88,12 +88,12 @@ const FormUsersAddToDb = ({appendUser}) => {
       <div>
         
         {/* <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text" variant="filled" defaultValue={fields.user_fio} onBlur={onBlurFio}/> */}
-        <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text" variant="filled"   onBlur={onBlurFio}/>
+        <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text"   onBlur={onBlurFio}/>
         <TextField id="login" label="Логин" type="text"   onBlur={onBlurFio}/>
         <TextField id="password" label="Пароль" type="password"   onBlur={onBlurFio}/>
       </div>
       <div>
-      <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text" variant="filled" value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
+      <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text"  value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
       <Button onClick={()=>{saveData()}} className={classes.btnSb} variant="contained" color="primary">
         Сохранить
       </Button>

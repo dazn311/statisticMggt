@@ -14,12 +14,12 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuItem from '@material-ui/core/MenuItem';
 import BusinessIcon from '@material-ui/icons/Business';
  
-const MainListItems = ( {location, open, drawerClose} ) => (
+const MainListItems = ( {location,  drawerClose} ) => (
   
-  <div style={{display: open ? 'block' : 'none' }} >
+  <div >
     <MenuItem   component={Link} to="/stats"   selected={location.pathname === '/stats'}>
       <ListItemIcon>
-        <DashboardIcon /> 
+        <DashboardIcon color={location.pathname === '/stats' ? "primary" : "inherit"} /> 
       </ListItemIcon>
       <ListItemText primary="Главная" onClick={drawerClose} />
     </MenuItem>
@@ -32,21 +32,21 @@ const MainListItems = ( {location, open, drawerClose} ) => (
       
     <MenuItem  component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
       <ListItemIcon>
-        <BusinessIcon />
+        <BusinessIcon color={location.pathname === '/stats/objs' ? "primary" : "inherit"} />
       </ListItemIcon>
       <ListItemText primary="Объекты" onClick={drawerClose} />
     </MenuItem> 
 
     <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
       <ListItemIcon>
-        <PeopleIcon />
+        <PeopleIcon  color={location.pathname === '/stats/users' ? "primary" : "inherit"} />
       </ListItemIcon>
       <ListItemText primary="Пользователи" />
     </MenuItem>
      
     <MenuItem  component={Link} to="/stats/gen"  selected={location.pathname === '/stats/gen'}>
       <ListItemIcon>
-        <BarChartIcon />
+        <BarChartIcon color={location.pathname === '/stats/gen' ? "primary" : "inherit"} />
       </ListItemIcon>
       <ListItemText primary="Текущая статистика"  selected={location.pathname === '/stats/gen'}  />
     </MenuItem>

@@ -36,32 +36,6 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -73,14 +47,11 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(4),
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     display: 'flex',
     overflow: 'auto',
     // flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
+  }, 
 }));
 //<HistoryChanges eventShortPoints={eventShortPoints}/>
  
@@ -95,7 +66,10 @@ export default function UserCard({eventShortPoints, idUser}) {
       {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
+        <Container 
+          maxWidth={false}
+          // maxWidth="xl" 
+          className={classes.container}>
           <Grid container spacing={3}>
             
             {/* Recent Orders */}
@@ -104,6 +78,7 @@ export default function UserCard({eventShortPoints, idUser}) {
                 <TabMenu idUser={idUser} curUser={curUser} />
               </Paper>
             </Grid>
+
           </Grid>
           <Box pt={4}> 
             <Copyright />

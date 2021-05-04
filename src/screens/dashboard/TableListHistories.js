@@ -10,6 +10,7 @@ import {useState} from "react";
 
 import TableListHistories from './TableListHistories.sceen'
 import MessAlert from './Messages.alert'
+import TableLoader from '../../components/tabLoader/TabLoader';
  
 
 let thisDate = new Date();
@@ -105,7 +106,8 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
 
 //////////////////////////
     if ( dataTab.length === 0){
-        return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>)
+        return (<div style={{width:'100%', display:'flex', justifyContent:'flex-start', marginLeft: -50, marginTop: -50}}><TableLoader/> </div>)
+        // return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>)
     }
 //////////////////////////
     const addMess = (msgID,messText) => { 

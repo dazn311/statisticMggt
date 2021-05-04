@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import { TransitionGroup } from 'react-transition-group'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, makeStyles,useTheme } from '@material-ui/core/styles';
 import { ruRU } from '@material-ui/core/locale';
 
 import Box from '@material-ui/core/Box'; 
+import blue from '@material-ui/core/colors/blue';
 
 import './App.css';
 
@@ -18,9 +19,8 @@ import Header from './components/header/header.component';
 
 import { fetchCurrentUserAsync } from './store/user/user.actions'
 
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import clsx from 'clsx'; 
+// import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
@@ -30,11 +30,26 @@ import ObjPage from './screens/objPage';
 import ObjCard from './screens/objCard'; 
 import GeneralPage from './screens/gen'; 
 import Footer from './components/footer'; 
+import { blueGrey, lightGreen } from '@material-ui/core/colors';
+import { dark } from '@material-ui/core/styles/createPalette';
  
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#1976d2' },
+    primary: {
+      light: '#757ce8',
+      // main: '#333',
+      main: lightGreen[500],
+      dark: lightGreen[700]
+    },
+    secondary: {
+      light: lightGreen[300],
+      main: lightGreen[500],
+      dark: blueGrey[700]
+    },
+     
+    type: "light"
   },
+  
 }, ruRU);
 
 const useStyles = makeStyles((theme) => ({
@@ -46,13 +61,15 @@ const useStyles = makeStyles((theme) => ({
       // display: 'flex',
       minWidth: '100$'
       // marginLeft: 240
-  },
+  }, 
 }));
 
 //glav control
 function App({fetchCurrentUser}) {
 
   const classes = useStyles();
+  const theme = useTheme();
+  console.log(theme);
   
 //sazonov egor gennadievich
   // useEffect(() => {
@@ -63,7 +80,7 @@ function App({fetchCurrentUser}) {
   return (
     // <div className="App">
     <div className={clsx(classes.root )} >
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <ThemeProvider theme={theme}>
       <TransitionGroup  timeout={150} >
       <Router>

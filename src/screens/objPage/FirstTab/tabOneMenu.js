@@ -21,7 +21,7 @@ import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPane
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
 
 
- 
+  
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 'fit-content',

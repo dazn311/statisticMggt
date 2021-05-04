@@ -4,6 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import IconButton from '@material-ui/core/IconButton';
 
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
@@ -17,10 +18,10 @@ render() {
  
     const winWidth = window.innerWidth; 
     let windthLine = 500 - 20;
-    let leftLine = 30;
-    let rightLine = 30;
+    let leftLine = 20;
+    let rightLine = 20;
     let displayVal = 'flex';
-    let mleft = -35, mbottom = -0, mright = 0;
+    let mleft = -25, mbottom = -10, mright = 0;
 
     if (winWidth === 320){
       windthLine = 280;
@@ -91,10 +92,10 @@ render() {
 
     return (
       <div id='graphics' style={{ position:'relative', display:'flex',   justifyContent: 'space-between',width:'100%' }}>
-        <LineChart width={windthLine} height={200} data={data} margin={{left: mleft, bottom: mbottom, right: mright}}  >
-          <CartesianGrid strokeDasharray="8 5" />
+        <LineChart  width={windthLine} height={200} data={data} margin={{ top: 8, left: mleft, bottom: mbottom, right: mright}}  >
+          <CartesianGrid strokeDasharray="8 3" />
           <XAxis dataKey="name" padding={{ left: leftLine, right: rightLine }} />
-          <YAxis />
+          <YAxis padding={{ top: 5, bottom: 5}} />
           <Tooltip />
           <Legend  margin={{bottom:0}} />
           <Line type="monotone" dataKey='Users' stroke="#8884d8" name='Польз. он-лайн'  activeDot={{ r: 8 }} />
@@ -103,19 +104,22 @@ render() {
           
         </LineChart>
         
-        <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap',  maxWidth: 80, width: '100%', justifyContent: 'center'}} >
+        <div style={{ position: 'relative',display: displayVal, flexWrap: 'wrap',  maxWidth: 80, justifyContent: 'center', marginLeft: 20}} >
             <div style={{position: 'absolute', right:'12px', transform: 'rotate(270deg)', top: '100px', whiteSpace: 'nowrap'}}>Текущие данные</div>
             <div style={styleLblUsersGraphicDate}>
-              <ArrowLeftIcon onClick={() => {fetchAll(-1)}} color="secondary" />
-                <div style={{alignSelf:'center'}} >{dateLabel.toISOString().slice(8,10)}/{dateLabel.toISOString().slice(5,7)} </div> 
-              <ArrowRightIcon disabled={isToday} onClick={() => {fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
-            </div>
+              <ArrowLeftIcon className='arrow-prev' fontSize="default"  onClick={() => {fetchAll(-1)}} color="secondary" />
+              <div style={{alignSelf:'center'}} >{dateLabel.toISOString().slice(8,10)}/{dateLabel.toISOString().slice(5,7)} </div> 
+              <ArrowRightIcon className={!isToday && 'arrow-prev'} disabled={isToday} onClick={() => {fetchAll(1)}}  color={isToday ? 'disabled' : 'error'}/>
+        </div>
             
             <Avatar  style={styleLblUsersGraphic}>{usersCount}</Avatar>
             <Avatar  style={styleLblEventsGraphic}>{eventsAmount}</Avatar> 
             <Avatar style={styleLblEndedGraphic}>{endedAmount}</Avatar> 
             
-            <RefreshIcon id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
+            
+            <IconButton color="secondary" aria-label="add an alarm">
+              <RefreshIcon  id='btnUpdateGraphicUsers'  style={styleBtnUpdateUsersGraphic} onClick={() => {fetchAll(0)}}/>
+            </IconButton>
         </div>
       </div>
     );

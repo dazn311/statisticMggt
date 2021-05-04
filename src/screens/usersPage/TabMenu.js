@@ -57,7 +57,8 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: '100%',
+    flexWrap: 'wrap',
+    // width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -86,8 +87,8 @@ const TabMenu = () => {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="Статистика по польз-ям" {...a11yProps(0)} />
-          <Tab label="Список всех польз-ей" {...a11yProps(1)} />
+          <Tab label="Список пользователей" {...a11yProps(0)} />
+          <Tab label="График активности" {...a11yProps(1)} />
           <Tab label="Добавление пользователя" {...a11yProps(2)} />
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>

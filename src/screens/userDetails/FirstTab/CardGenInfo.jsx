@@ -135,11 +135,11 @@ export default function CardGenInfo({curUser}) {
             title={user_name}
             subheader={'id: ' + user_id}
         />
-        <CardMedia
+        {/* <CardMedia
             className={classes.media}
             image="/static/images/avatar/1.png"
             title={user_name}
-        />
+        /> */}
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
             Статус: Активный

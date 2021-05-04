@@ -14,13 +14,16 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 // import TablePagination from '@material-ui/core/TablePagination';
 import Pagination from '@material-ui/lab/Pagination';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 // import * as locales from '@material-ui/core/locale';
 // import BackDrop from  '../../../components/blackDrop/black-drop.component'
+
+import { Random, Wave  } from 'react-animated-text';
   
 import MessAlert from './Messages.alert';
   
@@ -32,13 +35,37 @@ import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage
 import EventDetail from './EventDetail';
  
 const useStyles = makeStyles({
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: 4,
+    },
+    marginTop: 4,
+  },
   table: {
     minWidth: 650,
     borderTop: '1px solid rgb(130 119 119 / 47%)'
   },
+  cell: {
+    minHeight: 20,  
+    opacity: 0.3
+  },
+  cellOpacity: {
+    minHeight: 20, 
+    opacity: 0.1
+  },
 }); 
 
+const LinearIndeterminate = () => {
+  const classes = useStyles();
 
+  return (
+    <div className={classes.progress}>
+      <LinearProgress />
+      {/* <LinearProgress color="secondary" /> */}
+    </div>
+  );
+}
 
 ////////////////////////////
 
@@ -57,6 +84,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
   // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
   // console.log('TabObjs -- page',page);
   // console.log('TabObjs -- rerender:');
+ 
 
   useEffect(() => {
     // console.log('TabObjs --offset',offset);
@@ -135,23 +163,56 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue.length &&  
+          {tabValue.length ?
            tabValue
           // .filter((row,i) => i < 16)
           .map((row, index) => (
-            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading ? .3 : 1}} >
+            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
-              <TableCell component="th" scope="row">
-                {row.objName}
+              <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
+                {!isLoading ? row.objName : <Random
+                            text={row.objName} 
+                            effect="verticalFadeOut"
+                            effectDirection="down"
+                            effectChange={3.0}
+                          />}
               </TableCell>
-              <TableCell align="right">{row.organization.orgname}</TableCell>
-              <TableCell align="right">{row.objType}</TableCell>
+              <TableCell align="right">
+              {!isLoading ? row.objName : <Random
+                            text={row.organization.orgname} 
+                            effect="verticalFadeOut"
+                            effectDirection="down"
+                            effectChange={3.0}
+                          />}
+                          </TableCell>
+              <TableCell align="right">
+              {!isLoading ? row.objType : <Random
+                            text={row.objType} 
+                            effect="verticalFadeOut"
+                            effectDirection="down"
+                            effectChange={3.0}
+                          />}
+                 
+              </TableCell>
               <TableCell align="right">{row.objRecsAmount}</TableCell>
               {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
               <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.objCreationDate)) }</TableCell> 
                
             </TableRow>
-          ))
+          )) : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((num, index) => (
+            <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="left" style={{ width: '4px', maxWidth: '4px'}}><LinearIndeterminate /></TableCell>
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row">
+                  <LinearIndeterminate /> 
+                
+              </TableCell>
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+              {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
+              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell> 
+               
+            </TableRow>)) 
           // : <div style={{position: 'absolute', width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={134} color='primary' /> </div>
 
         }

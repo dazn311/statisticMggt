@@ -195,7 +195,7 @@ const Header = ({currentUser}) => {
           </IconButton> */}
                 </Toolbar>
             </AppBar>
-            <Drawer
+            <Drawer 
                 style={{display:!open && 'none'}}
                 variant="permanent"
                 classes={{

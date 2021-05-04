@@ -11,21 +11,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail'; 
-
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '@material-ui/icons/Person';
+import List from '@material-ui/core/List';
 
 
 import MainListItems from './listItems';
@@ -44,69 +36,15 @@ import { selectCurrentUser } from '../../store/user/user.selectors';
 import './header.styles.scss'; 
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
     root: {
         // flexGrow: 1,
-        display: 'flex',
-        // position:'relative',
+        // display: 'flex',
+        position:'relative',
         // minWidth: '100%'
-    },
-    avatar: {
-        // flexGrow: 1,
-        marginRight: 20,
-        // position:'relative',
-        // minWidth: '100%'
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-      },
-    drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-    }),
-    },
-    drawerClose: {
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-    },
-    [theme.breakpoints.down('sm')]: {
-        width: 0,
-        display:'none',
-      },
     },
     toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        // padding: theme.spacing(0, 1),
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: 0,
-          },
-          
-        marginLeft: 70,
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        
-    },
-    toolbar2: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        // padding: theme.spacing(0, 1),
-        marginLeft: 70,
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
+        paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
         display: 'flex',
@@ -118,18 +56,12 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
-      },
-      main: { 
+    },
+    main: { 
         // width: '100%',
-        marginLeft: 72,
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: 0,
-            width: '100%'
-          },
-        width: `calc(100% - ${72}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -144,11 +76,8 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     menuButton: {
-        marginRight: theme.spacing(2),
-        // [theme.breakpoints.up('lg')]: {
-        //   display: 'none',
-        // },
-      },
+        marginRight: 36,
+    },
     menuButtonHidden: {
         display: 'none',
     },
@@ -156,8 +85,15 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     drawerPaper: {
+        position: 'relative',
+        whiteSpace: 'nowrap',
         width: drawerWidth,
-      },
+        height: '100vh',
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
     drawerPaperClose: {
         // display: 'none',
         overflowX: 'hidden',
@@ -165,17 +101,17 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        // width: theme.spacing(0),
-        [theme.breakpoints.down('sm')]: {
-            width: 0,
-            display:'none',
-          },
+        width: theme.spacing(0),
+        [theme.breakpoints.up('sm')]: {
+            // width: theme.spacing(9),
+        },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
-      },
+        height: '100vh',
+        overflow: 'auto',
+    },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -185,26 +121,20 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
-    }, 
-    small: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
-        color: theme.palette.primary.dark,
-      },
-    large: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+    },news: {
+        '&:hover': {
+            background: "#f00",
+        },
+    },
+    fixedHeight: {
+        height: 240,
     },
 }));
  
-const Header = ({currentUser, children, window}) => {
+const Header = ({currentUser, children}) => {
     const [open, setOpen] = React.useState(false);
     const [headerTitle, setHeaderTitle] = React.useState(false);
     const classes = useStyles();
-
-    // const { window } = props;
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
 
     let location = useLocation();
     // const winWidth = window.innerWidth;
@@ -241,24 +171,20 @@ const Header = ({currentUser, children, window}) => {
     const handleDrawerOpen = () => {
         setOpen(true);
         setTimeout(() => {
-            setOpen(false);},33000);
+            setOpen(false);},3000);
         console.log('handleDrawerOpen'); };
-
     const handleDrawerClose = () => { setOpen(false); };
 
     const sssd = () => {};
 
     let user = currentUser ? currentUser : 'Пользователь';
-     
+    // let user = '';
 
-      
     // console.log('render header');
     return (
         <div className={classes.root} >
 
-            <AppBar position="fixed" className={clsx(classes.appBar, {
-                                        [classes.appBarShift]: open,
-                                        })}>
+            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         // style={{display:'none'}}
@@ -266,40 +192,42 @@ const Header = ({currentUser, children, window}) => {
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                          })}
+                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography  variant="h6" color="inherit" noWrap   >
-                        {headerTitle} 
-                    </Typography> 
+                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                        {headerTitle}
+                        {/* -({winWidth}) */}
+                    </Typography>
+                    {/* <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton> */}
                 </Toolbar>
                 
             </AppBar>
-            <Drawer 
+            
+            <Drawer
+                // style={{display:!open && 'none'}}
                 variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                  })}
-                  classes={{
-                    paper: clsx({
-                      [classes.drawerOpen]: open,
-                      [classes.drawerClose]: !open,
-                    }),
-                  }}
-                > 
-                <div className={classes.toolbar2}>
-                <div style={{marginLeft: '5px', display:'flex'}}>
-                <Avatar alt="Daz" className={classes.avatar}>
-                            <PersonIcon className={classes.small} />
+                classes={{
+                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    // paper: clsx(classes.toolbarIcon, !open && classes.drawerPaperClose),
+                }}
+                open={open}
+            >
+                {/* <div className={classes.toolbarIcon}> */}
+                <div className={classes.toolbarIcon}>
+                    <div style={{marginLeft: '5px', display:'flex'}}>
+                        <Avatar className={classes.avatar}>
+                            <PersonIcon />
                         </Avatar>
-                        <div style={{marginLeft: '15px', lineHeight:'40px', display: open ? 'block': 'none'}}>{user}</div></div>
-                <IconButton onClick={handleDrawerClose} style={{  display: open ? 'block': 'none'}}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </IconButton>
+                        <div style={{marginLeft: '15px', lineHeight:'40px'}}>{user}</div></div>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
                 </div>
                 <Divider />
                 <List >
@@ -308,12 +236,10 @@ const Header = ({currentUser, children, window}) => {
                 <Divider />
                 {/* <List>{secondaryListItems}</List> */}
             </Drawer>
-
             <main className={clsx(classes.main, open && classes.appBarShift)}>
                 <BlackDrop isOpen={open} />
                 {children}
             </main>
-             
             
         </div>
     )

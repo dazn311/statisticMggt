@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
   seeMore: {
     marginTop: theme.spacing(0), 
-    width:'100%'
+    // width:'100%'
  
   },
   searchPanel: {

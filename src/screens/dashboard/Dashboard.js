@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
  
+// import TabLoader from '../../components/tabLoader/TabLoader'; 
 import LineChartWrap from './LineChart.wrap'; 
 import Deposits from './Deposits';
 import NewOGH from './NewOGH';
@@ -88,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     // height: '100vh',
     overflow: 'auto',
+    marginLeft: theme.spacing(1)
   },
   container: {
     paddingTop: theme.spacing(2),
@@ -112,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fixedHeight: {
     minHeight: 282,
-    marginTop: -15
+    // marginTop: -15
   },
   chip: {margin: 0,}
 }));
@@ -172,7 +174,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
       <CssBaseline />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
+        <Container maxWidth="xl"  className={classes.container}>
           <Grid container   style={{display:'flex', gap: '4px 5px', flexDirection:'row', justifyContent:'flex-start', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
             
             <Grid item xs={12} md={5} lg={6} style={{
@@ -211,6 +213,7 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
 
             <Grid item xs={12}>
               <Paper className={classes.paper}>
+                {/* <TabLoader  /> */}
                 <TableListHistories setData={amHenler} />
               </Paper>
             </Grid>
