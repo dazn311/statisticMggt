@@ -37,9 +37,11 @@ const MainListItems = ( {location,  drawerClose} ) => (
       <ListItemText primary="Объекты" onClick={drawerClose} />
     </MenuItem> 
 
-    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}>
+    {/* <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}> */}
+    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname.includes('user') }>
       <ListItemIcon>
-        <PeopleIcon  color={location.pathname === '/stats/users' ? "primary" : "inherit"} />
+        <PeopleIcon  color={location.pathname.includes('user') ? "primary" : "inherit"} />
+        {/* <PeopleIcon  color={location.pathname === '/stats/users' ? "primary" : "inherit"} /> */}
       </ListItemIcon>
       <ListItemText primary="Пользователи" />
     </MenuItem>

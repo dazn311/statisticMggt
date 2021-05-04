@@ -5,7 +5,7 @@ import TabUsersList from './TabUsersList';
 import FormUsersAdd from './Form-add-users.component';
 
  
-
+ 
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     color: 'rgba(0, 0, 0, 0.87)',
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.paper,
     padding: '10px',
     borderRadius: '4px',
     margin: '10px 0px',
@@ -35,6 +35,9 @@ export default function TabOne() {
             <div className={classes.datePick}>
                 {/* <FormUsersAdd setField={setField} /> */}
                 <FormUsersAdd />
+            </div>
+            <div className={classes.datePick}>
+                Last add Users
             </div>
         
             <TabUsersList />

@@ -69,7 +69,7 @@ render() {
     // } 
 
     const styleLblUsersGraphicDate = !isFetchingUserOnline
-        ? {position: 'relative',  color:'#483d93',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
+        ? {position: 'relative',  color:'green',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
         : {position: 'relative' , color:'#ccc',display: displayVal, alignItems: 'flex-start',justifyContent: 'center',maxHeight: 25}
     
     const styleLblUsersGraphic = !isFetchingUserOnline

@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'; 
 import Pagination from '@material-ui/lab/Pagination'; 
+import LinearProgress from '@material-ui/core/LinearProgress';
   
 // import MessAlert from './Messages.alert';
 // import EventDetail from './EventDetail';
@@ -20,6 +21,13 @@ const useStyles = makeStyles({
     maxWidth: '100%',
     borderTop: '1px solid rgb(130 119 119 / 47%)', 
   },
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: 4,
+    },
+    marginTop: 4,
+  },
 }); 
 
 const TabCellMobile = ({row}) => {
@@ -28,6 +36,16 @@ const TabCellMobile = ({row}) => {
 }
 
 ////////////////////////////
+const LinearIndeterminate = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.progress}>
+      <LinearProgress />
+      {/* <LinearProgress color="secondary" /> */}
+    </div>
+  );
+}
  
 // let pageCoutnt = 0;
 const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) => {
@@ -50,7 +68,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
             </TableRow>
           </TableHead>
           <TableBody>
-            {tabValue && tabValue
+            {tabValue.length ? tabValue
             .filter((row,i) => i >= (page * 10 - 10) && i < (page * 10) )
             .filter((row,i) => row.user_name.split(' ').length > 1)
             .map((row, index) => (
@@ -59,12 +77,28 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
                 <TableCell component="th" scope="row" style={{borderRight:'1px solid #8080805c'}} >
                   <TabCellMobile row={row} /> 
                 </TableCell>
+                
                 <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_role}</TableCell>
                 {/* <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_role}</TableCell>
                 <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_post}</TableCell> */}
                  
               </TableRow>
-            ))}
+            ))
+            : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((num, index) => (
+              <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="left" style={{ width: '4px', maxWidth: '4px'}}><LinearIndeterminate /></TableCell>
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row">
+                    <LinearIndeterminate /> 
+                  
+                </TableCell>
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
+                {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
+                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell> 
+                 
+              </TableRow>)) 
+          }
           </TableBody>
         </Table>
   
@@ -95,7 +129,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue && tabValue
+          {tabValue.length ? tabValue
           .filter((row,i) => i >= (page * 10 - 10) && i < (page * 10) )
           .filter((row,i) => row.user_name.split(' ').length > 1)
           .map((row, index) => (
@@ -104,16 +138,28 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
               <TableCell component="th" scope="row" style={{borderRight:'1px solid #8080805c'}} >
                 {row.user_name}
               </TableCell>
-              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_org_id}</TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.org_name}</TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_role}</TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_post}</TableCell>
                
             </TableRow>
-          ))}
+          ))
+          : [1,2,3,4,5,6,7,8,9,10].map((num, index) => (
+            <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
+             <TableCell align="left" style={{padding: '6px 4px', textAlign:'center',  borderRight:'1px solid #8080805c'}}><LinearIndeterminate /></TableCell>
+              <TableCell component="th" scope="row" style={{borderRight:'1px solid #8080805c'}} >
+              <LinearIndeterminate />
+              </TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
+               
+            </TableRow>)) 
+            }
         </TableBody>
       </Table>
 
-      <div style={{display: tabValue.length ? 'flex': 'none', margin: 18, padding:5}}> 
+      <div style={{opacity: tabValue.length ? 1: .3, margin: 18, padding:5}}> 
          <Pagination  count={amPage2} page={page} onChange={handleChangePage} color="primary" />
       </div>
      

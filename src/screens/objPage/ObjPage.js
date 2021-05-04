@@ -28,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(0),
+    paddingLeft: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -51,7 +52,7 @@ export default function ObjectState({eventShortPoints}) {
       {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
+        <Container maxWidth={false} className={classes.container}>
           <Grid container spacing={3}>
             
             {/* Recent Orders */}

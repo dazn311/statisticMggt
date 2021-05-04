@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
+ 
 import { appendUserAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       
     },
-    display: 'flex',
+    display: 'flex', 
     '& div': {
       margin: 0,
       marginTop: 10,
@@ -92,6 +92,7 @@ const FormUsersAddToDb = ({appendUser}) => {
         <TextField id="login" label="Логин" type="text"   onBlur={onBlurFio}/>
         <TextField id="password" label="Пароль" type="password"   onBlur={onBlurFio}/>
       </div>
+ 
       <div>
       <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text"  value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
       <Button onClick={()=>{saveData()}} className={classes.btnSb} variant="contained" color="primary">

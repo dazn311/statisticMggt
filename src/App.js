@@ -31,12 +31,13 @@ import ObjCard from './screens/objCard';
 import GeneralPage from './screens/gen'; 
 import Footer from './components/footer'; 
 import { blueGrey, lightGreen } from '@material-ui/core/colors';
-import { dark } from '@material-ui/core/styles/createPalette';
+// import { dark, light } from '@material-ui/core/styles/createPalette';
  
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#757ce8',
+      // light: '#757ce8',
+      light: lightGreen[300],
       // main: '#333',
       main: lightGreen[500],
       dark: lightGreen[700]
@@ -46,8 +47,11 @@ const theme = createMuiTheme({
       main: lightGreen[500],
       dark: blueGrey[700]
     },
-     
-    type: "light"
+    background: {
+      // default: lightGreen[900],
+      // paper: 'grey', 
+    },
+    type: 'dark'
   },
   
 }, ruRU);
@@ -68,8 +72,8 @@ const useStyles = makeStyles((theme) => ({
 function App({fetchCurrentUser}) {
 
   const classes = useStyles();
-  const theme = useTheme();
-  console.log(theme);
+  // const theme = useTheme();
+  // console.log(theme);
   
 //sazonov egor gennadievich
   // useEffect(() => {

@@ -579,6 +579,12 @@ export const appendUserAsync = (data)  => {
   //       })
   //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   // };
+  
+  return (dispatch) => {
+          // console.log('👉 appendUserAsync then user:',user.data );
+          dispatch(appendUser(data))
+        };
+    
 };
 
 // fetchAllUsersFromDB

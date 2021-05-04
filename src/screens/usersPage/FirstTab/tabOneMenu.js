@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(0), 
     // width:'100%'
  
-  },
+  }, 
   searchPanel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     color: 'rgba(0, 0, 0, 0.87)',
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.paper,
     padding: '4px',
-    marginTop: '8px',
+    // marginTop: '8px',
     borderRadius: '4px',
     margin: '0px 0px',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
@@ -82,8 +82,8 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
     }
   },[selectAllUsers.length])
  
-  console.log('Page',page); 
-  console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
+  // console.log('Page',page); 
+  // console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
 
   const fetchSearchObj = () => { console.log('sd')}
 

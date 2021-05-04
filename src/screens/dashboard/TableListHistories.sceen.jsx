@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DataGrid } from '@material-ui/data-grid';
 // import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress"; 
-import TableLoader from '../../components/tabLoader/TabLoader';
+// import TableLoader from '../../components/tabLoader/TabLoader';
 
 const columns = [ 
     { field: 'date', headerName: 'Дата', type: 'string', width: 160, direction: 'desc' },
@@ -22,10 +22,10 @@ const TableListHistory = ({ dataTab,handleClickOpenFmConfigForm}) => {
         // return (<div style={{width:'100%', display:'flex', justifyContent:'flex-start'}}><TableLoader /> </div>)
         // return (<div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>)
     }
-
+ 
     return (
         <div style={{ height: '400px', width: '100%' }}>
-            <DataGrid onRowClick={(rowData) => handleClickOpenFmConfigForm(rowData.row)} rows={dataTab} columns={columns} onRowHover pageSize={5} loading={false} icons />
+            <DataGrid  onRowClick={(rowData) => handleClickOpenFmConfigForm(rowData.row)} rows={dataTab} columns={columns} onRowHover pageSize={5} loading={false} icons />
         </div> 
     );
 }

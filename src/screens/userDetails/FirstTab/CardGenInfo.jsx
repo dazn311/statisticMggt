@@ -91,8 +91,9 @@ export default function CardGenInfo({curUser}) {
 
   if (!curUser) return (<div>loading..</div>);
 
-  const {user_id, user_name, user_shortname, user_org_id, user_post, user_role} = curUser || {user_id, user_name, user_shortname, user_org_id, user_post, user_role};
+  const {user_id, user_name, user_shortname, user_org_id, user_post, user_role, org_name} = curUser || {user_id, user_name, user_shortname, user_org_id, user_post, user_role};
   console.log('8989 CardGenInfo curUser', curUser);
+  console.log('8989 CardGenInfo org_name', org_name);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -102,9 +103,9 @@ export default function CardGenInfo({curUser}) {
         <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>
-                R
+                N
               </Avatar>
-            }
+            } 
             action={
               <IconButton aria-label="settings">
                 <MoreVertIcon ref={anchorRef}
@@ -133,7 +134,7 @@ export default function CardGenInfo({curUser}) {
               </IconButton>
             }
             title={user_name}
-            subheader={'id: ' + user_id}
+            subheader={'user_id: ' + user_id}
         />
         {/* <CardMedia
             className={classes.media}
@@ -142,42 +143,46 @@ export default function CardGenInfo({curUser}) {
         /> */}
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Статус: Активный
+            Статус: <span style={{color: 'white'}} > Активный(*)</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Сотрудник огранизации № {user_org_id}.
+            Огранизация: <span style={{color: 'white'}} > {org_name} </span> 
+            {/* Сотрудник огранизации № {user_org_id}. */}
           </Typography>
           {/*<Typography variant="body2" color="textSecondary" component="p">*/}
           {/*  Вышестоящая огранизация № {user_org_id}.*/}
           {/*</Typography>*/}
 
           <Typography variant="body2" color="textSecondary" component="p">
-            {user_post}
+            Должность: <span style={{color: 'white'}} > {user_post}</span> 
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Роль: {user_role}
+            Роль: <span style={{color: 'white'}} > {user_role}</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            +7 964 765-09-66
+          <span style={{color: 'white'}} > +7 964 765-09-66(*)</span> 
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            ShmidtDU@mos.ru
+          <span style={{color: 'white'}} > ShmidtDU@mos.ru(*)</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.: "2021-04-07"
+            Дата рег.:           <span style={{color: 'white'}} > "2021-03-07"(*)</span> 
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Дата окончания рег.: <span style={{color: 'white'}} > "2021-04-02"(*)</span> 
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          {/* <IconButton aria-label="add to favorites">
             <FavoriteIcon color={'disabled'} />
-          </IconButton>
-          <IconButton aria-label="share">
+          </IconButton> */}
+          {/* <IconButton aria-label="share">
             <ShareIcon />
-          </IconButton>
+          </IconButton> */}
           <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded,
@@ -191,18 +196,21 @@ export default function CardGenInfo({curUser}) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Объекты в работе:</Typography>
-            <Typography paragraph>
-              Таганская, Краснопресненская.
+            <Typography paragraph>Последние изменения:</Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Добавлен в систему 
             </Typography>
-            <Typography paragraph>
-              20 согласованных событий.
+            <Divider />
+            <Typography variant="body2" color="textSecondary" component="p">
+              Приостановлен.
             </Typography>
-            <Typography paragraph>
-              в работе 3 объекта.
+            <Divider />
+            <Typography variant="body2" color="textSecondary" component="p">
+              Смена контактов.
             </Typography>
-            <Typography>
-              Дополнительная информация...
+            <Divider />
+            <Typography variant="body2" color="textSecondary" component="p">
+              Изменение в должности
             </Typography>
           </CardContent>
         </Collapse>

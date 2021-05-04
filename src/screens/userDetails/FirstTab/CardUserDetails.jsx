@@ -16,13 +16,16 @@ const useStyles = makeStyles((theme) => ({
   span: {
     color: '#1976d2'
   },
+  panelTitle: {
+    color: '#FFF'
+  },
   red: {
     color: 'red'
-  }
+  },
 }));
 // curUser={curUser} objRect={selectObjRect}
 const CardUserDetails = ({ curUser }) => {
-  const classNamees = useStyles();
+    const classes = useStyles();
 
   console.log('curUser', curUser); 
 
@@ -35,11 +38,11 @@ const CardUserDetails = ({ curUser }) => {
 
   return (
     <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-5">
             <div className="panel">
                 <div className="panel-heading">
                     <span className="panel-icon"> <i className="fa fa-star"/> </span>
-                    <span className="panel-title"> Активность пользователя</span>
+                    <span className={classes.panelTitle}> Активность пользователя</span>
                 </div>
                 <div className="panel-body pn">
                     <table className="table mbn tc-icon-1 tc-med-2 tc-bold-last">
@@ -56,23 +59,23 @@ const CardUserDetails = ({ curUser }) => {
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
                                 <td>Объектов в работе</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>13</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>14(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
-                                <td>Завершенных</td>
-                                <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>8</td>
+                                <td>Все событий</td>
+                                <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>108(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td>Завершенных сегодня</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>2</td>
+                                <td>Был в системе</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>2.05.21(*)</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div className="panel">
+            {/* <div className="panel">
                 <div className="panel-heading">
                     <span className="panel-icon"> <i className="fa fa-trophy"/> </span>
                     <span className="panel-title"> Мои объекты</span>
@@ -88,12 +91,12 @@ const CardUserDetails = ({ curUser }) => {
                     <span style={{margin: 2}} className="label label-success mr5 mb10 ib lh15">Масловка</span>
                     <span style={{margin: 2}} className="label label-primary mr5 mb10 ib lh15">Зорге</span>
                 </div>
-            </div>
+            </div> */}
 
             <div className="panel">
                 <div className="panel-heading">
                     <span className="panel-icon"> <i className="fa fa-pencil"/>
-                    </span> <span className="panel-title">В работе</span>
+                    </span> <span className={classes.panelTitle}>В работе</span>
                 </div>
                 <div className="panel-body pb5">
                     <h6>Объект</h6>

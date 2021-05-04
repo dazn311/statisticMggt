@@ -20,67 +20,13 @@ import {  fetchGenStatsAsync  } from '../../store/adminPanelTrest/adminPanelTres
 import './dashboard.styles.scss';
 
  
- 
-const drawerWidth = 240;
+  
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9), 
-    },
-  },
+    marginLeft: 0
+  },   
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -88,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-    // paddingLeft: theme.spacing(10),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
     // minWidth: 1400,
   },
   paper: {
@@ -123,10 +69,10 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
  
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      <CssBaseline /> 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
+        <Container maxWidth={false}  className={classes.container}>
           <Grid container spacing={3}>
 
             <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
@@ -134,6 +80,7 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
                 <GenDeposits data={genStatsAll} /> {/* Количество ОГХ */}
               </Paper> 
             </Grid>
+            
             <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
               <Paper className={fixedHeightPaper}>
               <GenAllPeriod data={genStatsAll} /> {/* Количество ALl */}

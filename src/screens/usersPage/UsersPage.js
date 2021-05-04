@@ -29,21 +29,18 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    
   },
   appBarSpacer: theme.mixins.toolbar,
-  title: {
-    flexGrow: 1,
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  }, 
   content: {
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto', 
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(0),
+    paddingLeft: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(1),
@@ -62,7 +59,7 @@ export default function UsersPage({eventShortPoints}) {
       {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
+        <Container maxWidth={false} className={classes.container}>
           <Grid container spacing={0}>
             
             {/* Recent Orders */}
