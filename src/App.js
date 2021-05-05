@@ -11,7 +11,7 @@ import { createMuiTheme, ThemeProvider, makeStyles,useTheme } from '@material-ui
 import { ruRU } from '@material-ui/core/locale';
 
 import Box from '@material-ui/core/Box'; 
-import blue from '@material-ui/core/colors/blue';
+// import blue from '@material-ui/core/colors/blue';
 
 import './App.css';
 
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //glav control
-function App({fetchCurrentUser}) {
+function App({fetchCurrentUser, match}) {
 
   const classes = useStyles();
   // const theme = useTheme();
@@ -94,9 +94,13 @@ function App({fetchCurrentUser}) {
             <Route exact path="/stats/ogh">
               <HistoriesChange />
             </Route>
-            <Route  path="/stats/user/:iduser">
-              {/*render={({ match }) => <UserDetails match={match} />}*/}
-              <UserDetails />
+            <Route  
+            path="/stats/user/:iduser"
+            render={props => <UserDetails {...props} />}
+            >
+              
+              {/* <UserDetails /> */}
+               
             </Route>
             <Route exact path="/stats/users">
               <UsersPage />
