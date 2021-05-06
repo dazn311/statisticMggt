@@ -33,16 +33,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 ///////////////////////////////////////////
-export default function StateElements({amObjsValue, amObjsValueCurrent}) { 
+export default function StateElements({curUser}) { 
 
   const classes = useStyles();
 
   return ( 
     <React.Fragment>
       <Grid container alignItems="center" className={classes.root}>
-          <div className={classes.amObjs}> Абдуллаев Диер Равшанович </div>
+          <div className={classes.amObjs}> {curUser.user_name}</div>
         <Divider orientation="vertical" flexItem  />
-          <div className={classes.amObjs}> ГБУ "Жилищник района Кузьминки"</div>
+          <div className={classes.amObjs}> {curUser.org_name}</div>
         <Divider orientation="vertical" flexItem />
           <div className={classes.amObjs}>статус: <span style={{color:'#efecec'}}>Активный</span> </div>
         <Divider orientation="vertical" flexItem />  

@@ -19,6 +19,7 @@ import StateElements from './stateElements';
 import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
+import { selectCurrentUserShort } from '../../../store/user/user.selectors';
 
 
   
@@ -62,7 +63,7 @@ const valueForBtnMggt = {'Сообщение':'0','Новое событие':'1
 const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
 const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
 
-const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
+const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectCurrentUserShort }) => {
 
   const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
   const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
@@ -154,7 +155,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
-          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} />
+          <StateElements curUser={selectCurrentUserShort}  />
           <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
             <div style={{display: 'flex'}} >
@@ -192,6 +193,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage }) => {
 const mapStateToProps = createStructuredSelector ({
   selectObjs: selectObjsPage, // события короткие данные для таблицы
   selectObjsInfoPage: selectObjsInfoPage, // события короткие данные для таблицы
+  selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы
 });
 
 const mapDispatchToProps = (dispatch) => ({

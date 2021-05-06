@@ -184,6 +184,16 @@ export const selectAllUsersFromDb = createSelector(
     }     
 )
 
+// for user details page for edit data
+export const selectAllOrgFromUsersDb = createSelector(
+    getSelectPoints,
+    state => {
+        if (state.allUsersOfDB.length > 0){
+            return state.allUsersOfDB.map(elem => (elem.org_name || '') ) 
+        }else { return []; }
+    }     
+)
+
 // export const selectAllUsersFromDb = createSelector(
 //     getSelectPoints,
 //     (allUsersOfDB, filterTextUserForUsersPage) => allUsersOfDB.filter(usr => usr.user_name.include(filterTextUserForUsersPage))

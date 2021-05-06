@@ -1,99 +1,97 @@
-import React,{ useState,useEffect, useCallback } from 'react';
+import React from 'react'; 
+ 
+
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect'; 
+import { createStructuredSelector } from 'reselect';
+   
 
-import { makeStyles } from '@material-ui/core/styles';
+import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';  
+import { selectUserById } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
+import { selectCurrentUserShort } from '../../../store/user/user.selectors';
 
-import DatePicker from './DatePicker.thirdTab';
-import DatePickerEnd from './DatePickerEnd.thirdTab';
+import './tabOneMenu.styles.scss';
+import CartGenInfo from './CardGenInfo';
+// import CardEventInfo from './CardEventInfo';
+import CardUserDetails from './CardUserDetails';
+import { id } from 'date-fns/locale';
  
-import ColomsChart from './ColomsChart';
-
-
-import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
-
-import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
-
-
-const initionalDateStart = () => {
-  let newDate = new Date();//.toISOString().split('T')[0];
-  newDate.setDate(newDate.getDate() - 7);
-  return newDate.toISOString().split('T')[0];
-}
-
-const initionalDateEnd = () => {
-  let newDate = new Date();//.toISOString().split('T')[0];
-  return newDate.toISOString().split('T')[0];
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-  datePick: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    color: 'rgba(0, 0, 0, 0.87)',
-    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    backgroundColor: '#fff',
-    padding: '10px',
-    borderRadius: '4px',
-    margin: '10px 0px',
-    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-  }
-}));
-
-
-
-const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
-  const [graphicValue, setGraphicValue] = useState('');
-  const [dateStart, setDateStart] = useState(initionalDateStart);
-  const [dateEnd, setDateEnd] = useState(initionalDateEnd);
-  const classes = useStyles();
-
-  const setDateStartFromPicker = useCallback((date) => {setDateStart(date)},[]);
-  const setDateEndFromPicker = useCallback((date) => {setDateEnd(date)},[]);
-
-  useEffect(() => {
-    // console.log('deltaDate',deltaDate);
-    const dateEndPlus = dateEnd + 'T18:00:00.000Z';
-    fetchNewOGH('new_obj', dateStart, dateEndPlus);
-  }, [dateStart, dateEnd, fetchNewOGH]);
-
-  // for one day ///////////////////////////////////
-
-  useEffect(() => {
-    const newOGH = selectAmountNewOGH.data.objMgtt;
-    const newOGHRelatives = selectAmountNewOGH.data.objRelatives;
-    const DataOGH = [newOGH,newOGHRelatives];
-    setGraphicValue(DataOGH);
-
-  },[selectAmountNewOGH])
  
+  
+const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, closeDetail }) => {
+
+  // useEffect(() => {
+  //   console.log(' fetchObjRectList idUser', idUser);
+  //   if (idUser ){
+  //     // fetchObjRectList(idUser);
+  //   }
+  //
+  //
+  // },[idUser,fetchObjRectList]) 
+  
+  console.log('888 TabOneMenu selectCurrentUserShort',selectCurrentUserShort); 
+    
+
+   let orgN = '';
+   let objN = '';
+   if (orgRow){
+    // console.log('orgRow 222');
+     if(orgRow.objName){
+      // console.log('orgRow.objName');
+      objN = orgRow.objName;
+     }
+     
+     if(orgRow.organization){
+      // console.log('orgRow.organization');
+       if(orgRow.organization.orgname){
+        orgN = orgRow.organization.orgname;
+       }
+     }
+     
+   }
+
   return (
-    <React.Fragment>
-      {/* <Title>Статистика по ОГХ за период</Title> */}
-      <div className={classes.seeMore}>
-            <div className={classes.datePick}>
-                <DatePicker setDataStart={setDateStartFromPicker}/>
-                <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
-            </div>
-            <ColomsChart dataArr={graphicValue} />
+    <div style={{display:'flex',flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'start'}} >
+      <div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4dfdf2e',margin: '10px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 400,  border: '1px solid #e2e2e2',
+    height: 'fit-content'}} >
+          {/*<div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}} >Общие сведения</div>*/}
+          <CartGenInfo curUser={selectCurrentUserShort}  ></CartGenInfo>
+      </div> 
+
+      <div  style={{display:'flex' ,boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 500}} >
+         {/* <div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}}  >События</div> */}
+         <CardUserDetails curUser={selectCurrentUserShort}  ></CardUserDetails>
       </div>
-    </React.Fragment>
+
+
+    </div>
   );
 }
 
 const mapStateToProps = createStructuredSelector ({
-  selectAmountNewOGH: selectAmountNewOGH, // 
+  selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы  
 });
+
+// const mapStateToProps = (state, props) => ({
+//   selectObjRect: selectObjRectPage, // события короткие данные для таблицы 
+//   selectUserById:  selectUserById(props.idUser)(state), // события короткие данные для таблицы  
+// });
+
+// const makeMapStateToProps = () => {
+//   const selectUserBy = selectUserById()
+//   const mapStateToProps = (state, props) => {
+//     return {
+//       selectUser: selectUserBy(state, props.idUser)
+//     }
+//   }
+//   return mapStateToProps
+// }
+
+// const mapStateToProps = createStructuredSelector({
+//   isLoading: state => !selectIsCollectionsLoaded(state)
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchObjRectList: (start,end) => dispatch(fetchObjRectListAsync(start,end)),
+// });
  
-const mapDispatchToProps = (dispatch) => ({
-  fetchNewOGH: (type, startDate, endDate) => dispatch(fetchNewOGHThirdTabStaticPageGraphicAsync(type, startDate, endDate)),
-  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TabThirdMenu);
-
+export default connect(mapStateToProps)(TabOneMenu);

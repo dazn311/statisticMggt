@@ -14,7 +14,7 @@ import Box from '@material-ui/core/Box';
 // import TabOGH from './TabOGH' 
 import TabOneMenu from './FirstTab/tabOneMenu'
 import TabTwoMenu from './TwoTab/tabTwoMenu'
-// import TabThirdMenu from './ThirdTab/tabThirdMenu'
+import TabThirdMenu from './ThirdTab/tabThirdMenu'
 
 
 // import { fetchEventForPeriodAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
@@ -51,7 +51,7 @@ function a11yProps(index) {
     'aria-controls': `scrollable-auto-tabpanel-${index}`,
   };
 }
-
+ 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
+
+
+
+///////////////////////////////////////////////////////////////////
 
 const TabMenu = ({idUser, curUser}) => {
   const classes = useStyles();
@@ -86,7 +90,7 @@ const TabMenu = ({idUser, curUser}) => {
         >
           <Tab label="Общие сведения" {...a11yProps(0)} />
           <Tab label="Активность" {...a11yProps(1)} />
-          {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
+          <Tab label="Редактирование" {...a11yProps(2)} />
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
       {/* </AppBar> */}
@@ -97,7 +101,7 @@ const TabMenu = ({idUser, curUser}) => {
           <TabTwoMenu />
       </TabPanel> 
       <TabPanel value={value} index={2}>
-        {/* <TabThirdMenu /> */}
+        <TabThirdMenu />
       </TabPanel>
       {/* <TabPanel value={value} index={3}>
       таб 4
