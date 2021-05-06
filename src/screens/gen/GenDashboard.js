@@ -69,7 +69,7 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
  
   return (
     <div className={classes.root}>
-      {/* <CssBaseline />  */}
+      <CssBaseline /> 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth={false}  className={classes.container}>
