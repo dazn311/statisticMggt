@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
       // display: 'flex',
-      minWidth: '100$'
+      // minWidth: '100%'
       // marginLeft: 240
   }, 
 }));

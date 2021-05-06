@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0),
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0),
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 4,
     // paddingLeft: theme.spacing(10),
     // minWidth: 1400,
   },
@@ -135,19 +138,23 @@ const Dashboard = ({ fetchGenStats, genStatsAll, fetchEventsPointShort,    fetch
             </Grid>
             
             
-            <Grid xs={12} md={12} lg={6} style={{display:'flex', gap: 4 , flexWrap:'wrap' , justifyContent:'flex-start', marginLeft: 0}}>
-                  <Grid item xs={12} md={6} lg={3} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH, marginRight:0}} >
+            {/* <Grid xs={12} md={12} lg={6} style={{display:'flex', gap: 4 , flexWrap:'wrap' , justifyContent:'flex-start', marginLeft: 0}}> */}
+            {/* <Grid xs={12} md={12} lg={6} > */}
+            <div  style={{display:'flex', gap: 4 , flexWrap:'nowrap' , justifyContent:'flex-start', marginLeft: 0}}> 
+                  {/* <Grid item xs={12} md={6} lg={6} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH, marginRight:0}} > */}
+                  <Grid item xs={12} md={6} lg={6}  >
                     <Paper elevation={3} className={fixedHeightPaper}>
                       <Deposits /> {/* Количество ОГХ */}
                     </Paper> 
                   </Grid>
                   
-                  <Grid item xs={12} md={6} lg={3} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH}} >
+                  {/* <Grid item xs={12} md={6} lg={6} style={{minWidth: minWidthOGH,maxWidth: maxWidthGridOGH}} > */}
+                  <Grid item xs={12} md={6} lg={6}  >
                     <Paper elevation={3} className={fixedHeightPaper}>
                       <NewOGH />  {/* Новые ОГХ */}
                     </Paper>
                   </Grid> 
-            </Grid>
+            </div>
             
             <Grid item  xs={12}>
               <Paper className={classes.chip}>
