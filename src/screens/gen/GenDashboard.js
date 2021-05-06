@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },   
   appBarSpacer: theme.mixins.toolbar,
   content: {
-    flexGrow: 1,
+    // flexGrow: 1,
     // height: '100vh',
     overflow: 'auto',
   },
@@ -69,24 +69,25 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
  
   return (
     <div className={classes.root}>
-      <CssBaseline /> 
+      {/* <CssBaseline />  */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth={false}  className={classes.container}>
-          <Grid container spacing={3}>
+          <Grid container spacing={1}>
 
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
+            {/* <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} > */}
+            <Grid item xs={12} md={3} lg={3} >
               <Paper className={fixedHeightPaper}>
                 <GenDeposits data={genStatsAll} /> {/* Количество ОГХ */}
               </Paper> 
             </Grid>
             
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
+            <Grid item xs={12} md={3} lg={3}   >
               <Paper className={fixedHeightPaper}>
               <GenAllPeriod data={genStatsAll} /> {/* Количество ALl */}
               </Paper>
             </Grid>
-            <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} >
+            <Grid item xs={12} md={3} lg={3}  >
               <Paper className={fixedHeightPaper}>
               <GenOneDayPeriod data={genStatsAll} />
               </Paper>

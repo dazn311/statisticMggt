@@ -26,3 +26,11 @@
 
 
 
+Автоматическое форматирование кода в Visual Studio Code выполняется следующими комбинациями:
+Windows: Shift + Alt + F.
+Mac: Shift + Option + F.
+Ubuntu: Ctrl + Shift + I.
+
+
+
+

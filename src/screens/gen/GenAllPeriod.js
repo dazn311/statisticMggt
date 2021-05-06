@@ -28,7 +28,7 @@ const GenAllPeriod = ({ data, selectAmountUsers, amountOGH,selectEvent ,selectOb
     return (
         <React.Fragment>
             <Title>Данные за весь период</Title>
-            <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
+            <hr color="white" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
             <Typography component="p" variant="h6">
                 {total_recs}
             </Typography>

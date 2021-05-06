@@ -131,7 +131,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
             <TableCell align="right">ФИО</TableCell> 
             <TableCell align="right">Организация</TableCell>
             <TableCell align="right">последняя активность</TableCell> 
-            <TableCell align="right">Дата активности</TableCell>
+            {/* <TableCell align="right">Дата активности</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -146,7 +146,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
               </TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.org_name}</TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{formatDate(row.user_last_seen)}</TableCell>
-              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_post}</TableCell>
+              {/* <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_post}</TableCell> */}
                
             </TableRow>
           ))
@@ -158,7 +158,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
               </TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
               <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
-              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
+              {/* <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell> */}
                
             </TableRow>)) 
             }

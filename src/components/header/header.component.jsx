@@ -20,15 +20,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail'; 
+import MailIcon from '@material-ui/icons/Mail';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '@material-ui/icons/Person';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
 
-import MainListItems from './listItems';
+import MainListItems, { themeItem } from './listItems';
 import BlackDrop from '../blackDrop/BlackDrop.component';
 
 // import { Link } from "react-router-dom";
@@ -41,9 +42,10 @@ import { connect } from 'react-redux';
 
 import { selectCurrentUser } from '../../store/user/user.selectors';
 
-import './header.styles.scss'; 
+import './header.styles.scss';
 
 const drawerWidth = 240;
+const drawerMinWidth = 57;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,36 +56,36 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         // flexGrow: 1,
-        marginRight: 20,
+        marginRight: 8,
         // position:'relative',
         // minWidth: '100%'
     },
     drawer: {
-        width: drawerWidth,
+        width: drawerMinWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
-      },
+    },
     drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-    }),
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     drawerClose: {
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-    },
-    [theme.breakpoints.down('sm')]: {
-        width: 0,
-        display:'none',
-      },
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        overflowX: 'hidden',
+        width: theme.spacing(7) + 1,
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(7) + 1,
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: 0,
+            display: 'none',
+        },
     },
     toolbar: {
         display: 'flex',
@@ -92,19 +94,19 @@ const useStyles = makeStyles((theme) => ({
         // padding: theme.spacing(0, 1),
         [theme.breakpoints.down('sm')]: {
             marginLeft: 0,
-          },
-          
-        marginLeft: 70,
+        },
+
+        marginLeft: drawerMinWidth,
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-        
+
     },
     toolbar2: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
         // padding: theme.spacing(0, 1),
-        marginLeft: 70,
+        // marginLeft: drawerMinWidth,
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
@@ -118,18 +120,18 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
-      },
-      main: { 
+    },
+    main: {
         // width: '100%',
-        marginLeft: 72,
+        marginLeft: drawerMinWidth,
         [theme.breakpoints.down('sm')]: {
             marginLeft: 0,
             width: '100%'
-          },
-        width: `calc(100% - ${72}px)`,
+        },
+        width: `calc(100% - ${drawerMinWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -148,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
         // [theme.breakpoints.up('lg')]: {
         //   display: 'none',
         // },
-      },
+    },
     menuButtonHidden: {
         display: 'none',
     },
@@ -157,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
-      },
+    },
     drawerPaperClose: {
         // display: 'none',
         overflowX: 'hidden',
@@ -168,14 +170,14 @@ const useStyles = makeStyles((theme) => ({
         // width: theme.spacing(0),
         [theme.breakpoints.down('sm')]: {
             width: 0,
-            display:'none',
-          },
+            display: 'none',
+        },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-      },
+    },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -185,26 +187,26 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
-    }, 
+    },
     small: {
         width: theme.spacing(3),
         height: theme.spacing(3),
         color: theme.palette.primary.dark,
-      },
+    },
     large: {
         width: theme.spacing(7),
         height: theme.spacing(7),
     },
 }));
- 
-const Header = ({currentUser, children, window}) => {
+
+const Header = ({ currentUser, children, window }) => {
     const [open, setOpen] = React.useState(false);
     const [headerTitle, setHeaderTitle] = React.useState(false);
     const classes = useStyles();
 
     // const { window } = props;
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+    const theme = useTheme();
+    const [mobileOpen, setMobileOpen] = React.useState(false);
 
     let location = useLocation();
     // const winWidth = window.innerWidth;
@@ -217,19 +219,19 @@ const Header = ({currentUser, children, window}) => {
 
         // console.log('headTitleCur2',headTitleCur2);
 
-        if (headTitleCur2 === 'ogh'){
+        if (headTitleCur2 === 'ogh') {
             setHeaderTitle('События')
-        }else if (headTitleCur2 === 'objs'){
+        } else if (headTitleCur2 === 'objs') {
             setHeaderTitle('Объекты')
-        }else if (headTitleCur2 === 'users'){
+        } else if (headTitleCur2 === 'users') {
             setHeaderTitle('Пользователи')
-        }else if (headTitleCur2 === 'gen'){
+        } else if (headTitleCur2 === 'gen') {
             setHeaderTitle('Общая статистика')
-        }else if (headTitleCur2 === 'user'){
+        } else if (headTitleCur2 === 'user') {
             setHeaderTitle('Карточка пользователя')
-        }else if (headTitleCur2 === 'obj'){
+        } else if (headTitleCur2 === 'obj') {
             setHeaderTitle('Карточка объекта')
-        }else if (headTitleCur === 'stats'){
+        } else if (headTitleCur === 'stats') {
             setHeaderTitle('Главная страница')
         }
 
@@ -241,24 +243,26 @@ const Header = ({currentUser, children, window}) => {
     const handleDrawerOpen = () => {
         setOpen(true);
         setTimeout(() => {
-            setOpen(false);},33000);
-        console.log('handleDrawerOpen'); };
+            setOpen(false);
+        }, 33000);
+        console.log('handleDrawerOpen');
+    };
 
     const handleDrawerClose = () => { setOpen(false); };
 
-    const sssd = () => {};
+    const sssd = () => { };
 
     let user = currentUser ? currentUser : 'Пользователь';
-     
 
-      
+
+
     // console.log('render header');
     return (
         <div className={classes.root} >
 
             <AppBar position="fixed" className={clsx(classes.appBar, {
-                                        [classes.appBarShift]: open,
-                                        })}>
+                [classes.appBarShift]: open,
+            })}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         // style={{display:'none'}}
@@ -268,53 +272,55 @@ const Header = ({currentUser, children, window}) => {
                         onClick={handleDrawerOpen}
                         className={clsx(classes.menuButton, {
                             [classes.hide]: open,
-                          })}
+                        })}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography  variant="h6" color="inherit" noWrap   >
-                        {headerTitle} 
-                    </Typography> 
+                    <Typography variant="h6" color="inherit" noWrap   >
+                        {headerTitle}
+                    </Typography>
                 </Toolbar>
-                
+
             </AppBar>
-            <Drawer 
+            <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
                     [classes.drawerOpen]: open,
                     [classes.drawerClose]: !open,
-                  })}
-                  classes={{
+                })}
+                classes={{
                     paper: clsx({
-                      [classes.drawerOpen]: open,
-                      [classes.drawerClose]: !open,
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open,
                     }),
-                  }}
-                > 
+                }}
+            >
                 <div className={classes.toolbar2}>
-                <div style={{marginLeft: '5px', display:'flex'}}>
-                <Avatar alt="Daz" className={classes.avatar}>
+                    <div style={{ marginLeft: '5px', display: 'flex' }}>
+                        <Avatar alt="Daz" className={classes.avatar}>
                             <PersonIcon className={classes.small} />
                         </Avatar>
-                        <div style={{marginLeft: '15px', lineHeight:'40px', display: open ? 'block': 'none'}}>{user}</div></div>
-                <IconButton onClick={handleDrawerClose} style={{  display: open ? 'block': 'none'}}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </IconButton>
+                        <div style={{ marginLeft: '15px', lineHeight: '40px', display: open ? 'block' : 'none' }}>{user}</div></div>
+                    <IconButton onClick={handleDrawerClose} style={{ display: open ? 'block' : 'none' }}>
+                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </IconButton>
                 </div>
                 <Divider />
                 <List >
                     <MainListItems sssd={sssd} open={open} drawerClose={handleDrawerClose} />
                 </List>
                 <Divider />
+                {/* <IconButton ><WbSunnyIcon /></IconButton> */}
                 {/* <List>{secondaryListItems}</List> */}
+                <List>{themeItem}</List>
             </Drawer>
 
             <main className={clsx(classes.main, open && classes.appBarShift)}>
                 <BlackDrop isOpen={open} />
                 {children}
             </main>
-             
-            
+
+
         </div>
     )
 
@@ -331,6 +337,6 @@ const mapStateToProps = (state) => ({
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Header);
 // export default connect(mapStateToProps)(Header );
-export default connect(mapStateToProps)(withStyles(useStyles)(Header) );
+export default connect(mapStateToProps)(withStyles(useStyles)(Header));
 
 // export default Header;

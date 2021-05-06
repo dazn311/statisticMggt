@@ -13,11 +13,12 @@ import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuItem from '@material-ui/core/MenuItem';
 import BusinessIcon from '@material-ui/icons/Business';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
  
 const MainListItems = ( {location,  drawerClose} ) => (
   
   <div >
-    <MenuItem   component={Link} to="/stats"   selected={location.pathname === '/stats'}>
+    <MenuItem    component={Link} to="/stats"   selected={location.pathname === '/stats'}>
       <ListItemIcon>
         <DashboardIcon color={location.pathname === '/stats' ? "primary" : "inherit"} /> 
       </ListItemIcon>
@@ -30,7 +31,7 @@ const MainListItems = ( {location,  drawerClose} ) => (
       <ListItemText primary="Таблица ОГХ" />
     </MenuItem> */}
       
-    <MenuItem  component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
+    <MenuItem    component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
       <ListItemIcon>
         <BusinessIcon color={location.pathname === '/stats/objs' ? "primary" : "inherit"} />
       </ListItemIcon>
@@ -38,7 +39,7 @@ const MainListItems = ( {location,  drawerClose} ) => (
     </MenuItem> 
 
     {/* <MenuItem  component={Link} to="/stats/users"  selected={location.pathname === '/stats/users'}> */}
-    <MenuItem  component={Link} to="/stats/users"  selected={location.pathname.includes('user') }>
+    <MenuItem    component={Link} to="/stats/users"  selected={location.pathname.includes('user') }>
       <ListItemIcon>
         <PeopleIcon  color={location.pathname.includes('user') ? "primary" : "inherit"} />
         {/* <PeopleIcon  color={location.pathname === '/stats/users' ? "primary" : "inherit"} /> */}
@@ -46,18 +47,19 @@ const MainListItems = ( {location,  drawerClose} ) => (
       <ListItemText primary="Пользователи" />
     </MenuItem>
      
-    <MenuItem  component={Link} to="/stats/gen"  selected={location.pathname === '/stats/gen'}>
+    <MenuItem    component={Link} to="/stats/gen"  selected={location.pathname === '/stats/gen'}>
       <ListItemIcon>
         <BarChartIcon color={location.pathname === '/stats/gen' ? "primary" : "inherit"} />
       </ListItemIcon>
       <ListItemText primary="Текущая статистика"  selected={location.pathname === '/stats/gen'}  />
     </MenuItem>
 
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
+    <ListItem    button disabled >
+      <ListItemIcon >
+        <LayersIcon   />
+        {/* {location.pathname} */}
       </ListItemIcon>
-      <ListItemText primary="Управление" selected={location.pathname === '/stats/ogh'} disabled style={{color:'rgb(0 0 0 / 21%)'}}/>
+      <ListItemText primary="Управление" selected={location.pathname === '/stats/ogh'} />
     </ListItem>
   </div>
 );
@@ -84,6 +86,16 @@ export const secondaryListItems = (
       <ListItemText primary="От ноября 2020" />
     </ListItem>
   </div>
+);
+
+export const themeItem = (
+  <MenuItem  component={Link} > 
+      <ListItemIcon >
+       <WbSunnyIcon color={"primary"} /> 
+      </ListItemIcon>
+      
+      <ListItemText primary="Тема Оформления"    />
+  </MenuItem>
 );
 
 export default withRouter(MainListItems);

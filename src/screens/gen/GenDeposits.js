@@ -35,7 +35,7 @@ const GenDeposits = ({amountOGH, data }) => {
     return (
         <React.Fragment>
             <Title>Данные ОГХ ({total_objects})</Title>
-            <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
+            <hr color="white" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
 
             <Typography component="span" variant="h6">
                 {total_mggt_objects} 
