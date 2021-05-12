@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 
 import adminPanelTrest from './adminPanelTrest/adminPanelTrest.reducer';
 import userReducer from './user/user.reducer';
+import themeReducer from './themes/theme.reducer';
 
 const persistConfig = {
   key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   adminPanel: adminPanelTrest,
-  user: userReducer
+  user: userReducer,
+  theme: themeReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

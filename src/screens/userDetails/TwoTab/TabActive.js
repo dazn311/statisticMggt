@@ -132,7 +132,7 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
         <TableBody>
           {tabValue2.length ?
            tabValue
-          // .filter((row,i) => i < 16)
+          .filter((row,i) => i < 11)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -154,13 +154,7 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
           {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'}].map((num, index) => (
+          {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'}].map((num, index) => (
             <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="left" style={{ width: '4px', maxWidth: '4px'}}><LinearIndeterminate /></TableCell>
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row"> {num.typeEv} <LinearIndeterminate />  </TableCell>

@@ -4,6 +4,9 @@ import {
         // eslint-disable-next-line no-unused-vars
         Switch, useLocation
 } from "react-router-dom";
+// import { Link } from "react-router-dom";
+
+import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -29,12 +32,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
 
-import MainListItems, { themeItem } from './listItems';
+import MainListItems  from './listItems';
+import   ThemeItem   from './ThemeItems';
 import BlackDrop from '../blackDrop/BlackDrop.component';
 
-// import { Link } from "react-router-dom";
-
-import { connect } from 'react-redux';
 
 
 
@@ -49,16 +50,10 @@ const drawerMinWidth = 57;
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // flexGrow: 1,
         display: 'flex',
-        // position:'relative',
-        // minWidth: '100%'
     },
     avatar: {
-        // flexGrow: 1,
         marginRight: 8,
-        // position:'relative',
-        // minWidth: '100%'
     },
     drawer: {
         width: drawerMinWidth,
@@ -105,9 +100,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        // padding: theme.spacing(0, 1),
-        // marginLeft: drawerMinWidth,
-        // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
     toolbarIcon: {
@@ -161,7 +153,6 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth,
     },
     drawerPaperClose: {
-        // display: 'none',
         overflowX: 'hidden',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -199,14 +190,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ currentUser, children, window }) => {
+const Header = ({ currentUser, children, window, setTheme }) => {
     const [open, setOpen] = React.useState(false);
-    const [headerTitle, setHeaderTitle] = React.useState(false);
+    const [headerTitle, setHeaderTitle] = React.useState('Главная страница');
     const classes = useStyles();
 
     // const { window } = props;
     const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    // const [mobileOpen, setMobileOpen] = React.useState(false);
 
     let location = useLocation();
     // const winWidth = window.innerWidth;
@@ -244,8 +235,7 @@ const Header = ({ currentUser, children, window }) => {
         setOpen(true);
         setTimeout(() => {
             setOpen(false);
-        }, 33000);
-        console.log('handleDrawerOpen');
+        }, 33000); 
     };
 
     const handleDrawerClose = () => { setOpen(false); };
@@ -264,8 +254,7 @@ const Header = ({ currentUser, children, window }) => {
                 [classes.appBarShift]: open,
             })}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        // style={{display:'none'}}
+                    <IconButton 
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
@@ -284,23 +273,16 @@ const Header = ({ currentUser, children, window }) => {
             </AppBar>
             <Drawer
                 variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
-                    }),
-                }}
+                className={clsx(classes.drawer, { [classes.drawerOpen]: open, [classes.drawerClose]: !open, })}
+                classes={{ paper: clsx({ [classes.drawerOpen]: open,  [classes.drawerClose]: !open, }), }}
             >
                 <div className={classes.toolbar2}>
                     <div style={{ marginLeft: '5px', display: 'flex' }}>
                         <Avatar alt="Daz" className={classes.avatar}>
                             <PersonIcon className={classes.small} />
                         </Avatar>
-                        <div style={{ marginLeft: '15px', lineHeight: '40px', display: open ? 'block' : 'none' }}>{user}</div></div>
+                        <div style={{ marginLeft: '15px', lineHeight: '40px', display: open ? 'block' : 'none' }}>{user}</div>
+                    </div>
                     <IconButton onClick={handleDrawerClose} style={{ display: open ? 'block' : 'none' }}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
@@ -312,7 +294,8 @@ const Header = ({ currentUser, children, window }) => {
                 <Divider />
                 {/* <IconButton ><WbSunnyIcon /></IconButton> */}
                 {/* <List>{secondaryListItems}</List> */}
-                <List>{themeItem}</List>
+                {/* <List>{themeItem}</List> */}
+                <List><ThemeItem  setTheme={setTheme} /> </List>
             </Drawer>
 
             <main className={clsx(classes.main, open && classes.appBarShift)}>
@@ -334,9 +317,6 @@ const Header = ({ currentUser, children, window }) => {
 const mapStateToProps = (state) => ({
     currentUser: selectCurrentUser(state),
 });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Header);
-// export default connect(mapStateToProps)(Header );
+ 
 export default connect(mapStateToProps)(withStyles(useStyles)(Header));
-
-// export default Header;
+ 

@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 90,
+    minWidth: 105,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -40,16 +40,6 @@ export default function SelectMggt({caption, defaultVal, valueItems, setType}) {
           value={defaultVal}
           onChange={handleChange}
         >
-           {/* {valueItems, setType, type=30}// valueItems 10 Смежные МГГТ  Все*/}
-           {/* valueForBtnMggt = {other:'0',mggt:'1',all:'2'}; */}
-            
-          {/* <MenuItem value={valueItems.other}>Смежные</MenuItem>
-          <MenuItem value={valueItems.mggt}>МГГТ</MenuItem>
-          <MenuItem value={valueItems.all}>Все</MenuItem> */}
-          {/* Object.keys(myObject).map(function(key, index) {
-            myObject[key] *= 2;
-          }); */}
-
           {valueItems && Object.keys(valueItems).map((key,index) => {
             return <MenuItem value={valueItems[key]}>{key}</MenuItem>
           })}

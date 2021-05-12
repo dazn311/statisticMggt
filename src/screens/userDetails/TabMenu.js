@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 
+import { useHistory, useRouteMatch } from 'react-router';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
@@ -68,9 +69,33 @@ const TabMenu = ({idUser, curUser}) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
+
+  const match = useRouteMatch();
+  const history = useHistory();
+   
+
+  // console.log('match', match);
+  // console.log('history', history.location.pathname);
+
+  const location = history.location.pathname.split('/')[4];
+  // console.log('location', location);
+  useEffect(() => {
+    if (location === "edit") {
+      setValue(2);
+    }else if (location === "info") {
+      setValue(0);
+    }else if (location === "active") {
+      setValue(1);
+    }
+    // history.push({
+    //   pathname: `${match.url}/info`
+    // })
+  },[])
+    
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // console.log(newValue); 
+    // console.log('Tabs handleChange newValue',newValue);
   };
 
 

@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     border: '1px solid #8080802e',
     margin: '4px 8px',
+    padding: theme.spacing(1),
   },
   span: {
       color:'#1976d2'
@@ -44,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
 const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
   const classes = useStyles();
 
-  useEffect(() => {
- 
-  },[currObj])
+  // useEffect(() => {
+  //
+  // },[currObj])
   // const objCurr = selectObjCurr !== {} ? selectObjCurr.filter(ob => ob.objID === orgRow) : 
   
   
@@ -56,7 +57,6 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
   }
   if (!selectObjCurr) {
     return(<div>нет данных об организации</div>)
-    
   }
 
   let smegObjList = null;
@@ -70,7 +70,8 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
       }else {
         return  false //objIdSmeg + ', ' 
       } 
-    }) 
+    })
+
     if(newRec){
       return <p key={index} style={{margin: '0 4px', borderBottom:'1px solid grey'}} >{newRec.receip.objname} </p>
     } else {

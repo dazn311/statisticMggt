@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
+    height: '91vh',
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
@@ -72,7 +72,7 @@ export default function UserCard({eventShortPoints, idUser}) {
           maxWidth={false}
           // maxWidth="xl" 
           className={classes.container}>
-          <Grid container spacing={3}>
+          <Grid container >
             
             {/* Recent Orders */}
             <Grid item sm={12} md={12} xs={12}>
@@ -82,9 +82,9 @@ export default function UserCard({eventShortPoints, idUser}) {
             </Grid>
 
           </Grid>
-          <Box pt={4}> 
-            <Copyright />
-          </Box>
+          {/*<Box pt={4}> */}
+          {/*  <Copyright />*/}
+          {/*</Box>*/}
         </Container>
       </main>
     </div>

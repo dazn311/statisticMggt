@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
     // width: '95%',
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    maxHeight: 500,
+    maxHeight: '70vh',
     overflow: 'auto',
     border: '1px solid #8080802e',
     margin: '4px 8px',
   },
   span: {
-    color:'#1976d2'
+    color: theme.palette.primary.main
   },
   red: {
     color:'red'
@@ -62,32 +62,21 @@ const CardEventInfo = ({orgRow, currObj, objRect, selectObjCurr}) => {
     <List className={classes.root}>
       {objRect && objRect.map(obj => {
         return (
-          <><ListItem>
-            {/* <ListItemAvatar>
-              <Avatar>
-                <CommentIcon />
-              </Avatar>
-            </ListItemAvatar> */} 
-            {/* <EventReviewCard  obj={obj} /> */}
-            {/* <ListItemText primary={obj.rec_name} secondary={new Intl.DateTimeFormat('ru-Ru').format(new Date(obj.rec_date)) + ' (статус: ' + obj.rec_status === 5 ? 'согласованно': '(в работе' + ')' + ' (Операторы: ' + obj.operators.username + ')' } /> */}
-
-            <div style={{display:'flex', flexDirection:'column', borderBottom:'1px solid #ff000021'}}>
-              <ListItemText primary={obj.rec_name}
-                // secondary={formatDate(obj.rec_date) }
-              />
-              <div><span className={classes.red} >{formatDate(obj.rec_date) }</span> </div>
-              <div>статус: <span className={classes.span} >{obj.rec_status === 5 ? ' согласованно': ' в работе'}</span>  </div>
-              <div>Операторы: <span className={classes.span} >{obj.operators.username}</span></div>
-            </div>
-        {/* <ListItemText primary={obj.rec_name} secondary={obj.rec_date + ' (статус: ' + obj.rec_status + ')' + ' (Операторы: ' + obj.operators.username + ')' } /> */}
-          </ListItem>
-          {/*<Divider variant="inset" component="li" />*/}
+          <>
+            <ListItem>
+              <div style={{display:'flex', flexDirection:'column', borderBottom:'1px solid rgb(105 98 98)', paddingBottom: 2}}>
+                <ListItemText primary={obj.rec_name}
+                  // secondary={formatDate(obj.rec_date) }
+                />
+                <div><span className={classes.red} >{formatDate(obj.rec_date) }</span> </div>
+                <div>статус: <span className={classes.span} >{obj.rec_status === 5 ? ' согласованно': ' в работе'}</span>  </div>
+                <div>Операторы: <span className={classes.span} >{obj.operators.username}</span></div>
+              </div>
+            </ListItem>
           </>
         )
       })}
-       
-      
-      
+
     </List>
   );
 }

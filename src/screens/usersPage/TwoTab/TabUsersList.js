@@ -49,7 +49,7 @@ const TabUsersList = ({ selectUsersPage,fetchAllUsers }) => {
     let lastDayVal = 0;
     let weekDayVal = 0;
     let monthDayVal = 0;
-    console.log('rerender selectUsersPage : ',selectUsersPage);
+    // console.log('rerender selectUsersPage : ',selectUsersPage);
 
     const amUsers =selectUsersPage.length && selectUsersPage.filter(element => {
       lastDayVal += new Date(element.user_reg_date) > lastDay ? 1 : 0;

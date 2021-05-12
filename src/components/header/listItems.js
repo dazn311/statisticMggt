@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom'; 
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,8 +12,8 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuItem from '@material-ui/core/MenuItem';
-import BusinessIcon from '@material-ui/icons/Business';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import BusinessIcon from '@material-ui/icons/Business'; 
+ 
  
 const MainListItems = ( {location,  drawerClose} ) => (
   
@@ -31,9 +31,11 @@ const MainListItems = ( {location,  drawerClose} ) => (
       <ListItemText primary="Таблица ОГХ" />
     </MenuItem> */}
       
-    <MenuItem    component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>
+    {/*<MenuItem    component={Link} to="/stats/objs"  selected={location.pathname === '/stats/objs'}>*/}
+    <MenuItem    component={Link} to="/stats/objs"  selected={location.pathname.includes('obj') }>
       <ListItemIcon>
-        <BusinessIcon color={location.pathname === '/stats/objs' ? "primary" : "inherit"} />
+        {/*<BusinessIcon color={location.pathname === '/stats/objs' ? "primary" : "inherit"} />*/}
+        <BusinessIcon color={location.pathname.includes('obj') ? "primary" : "inherit"} />
       </ListItemIcon>
       <ListItemText primary="Объекты" onClick={drawerClose} />
     </MenuItem> 
@@ -87,15 +89,8 @@ export const secondaryListItems = (
     </ListItem>
   </div>
 );
-
-export const themeItem = (
-  <MenuItem  component={Link} > 
-      <ListItemIcon >
-       <WbSunnyIcon color={"primary"} /> 
-      </ListItemIcon>
-      
-      <ListItemText primary="Тема Оформления"    />
-  </MenuItem>
-);
+ 
 
 export default withRouter(MainListItems);
+
+ 

@@ -3,6 +3,11 @@ import { createSelector } from 'reselect';
 const getSelectPoints = (state) => state.adminPanel;
 // const selectAllUser = (state) => state.adminPanel.allUsersOfDB;
 
+export const selectErrorFetch = createSelector(
+    [getSelectPoints],
+    adminPanel => adminPanel.errorMessage
+)
+
 export const selectAllUser = createSelector(
     [getSelectPoints],
     adminPanel => adminPanel.allUsersOfDB

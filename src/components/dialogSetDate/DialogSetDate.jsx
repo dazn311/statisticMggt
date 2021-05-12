@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 ///////////////////////
-export default function DialogSetDate({caption}) {
+export default function DialogSetDate({caption, selectedDate, setSelectedDate}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [age, setAge] = React.useState('');
 //   const [selectedDate, setSelectedDate] = React.useState('2021-05-05');
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+//   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

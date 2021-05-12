@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -53,11 +53,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardGenInfo({curUser}) {
-
-  const classes = useStyles();
+ 
   const [expanded, setExpanded] = React.useState(false);
-
   const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const themess =  useTheme();
   const anchorRef = React.useRef(null);
  
 
@@ -145,11 +145,11 @@ export default function CardGenInfo({curUser}) {
         <CardContent>
         {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
           <Typography variant="body2" color="textSecondary" component="p">
-            Статус: <span style={{color: 'white'}} > Активный(*)</span> 
+            Статус: <span style={{color: themess.palette.type === 'dark' && 'white'}} > Активный(*)</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Огранизация: <span style={{color: 'white'}} > {org_name} </span> 
+            Огранизация: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {org_name} </span> 
             {/* Сотрудник огранизации № {user_org_id}. */}
           </Typography>
           {/*<Typography variant="body2" color="textSecondary" component="p">*/}
@@ -157,25 +157,25 @@ export default function CardGenInfo({curUser}) {
           {/*</Typography>*/}
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Должность: <span style={{color: 'white'}} > {user_post}</span> 
+            Должность: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {user_post}</span> 
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Роль: <span style={{color: 'white'}} > {user_role}</span> 
+            Роль: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {user_role}</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: 'white'}} > +7 964 765-09-66(*)</span> 
+          <span style={{color: themess.palette.type === 'dark' && 'white'}} > +7 964 765-09-66(*)</span> 
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: 'white'}} > ShmidtDU@mos.ru(*)</span> 
+          <span style={{color: themess.palette.type === 'dark' && 'white'}} > ShmidtDU@mos.ru(*)</span> 
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.:           <span style={{color: 'white'}} > "2021-03-07"(*)</span> 
+            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > "2021-03-07"(*)</span> 
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата окончания рег.: <span style={{color: 'white'}} > "2021-04-02"(*)</span> 
+            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > "2021-04-02"(*)</span> 
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

@@ -65,6 +65,7 @@ const filterSearchTextUser = (selectAllUsers=[], filterUser) => {
 const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort }) => {
  
   const [page, setPage] = React.useState(1); 
+  const [amObjsValue, setAmObjsValue] = React.useState(0);
 
   const classes = useStyles();
   const history = useHistory();
@@ -72,33 +73,40 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
   useEffect(() => {
     if (!selectAllUsers.length){
       fetchAllUsers();
-      console.log('fetchAllUsers');
+      // console.log('fetchAllUsers');
     }
   },[fetchAllUsers])
 
   useEffect(() => {
     if (!selectAllUsers.length){
-       
       setPage(1); 
     }
+    if (amObjsValue < selectAllUsers.length) {
+      setAmObjsValue(selectAllUsers.length)
+    }
+
   },[selectAllUsers.length])
  
-  console.log('selectAllUsers',selectAllUsers); 
+  // console.log('selectAllUsers',selectAllUsers); 
   // console.log('Page',page); 
   // console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
+
+  const setObjsValue = () => {
+      if (amObjsValue < selectAllUsers.length) {
+        setAmObjsValue(selectAllUsers.length)
+      }
+  }
 
   const fetchSearchObj = () => { console.log('sd')}
 
   const setSearchTextUser = (val) => { setPage(1); setUsersFilter(val); console.log('setSearchTextUser',val)}
-  const setSearchTextOrg = (val) => { setPage(1); setOrgNameFilter(val); console.log('setSearchTextUser',val)}
+  const setSearchTextOrg = (val) => { setPage(1); setOrgNameFilter(val); console.log('setSearchTextOrg',val)}
 
   // const showEvents = () => { console.log('showEvents')}
 
-  const handleChangePage = (event, page) => { console.log('handleChangePage',page); setPage(page);}
+  const handleChangePage = (event, page) => {  setPage(page);}
 
-  const showEvents = (row) => {  
-    // history.push(`/stats/objs/${row.objID}`); 
-    // console.log('showEvents row',row) 
+  const showEvents = (row) => {
     setCurUserShort(row);
     history.push({
       pathname: `/stats/user/${row.user_id}`,
@@ -110,7 +118,7 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
-          <StateElements amObjsValue={selectAllUsers.length} amObjsValueCurrent={'0'} />
+          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={selectAllUsers.length} />
           <div className={classes.searchPanel}>
             <SearchPanel  setSearchTextUser={setSearchTextUser} setSearchTextOrg={setSearchTextOrg} />
             <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px', marginLeft: 8}} variant="contained" color="primary">
@@ -122,7 +130,8 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
               tabValue={selectAllUsers}
               showEvents={showEvents}
               handleChangePage={handleChangePage}
-              page={page} 
+              page={page}
+              amObjsValue={amObjsValue}
           />
         </div>
       </React.Fragment>

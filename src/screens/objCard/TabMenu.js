@@ -32,7 +32,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={0}>
           {children}
         </Box>
       )}
@@ -86,7 +86,7 @@ const TabMenu = ({idObj, currObj}) => {
           aria-label="scrollable auto tabs example"
         >
           <Tab label="Карточка объекта" {...a11yProps(0)} />
-          {/* <Tab label="Графики объектов" {...a11yProps(1)} /> */}
+           {/*<Tab label="События на объекте" {...a11yProps(1)} />*/}
           {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
@@ -95,7 +95,7 @@ const TabMenu = ({idObj, currObj}) => {
           <TabOneMenu idObj={idObj} currObj={currObj} /> 
       </TabPanel>
       <TabPanel value={value} index={1}>
-          {/* <TabTwoMenu /> */}
+          {/* <TabTwoMenu /> */} таб2
       </TabPanel> 
       <TabPanel value={value} index={2}>
         {/* <TabThirdMenu /> */}

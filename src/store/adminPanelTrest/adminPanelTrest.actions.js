@@ -192,7 +192,7 @@ export const setAmountUsersForGenPage = (items) => ({
   type: FetchDataGenPage.FETCH__AMOUNT__USERS_TO_LOCAL_DB_FOR_GEN_PAGE,
   payload: items
 });
-
+ 
 export const setGenStatsPage = (items) => ({
   type: FetchDataGenPage.FETCH__ALL_DATA_FOR_GEN_PAGE,
   payload: items
@@ -563,6 +563,7 @@ async function postDataAx(url = '', data = {}, type='post') {
     return response.data;
   } catch (e) {
     console.log(`😱 Axios request failed: ${e}`);
+    
   }
 
   return  [{"user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О."}]; // parses JSON response into native JavaScript objects
@@ -684,6 +685,14 @@ export const setObjCurrForDetailPageAsync = ( object ) => {
 
 
 //////////Gen Page ///////////
+
+//290421 Dashboard page
+export const setMessageError = (mess) => {
+  console.log('setMessageError run: ',mess );
+  return (dispatch) => {
+     dispatch(putDataUsersOnlineError(mess));
+  };
+};
 
 //290421 Dashboard page
 export const fetchAmountUsersAsync = () => {

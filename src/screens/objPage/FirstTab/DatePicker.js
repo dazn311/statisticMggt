@@ -16,14 +16,17 @@ const useStyles = makeStyles((theme) => ({
     border:'1px solid rgb(228 228 228)',
     borderRadius: 4,
     padding: 6,
+    marginTop: 4,
     marginRight: theme.spacing(1),
-    width: '45%',
+    marginLeft: theme.spacing(0),
+    width: window.innerWidth > 500 ? '45%' : '100%',
     minWidth: 160,
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: '100%',
+    marginTop: 4,
     // width: 200,
   },
 }));

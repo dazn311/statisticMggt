@@ -45,8 +45,10 @@ const BootstrapInput = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    margin: theme.spacing(1),
-    minWidth: 285,
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(0),
+    marginRight: window.innerWidth < 500 ? theme.spacing(0) : theme.spacing(1),
+    minWidth: 360,
   },
 }));
 

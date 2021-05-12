@@ -7,7 +7,13 @@ export const selectCurrentUser = createSelector(
   [selectUser],
   curUser => curUser
 );
+
 export const selectCurrentUserShort = createSelector(
   [selectCurUserShort],
   user => user.curUserShort
+);
+
+export const selectCurrentUserAllData = createSelector(
+  [selectCurUserShort],
+  user => user.curUserAllData
 );

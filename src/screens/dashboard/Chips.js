@@ -46,10 +46,10 @@ export default function ChipsArray({data}) {
 
   return (
     <Paper component="ul" className={classes.root}> 
-        <Chip style={{color: 'black'}} label={ ` Всего событий ( ${total_recs} ) `}  className={classes.chip} /> 
-        <Chip  style={{color: 'black'}} label={` Всего сообщений ( ${total_messages} )`}  className={classes.chip} /> 
-        <Chip  style={{color: 'black'}} label={` Всего согл-ых объектов ( ${total_sogl_objects} )`}   className={classes.chip} /> 
-        <Chip style={{color: 'black'}}  label={` Всего согл. событий (${total_sogl_recs})`}  className={classes.chip} /> 
+        <Chip   label={ ` Всего событий ( ${total_recs} ) `}  className={classes.chip} /> 
+        <Chip   label={` Всего сообщений ( ${total_messages} )`}  className={classes.chip} /> 
+        <Chip    label={` Всего согл-ых объектов ( ${total_sogl_objects} )`}   className={classes.chip} /> 
+        <Chip    label={` Всего согл. событий (${total_sogl_recs})`}  className={classes.chip} /> 
         {/* <Chip icon={icon} label={' Всего согл. событий' + ' (' + total_sogl_recs + ') '} onDelete={total_recs === 'React' ? undefined : handleDelete(4)} className={classes.chip} />  */}
     </Paper>
   );

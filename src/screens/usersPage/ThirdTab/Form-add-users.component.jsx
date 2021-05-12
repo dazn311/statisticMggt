@@ -6,23 +6,28 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
  
 import { appendUserAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions'
+import Grid from "@material-ui/core/Grid";
+import generator from "generate-password";
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100%',
-      
     },
-    display: 'flex', 
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 5,
     '& div': {
-      margin: 0,
-      marginTop: 10,
-      marginRight: 10,
+      // margin: 0,
+      // marginTop: 10,
+      // marginRight: 10,
+      // alignItems: 'stretch',
+      // minWidth: 130,
+      // maxWidth: 360,
     },
   },
   btnSb: {
     margin: 30,
-
   },
   '& .MuiInputLabel-formControl': {
     left: 10,
@@ -38,6 +43,7 @@ const initanalState = {user_fio:" ",login:" ",password:" ",user_fio_lit:" "};
 const FormUsersAddToDb = ({appendUser}) => {
   const classes = useStyles();
   const [fields, setFields] = useState(initanalState);
+  const [userPassword, setUserPassword] = React.useState('');
 
   const capitalize = (text) => {
     var i, words, w, result = '';
@@ -51,6 +57,14 @@ const FormUsersAddToDb = ({appendUser}) => {
     }
     return result;
   }
+
+  const genPassWord = (event) => {
+    let password2 = generator.generate({
+      length: 10,
+      numbers: true
+    });
+    setUserPassword(password2);
+  };
 
   const onBlurFio = useCallback((e) => {
     setFields(prevState => ( {...prevState, [e.target.id]: e.target.value} ))
@@ -85,21 +99,58 @@ const FormUsersAddToDb = ({appendUser}) => {
   // user_fio":"Матвеев Владимир Олегович","login":"matvey","password":"1234","user_fio_lit":"Матвеев В.О.
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        
-        {/* <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text" variant="filled" defaultValue={fields.user_fio} onBlur={onBlurFio}/> */}
-        <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text"   onBlur={onBlurFio}/>
-        <TextField id="login" label="Логин" type="text"   onBlur={onBlurFio}/>
-        <TextField id="password" label="Пароль" type="password"   onBlur={onBlurFio}/>
-      </div>
- 
-      <div>
-      <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text"  value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
-      <Button onClick={()=>{saveData()}} className={classes.btnSb} variant="contained" color="primary">
-        Сохранить
-      </Button>
+      <Grid container   style={{display:'flex', gap: 19, flexDirection:'row', justifyContent:'flex-start', flexWrap: 'wrap', alignItems: 'end',padding: 0 }} >
+          <Grid item xs={6} md={5} lg={5} style={{
+            minWidth: 250,
+            maxWidth: 600,
+            // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
+          }} >
+            <TextField onChange={handleFieldFio} id="user_fio" label="Ф.И.О." type="text"   onBlur={onBlurFio}/>
+            <TextField id="login" label="Логин" type="text"   onBlur={onBlurFio}/>
+            <TextField id="user_status" label="user_status" type="text"   onBlur={onBlurFio}/>
+            <TextField id="user_role" label="user_role" type="text"   onBlur={onBlurFio}/>
+            <TextField id="user_end_date" label="user_end_date" type="text"   onBlur={onBlurFio}/>
+          </Grid>
+
+          <Grid item xs={12} md={5} lg={6} style={{
+            minWidth: 250,
+            maxWidth: 600,
+            // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
+          }} >
+            <TextField id="user_fio_lit" label="Ф.И.О. коротко" type="text"  value={fields.user_fio_lit ? fields.user_fio_lit : ''} onBlur={onBlurFio}/>
+            <div style={{display:'flex'}} >
+              <TextField id="password" label="Пароль" type="text"   onBlur={onBlurFio} value={userPassword} />
+              <Button onClick={genPassWord} variant="outlined"  color="secondary" style={{ maxHeight: 30, alignSelf: 'center'}}> Ген.</Button>
+            </div>
+            <TextField id="user_active" label="user_active" type="text"   onBlur={onBlurFio}/>
+
+            <TextField id="user_reg_date" label="user_reg_date" type="text"   onBlur={onBlurFio}/>
+
+            <TextField id="user_org_id" label="user_org_id" type="text"   onBlur={onBlurFio}/>
+          </Grid>
+
+          <Grid item xs={12}  style={{
+            minWidth: 250,
+            maxWidth: '100vw',
+            // boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)', margin:'0 auto'
+          }} >
+            <Button onClick={saveData} className={classes.btnSb} variant="contained" color="primary">
+              Сохранить в БД
+            </Button>
+          </Grid>
+      </Grid>
+
+
+
+
+
+
+
+
+
+
       
-      </div>
+
     </form>
   );
 }

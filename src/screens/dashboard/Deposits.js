@@ -28,14 +28,14 @@ const Deposits = ({ amountOGH }) => {
     <React.Fragment> 
       <Title>Количество ОГХ <span style={{color:'red',fontSize:12,verticalAlign: 'middle'}}>(Всего: {amountOGH.data.objTotal})</span></Title>
       <hr color="blue" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h4">
+      <Typography component="p" variant="h5">
         {amountOGH.data.objMgtt}
       </Typography>
       <Typography component="p"  >
       принадлежащих нам
       </Typography>
       <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
-      <Typography component="p" variant="h4">
+      <Typography component="p" variant="h5">
       {amountOGH.data.objRelatives}
       </Typography>
       <Typography component="p"  >

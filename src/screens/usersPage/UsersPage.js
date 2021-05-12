@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
+    height: '92vh',
     overflow: 'auto', 
   },
   container: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(0),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
@@ -70,9 +70,9 @@ export default function UsersPage({eventShortPoints}) {
               </Paper>
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          {/*<Box pt={4}>*/}
+          {/*  <Copyright />*/}
+          {/*</Box>*/}
         </Container>
       </main>
     </div>

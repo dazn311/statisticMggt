@@ -1,13 +1,15 @@
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
  
 
+import { useHistory, useRouteMatch } from 'react-router';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
    
 
 import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';  
 import { selectUserById } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
-import { selectCurrentUserShort } from '../../../store/user/user.selectors';
+import { selectCurrentUserShort, selectCurrentUserAllData } from '../../../store/user/user.selectors';
+import { fetchCurrentUserAllDataAsync } from '../../../store/user/user.actions';
 
 import './tabOneMenu.styles.scss';
 import CartGenInfo from './CardGenInfo';
@@ -17,7 +19,7 @@ import { id } from 'date-fns/locale';
  
  
   
-const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, closeDetail }) => {
+const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, closeDetail, fetchCurrentUserAllData,selectCurrentUserAllData }) => {
 
   // useEffect(() => {
   //   console.log(' fetchObjRectList idUser', idUser);
@@ -27,8 +29,17 @@ const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, cl
   //
   //
   // },[idUser,fetchObjRectList]) 
-  
-  console.log('888 TabOneMenu selectCurrentUserShort',selectCurrentUserShort); 
+
+  const match = useRouteMatch();
+  const history = useHistory();
+
+    // console.log('selectCurrentUserAllData',selectCurrentUserAllData)
+  useEffect(() => {
+    history.push({
+      pathname: `${match.url}/info`
+    })
+      // fetchCurrentUserAllData(idUser);
+  },[])
     
 
    let orgN = '';
@@ -69,6 +80,7 @@ const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, cl
 
 const mapStateToProps = createStructuredSelector ({
   selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы  
+    selectCurrentUserAllData: selectCurrentUserAllData, // события короткие данные для таблицы
 });
 
 // const mapStateToProps = (state, props) => ({
@@ -90,8 +102,8 @@ const mapStateToProps = createStructuredSelector ({
 //   isLoading: state => !selectIsCollectionsLoaded(state)
 // });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchObjRectList: (start,end) => dispatch(fetchObjRectListAsync(start,end)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+    fetchCurrentUserAllData: (user_id) => dispatch(fetchCurrentUserAllDataAsync(user_id)),
+});
  
-export default connect(mapStateToProps)(TabOneMenu);
+export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu);

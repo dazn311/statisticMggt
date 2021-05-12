@@ -28,7 +28,7 @@ const initionalDateEnd = () => {
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
   datePick: {
     display: 'flex',

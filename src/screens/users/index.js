@@ -21,7 +21,6 @@ const AuthDash = ({ match,currentUser}) => {
 
     return (
         <div className='shop-page'>
-            console.log('match.path',match.path);
             <Route
             exact
             path={`${match.path}`}

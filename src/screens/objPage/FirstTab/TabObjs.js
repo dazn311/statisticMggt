@@ -269,5 +269,6 @@ const mapStateToProps = createStructuredSelector ({
     // Для  
     // fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate)),
     setObjCurrForDetailPage: (object ) => dispatch(setObjCurrForDetailPageAsync(object )),
-  });  
-  export default connect(mapStateToProps,mapDispatchToProps)(TabObjs); 
+  });
+
+  export default connect(mapStateToProps,mapDispatchToProps)(TabObjs);

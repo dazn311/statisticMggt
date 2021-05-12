@@ -21,6 +21,14 @@ const useStyles = makeStyles({
     maxWidth: '100%',
     borderTop: '1px solid rgb(130 119 119 / 47%)', 
   },
+  cellOpacity: {
+    // minWidth: 650,
+    opacity: 0.3,
+  },
+  cell: {
+    // minWidth: 650,
+    opacity: 0.3,
+  },
   progress: {
     width: '100%',
     '& > * + *': {
@@ -48,7 +56,7 @@ const LinearIndeterminate = () => {
 }
 
 const formatDate = (dt) => {
-  if (dt === null) {return 0}
+  if (dt === null) {return '-'}
 
   const dt1 = dt.split('T')[0].split('-');
   const dt2 = dt.split('T')[1].split(':');
@@ -56,7 +64,17 @@ const formatDate = (dt) => {
 }
  
 // let pageCoutnt = 0;
-const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) => {
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////
+const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page, amObjsValue}) => {
   const classes = useStyles();
   const amPage2 = parseInt(tabValue.length / 10) +1;
   const widthW = window.innerWidth;
@@ -86,7 +104,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
                   <TabCellMobile row={row} /> 
                 </TableCell>
                 
-                <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{row.user_last_seen ? row.user_last_seen : 0}</TableCell> 
+                <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{formatDate(row.user_last_seen)}</TableCell> 
                  
               </TableRow>
             ))
@@ -98,10 +116,6 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
                   
                 </TableCell>
                 <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
-                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
-                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell>
-                {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
-                <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right"><LinearIndeterminate /></TableCell> 
                  
               </TableRow>)) 
           }
@@ -151,13 +165,13 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page}) =>
             </TableRow>
           ))
           : [1,2,3,4,5,6,7,8,9,10].map((num, index) => (
-            <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
-             <TableCell align="left" style={{padding: '6px 4px', textAlign:'center',  borderRight:'1px solid #8080805c'}}><LinearIndeterminate /></TableCell>
+            <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: index % 2 === 0 ? 0.3: 0.6 }} >
+             <TableCell align="left" style={{padding: '6px 4px', textAlign:'center',  borderRight:'1px solid #8080805c'}}>{amObjsValue ? '0' : <LinearIndeterminate />}</TableCell>
               <TableCell component="th" scope="row" style={{borderRight:'1px solid #8080805c'}} >
-              <LinearIndeterminate />
+                {amObjsValue ? 'нет данных' : <LinearIndeterminate />}
               </TableCell>
-              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
-              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{amObjsValue ? 'нет данных' : <LinearIndeterminate />}</TableCell>
+              <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} >{amObjsValue ? 'нет данных' : <LinearIndeterminate />}</TableCell>
               {/* <TableCell align="right" style={{borderRight:'1px solid #8080805c'}} ><LinearIndeterminate /></TableCell> */}
                
             </TableRow>)) 

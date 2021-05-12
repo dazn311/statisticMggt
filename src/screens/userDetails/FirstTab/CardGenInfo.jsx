@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -30,7 +30,7 @@ import MenuList from '@material-ui/core/MenuList';
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: '100%',
-    maxWidth: 612, 
+    maxWidth: 612,
     // minWidth: 360
   },
   media: {
@@ -52,15 +52,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardGenInfo({curUser}) {
+export default function CardGenInfo({ curUser }) { 
+  const [expanded, setExpanded] = React.useState(false); 
+  const [open, setOpen] = React.useState(false);
 
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
- 
+  const themess =  useTheme();
 
+  
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -91,8 +91,13 @@ export default function CardGenInfo({curUser}) {
   }, [open]);
 
   if (!curUser) return (<div>loading..</div>);
-  
-  const { user_id, user_name, user_shortname, user_org_id, org_name, user_post, user_role} = curUser ;
+
+  const { user_id, user_name, user_shortname, user_org_id, org_name, user_post, user_role, user_last_seen } = curUser;
+
+  let lastActive = (user_last_seen || '2021-01-01T13:13:13.298Z').split('T')[0];
+  lastActive = lastActive.split('-');
+  lastActive = lastActive[2] + '/' + lastActive[1] + '/' + lastActive[0];
+
   // console.log('8989 CardGenInfo curUser', curUser);
   // console.log('8989 CardGenInfo org_name', org_name);
   const handleExpandClick = () => {
@@ -100,122 +105,126 @@ export default function CardGenInfo({curUser}) {
   };
 
   return (
-      <Card className={classes.root}>
-        <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                N
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            N
               </Avatar>
-            } 
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}/>
-                
-                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
-                      <Grow
-                        {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' , marginRight: 38}}
-                      >
-                        <Paper>
-                          <ClickAwayListener onClickAway={handleClose}>
-                            <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                              <MenuItem onClick={handleClose}>отправить</MenuItem>
-                              <MenuItem onClick={handleClose}>Печать</MenuItem>
-                              <MenuItem onClick={handleClose}>Удалить</MenuItem>
-                            </MenuList>
-                          </ClickAwayListener>
-                        </Paper>
-                      </Grow>
-                    )}
-                  </Popper>
-              </IconButton>
-            }
-            title={user_name}
-            subheader={'user_id: ' + user_id}
-        />
-        {/* <CardMedia
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon ref={anchorRef}
+              aria-controls={open ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle} />
+
+            <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', marginRight: 38 }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                        <MenuItem onClick={handleClose}>Сохранить</MenuItem>
+                        <MenuItem onClick={handleClose}>Печать</MenuItem>
+                        <MenuItem onClick={handleClose}>Удалить</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </IconButton>
+        }
+        title={user_name}
+        subheader={'user_id: ' + user_id}
+      />
+      {/* <CardMedia
             className={classes.media}
             image="/static/images/avatar/1.png"
             title={user_name}
         /> */}
-        <CardContent>
+      <CardContent>
         {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
-          <Typography variant="body2" color="textSecondary" component="p">
-            Статус: <span style={{color: 'white'}} > Активный(*)</span> 
-          </Typography>
-          <Divider />
-          <Typography variant="body2" color="textSecondary" component="p">
-            Огранизация: <span style={{color: 'white'}} > {org_name} </span> 
-            {/* Сотрудник огранизации № {user_org_id}. */}
-          </Typography>
-          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
-          {/*  Вышестоящая огранизация № {user_org_id}.*/}
-          {/*</Typography>*/}
+        <Typography variant="body2" color="textSecondary" component="p">
+          Пос. активность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {lastActive}</span>
+        </Typography>
 
-          <Typography variant="body2" color="textSecondary" component="p">
-            Должность: <span style={{color: 'white'}} > {user_post}</span> 
-          </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          Статус: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > Активный(*)</span>
+        </Typography>
+        <Divider />
+        <Typography variant="body2" color="textSecondary" component="p">
+          Огранизация: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {org_name} </span>
+          {/* Сотрудник огранизации № {user_org_id}. */}
+        </Typography>
+        {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+        {/*  Вышестоящая огранизация № {user_org_id}.*/}
+        {/*</Typography>*/}
 
-          <Typography variant="body2" color="textSecondary" component="p">
-            Роль: <span style={{color: 'white'}} > {user_role}</span> 
-          </Typography>
-          <Divider />
-          <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: 'white'}} > +7 964 765-09-66(*)</span> 
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: 'white'}} > ShmidtDU@mos.ru(*)</span> 
-          </Typography>
-          <Divider />
-          <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.:           <span style={{color: 'white'}} > "2021-03-07"(*)</span> 
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Дата окончания рег.: <span style={{color: 'white'}} > "2021-04-02"(*)</span> 
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          {/* <IconButton aria-label="add to favorites">
+        <Typography variant="body2" color="textSecondary" component="p">
+          Должность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {user_post}</span>
+        </Typography>
+
+        <Typography variant="body2" color="textSecondary" component="p">
+          Роль: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {user_role}</span>
+        </Typography>
+        <Divider />
+        <Typography variant="body2" color="textSecondary" component="p">
+          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > +7 964 765-09-66(*)</span>
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > ShmidtDU@mos.ru(*)</span>
+        </Typography>
+        <Divider />
+        <Typography variant="body2" color="textSecondary" component="p">
+          Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > "2021-03-07"(*)</span>
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          Дата окончания рег.: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > "2021-04-02"(*)</span>
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        {/* <IconButton aria-label="add to favorites">
             <FavoriteIcon color={'disabled'} />
           </IconButton> */}
-          {/* <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
             <ShareIcon />
           </IconButton> */}
-          <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="показать.."
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Последние изменения:</Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Добавлен в систему 
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="показать.."
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Последние изменения:</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Добавлен в систему
             </Typography>
-            <Divider />
-            <Typography variant="body2" color="textSecondary" component="p">
-              Приостановлен.
+          <Divider />
+          <Typography variant="body2" color="textSecondary" component="p">
+            Приостановлен.
             </Typography>
-            <Divider />
-            <Typography variant="body2" color="textSecondary" component="p">
-              Смена контактов.
+          <Divider />
+          <Typography variant="body2" color="textSecondary" component="p">
+            Смена контактов.
             </Typography>
-            <Divider />
-            <Typography variant="body2" color="textSecondary" component="p">
-              Изменение в должности
+          <Divider />
+          <Typography variant="body2" color="textSecondary" component="p">
+            Изменение в должности
             </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
+        </CardContent>
+      </Collapse>
+    </Card>
   );
 }

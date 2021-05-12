@@ -17,7 +17,11 @@ export const setCurrentUser = user => ({
 export const setCurUserShort = user => ({
   type: userData.SET_USER_SHORT_CUR_FOR_USER_CARD_PAGE,
   payload: user
-}); 
+});
+export const setCurUserAllData = user => ({
+  type: userData.FETCH_USER_CURRENT_FOR_USER_CARD_DETAILS_PAGE,
+  payload: user
+});
 
 /////////////// for User Card Page 050521 ///////////////////////////////////  
 export const setCurUserShortAsync = (data)  => {
@@ -55,6 +59,18 @@ export const fetchCurrentUserAsync = (id)  => {
   //       })
   //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   // };
+};
+
+// fetch for App.js get logined user in this app
+export const fetchCurrentUserAllDataAsync = (id)  => {
+  console.log('👉 fetchCurrentUserAllDataAsync start:' );
+  return (dispatch) => {
+    postData('http://localhost:3004/api/users', {'id':id})
+      .then((user) => {
+          dispatch(setCurUserAllData(user))
+        })
+      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
 };
 
 

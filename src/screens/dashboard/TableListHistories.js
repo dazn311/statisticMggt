@@ -11,27 +11,17 @@ import {useState} from "react";
 import TableListHistories from './TableListHistories.sceen'
 import MessAlert from './Messages.alert'
 import TableLoader from '../../components/tabLoader/TabLoader';
- 
+import postData from './postData';
+
 
 let thisDate = new Date();
 thisDate = thisDate.toISOString();
 thisDate = thisDate.split('T')[0];
 
-//////////////////////////
-async function postData(url = '', data = {}) { 
-  const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *client
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  });
-  return await response.json(); // parses JSON response into native JavaScript objects
+
+
+const formatDate = (data) => {
+    return new Intl.DateTimeFormat('ru-Ru').format(new Date(data))
 }
 
 // let openGreen = false;
@@ -40,11 +30,11 @@ let rows = [
     ];
     let allData = [];
 //////////////////////////
-const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
+const TableList = ({ eventShortPoints, statusEventPoint }) => {
     const [dataTab, setDataTab] = useState([]); 
     const [currentMess, setCurrentMess] = useState([]); 
 
-  const [openGreenf, setOpenGreen] = React.useState(false);
+    const [openGreenf, setOpenGreen] = React.useState(false);
 
 
 
@@ -61,7 +51,7 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
         let arrListType = ["new_rec", "new_msg"]; 
 
         eventShortPoints.map((nodeE,index) => {
-            const dateFormatShort =  nodeE.date.split('T')[0].split('-')[2] + '/' + nodeE.date.split('T')[0].split('-')[1] + '/' + nodeE.date.split('T')[0].split('-')[0] + ' (' +  nodeE.date.split('T')[1].slice(0,5) + ')';
+            const dateFormatShort =  nodeE.date.split('T')[0].split('-')[2] + '.' + nodeE.date.split('T')[0].split('-')[1] + '.' + nodeE.date.split('T')[0].split('-')[0] + ' (' +  nodeE.date.split('T')[1].slice(0,5) + ')';
             const dateForStatics =  nodeE.date.split('T')[0];
             const orgUsrName = nodeE.user.username + '  (  ' + nodeE.user.orgname + '  )  ';
             let newNode = { id: index, date: dateFormatShort, text: nodeE.text, fullName: orgUsrName, type: statusEventPoint[nodeE.type], msg_id: nodeE.node_local.info};
@@ -100,9 +90,9 @@ const TableList = ({ eventShortPoints, statusEventPoint,setData }) => {
         allData.push(amountEventsEnded);
         allData.push(amountEventsAllDay);
 
-        setData(allData); // parent func
+        // setData(allData); // parent func
         setDataTab(rows); 
-    },[eventShortPoints, setData, statusEventPoint])
+    },[eventShortPoints, statusEventPoint])
 
 //////////////////////////
     if ( dataTab.length === 0){
