@@ -165,7 +165,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
         <TableBody>
           {tabValue.length ?
            tabValue
-          // .filter((row,i) => i < 16)
+          .filter((row,i) => i < 11)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -199,7 +199,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
               <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.objCreationDate)) }</TableCell> 
                
             </TableRow>
-          )) : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((num, index) => (
+          )) : [1,2,3,4,5,6,7,8,9,10,11].map((num, index) => (
             <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="left" style={{ width: '4px', maxWidth: '4px'}}><LinearIndeterminate /></TableCell>
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row">
