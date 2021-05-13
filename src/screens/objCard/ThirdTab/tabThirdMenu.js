@@ -12,8 +12,9 @@ import ColomsChart from './ColomsChart';
 
 import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
-import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
+import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors';
 
+import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
 
 const initionalDateStart = () => {
   let newDate = new Date();//.toISOString().split('T')[0];
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
+const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH, selectObjRect })=> {
   const [graphicValue, setGraphicValue] = useState('');
   const [dateStart, setDateStart] = useState(initionalDateStart);
   const [dateEnd, setDateEnd] = useState(initionalDateEnd);
@@ -87,6 +88,7 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
 }
 
 const mapStateToProps = createStructuredSelector ({
+  selectObjRect: selectObjRectPage, // события короткие данные для таблицы
   selectAmountNewOGH: selectAmountNewOGH, // 
 });
  

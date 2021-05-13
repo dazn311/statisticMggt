@@ -34,7 +34,8 @@ import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adm
 import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
   
 import EventDetail from './EventDetail';
- 
+import {formatDateISO} from '../../../hoc/formatDate';
+
 const useStyles = makeStyles({
   progress: {
     width: '100%',
@@ -66,6 +67,10 @@ const LinearIndeterminate = () => {
       {/* <LinearProgress color="secondary" /> */}
     </div>
   );
+}
+
+const CellTab = ({org, name}) => {
+  return (<div style={{display: 'flex',flexDirection: 'column'}} > <div style={{wordWrap: 'normal'}} > {org}</div> <div>{name} </div> </div>)
 }
 
 ////////////////////////////
@@ -100,7 +105,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
   const handleChangePage = (event, newPage) => {
     // if (newPage === 1) {
       // pageCoutnt += newPage;
-      setPageT(newPage);
+      // setPageT(newPage);
       setPage(newPage);
    // }
      
@@ -115,15 +120,14 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
 
 
   const showEvents = (row) => { 
-      setOrgName(row);
-      setObjCurrForDetailPage(row); 
-      // history.push(`/stats/objs/${row.objID}`); 
-      
-      history.push({
-        pathname: `/stats/obj/${row.objID}`,
-        // search: '?query=obj',
-         row: row
-      });
+      // setOrgName(row);
+      // setObjCurrForDetailPage(row);
+      //
+      // history.push({
+      //   pathname: `/stats/obj/${row.objID}`,
+      //   // search: '?query=obj',
+      //    row: row
+      // });
   }
 
 //   const someEventHandler = event => {
@@ -147,6 +151,8 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
     openRed = false;
     // openGreen = true;
   }
+
+  const pages = parseInt(selectObjs.length / 6);
   
   return ( 
     <>
@@ -158,7 +164,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
             <TableCell align="right">Наименование</TableCell> 
             <TableCell align="right">Инициатор</TableCell>
             <TableCell align="right">Получатель</TableCell>
-            <TableCell align="right">Количество событий</TableCell>
+            {/*<TableCell align="right">Количество событий</TableCell>*/}
             {/* <TableCell align="right">Принадлежит</TableCell> */}
             <TableCell align="right">Дата создания</TableCell>
           </TableRow>
@@ -166,7 +172,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
         <TableBody>
           {selectObjs && selectObjs.length ?
               selectObjs
-          // .filter((row,i) => i < 16)
+          .filter((row,i) => i < (page*6) && i >= (page*6 -6) )
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -179,26 +185,27 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
                           />}
               </TableCell>
               <TableCell align="right">
-              {!isLoading ? row.sender.orgname + '(' + row.sender.username + ')': <Random
-                            text={row.rec_name}
+              {!isLoading ? <CellTab org={row.sender.orgname} name={row.sender.username} />  : <Random
+                            text={row.sender.orgname}
                             effect="verticalFadeOut"
                             effectDirection="down"
                             effectChange={3.0}
                           />}
                           </TableCell>
               <TableCell align="right">
-              {!isLoading ? row.receip.orgname : <Random
-                            text={row.rec_name}
+              {!isLoading ? <CellTab org={row.receip.orgname} name={row.receip.username} /> : <Random
+                            text={row.receip.orgname}
                             effect="verticalFadeOut"
                             effectDirection="down"
                             effectChange={3.0}
                           />}
                  
               </TableCell>
-              <TableCell align="right">{row.objRecsAmount}</TableCell>
+              {/*<TableCell align="right">{row.objRecsAmount}</TableCell>*/}
               {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
-              <TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.rec_date)) }</TableCell>
-               
+              {/*<TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.rec_date)) }</TableCell>*/}
+              <TableCell align="right">{formatDateISO(row.rec_date) }</TableCell>
+
             </TableRow>
           )) : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(( _, index) => (
             <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
@@ -234,13 +241,13 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
                   effectChange={3.0}
                 /> : 'нет данных')}   </TableCell>
               {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
-              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{tabValue ? <LinearIndeterminate /> 
-                 : (isLoading  ? <Random
-                  text={'нет данных'} 
-                  effect="verticalFadeOut"
-                  effectDirection="down"
-                  effectChange={3.0}
-                /> : 'нет данных')}   </TableCell> 
+              {/*<TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{tabValue ? <LinearIndeterminate /> */}
+              {/*   : (isLoading  ? <Random*/}
+              {/*    text={'нет данных'} */}
+              {/*    effect="verticalFadeOut"*/}
+              {/*    effectDirection="down"*/}
+              {/*    effectChange={3.0}*/}
+              {/*  /> : 'нет данных')}   </TableCell> */}
                
             </TableRow>)) 
           // : <div style={{position: 'absolute', width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={134} color='primary' /> </div>
@@ -249,7 +256,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
         </TableBody> 
       </Table>
       <div style={{display:'flex',margin: 18, opacity: isLoading ? .3 : 1}}> 
-         <Pagination count={selectObjsInfo.totalPages} page={page} onChange={handleChangePage} color="primary" /> 
+         <Pagination count={ pages } page={ page } onChange={handleChangePage} color="primary" />
       </div>
      
     </TableContainer>

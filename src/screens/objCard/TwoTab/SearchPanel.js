@@ -85,12 +85,12 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   return (
     <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-around'}}>
       <FormControl className={classes.margin}>
-        <BootstrapInput id="input-obj" placeholder='Поиск по объектам' value={filterObj} onChange={handleFilterObj}/>
+        <BootstrapInput id="input-obj" placeholder='Поиск по инициаторам' value={filterObj} onChange={handleFilterObj}/>
        
       </FormControl>
       
       <FormControl className={classes.margin}>
-        <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по организациям' value={filterOrg} onChange={handleFilterOrg}/>
+        <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по получателям' value={filterOrg} onChange={handleFilterOrg}/>
       </FormControl>
       
         {/* <Button onClick={fetchSearchObjHandle} style={{height: '43px'}} variant="contained" color="primary">

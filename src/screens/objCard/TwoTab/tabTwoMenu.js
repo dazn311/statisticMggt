@@ -126,7 +126,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
     let newOffset = (val -1) * stFilterVal.limit;
     let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
     // console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
+    // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
 
 
   },[stFilterVal,stFilterSearch,fetchObjectsList]);
@@ -159,7 +159,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
     let newOffset = '0';
     if (offset !== '0'){newOffset = offset;}
     let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
+    // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
     // console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);
 
@@ -203,13 +203,13 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
   } ,[stFilterVal]);
 
   const setSearchTextObj = useCallback((val) => {
-    setStFilterSearch({...stFilterSearch, objName: val });
-    setStFilterVal({...stFilterVal, offset: '0' } );
+    // setStFilterSearch({...stFilterSearch, objName: val });
+    // setStFilterVal({...stFilterVal, offset: '0' } );
   } ,[stFilterSearch,stFilterVal]);
 
   const setSearchTextOrg = useCallback((val) => {
-    setStFilterSearch({...stFilterSearch, orgName: val } );
-    setStFilterVal({...stFilterVal, offset: '0' } );
+    // setStFilterSearch({...stFilterSearch, orgName: val } );
+    // setStFilterVal({...stFilterVal, offset: '0' } );
   } ,[stFilterSearch,stFilterVal]);
 
   const setDateStart = useCallback((val) => {
@@ -225,12 +225,12 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
-          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} />
+          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} selectObjs={selectObjs} />
           <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
 
-            <div style={{display: 'flex', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
+            <div style={{display: 'none', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
                   <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
                   <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
                   <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
@@ -242,7 +242,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
               <DatePickerEnd setDateEnd={setDateEnd} />
             </div>
 
-            <Button onClick={()=>{fetchSearchObj('0')}} className={window.innerWidth < 500 ? classes.btnSearchMobile : classes.btnSearch} >
+            <Button  onClick={()=>{fetchSearchObj('0')}} className={window.innerWidth < 500 ? classes.btnSearchMobile : classes.btnSearch} >
               Поиск 
             </Button>
 

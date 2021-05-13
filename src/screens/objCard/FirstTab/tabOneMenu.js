@@ -45,8 +45,9 @@ const EventDetail = ({ idObj,currObj, selectObjs, orgRow, fetchObjRectList, sele
      
    }
 
+    console.log('selectObjRect length', selectObjRect.length);
   return (
-    <div style={{display:'flex',flexWrap:'wrap', justifyContent:'flex-start'}} >
+    <div style={{display:'flex',flexWrap:'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'flex-start'}} >
       {/*<div  style={{display:'flex', boxShadow: '1px solid #e4dfdf2e', margin: window.innerWidth < 500 ? '0' : '4px', minWidth: 300, width: window.innerWidth < 500 ? 'auto' : '40%'}} >*/}
           <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo> 
       {/*</div> */}
