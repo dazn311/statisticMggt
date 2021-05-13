@@ -9,7 +9,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';  
 import { selectUserById } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 import { selectCurrentUserShort, selectCurrentUserAllData } from '../../../store/user/user.selectors';
-import { fetchCurrentUserAllDataAsync } from '../../../store/user/user.actions';
+// import { fetchUserById } from '../../../store/user/user.actions';
 
 import './tabOneMenu.styles.scss';
 import CartGenInfo from './CardGenInfo';
@@ -19,26 +19,14 @@ import { id } from 'date-fns/locale';
  
  
   
-const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, closeDetail, fetchCurrentUserAllData,selectCurrentUserAllData }) => {
-
-  // useEffect(() => {
-  //   console.log(' fetchObjRectList idUser', idUser);
-  //   if (idUser ){
-  //     // fetchObjRectList(idUser);
-  //   }
-  //
-  //
-  // },[idUser,fetchObjRectList]) 
-
+const TabOneMenu = ({ selectCurrentUserShort, selectCurrentUserAllData,  orgRow,  isOpen=false, closeDetail }) => {
   const match = useRouteMatch();
   const history = useHistory();
 
-    // console.log('selectCurrentUserAllData',selectCurrentUserAllData)
   useEffect(() => {
     history.push({
       pathname: `${match.url}/info`
     })
-      // fetchCurrentUserAllData(idUser);
   },[])
     
 
@@ -62,15 +50,15 @@ const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, cl
 
   return (
     <div style={{display:'flex',flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'start'}} >
-      <div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4dfdf2e',margin: '10px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 400,  border: '1px solid #e2e2e2',
+      <div  style={{boxShadow: '1px solid #e4dfdf2e',margin: window.innerWidth < 500 ? '0' :'10px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 400,  border: '1px solid #e2e2e2',
     height: 'fit-content'}} >
           {/*<div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}} >Общие сведения</div>*/}
-          <CartGenInfo curUser={selectCurrentUserShort}  ></CartGenInfo>
+          <CartGenInfo curUser={selectCurrentUserShort} allData={selectCurrentUserAllData}  ></CartGenInfo>
       </div> 
 
-      <div  style={{display:'flex' ,boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 500}} >
+      <div  style={{boxShadow: '1px solid #e4DFDF2e',margin: window.innerWidth < 500 ? '0' : '5px', minWidth: 300, width: window.innerWidth < 500 ? '100%': 500}} >
          {/* <div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}}  >События</div> */}
-         <CardUserDetails curUser={selectCurrentUserShort}  ></CardUserDetails>
+         <CardUserDetails curUser={selectCurrentUserShort} allData={selectCurrentUserAllData}  ></CardUserDetails>
       </div>
 
 
@@ -102,8 +90,8 @@ const mapStateToProps = createStructuredSelector ({
 //   isLoading: state => !selectIsCollectionsLoaded(state)
 // });
 
-const mapDispatchToProps = (dispatch) => ({
-    fetchCurrentUserAllData: (user_id) => dispatch(fetchCurrentUserAllDataAsync(user_id)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     fetchUserById: (user_id) => dispatch(fetchUserById(user_id)),
+// });
  
-export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu);
+export default connect(mapStateToProps)(TabOneMenu);

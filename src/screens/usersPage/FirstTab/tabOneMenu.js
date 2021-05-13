@@ -14,7 +14,7 @@ import TabUsersComponent from "./TabUsers.component";
 
 import { fetchAllUsersFromDB , setUsersNameFilterTxtForUsersPage, setOrgNameFilterTxtForUsersPage } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 import { selectAllUsersFromDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
-import { setCurUserShortAsync } from '../../../store/user/user.actions';
+import { setCurUserShortAsync, fetchUserById } from '../../../store/user/user.actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +62,7 @@ const filterSearchTextUser = (selectAllUsers=[], filterUser) => {
 } 
 /////////////////////////////////////////////////////////////////////
 
-const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort }) => {
+const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
  
   const [page, setPage] = React.useState(1); 
   const [amObjsValue, setAmObjsValue] = React.useState(0);
@@ -108,11 +108,9 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
 
   const showEvents = (row) => {
     setCurUserShort(row);
-    history.push({
-      pathname: `/stats/user/${row.user_id}`,
-      // search: '?query=obj',
-       row: row
-    });
+    history.push({ pathname: `/stats/user/${row.user_id}`, row: row });
+
+    fetchUserById(row.user_id);
 }
   
   return (
@@ -153,6 +151,7 @@ const mapStateToProps = createStructuredSelector ({
 const mapDispatchToProps = (dispatch) => ({
   setCurUserShort: (row) => dispatch(setCurUserShortAsync(row)),
   fetchAllUsers: () => dispatch(fetchAllUsersFromDB()),
+  fetchUserById: (userID) => dispatch(fetchUserById(userID)),
   setUsersFilter: (val) => dispatch(setUsersNameFilterTxtForUsersPage(val)),
   setOrgNameFilter: (val) => dispatch(setOrgNameFilterTxtForUsersPage(val)),
 });

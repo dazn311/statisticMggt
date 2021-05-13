@@ -23,13 +23,15 @@ import { selectObjCurrObj } from '../../../store/adminPanelTrest/objspages.selec
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // width: '95%',
+    width: '100%',
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     maxHeight: '70vh',
     overflow: 'auto',
     border: '1px solid #8080802e',
-    margin: '4px 8px',
+    padding: 4,
+    margin: window.innerWidth < 500 ? '0px' : '4px 8px',
+    marginTop: window.innerWidth < 500 ? '8px' : ' 4px',
   },
   span: {
     color: theme.palette.primary.main
@@ -42,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
 const CardEventInfo = ({orgRow, currObj, objRect, selectObjCurr}) => {
   const classes = useStyles();
 
-  console.log('orgRow',orgRow);
-  console.log('selectObjCurr',selectObjCurr);
-  console.log('objRect',objRect);
+  // console.log('orgRow',orgRow);
+  // console.log('selectObjCurr',selectObjCurr);
+  // console.log('objRect',objRect);
 
   useEffect(() => {
 

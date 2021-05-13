@@ -51,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
     width: window.innerWidth > 500 ? 'calc(100% - 8px)' : '100%'
     
   },
+  btnSearch: {height:  '43px', marginLeft: 2, marginTop: 4, backgroundColor: theme.palette.primary.main},
+  btnSearchMobile: {height:  '43px', marginLeft: 0, marginTop: 8, width: '100%', backgroundColor: theme.palette.primary.main},
   datePick: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -79,14 +81,17 @@ const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'
 
 const filterInitial = () => {
   const endDate = new Date().toISOString().split('T')[0];
-  console.log('endDate initial ', endDate)
+  // console.log('endDate initial ', endDate)
   return { objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: endDate,  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }
 }
 
 
 
 
-
+const analizeObjs = (objs) => {
+  // selectObjs
+  console.log('analizeObjs', objs.length);
+}
 
 
 
@@ -105,7 +110,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
   const classes = useStyles();
 
-  console.log('TabOneMenu -- stFilterVal.endDate ', stFilterVal.dateEnd)
+  // console.log('TabOneMenu -- stFilterVal.endDate ', stFilterVal.dateEnd)
 
   const setPageT = useCallback((val) => {
 
@@ -159,9 +164,9 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
   ///////////////////////////////////////////
   useEffect(() => {
- 
     // setTabValue(selectObjs);
     setIsLoading(false);
+
   },[selectObjs]);
 
 ///////////////////////////////////////////
@@ -171,6 +176,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
       // console.log('TabOneMenu -- 444  fetchObjectsList  offset');
       setIsLoading(true);
       fetchSearchObj('0');
+    }else {
+      analizeObjs(selectObjs);
     }
 
   },[fetchSearchObj,selectObjs]);
@@ -213,6 +220,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
   ///////////////////////////////////////////
   // const valueItems = {val:10, smeg: 'смежные'};
+  // uniq objs
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
@@ -221,8 +229,8 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
 
-            <div style={{display: 'flex', flexWrap:'nowrap', justifyContent: 'center'}} >
-                  <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}  />
+            <div style={{display: 'flex', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
+                  <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
                   <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
                   <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
             </div>
@@ -233,15 +241,11 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
               <DatePickerEnd setDateEnd={setDateEnd} />
             </div>
 
-            <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px', marginLeft: 2, marginTop: 4}} variant="contained" color="primary" disabled={isLoading} >
+            <Button onClick={()=>{fetchSearchObj('0')}} className={window.innerWidth < 500 ? classes.btnSearchMobile : classes.btnSearch} >
               Поиск 
             </Button>
 
           </div>
-            {/* {selectObjs.length && !isLoading
-              ? <TabObjs tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} /> 
-              : <div style={{width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={34} color="secondary" /> </div>
-            } */}
             <TabObjs tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} /> 
            
         </div>

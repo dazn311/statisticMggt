@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'; 
+import React, {useEffect, useState} from 'react';
  
 
 import { useHistory, useRouteMatch } from 'react-router';
@@ -6,28 +6,28 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
    
 
-import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';  
-import { selectUserById } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
-import { selectCurrentUserShort } from '../../../store/user/user.selectors';
+// import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
+// import { selectUserById } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
+import { selectCurrentUserShort, selectCurrentUserAllData } from '../../../store/user/user.selectors';
 
 import './tabOneMenu.styles.scss';
 import CartGenInfo from './CardGenInfo';
 // import CardEventInfo from './CardEventInfo';
 import CardUserDetails from './CardUserDetails';
-import { id } from 'date-fns/locale';
+// import { id } from 'date-fns/locale';
  
  
   
-const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, closeDetail }) => {
+const TabOneMenu = ({ idUser,selectCurrentUserShort, allData ,   orgRow,  isOpen=false, closeDetail }) => {
 
-  // useEffect(() => {
-  //   console.log(' fetchObjRectList idUser', idUser);
-  //   if (idUser ){
-  //     // fetchObjRectList(idUser);
-  //   }
-  //
-  //
-  // },[idUser,fetchObjRectList]) 
+    const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    console.log(' allData', allData);
+    setUserData(allData);
+
+
+  },[allData])
 
 
   const match = useRouteMatch();
@@ -65,12 +65,12 @@ const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, cl
       <div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4dfdf2e',margin: '10px', minWidth: 300, width: window.innerWidth < 500 ? '40%': 400,  border: '1px solid #e2e2e2',
     height: 'fit-content'}} >
           {/*<div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}} >Общие сведения</div>*/}
-          <CartGenInfo curUser={selectCurrentUserShort}  ></CartGenInfo>
+          <CartGenInfo curUser={selectCurrentUserShort} userData={userData} ></CartGenInfo>
       </div> 
 
       <div  style={{display:'flex' ,boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 300, width: window.innerWidth < 500 ? '40%': 500}} >
          {/* <div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}}  >События</div> */}
-         <CardUserDetails curUser={selectCurrentUserShort}  ></CardUserDetails>
+         <CardUserDetails curUser={selectCurrentUserShort} userData={userData} ></CardUserDetails>
       </div>
 
 
@@ -79,8 +79,12 @@ const TabOneMenu = ({ idUser,selectCurrentUserShort,   orgRow,  isOpen=false, cl
 }
 
 const mapStateToProps = createStructuredSelector ({
-  selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы  
+  selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы
+  allData: selectCurrentUserAllData, // события короткие данные для таблицы
 });
+
+export default connect(mapStateToProps)(TabOneMenu);
+
 
 // const mapStateToProps = (state, props) => ({
 //   selectObjRect: selectObjRectPage, // события короткие данные для таблицы 
@@ -104,5 +108,5 @@ const mapStateToProps = createStructuredSelector ({
 // const mapDispatchToProps = (dispatch) => ({
 //   fetchObjRectList: (start,end) => dispatch(fetchObjRectListAsync(start,end)),
 // });
+
  
-export default connect(mapStateToProps)(TabOneMenu);

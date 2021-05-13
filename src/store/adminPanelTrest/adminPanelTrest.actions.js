@@ -17,6 +17,7 @@ export const  appendAllUsers = (item) => ({
   payload: item
 });
 
+
 export const setCurrentPoint = (item) => ({
   type: AdminActionTypes.SET_CURRENT_POINT,
   payload: item
@@ -622,6 +623,7 @@ export const fetchAllUsersFromDB = (limit=20)  => {
   };
 };
 
+
 // put http://localhost:3005/api/user (updateUser)  //290421 Dashboard page
 export const fetchUpdateUsersFromDB = (userData)  => {
    const {user_fio, login, password, user_fio_lit, id} = userData;
@@ -645,7 +647,7 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 
 // fetchObjectsList(2,0,1000 , 0 , startDate, endDate, 'A');  //290421 ObjPage page - TabOneMenu
 export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') => {
-
+    console.log('lll88')
   return (dispatch) => {
     postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit , offset:offset, startDate:startDate, endDate:endDate ,objName:objName , orgName: orgName , objKind:objKind , objStatus:objStatus , sortCol:sortCol , sortType:sortType })
         .then((eventss) => {

@@ -1,417 +1,279 @@
-import React,{ useState,useEffect, useCallback } from 'react';
+import React,{ useState, useCallback,useEffect } from 'react';
+
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect'; 
-import { chunk, reduce } from 'lodash'; 
+import { createStructuredSelector } from 'reselect';
+
+import { makeStyles } from '@material-ui/core/styles';  
+import Button from '@material-ui/core/Button';
+import MuiAlert from '@material-ui/lab/Alert';
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Snackbar from "@material-ui/core/Snackbar";
 
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import SelectorMggt from '../../../components/selectorMggt';
+
+import DatePicker from './DatePicker';
+import DatePickerEnd from './DatePickerEnd';
+import SearchPanel from './SearchPanel';
+import TabObjsEvent from './TabObjsEvent';
+import StateElements from './stateElements';
 
 
+import {
+  fetchObjectsListAsync,
+  setMessageError
+} from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-import DatePicker from './DatePicker.twoTab';
-import DatePickerEnd from './DatePickerEnd.twoTab';
-
- 
-import LineChart from './LineChartWithXAxisPading.twoTab';
-
- 
-
-import './tabTwoMenu.styles.scss';
-
- 
-import { fetchAllEventsGraphicAsync, fetchAllUsersGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
- 
-
-import { selectNewEventsGraphOfStaticPage, selectEndEventsGraphOfStaticPage, selectDenyEventsGraphOfStaticPage, selectUsersOnlineGraphOfStaticPage, selectNewMessageGraphOfStaticPage } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
-
-let InitionalData = [
-  // {
-  //   name: '08:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '09:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '10:00', Events: 7, Users: 0, Closed: 5, activeChat: 4,
-  // },
-  // {
-  //   name: '11:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '12:00', Events: 7, Users: 0, Closed: 5, activeChat: 3,
-  // },
-  // {
-  //   name: '13:00', Events: null, Users: null, Closed: null, activeChat: 14,
-  // },
-  // {
-  //   name: '14:00', Events: null, Users: null, Closed: null, activeChat: 21,
-  // },
-  // {
-  //   name: '15:00', Events: null, Users: null, Closed: null, activeChat: 21,
-  // },
-  // {
-  //   name: '16:00', Events: null, Users: null, Closed: null, activeChat: 32,
-  // },
-  // {
-  //   name: '17:00', Events: null, Users: null, Closed: null, activeChat: 30,
-  // },
-  // {
-  //   name: '18:00', Events: null, Users: null, Closed: null, activeChat: 0,
-  // },
-];
+import {  selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
+import { selectErrorFetch } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 
 
-const initionalDateStart = () => {
-  let newDate = new Date();//.toISOString().split('T')[0];
-  newDate.setDate(newDate.getDate() - 7);
-  return newDate.toISOString().split('T')[0];
-}
-
-const initionalDateEnd = () => {
-  let newDate = new Date();//.toISOString().split('T')[0];
-  return newDate.toISOString().split('T')[0];
-}
-
-// const monthArr = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
-
+  
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: 'fit-content',
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.secondary,
+    '& svg': {
+      margin: theme.spacing(1.5),
+    },
+    '& hr': {
+      margin: theme.spacing(0, 0.5),
+    },
+    // minWidth:1400,
+  },
+  // amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
   seeMore: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
+    width: window.innerWidth > 500 ? 'calc(100% - 8px)' : '100%'
+    
   },
-  tabWrap: {
-    border: 'none',
-    display: 'flex',
-    fontSize: 'large',
-    marginTop: '30px',
-    padding: '10px',
-    // borderTop: '1px solid rebeccapurple',
-    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-  },
-  tabRight: {width: '80%', display: 'flex', overflowY: 'scroll', overflowX: 'scroll', scrollbarColor: 'grey red', cursor: 'all-scroll',boxShadow: '0px 0px 10px 0px darkgrey',textAlign: 'center'},
-  tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px',boxShadow: '0px 0px 10px 0px darkgrey', color: 'red'},
+  btnSearch: {height:  '43px', marginLeft: 2, marginTop: 4, backgroundColor: theme.palette.primary.main},
+  btnSearchMobile: {height:  '43px', marginLeft: 0, marginTop: 8, width: '100%', backgroundColor: theme.palette.primary.main},
   datePick: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     width: '100%',
-    color: 'rgba(0, 0, 0, 0.87)',
+    // color: theme.palette.primary.main,
+    // color: 'rgba(0, 0, 0, 0.87)',
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    backgroundColor: '#fff',
-    padding: '10px',
+    // backgroundColor: theme.palette.background.paper,
+    padding: '5px',
     borderRadius: '4px',
-    margin: '10px 0px',
+    margin: '5px 0px',
     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-  },
-  table: {
-    minWidth: 650,
-  },
+  }
 }));
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
-let tmpGraphicValue = '';
-// let tmpAmountEvents = 0;
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
-const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, usersOnlineGraphOfStaticPage, newMessageGraphOfStaticPage})=> {
-  const [graphicValue, setGraphicValue] = useState('');
-  const [dateWidth, setDateWidth] = useState(1);
-  const [dateStart, setDateStart] = useState(initionalDateStart);
-  const [dateEnd, setDateEnd] = useState(initionalDateEnd);
+const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
+const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
+const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
+
+const filterInitial = () => {
+  const endDate = new Date().toISOString().split('T')[0];
+  // console.log('endDate initial ', endDate)
+  return { objectType: '2', organization: '0',limit: '15', offset: '0', dateStart: '2021-01-01', dateEnd: endDate,  objKind:'allKind', objStatus:'10', sortCol:'date', sortType:'desc'  }
+}
+
+
+
+
+const analizeObjs = (objs) => {
+  // selectObjs
+  // console.log('analizeObjs', objs.length);
+}
+
+
+
+//idObj={idObj} currObj={currObj} />
+////////////////////////////////////////////////
+const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErrorFetch, setMessageError,idObj }) => {
+
+  const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
+  const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
+  // const [tabValue, setTabValue] = useState([]); // выводить статистику
+  const [isLoading, setIsLoading] = useState(false); // выводить статистику
+  const [offsetSt, setOffsetSt] = useState('0'); // выводить статистику
+  // 19.03.21
+  const [stFilterVal, setStFilterVal] = useState(filterInitial); // выводить статистику
+  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
+
   const classes = useStyles();
 
-  // console.log('TabTwoMenu init');
-  // console.log('TabTwoMenu dateWidth', dateWidth);
-  const setDateStartFromPicker = (date) => {setDateStart(date)};
-  const setDateEndFromPicker = (date) => {setDateEnd(date)};
+  console.log('TabOneMenu -- selectObjs ', selectObjs)
+  console.log('TabOneMenu -- isLoading ', isLoading)
 
-  const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  }
- 
+  const setPageT = useCallback((val) => {
 
-   
-  useEffect(() => {
+    setOffsetSt(val.toString());
+    setIsLoading(true);
 
-    const d1 = new Date(dateStart).getDate();
-    const d2 = new Date(dateEnd).getDate();
-    const deltaDate = +d2 - +d1;
-    setDateWidth(deltaDate);
-    // console.log('deltaDate',deltaDate);
-    const dateEndPlus = dateEnd + 'T18:00:00.000Z';
-    fetchAllUsersGraphic(dateStart, dateEndPlus);
-    fetchAllEventsGraphic('new_rec', dateStart, dateEndPlus);
-    fetchAllEventsGraphic('done_rec', dateStart, dateEndPlus);
-    fetchAllEventsGraphic('deny_rec', dateStart, dateEndPlus);
-    fetchAllEventsGraphic('new_msg', dateStart, dateEndPlus);
- 
-  }, [dateStart, dateEnd, fetchAllUsersGraphic,fetchAllEventsGraphic]);
- 
-  const setUserData = useCallback(
-    (usersLine=[]) => {
-      let maxUsersOfDay = [];
-      const chunkUsers = chunk(usersLine,24); 
-  
-      for (let index = 0; index < chunkUsers.length; index++) {
-        
-        let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-        maxUsersOfDay.push(max_of_array);
-        
-      }
-      // console.log('maxUsersOfDay',maxUsersOfDay); 
-  
-      let me1 = new Date(dateStart).getMonth() + 1;
-      let y1 = new Date(dateStart).getYear();
-      const dOm = daysInMonth(me1, y1);
-      
-      InitionalData = [];
-      maxUsersOfDay.forEach((el,index) => {
-          let d1 = new Date(dateStart).getDate() + index;
-          if ( d1 > dOm +1) {
-            d1 -= dOm;
-          }
-          let m1 = new Date(dateStart).getMonth() + 1;
-          m1 = m1 < 10 ? '0' + m1: m1;
-          
-          let y1 = new Date(dateStart).getFullYear();
-          const nameDM = d1 + '/' + m1 + '/' + y1;
-          const newObj = {
-            name: nameDM, Events: 0, Users: el, Closed: 0, deny: 0, activeChat: 0,
-          }; 
-          // InitionalData[index] = newObj; 
-          InitionalData.push(newObj); 
-      });
-  
-      // setGraphicValue(InitionalData);
-      tmpGraphicValue = InitionalData;
-    },
-    [dateStart],
-  )
+    const startDate = new Date(stFilterVal.dateStart).toISOString();
+    const endDate = new Date(stFilterVal.dateEnd).toISOString();
+    const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
 
-  //////////////////////////
-  const setNewEventData = useCallback(
-    (usersLine=[]) => {
-      let maxUsersOfDay = [];
-      const chunkUsers = chunk(usersLine,24); 
-  
-      for (let index = 0; index < chunkUsers.length; index++) {
-        // let max_of_array = Math.max.apply(Math, chunkUsers[index]);
-        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-        // console.log('sum_of array',sum_of_array);
-        maxUsersOfDay.push(sum_of_array);
-        
-      }
-  
-      maxUsersOfDay.forEach((el,index) => {
-          
-        const newObj = {...InitionalData[index],  Events: el}; 
-          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-          InitionalData[index] = newObj; 
-      });
-  
-      // setGraphicValue(InitionalData);
-      tmpGraphicValue = InitionalData;
-    },
-    [],
-  )
-  
-  const setEndEventData = useCallback(
-    (usersLine=[]) => {
-      let maxUsersOfDay = [];
-      const chunkUsers = chunk(usersLine,24); 
-  
-      for (let index = 0; index < chunkUsers.length; index++) {
-        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-        // console.log('sum_of array',sum_of_array);
-        maxUsersOfDay.push(sum_of_array);
-        
-      } 
-      maxUsersOfDay.forEach((el,index) => {
-        const newObj = {...InitionalData[index],  Closed: el}; 
-          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-          InitionalData[index] = newObj; 
-      });
-      // setGraphicValue(InitionalData);
-      tmpGraphicValue = InitionalData;
-    },
-    [],
-  )
-  
-  const setDenyEventData = useCallback(
-    (denyEvents=[]) => {
-      let maxUsersOfDay = [];
-      const chunkUsers = chunk(denyEvents,24); 
-  
-      for (let index = 0; index < chunkUsers.length; index++) {
-        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-        // console.log('sum_of array',sum_of_array);
-        maxUsersOfDay.push(sum_of_array);
-        
-      } 
-      maxUsersOfDay.forEach((el,index) => {
-        const newObj = {...InitionalData[index],  deny: el}; 
-          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-          InitionalData[index] = newObj; 
-      });
-      // setGraphicValue(InitionalData);
-      tmpGraphicValue = InitionalData;
-    },
-    [],
-  )
-  
-  const setNewMessagesData = useCallback(
-    (usersLine=[]) => {
-      let maxUsersOfDay = [];
-      const chunkUsers = chunk(usersLine,24); 
-  
-      for (let index = 0; index < chunkUsers.length; index++) {
-        
-        let sum_of_array = reduce(chunkUsers[index],(sum,n) => (sum + n),0);// Math.max.apply(Math, chunkUsers[index]);
-        // console.log('sum_of array',sum_of_array);
-        maxUsersOfDay.push(sum_of_array);
-        
-      }
-      maxUsersOfDay.forEach((el,index) => {
-          
-        const newObj = {...InitionalData[index],  activeChat: el}; 
-          // const newObj = {name: nameDM, Events: 0, Users: el, Closed: 0, activeChat: 0,}; 
-          InitionalData[index] = newObj; 
-      });
-  
-      tmpGraphicValue = InitionalData;
-      setGraphicValue(tmpGraphicValue);
-    },
-    [ ],
-  )
+    const limitPlus = stFilterVal.limit;
+    let newOffset = (val -1) * stFilterVal.limit;
+    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    // console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
 
-  // for one day ///////////////////////////////////
-  const setDataEvants = useCallback(
-    () => {
-      const usersLine = usersOnlineGraphOfStaticPage.data.chartData;
-      const newEvent = newEventsGraphOfStaticPage.data.chartData;
-      const endEvent = endEventsGraphOfStaticPage.data.chartData;
-      const denyEvent = selectDenyEvents.data.chartData;
-      const newMess = newMessageGraphOfStaticPage.data.chartData;
-  
-      if (dateWidth){
-        setUserData(usersLine);
-        setNewEventData(newEvent);
-        setEndEventData(endEvent);
-        setDenyEventData(denyEvent);
-        setNewMessagesData(newMess);
-      } else {
-        // set of one day
-        // setUserOfOneDate(usersLine);
-        // setNewEventOfOneDay(newEvent);
-        // setEndEventOfOneDay(endEvent);
-        // setDenyEventOfOneDay(denyEvent);
-        // setNewMessageOfOneDay(newMess);
-  
-  
-      }
-    },
-    [dateWidth, setUserData, setNewEventData, setEndEventData, setDenyEventData, setNewMessagesData, usersOnlineGraphOfStaticPage, newEventsGraphOfStaticPage, endEventsGraphOfStaticPage, selectDenyEvents, newMessageGraphOfStaticPage  ],
-  )
- 
-  const amountEventSelects = useCallback(
-    () => {
-      // tmpAmountEvents += 1;
-      
-      // if(tmpAmountEvents === 5 ){
-        setDataEvants()
-      // }
-      
-    },
-    [setDataEvants]
-  );
 
-  
-
+  },[stFilterVal,stFilterSearch,fetchObjectsList]);
 
 
   useEffect(() => {
-     
-    amountEventSelects();
 
-    // console.log('rerender useEffect: TabTwoMenu');
-    
-  }, [usersOnlineGraphOfStaticPage,newEventsGraphOfStaticPage, endEventsGraphOfStaticPage,newMessageGraphOfStaticPage, selectDenyEvents, amountEventSelects])
-  
+    if (selectObjsInfoPage.totalAmount > amObjsValue.totalAmount){
+      setAmObjsValue(selectObjsInfoPage);
+    }
+
+    setAmObjsValueCurrent(selectObjsInfoPage);
+
+  }, [selectObjsInfoPage.totalAmount, amObjsValue.totalAmount, selectObjsInfoPage, setAmObjsValue, setAmObjsValueCurrent])
+
+
+  const handleClose = (event, reason) => {
+    setMessageError('');
+    setIsLoading(false);
+  };
+
+///////////////////////////////////////////
+  const fetchSearchObj = useCallback((offset) => {
+    setIsLoading(true);
+    const startDate = new Date(stFilterVal.dateStart).toISOString();
+    const endDate = new Date(stFilterVal.dateEnd).toISOString();
+    const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
+    const limitPlus = stFilterVal.limit;
+    setOffsetSt('0');
+    let newOffset = '0';
+    if (offset !== '0'){newOffset = offset;}
+    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
+    // console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
+  },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);
+
+  ///////////////////////////////////////////
+  useEffect(() => {
+    // setTabValue(selectObjs);
+    // setIsLoading(false);
+
+  },[selectObjs]);
+
+///////////////////////////////////////////
+  useEffect(() => {
+
+    if ( selectObjs && selectObjs.length < 1){
+      // console.log('TabOneMenu -- 444  fetchObjectsList  offset');
+      setIsLoading(true);
+      fetchSearchObj('0');
+    }else {
+      analizeObjs(selectObjs);
+    }
+
+  },[fetchSearchObj,selectObjs]);
+
+  ///////////////////////////////////////////
+
+
+  const setRadioValue = useCallback((val) => {
+    // setIsLoading(prevState => !prevState);
+
+    setStFilterVal({...stFilterVal, objectType: val, offset: '0' } )
+  },[stFilterVal]);
+
+  const setRadioValInWork = useCallback((val) => {
+    // setIsLoading(prevState => !prevState);
+    setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );
+  } ,[stFilterVal]);
+
+  const setRadioValOdh = useCallback((val) => {
+    // setIsLoading(prevState => !prevState);
+    setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );
+  } ,[stFilterVal]);
+
+  const setSearchTextObj = useCallback((val) => {
+    setStFilterSearch({...stFilterSearch, objName: val });
+    setStFilterVal({...stFilterVal, offset: '0' } );
+  } ,[stFilterSearch,stFilterVal]);
+
+  const setSearchTextOrg = useCallback((val) => {
+    setStFilterSearch({...stFilterSearch, orgName: val } );
+    setStFilterVal({...stFilterVal, offset: '0' } );
+  } ,[stFilterSearch,stFilterVal]);
+
+  const setDateStart = useCallback((val) => {
+    setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );
+  },[stFilterVal]);
+  const setDateEnd = useCallback((val) => {
+    setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );
+  },[stFilterVal]);
+
+  ///////////////////////////////////////////
+  // const valueItems = {val:10, smeg: 'смежные'};
+  // uniq objs
   return (
-    <React.Fragment>
-      {/* <Title>Статистика по событиям за периоды</Title> */}
-      <div className={classes.seeMore}>
-            <div className={classes.datePick}>
-                {/* <DatePickerOne setDataStart={setDateStartFromPicker}/> */}
-                <DatePicker setDataStart={setDateStartFromPicker}/>
-                <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
-            </div>
-            <LineChart  graphicValue={graphicValue}/>
-            <div className={classes.tabWrap}  >
+      <React.Fragment> 
+        <div className={classes.seeMore}>
+          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} />
+          <div className={classes.datePick}>
+            <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
 
-              <TableContainer component={Paper}>
-                <Table className={classes.table} size="small" aria-label="a dense table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Дата(время)</TableCell>
-                      <TableCell align="right">Новые события</TableCell>
-                      <TableCell align="right">Пользователи он-лайн</TableCell>
-                      <TableCell align="right">Выполненых событий</TableCell>
-                      <TableCell align="right">Отмененые события</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {graphicValue && graphicValue.map((item, index) => (
-                      <TableRow key={index}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >
-                        <TableCell component="th" scope="row">
-                        {item.name}
-                        </TableCell>
-                        <TableCell align="right">{item.Events}</TableCell>
-                        <TableCell align="right">{item.Users}</TableCell>
-                        <TableCell align="right">{item.Closed}</TableCell>
-                        <TableCell align="right">{item.deny}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              
-               
+            <div style={{display: 'flex', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
+                  <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
+                  <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
+                  <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
             </div>
-      </div>
-    </React.Fragment>
+
+
+            <div  style={{display:'flex', justifyContent: 'flex-start', flexWrap: window.innerWidth < 500 ? 'nowrap': 'nowrap', width: '100%', maxWidth: 414}}  >
+              <DatePicker setDateStart={setDateStart} />
+              <DatePickerEnd setDateEnd={setDateEnd} />
+            </div>
+
+            <Button onClick={()=>{fetchSearchObj('0')}} className={window.innerWidth < 500 ? classes.btnSearchMobile : classes.btnSearch} >
+              Поиск 
+            </Button>
+
+          </div>
+            <TabObjsEvent tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
+           
+        </div>
+        <Grid item xs={12} style={{display: selectErrorFetch ? 'block': 'none'}} >
+          <Paper className={classes.paper}>
+            {/* <TabLoader  /> */}
+
+            <Snackbar open={selectErrorFetch} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                {selectErrorFetch}
+              </Alert>
+            </Snackbar>
+          </Paper>
+        </Grid>
+      </React.Fragment>
   );
 }
 
 
 const mapStateToProps = createStructuredSelector ({
-  newEventsGraphOfStaticPage: selectNewEventsGraphOfStaticPage, // события короткие данные для таблицы
-  endEventsGraphOfStaticPage: selectEndEventsGraphOfStaticPage, // классификация статусов "new_msg"
-  selectDenyEvents: selectDenyEventsGraphOfStaticPage, // классификация статусов "new_msg"
-  usersOnlineGraphOfStaticPage: selectUsersOnlineGraphOfStaticPage, // for color elements
-  newMessageGraphOfStaticPage: selectNewMessageGraphOfStaticPage, //  дата начала и конца для запроса
+  // selectObjs: selectObjsPage, // события короткие данные для таблицы
+  selectObjsInfoPage: selectObjsInfoPage, // события короткие данные для таблицы
+  selectErrorFetch: selectErrorFetch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAllEventsGraphic: (type, startDate, endDate) => dispatch(fetchAllEventsGraphicAsync(type, startDate, endDate)),
-  fetchAllUsersGraphic: (startDate, endDate) => dispatch(fetchAllUsersGraphicAsync(startDate, endDate)),
-  
+    setMessageError: () => dispatch(setMessageError()),
+    fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(TabTwoMenu);
+export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 

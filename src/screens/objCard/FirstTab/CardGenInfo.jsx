@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     overflow: 'auto',
     border: '1px solid #8080802e',
-    margin: '4px 8px',
-    padding: theme.spacing(1),
+    margin: window.innerWidth < 500 ? 0 : theme.spacing(1),
+    padding:  window.innerWidth < 500 ? 0 : theme.spacing(1),
   },
   span: {
       color:'#1976d2'

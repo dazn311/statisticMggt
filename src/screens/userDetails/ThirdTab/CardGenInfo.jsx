@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardGenInfo({curUser}) {
+export default function CardGenInfo({curUser, userData}) {
  
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -92,7 +92,8 @@ export default function CardGenInfo({curUser}) {
 
   if (!curUser) return (<div>loading..</div>);
   
-  const { user_id, user_name, user_shortname, user_org_id, org_name, user_post, user_role} = curUser ;
+  const {  user_name, user_shortname, user_org_id, org_name, user_post} = curUser ;
+  // const { user_id, user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen } = userData ;
   // console.log('8989 CardGenInfo curUser', curUser);
   // console.log('8989 CardGenInfo org_name', org_name);
   const handleExpandClick = () => {
@@ -118,7 +119,7 @@ export default function CardGenInfo({curUser}) {
                     {({ TransitionProps, placement }) => (
                       <Grow
                         {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' , marginRight: 38}}
+                        style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' , marginRight: 38}}
                       >
                         <Paper>
                           <ClickAwayListener onClickAway={handleClose}>
@@ -134,8 +135,8 @@ export default function CardGenInfo({curUser}) {
                   </Popper>
               </IconButton>
             }
-            title={user_name}
-            subheader={'user_id: ' + user_id}
+            title={userData && userData.user_name}
+            subheader={ userData && ( 'user_id: ' + userData.user_id) }
         />
         {/* <CardMedia
             className={classes.media}
@@ -145,11 +146,11 @@ export default function CardGenInfo({curUser}) {
         <CardContent>
         {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
           <Typography variant="body2" color="textSecondary" component="p">
-            Статус: <span style={{color: themess.palette.type === 'dark' && 'white'}} > Активный(*)</span> 
+            Статус: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_status}</span>
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Огранизация: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {org_name} </span> 
+            Огранизация: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.org_name} </span>
             {/* Сотрудник огранизации № {user_org_id}. */}
           </Typography>
           {/*<Typography variant="body2" color="textSecondary" component="p">*/}
@@ -157,25 +158,25 @@ export default function CardGenInfo({curUser}) {
           {/*</Typography>*/}
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Должность: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {user_post}</span> 
+            Должность: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_post}</span>
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Роль: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {user_role}</span> 
+            Роль: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_role}</span>
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: themess.palette.type === 'dark' && 'white'}} > +7 964 765-09-66(*)</span> 
+          <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_tel}</span>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: themess.palette.type === 'dark' && 'white'}} > ShmidtDU@mos.ru(*)</span> 
+          <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_email}</span>
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > "2021-03-07"(*)</span> 
+            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_reg_date}</span>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > "2021-04-02"(*)</span> 
+            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_end_date}</span>
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

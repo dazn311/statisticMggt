@@ -15,5 +15,5 @@ export const selectCurrentUserShort = createSelector(
 
 export const selectCurrentUserAllData = createSelector(
   [selectCurUserShort],
-  user => user.curUserAllData
+  user => user.curUserAllData[0]
 );

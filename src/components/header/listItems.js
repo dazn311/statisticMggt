@@ -32,7 +32,7 @@ const MainListItems = ( {location,  drawerClose} ) => {
         activePage = 'obj';
     }
 
-    console.log('activePage', activePage)
+    // console.log('activePage', activePage)
 
     return(
 

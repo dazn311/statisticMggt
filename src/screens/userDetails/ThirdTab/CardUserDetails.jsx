@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useEffect }  from 'react';
  
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -34,7 +34,8 @@ import DialogSetDate from '../../../components/dialogSetDate/DialogSetDate';
 
 
 import { selectAllOrgFromUsersDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
- 
+import { updateCurUserFullData } from '../../../store/user/user.actions';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: '95%',
@@ -203,31 +204,67 @@ const userLoginInitial = (userName) => {
 
 /////////////////////////////////////////////////////
 
-const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
+const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUserData }) => {
     const [state, setState] = React.useState(selectAllOrgFromUsers);
+
+
+    const [userID, setUserID] = React.useState(curUser.user_id);
+    const [userName, setUserName] = React.useState(curUser.user_name);
+    const [userShortName, setUserShortName] = React.useState(curUser.user_name);
+
+    const [orgID, setOrgID] = React.useState(0);
     const [org, setOrg] = React.useState(selectAllOrgFromUsers[0]);
 
-    const [userName, setUserName] = React.useState(curUser.user_name);
+    const [userRole, setUserRole] = React.useState(curUser.user_role);
     const [userPost, setUserPost] = React.useState(curUser.user_post);
-    const [userLogin, setUserLogin] = React.useState(userLoginInitial(curUser.user_name));
+    const [userLogin, setUserLogin] = React.useState(userLoginInitial(curUser.user_shortname));
     const [userPassword, setUserPassword] = React.useState('');
     const [userTel, setUserTel] = React.useState('+7 (925) 789-12-25');
     const [userMail, setUserMail] = React.useState('ShmidtDU@mos.ru');
+    const [userStatus, setUserStatus] = React.useState(false);
+    const [userLastSeen, setUserLastSeen] = React.useState("2021-01-01T10:29:21.916Z");
 
-    const [selectedDate, setSelectedDate] = React.useState('2021-09-28');
+    const [ userEndDate, setUserEndDate] = React.useState('2021-09-28'); // дата окончания регистрации
 
     const [textS, setTextS] = React.useState('');
-    const [checkS, setCheckS] = React.useState({
-        checkedA: false,
-        checkedB: true,
-      });
-      const classes = useStyles();
-      const curTheme = useTheme();
+    const [checkS, setCheckS] = React.useState({checkedA: false, checkedB: true, });
+
+    const classes = useStyles();
+    const curTheme = useTheme();
     //   curTheme.palette.primary.main
+
+    const updateUserData = () => {
+
+
+        setTimeout(() => {
+            const newData = [
+                {
+                    "user_id": userID,
+                    "user_name": userName,
+                    "user_login": userLogin,
+                    "user_password": userPassword,
+                    "user_status": userStatus,
+                    "user_shortname": userShortName,
+                    "user_org_id": orgID,
+                    "org_name": org,
+                    "user_role": userRole,
+                    "user_post": userPost,
+                    "user_email": userMail,
+                    "user_tel": userTel,
+                    "user_reg_date": userData.user_reg_date || "2021-01-01T13:13:48.537Z",
+                    "user_end_date": userEndDate + "T19:19:48.537Z",
+                    "user_last_seen": userLastSeen
+                }
+            ];
+            updateCurUserData(newData)
+        },500);
+
+
+    }
     
       const setUserDateActive = (event) => {
           // console.log('event.target.value',event.toLocaleString().split(',')[0])
-          setSelectedDate( event.toLocaleString().split(',')[0] );
+          setUserEndDate( event.toLocaleString().split(',')[0] );
       };
 
       const changeUserNam = (event) => {
@@ -241,6 +278,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
       };
       const changeUserLogin = (event) => {
           setUserLogin( event.target.value );
+
       };
       const changeUserPassword = (event) => {
           setUserPassword( event.target.value );
@@ -269,6 +307,11 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
 
       const handleChangeCheck = (event) => {
         setCheckS({ ...state, [event.target.name]: event.target.checked });
+          // console.log('event.target.name',event.target.checked)
+          if (!event.target.checked){
+              updateUserData();
+          }
+
       };
 
       const changeText = (event) => {
@@ -288,18 +331,36 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
         numbers: true
     });
 
-    // 'uEyMTw32v9'
-    // console.log(password);
+    const setChecked = (status) => {
+        setUserStatus(status);
+    }
 
-  // console.log('curUser', curUser);
-    //   console.log('selectAllOrgFromUsers', selectAllOrgFromUsers); 
 
- 
- 
-  // const formatDate = (data) => {
-  //   // console.log('999 data',data);
-  //   return new Intl.DateTimeFormat('ru-Ru').format(new Date(data))
-  // }
+
+
+
+
+    useEffect(() => {
+
+        if (userData !== {}){
+            const {  user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen, user_org_id, org_name } = userData ;
+            setUserTel(user_tel);
+            setUserMail(user_email);
+            setOrgID(user_org_id);
+            setOrg(org_name);
+            setUserEndDate((user_end_date || '2021-01-01T15:15').split('T')[0]);
+            if ( user_status === 'Аккаунт активен'){
+                setUserStatus(true);
+            }
+            setUserLastSeen(user_last_seen);
+        }
+
+
+
+    },[userData]);
+
+
+
  
   return (
     <div className="row">
@@ -340,6 +401,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
                                 <td>
                                     <Select
                                     native
+                                    disabled
                                     value={org}
                                     onChange={handleChangeOrg}
                                     >
@@ -432,12 +494,12 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers }) => {
 
                                 </td>
                                 <td>Активировать</td>
-                                <td> <CheckBox/></td>
+                                <td> <CheckBox checked={userStatus} setChecked={setChecked} /></td>
                             </tr>
                             <tr>
                                 <td>  </td>
                                 <td>Действует до: </td>
-                                <td>  <DialogSetDate selectedDate={selectedDate} setSelectedDate={setUserDateActive} caption={selectedDate} /> </td>
+                                <td>  <DialogSetDate selectedDate={userEndDate} setSelectedDate={setUserDateActive} caption={userEndDate} /> </td>
                             </tr> 
                         </tbody>
                     </table>
@@ -454,4 +516,9 @@ const mapStateToProps = createStructuredSelector ({
     selectAllOrgFromUsers: selectAllOrgFromUsersDb, // события короткие данные для таблицы
   });
 
-export default connect(mapStateToProps)(CardUserDetails);
+
+const mapDispatchToProps = (dispatch) => ({
+  updateCurUserData: (start,end) => dispatch(updateCurUserFullData(start,end)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardUserDetails);

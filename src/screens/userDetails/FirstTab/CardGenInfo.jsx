@@ -3,16 +3,16 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+// import { red } from '@material-ui/core/colors';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Divider from "@material-ui/core/Divider";
@@ -26,6 +26,8 @@ import MenuList from '@material-ui/core/MenuList';
 
 
 // import PopupMenu from "./PopupMenu";
+
+import {formatDateISO} from "../../../hoc/formatDate";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardGenInfo({ curUser }) { 
+export default function CardGenInfo({ curUser, allData }) {
   const [expanded, setExpanded] = React.useState(false); 
   const [open, setOpen] = React.useState(false);
 
@@ -92,7 +94,7 @@ export default function CardGenInfo({ curUser }) {
 
   if (!curUser) return (<div>loading..</div>);
 
-  const { user_id, user_name, user_shortname, user_org_id, org_name, user_post, user_role, user_last_seen } = curUser;
+  const { user_id, user_name, user_shortname, user_status, user_org_id, org_name, user_post, user_role, user_last_seen } = curUser;
 
   let lastActive = (user_last_seen || '2021-01-01T13:13:13.298Z').split('T')[0];
   lastActive = lastActive.split('-');
@@ -103,6 +105,7 @@ export default function CardGenInfo({ curUser }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
 
   return (
     <Card className={classes.root}>
@@ -139,8 +142,8 @@ export default function CardGenInfo({ curUser }) {
             </Popper>
           </IconButton>
         }
-        title={user_name}
-        subheader={'user_id: ' + user_id}
+        title={ allData ? allData.user_name : user_name}
+        subheader={ allData ? ('user_id: ' + allData.user_id) : ('user_id: ' + user_id)}
       />
       {/* <CardMedia
             className={classes.media}
@@ -150,15 +153,15 @@ export default function CardGenInfo({ curUser }) {
       <CardContent>
         {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
         <Typography variant="body2" color="textSecondary" component="p">
-          Пос. активность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {lastActive}</span>
+          Пос. активность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_active : lastActive}</span>
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
-          Статус: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > Активный(*)</span>
+          Статус: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? allData.user_status :  user_status}</span>
         </Typography>
         <Divider />
         <Typography variant="body2" color="textSecondary" component="p">
-          Огранизация: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {org_name} </span>
+          Огранизация: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.org_name :  org_name} </span>
           {/* Сотрудник огранизации № {user_org_id}. */}
         </Typography>
         {/*<Typography variant="body2" color="textSecondary" component="p">*/}
@@ -166,25 +169,25 @@ export default function CardGenInfo({ curUser }) {
         {/*</Typography>*/}
 
         <Typography variant="body2" color="textSecondary" component="p">
-          Должность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {user_post}</span>
+          Должность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_post :  user_post}</span>
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
-          Роль: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > {user_role}</span>
+          Роль: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? allData.user_role :  user_role}</span>
         </Typography>
         <Divider />
         <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > +7 964 765-09-66(*)</span>
+          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_tel :  'user_tel'}</span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > ShmidtDU@mos.ru(*)</span>
+          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_email : 'user_email'}</span>
         </Typography>
         <Divider />
         <Typography variant="body2" color="textSecondary" component="p">
-          Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > "2021-03-07"(*)</span>
+          Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? formatDateISO(allData.user_reg_date) : 'user_reg_date'}</span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Дата окончания рег.: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > "2021-04-02"(*)</span>
+          Дата окончания рег.: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? formatDateISO(allData.user_end_date)  : 'user_end_date'}</span>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

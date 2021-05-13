@@ -47,15 +47,13 @@ const EventDetail = ({ idObj,currObj, selectObjs, orgRow, fetchObjRectList, sele
 
   return (
     <div style={{display:'flex',flexWrap:'wrap', justifyContent:'flex-start'}} >
-      <div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4dfdf2e',margin: '5px', minWidth: 300}} >
-          {/*<div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}} >Общие сведения</div>*/}
+      {/*<div  style={{display:'flex', boxShadow: '1px solid #e4dfdf2e', margin: window.innerWidth < 500 ? '0' : '4px', minWidth: 300, width: window.innerWidth < 500 ? 'auto' : '40%'}} >*/}
           <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo> 
-      </div> 
+      {/*</div> */}
 
-      <div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 360}} >
-          {/*<div style={{padding: '2px 10px', fontSize: 'larger', color: '#2323a2',textAlign: 'center', fontWeight: 500, lineHeight: 1.75, whiteSpace: 'normal', letterSpacing: '0.02857em'}}  >События</div>*/}
+      {/*<div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 360, width: window.innerWidth < 500 ? 'auto' : '40%'}} >*/}
           <CardEventInfo currObj={currObj} objRect={selectObjRect} ></CardEventInfo> 
-      </div> 
+      {/*</div> */}
 
 
     </div>

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DialogSetDate({caption, selectedDate, setSelectedDate}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  // const [age, setAge] = React.useState('');
 //   const [selectedDate, setSelectedDate] = React.useState('2021-05-05');
 //   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
@@ -38,9 +38,9 @@ export default function DialogSetDate({caption, selectedDate, setSelectedDate}) 
     setSelectedDate(date);
   };
 
-  const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
-  };
+  // const handleChange = (event) => {
+  //   setAge(Number(event.target.value) || '');
+  // };
 
   const handleClickOpen = () => {
     setOpen(true);

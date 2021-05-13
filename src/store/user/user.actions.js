@@ -1,5 +1,5 @@
 import { UserActionTypes, userData } from './user.types'; 
-import { FetchData } from '../adminPanelTrest/adminPanelTrest.types';
+import {FetchData, FetchDataUsersPage} from '../adminPanelTrest/adminPanelTrest.types';
 import axios from "axios";
 
 export const putDataUsersOnlineError = (errorMessage) => ({
@@ -18,6 +18,7 @@ export const setCurUserShort = user => ({
   type: userData.SET_USER_SHORT_CUR_FOR_USER_CARD_PAGE,
   payload: user
 });
+
 export const setCurUserAllData = user => ({
   type: userData.FETCH_USER_CURRENT_FOR_USER_CARD_DETAILS_PAGE,
   payload: user
@@ -31,15 +32,17 @@ export const setCurUserShortAsync = (data)  => {
   };
 };
 
+
+
 /////////////////////////
 
-async function postData(url = '', data = {}) {
+async function postData(url = '', userID = '') {
     
   try {
     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
     const response = await axios.post(url, 
-      { data: data },
-      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors'});
+      { userID: userID },
+      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'cors'});
 
     return response.data;
   } catch (e) {
@@ -62,18 +65,38 @@ export const fetchCurrentUserAsync = (id)  => {
 };
 
 // fetch for App.js get logined user in this app
-export const fetchCurrentUserAllDataAsync = (id)  => {
-  console.log('👉 fetchCurrentUserAllDataAsync start:' );
+// export const fetchCurrentUserAllDataAsync = (id)  => {
+//   console.log('👉 fetchCurrentUserAllDataAsync start:' );
+//   return (dispatch) => {
+//     postData('http://localhost:3004/api/users', {'id':id})
+//       .then((user) => {
+//           dispatch(setCurUserAllData(user))
+//         })
+//       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+//   };
+// };
+
+
+//290421 UsersPage page - TabOneMenu
+export const fetchUserById = (userID)  => {
+  console.log('👉 fetchUserById start:',userID );
   return (dispatch) => {
-    postData('http://localhost:3004/api/users', {'id':id})
-      .then((user) => {
-          dispatch(setCurUserAllData(user))
+    postData('https://ismggt.ru/query/user/info', userID,'post') //work
+        .then((user) => {
+          console.log('👉 fetchUserById then:',user );
+          dispatch(setCurUserAllData(user));
         })
-      .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
 
-
+//290421 UsersPage page - TabOneMenu
+export const updateCurUserFullData = (userData)  => {
+  console.log('👉 updateCurUserFullData start:',userData );
+  return (dispatch) => {
+          dispatch(setCurUserAllData(userData));
+  };
+};
 
 
 
