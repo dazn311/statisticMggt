@@ -143,7 +143,7 @@ export default function CardGenInfo({ curUser, allData }) {
           </IconButton>
         }
         title={ allData ? allData.user_name : user_name}
-        subheader={ allData ? ('user_id: ' + allData.user_id) : ('user_id: ' + user_id)}
+        subheader={ allData  ? ('user_id: ' + allData.user_id) : ('user_id: ' + user_id && user_id)}
       />
       {/* <CardMedia
             className={classes.media}
@@ -153,7 +153,7 @@ export default function CardGenInfo({ curUser, allData }) {
       <CardContent>
         {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
         <Typography variant="body2" color="textSecondary" component="p">
-          Пос. активность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_active : lastActive}</span>
+          Пос. активность: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? formatDateISO(allData.user_last_seen)  : lastActive}</span>
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
@@ -180,14 +180,14 @@ export default function CardGenInfo({ curUser, allData }) {
           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_tel :  'user_tel'}</span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_email : 'user_email'}</span>
+          <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_email : 'user@email'}</span>
         </Typography>
         <Divider />
         <Typography variant="body2" color="textSecondary" component="p">
-          Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? formatDateISO(allData.user_reg_date) : 'user_reg_date'}</span>
+          Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? formatDateISO(allData.user_reg_date) : '01.01.21'}</span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Дата окончания рег.: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? formatDateISO(allData.user_end_date)  : 'user_end_date'}</span>
+          Дата окончания рег.: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? formatDateISO(allData.user_end_date)  : '01.01.21'}</span>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

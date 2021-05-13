@@ -221,7 +221,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
     const [userPassword, setUserPassword] = React.useState('');
     const [userTel, setUserTel] = React.useState('+7 (925) 789-12-25');
     const [userMail, setUserMail] = React.useState('ShmidtDU@mos.ru');
-    const [userStatus, setUserStatus] = React.useState(false);
+    const [userStatus, setUserStatus] = React.useState('false');
     const [userLastSeen, setUserLastSeen] = React.useState("2021-01-01T10:29:21.916Z");
 
     const [ userEndDate, setUserEndDate] = React.useState('2021-09-28'); // дата окончания регистрации
@@ -243,7 +243,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                     "user_name": userName,
                     "user_login": userLogin,
                     "user_password": userPassword,
-                    "user_status": userStatus,
+                    "user_status": userStatus ? 'Аккаунт активен': 'Аккаунт не активен',
                     "user_shortname": userShortName,
                     "user_org_id": orgID,
                     "org_name": org,
@@ -353,6 +353,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                 setUserStatus(true);
             }
             setUserLastSeen(user_last_seen);
+            setUserRole(user_role);
         }
 
 
