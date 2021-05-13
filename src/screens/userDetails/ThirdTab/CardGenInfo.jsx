@@ -25,6 +25,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 
+import {formatDateISO} from "../../../hoc/formatDate";
+
 // import PopupMenu from "./PopupMenu";
 
 const useStyles = makeStyles((theme) => ({
@@ -173,10 +175,10 @@ export default function CardGenInfo({curUser, userData}) {
           </Typography>
           <Divider />
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_reg_date}</span>
+            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_reg_date)}</span>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_end_date}</span>
+            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_end_date) }</span>
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
