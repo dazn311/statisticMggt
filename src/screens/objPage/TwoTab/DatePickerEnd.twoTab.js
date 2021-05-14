@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(4),
-    width: 200,
+    marginRight: theme.spacing(2),
+    width: window.innerWidth < 500 ? 160 : 200,
   },
 }));
 

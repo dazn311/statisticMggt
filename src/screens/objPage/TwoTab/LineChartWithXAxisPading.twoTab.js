@@ -9,7 +9,7 @@ class LineChartWithXAxisPading extends PureComponent {
 //   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/g03265a4/';
 constructor(props) {
   super(props);
-  this.state = {widthWin: window.innerWidth};
+  this.state = {widthWin: window.innerWidth < 500 ? (window.innerWidth - 20): (window.innerWidth - 100)};
 }
 
 render() {
@@ -25,7 +25,7 @@ render() {
         margin={{
           top: 20,
           right: 30,
-          left: 20,
+          left: window.innerWidth < 500 ? -20: 20,
           bottom: 15,
         }}
       >

@@ -97,9 +97,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tabRight: {width: '80%', display: 'flex', overflowY: 'scroll', overflowX: 'scroll', scrollbarColor: 'grey red', cursor: 'all-scroll',boxShadow: '0px 0px 10px 0px darkgrey',textAlign: 'center'},
   tabLeft: {width: '20%', marginRight: '10px', paddingRight:'5px', paddingLeft:'15px',boxShadow: '0px 0px 10px 0px darkgrey', color: 'red'},
-  datePick: {
+  datePickBlock: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
@@ -357,7 +357,7 @@ const TabTwoMenu = ({fetchAllEventsGraphic, fetchAllUsersGraphic, newEventsGraph
   return (
     <React.Fragment>
       <div className={classes.seeMore}>
-            <div className={classes.datePick}>
+            <div className={classes.datePickBlock}>
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
