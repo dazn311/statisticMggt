@@ -48,9 +48,9 @@ const CardUserDetails = ({ curUser }) => {
                     <table className="table mbn tc-icon-1 tc-med-2 tc-bold-last">
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,9 +85,9 @@ const CardUserDetails = ({ curUser }) => {
                     <table className="table mbn tc-icon-1 tc-med-2 tc-bold-last">
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,9 +126,9 @@ const CardUserDetails = ({ curUser }) => {
                     <table className="table mbn tc-icon-1 tc-med-2 tc-bold-last">
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

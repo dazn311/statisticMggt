@@ -375,9 +375,9 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                     <table >
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -424,9 +424,9 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                     <table >
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -484,9 +484,9 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                     <table >
                         <thead>
                             <tr className="hidden">
-                                <th className="mw30">#</th>
-                                <th>Имя</th>
-                                <th>Revenue</th>
+                                <th className="mw30"></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

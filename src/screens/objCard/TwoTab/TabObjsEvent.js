@@ -26,8 +26,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Random, Wave  } from 'react-animated-text';
   
 import MessAlert from './Messages.alert';
-  
-import { setObjCurrForDetailPageAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
+
 
 import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
@@ -76,72 +75,43 @@ const CellTab = ({org, name}) => {
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selectObjs, isOpenD=true, setPageT,offset, isLoading }) => {
+
+
+
+
+
+
+
+////////////////////////////////
+const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setPageT,offset, isLoading, stFilterSearch }) => {
 
   const [page, setPage] = React.useState(1);
-  // const [setPage] = React.useState(0);
   const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false);
-  // const [locale, setLocale] = React.useState('ruRU');
-  
+
   const history = useHistory();
-  
-  // const {currentPage, totalPages, amount} = amObjsValue;
-  // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
-  // console.log('TabObjs -- page',page);
-  // console.log('TabObjs -- tabValue:',tabValue);
- 
 
   useEffect(() => {
-    // console.log('TabObjs --offset',offset);
     if (offset === '0'){
       setPage(1);
     }
-    
   },[offset])
 
   const classes = useStyles();
    
   const handleChangePage = (event, newPage) => {
-    // if (newPage === 1) {
-      // pageCoutnt += newPage;
-      // setPageT(newPage);
       setPage(newPage);
-   // }
-     
-    console.log('handleChangePage --newPage',newPage);
-    // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
-  }; 
-
+  };
   // для детальной информации
   const closeDetail = () => {
     setIsOpenDetail(false);
   }
-
-
-  const showEvents = (row) => { 
-      // setOrgName(row);
-      // setObjCurrForDetailPage(row);
-      //
-      // history.push({
-      //   pathname: `/stats/obj/${row.objID}`,
-      //   // search: '?query=obj',
-      //    row: row
-      // });
+  const showEvents = (row) => {
   }
 
-//   const someEventHandler = event => {
-//     history.push({
-//         pathname: '/stats/objs',
-//         search: '?query=obj',
-//         state: { row: row }
-//     });
-//  };
-
-  console.log('selectObjs selectObjs selectObjs',selectObjs)
+  // console.log('selectObjs selectObjs selectObjs',selectObjs)
   let openRed = false, openGreen = false;
 
- 
   if (!tabValue) { 
     openRed = true;
     // openGreen = false;
@@ -153,7 +123,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
   }
 
   const pages = parseInt(selectObjs.length / 6);
-  
+  //  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
   return ( 
     <>
     <TableContainer component={Paper}>
@@ -173,6 +143,7 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
           {selectObjs && selectObjs.length ?
               selectObjs
           .filter((row,i) => i < (page*6) && i >= (page*6 -6) )
+          .filter((row,i) => row.sender.username.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) || row.sender.orgname.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) )
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -240,17 +211,8 @@ const TabObjsEvent = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, selec
                   effectDirection="down"
                   effectChange={3.0}
                 /> : 'нет данных')}   </TableCell>
-              {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
-              {/*<TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{tabValue ? <LinearIndeterminate /> */}
-              {/*   : (isLoading  ? <Random*/}
-              {/*    text={'нет данных'} */}
-              {/*    effect="verticalFadeOut"*/}
-              {/*    effectDirection="down"*/}
-              {/*    effectChange={3.0}*/}
-              {/*  /> : 'нет данных')}   </TableCell> */}
                
-            </TableRow>)) 
-          // : <div style={{position: 'absolute', width:'100%', display:'flex', justifyContent:'center'}}><CircularProgress size={134} color='primary' /> </div>
+            </TableRow>))
 
         }
         </TableBody> 
@@ -272,11 +234,6 @@ const mapStateToProps = createStructuredSelector ({
     selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });
-  
-  const mapDispatchToProps = (dispatch) => ({
-    // Для  
-    // fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate)),
-    setObjCurrForDetailPage: (object ) => dispatch(setObjCurrForDetailPageAsync(object )),
-  });
 
-  export default connect(mapStateToProps,mapDispatchToProps)(TabObjsEvent);
+
+export default connect(mapStateToProps)(TabObjsEvent);

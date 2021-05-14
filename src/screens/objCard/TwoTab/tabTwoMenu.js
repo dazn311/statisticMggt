@@ -176,7 +176,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
     if ( selectObjs && selectObjs.length < 1){
       // console.log('TabOneMenu -- 444  fetchObjectsList  offset');
       setIsLoading(true);
-      fetchSearchObj('0');
+      // fetchSearchObj('0');
     }else {
       analizeObjs(selectObjs);
     }
@@ -186,29 +186,14 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
   ///////////////////////////////////////////
 
 
-  const setRadioValue = useCallback((val) => {
-    // setIsLoading(prevState => !prevState);
-
-    setStFilterVal({...stFilterVal, objectType: val, offset: '0' } )
-  },[stFilterVal]);
-
-  const setRadioValInWork = useCallback((val) => {
-    // setIsLoading(prevState => !prevState);
-    setStFilterVal({...stFilterVal, objStatus: val, offset: '0' } );
-  } ,[stFilterVal]);
-
-  const setRadioValOdh = useCallback((val) => {
-    // setIsLoading(prevState => !prevState);
-    setStFilterVal({...stFilterVal, objKind: val, offset: '0' } );
-  } ,[stFilterVal]);
 
   const setSearchTextObj = useCallback((val) => {
-    // setStFilterSearch({...stFilterSearch, objName: val });
+    setStFilterSearch({...stFilterSearch, objName: val });
     // setStFilterVal({...stFilterVal, offset: '0' } );
   } ,[stFilterSearch,stFilterVal]);
 
   const setSearchTextOrg = useCallback((val) => {
-    // setStFilterSearch({...stFilterSearch, orgName: val } );
+    setStFilterSearch({...stFilterSearch, orgName: val } );
     // setStFilterVal({...stFilterVal, offset: '0' } );
   } ,[stFilterSearch,stFilterVal]);
 
@@ -229,14 +214,6 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
           <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
-
-            <div style={{display: 'none', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
-                  <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
-                  <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
-                  <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
-            </div>
-
-
             <div  style={{display:'flex', justifyContent: 'flex-start', flexWrap: window.innerWidth < 500 ? 'nowrap': 'nowrap', width: '100%', maxWidth: 414}}  >
               <DatePicker setDateStart={setDateStart} />
               <DatePickerEnd setDateEnd={setDateEnd} />
@@ -247,7 +224,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
             </Button>
 
           </div>
-            <TabObjsEvent tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
+            <TabObjsEvent tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true} stFilterSearch={stFilterSearch}  setPageT={setPageT}  offset={offsetSt} />
            
         </div>
         <Grid item xs={12} style={{display: selectErrorFetch ? 'block': 'none'}} >

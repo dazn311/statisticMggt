@@ -36,11 +36,14 @@ const useStyles = makeStyles((theme) => ({
 export default function StateElements({amObjsValue, amObjsValueCurrent, selectObjs}) {
 
   const classes = useStyles();
-
+  console.log('999 StateElements selectObjs',selectObjs)
+  if (!selectObjs) {
+    return (<div>Нет данных..</div>)
+  }
   return ( 
     <React.Fragment>
       <Grid container alignItems="center" className={classes.root}>
-          <div className={classes.amObjs}>   <span style={{color:'#5a809e'}}>{selectObjs.objName}</span><span style={{color:'grey'}}> (objID: {selectObjs.objID})</span></div>
+          <div className={classes.amObjs}>   <span style={{color:'#5a809e'}}>{selectObjs && selectObjs.objName}</span><span style={{color:'grey'}}> (objID: {selectObjs && selectObjs.objID})</span></div>
         <Divider orientation="vertical" flexItem  />
           <div className={classes.amObjs}>имеют события: <span style={{color:'green'}}>{selectObjs.objRelatives.length}</span> <span style={{color:'grey'}}> ({selectObjs.objRelatives.length})</span></div>
         {/*<Divider orientation="vertical" flexItem />*/}
