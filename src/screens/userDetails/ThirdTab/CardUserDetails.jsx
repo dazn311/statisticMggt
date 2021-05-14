@@ -233,6 +233,24 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
     },[userData]);
 
+
+    let newArr = [];
+
+    function onlyUnique(value, index, self) {
+        if(self.indexOf(value) < index){
+            newArr.push(value);
+        }
+        return self.indexOf(value) === index;
+    }
+
+    // if (state){
+    //     let lenOrg = state.length;
+    //     console.log('lenOrg',lenOrg)
+    //
+    //     let unique = state.filter(onlyUnique);
+    //     console.log('unique',unique);
+    // }
+
   return (
     <div className="row">
         <div className="col-md-5">
@@ -243,7 +261,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                 <div className="panel-body pn">
                     <table >
                         <thead>
-                            <tr className="hidden">
+                            <tr  className="hidden">
                                 <th className="mw30"></th>
                                 <th></th>
                                 <th></th>
@@ -259,7 +277,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                                     value={org}
                                     onChange={handleChangeOrg}
                                     >
-                                    {state.map((el, index) => <option key={index} value={el}>{el}</option>)}
+                                    {state.filter(onlyUnique).map((el, index) => <option key={index} value={el}>{el}</option>)}
                                     </Select>
                                 </td>
                             </tr>

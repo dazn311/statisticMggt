@@ -22,6 +22,8 @@ import MenuList from '@material-ui/core/MenuList';
 
 
 import {formatDateISO} from "../../../hoc/formatDate";
+import Select from "@material-ui/core/Select";
+import {LoginField, PostField} from "../../../components/tabcells/TabCells";
 
 // import PopupMenu from "./PopupMenu";
 
@@ -143,44 +145,100 @@ export default function CardGenInfo({curUser, userData}) {
             title={user_name}
         /> */}
         <CardContent>
-        {/* { user_id, user_name, user_shortname, user_org_id, org_name}  */}
-          <Typography variant="body2" color="textSecondary" component="p">
-            Статус: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_status}</span>
-          </Typography>
-          <Divider className={classes.divider} />
-          <Typography variant="body2" color="textSecondary" component="p">
-            Огранизация: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.org_name} </span>
-            {/* Сотрудник огранизации № {user_org_id}. */}
-          </Typography>
+          <div className="">
+            <table >
+              <thead>
+              <tr  className="hidden">
+                <th className="mw30"></th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}} >Статус</td>
+                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}>
+                  {userData && userData.user_status}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque'}} >Огранизация </td>
+                <td> {userData && userData.org_name}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}} >Должность </td>
+                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> {userData && userData.user_post}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}} >Роль </td>
+                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> {userData && userData.user_role}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque'}} >Телефон </td>
+                <td> <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_tel}</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}} >Почта </td>
+                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_email}</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}} >Был в системе </td>
+                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_last_seen)}</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque'}} >Дата рег. </td>
+                <td> <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_reg_date)}</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque'}} >Дата оконч. рег. </td>
+                <td> <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_end_date) }</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
           {/*<Typography variant="body2" color="textSecondary" component="p">*/}
-          {/*  Вышестоящая огранизация № {user_org_id}.*/}
+          {/*  Статус: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_status}</span>*/}
+          {/*</Typography>*/}
+          {/*<Divider className={classes.divider} />*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Огранизация: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.org_name} </span> */}
+          {/*</Typography> */}
+
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Должность: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_post}</span>*/}
           {/*</Typography>*/}
 
-          <Typography variant="body2" color="textSecondary" component="p">
-            Должность: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_post}</span>
-          </Typography>
-
-          <Typography variant="body2" color="textSecondary" component="p">
-            Роль: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_role}</span>
-          </Typography>
-          <Divider className={classes.divider} />
-          <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_tel}</span>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-          <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_email}</span>
-          </Typography>
-          <Divider className={classes.divider} />
-          <Typography variant="body2" color="textSecondary" component="p">
-            Был в системе:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_last_seen)}</span>
-          </Typography>
-          <Divider className={classes.divider} />
-          <Typography variant="body2" color="textSecondary" component="p">
-            Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_reg_date)}</span>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_end_date) }</span>
-          </Typography>
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Роль: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_role}</span>*/}
+          {/*</Typography>*/}
+          {/*<Divider className={classes.divider} />*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*<span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_tel}</span>*/}
+          {/*</Typography>*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*<span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && userData.user_email}</span>*/}
+          {/*</Typography>*/}
+          {/*<Divider className={classes.divider} />*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Был в системе:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_last_seen)}</span>*/}
+          {/*</Typography>*/}
+          {/*<Divider className={classes.divider} />*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Дата рег.:           <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_reg_date)}</span>*/}
+          {/*</Typography>*/}
+          {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+          {/*  Дата окончания рег.: <span style={{color: themess.palette.type === 'dark' && 'white'}} > {userData && formatDateISO(userData.user_end_date) }</span>*/}
+          {/*</Typography>*/}
         </CardContent>
         <CardActions disableSpacing>
           {/* <IconButton aria-label="add to favorites">

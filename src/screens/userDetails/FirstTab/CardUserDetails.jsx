@@ -1,7 +1,7 @@
 import React  from 'react';
  
 
-import { makeStyles } from '@material-ui/core/styles'; 
+import {makeStyles, useTheme} from '@material-ui/core/styles';
  
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 // curUser={curUser} objRect={selectObjRect}
 const CardUserDetails = ({ curUser }) => {
     const classes = useStyles();
+    const themess =  useTheme();
 
 //   console.log('curUser', curUser); 
 
@@ -56,19 +57,19 @@ const CardUserDetails = ({ curUser }) => {
                         <tbody>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td>Все объектов</td>
+                                <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Все объектов</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>29(*)</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
-                                <td>Объектов в работе</td>
+                                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Объектов в работе</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>14(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
-                                <td>Согласованных объектов</td>
+                                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Согласованных объектов</td>
                                 <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>15(*)</td>
                             </tr>
                             
@@ -95,22 +96,22 @@ const CardUserDetails = ({ curUser }) => {
                                 <td>
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
-                                <td>За все время</td>
+                                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >За все время</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>140(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
-                                <td>Вложений файлов</td>
-                                <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>18(*)</td>
+                                <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}}  >Вложений файлов</td>
+                                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>18(*)</td>
                             </tr>
                             <tr  >
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td style={{borderTop:'1px solid #5f5f5f'}}>Соощений за сутки</td>
+                                <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Соощений за сутки</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>221(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td>Вложений за сутки</td>
+                                <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Вложений за сутки</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>2(*)</td>
                             </tr>
                         </tbody>
@@ -136,32 +137,32 @@ const CardUserDetails = ({ curUser }) => {
                                 <td>
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
-                                <td>Всего созданных</td>
+                                <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Всего созданных</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>14(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
-                                <td>Участников</td>
+                                <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Участников</td>
                                 <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>28(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td>Закрытых собственных</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>21(*)</td>
+                                <td  style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}}  >Закрытых собственных</td>
+                                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>21(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td style={{borderTop:'1px solid #5f5f5f'}}>Внутри своего объекта</td>
+                                <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Внутри своего объекта</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>2(*)</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td>К смежному объекту</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>9(*)</td>
+                                <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}}  >К смежному объекту</td>
+                                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}><i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>9(*)</td>
                             </tr>
                             <tr>
-                                <td> <span className="fa fa-newspaper-o text-info"></span></td>
-                                <td style={{borderTop:'1px solid #5f5f5f'}}>За сутки созданных</td>
+                                <td> <span className="fa fa-newspaper-o text-info"></span> </td>
+                                <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >За сутки созданных</td>
                                 <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>5(*)</td>
                             </tr>
                         </tbody>
