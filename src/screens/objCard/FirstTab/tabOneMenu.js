@@ -24,38 +24,11 @@ const EventDetail = ({ idObj,currObj, selectObjs, orgRow, fetchObjRectList, sele
 
   },[idObj,fetchObjRectList])
 
-
-   
-
-   let orgN = '';
-   let objN = '';
-   if (orgRow){
-    // console.log('orgRow 222');
-     if(orgRow.objName){
-      // console.log('orgRow.objName');
-      objN = orgRow.objName;
-     }
-     
-     if(orgRow.organization){
-      // console.log('orgRow.organization');
-       if(orgRow.organization.orgname){
-        orgN = orgRow.organization.orgname;
-       }
-     }
-     
-   }
-
-    console.log('selectObjRect length', selectObjRect.length);
+    // console.log('444selectObjRect',selectObjRect)
   return (
     <div style={{display:'flex',flexWrap:'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'flex-start'}} >
-      {/*<div  style={{display:'flex', boxShadow: '1px solid #e4dfdf2e', margin: window.innerWidth < 500 ? '0' : '4px', minWidth: 300, width: window.innerWidth < 500 ? 'auto' : '40%'}} >*/}
-          <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo> 
-      {/*</div> */}
-
-      {/*<div  style={{display:'flex',flexDirection:'column',boxShadow: '1px solid #e4DFDF2e',margin: '5px', minWidth: 360, width: window.innerWidth < 500 ? 'auto' : '40%'}} >*/}
-          <CardEventInfo currObj={currObj} objRect={selectObjRect} ></CardEventInfo> 
-      {/*</div> */}
-
+          <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo>
+        {selectObjRect && <CardEventInfo currObj={currObj} objRect={selectObjRect} ></CardEventInfo>}
 
     </div>
   );

@@ -229,14 +229,14 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
 
-            <div style={{display: 'flex', flexWrap:'nowrap', justifyContent: 'center', marginLeft: '-4px'}} >
+            <div style={{display: 'flex', flexDirection: 'row' , flexWrap:'nowrap', justifyContent: 'center', marginLeft: '0px', width: window.innerWidth < 500 ? '100%': 'auto'}} >
                   <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
                   <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
                   <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
             </div>
 
 
-            <div  style={{display:'flex', justifyContent: 'flex-start', flexWrap: window.innerWidth < 500 ? 'nowrap': 'nowrap', width: '100%', maxWidth: 414}}  >
+            <div  style={{display:'flex', justifyContent: window.innerWidth < 500 ? 'space-between':'flex-start', flexWrap: window.innerWidth < 500 ? 'nowrap': 'nowrap', width: window.innerWidth < 500 ? '100%': 'auto', maxWidth: 414}}  >
               <DatePicker setDateStart={setDateStart} />
               <DatePickerEnd setDateEnd={setDateEnd} />
             </div>

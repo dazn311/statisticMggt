@@ -11,19 +11,19 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserActionTypes.SET_CURRENT_USER:
-      console.log(' case UserActionTypes.SET_CURRENT_USER:',action.payload);
+      // console.log(' case UserActionTypes.SET_CURRENT_USER:',action.payload);
       return {
         ...state,
         curUser: action.payload
       };
     case userData.SET_USER_SHORT_CUR_FOR_USER_CARD_PAGE:
-      console.log(' case userData.SET_USER_SHORT_CUR_FOR_USER_CARD_PAGE:',action.payload);
+      // console.log(' case userData.SET_USER_SHORT_CUR_FOR_USER_CARD_PAGE:',action.payload);
       return {
         ...state,
         curUserShort: action.payload
       };
     case userData.FETCH_USER_CURRENT_FOR_USER_CARD_DETAILS_PAGE:
-      console.log(' case userData.FETCH_USER_CURRENT_FOR_USER_CARD_DETAILS_PAGE:',action.payload);
+      // console.log(' case userData.FETCH_USER_CURRENT_FOR_USER_CARD_DETAILS_PAGE:',action.payload);
       return {
         ...state,
         curUserAllData: action.payload

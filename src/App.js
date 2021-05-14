@@ -1,6 +1,5 @@
-import React,{useEffect, useState} from 'react';
+import React,{ useState} from 'react';
 import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,25 +7,20 @@ import {
 } from "react-router-dom";
 import { TransitionGroup } from 'react-transition-group'
 
-import { createMuiTheme, ThemeProvider, makeStyles,useTheme } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { ruRU } from '@material-ui/core/locale';
 
-import Box from '@material-ui/core/Box'; 
-// import blue from '@material-ui/core/colors/blue';
+import Box from '@material-ui/core/Box';
 import { blue, blueGrey, lightBlue, lightGreen } from '@material-ui/core/colors';
-// import { dark, light } from '@material-ui/core/styles/createPalette';
 
 import './App.styles.scss';
 
 import Header from './components/header/header.component';
 
 import { fetchCurrentUserAsync } from './store/user/user.actions'
-// import { selectCurTheme } from './store/themes/theme.selectors';
 
-import clsx from 'clsx'; 
-// import CssBaseline from '@material-ui/core/CssBaseline';
- 
-import {withSuspense} from './hoc/withSuspense'; 
+import clsx from 'clsx';
+
 
 import Dashboard from './screens/dashboard'; 
 import HistoriesChange from './screens/historyChanges/index'; 
@@ -38,13 +32,6 @@ import GeneralPage from './screens/gen';
 import Footer from './components/footer'; 
  
 
-// const ObjCard = React.lazy(() =>  import('./screens/objCard/index'));
-// const SusObjCard = withSuspense(ObjCard);
-// const UserDetails = React.lazy(() =>  import('./screens/userDetails'));
-// const SusUserDetails = withSuspense(UserDetails);
-
-// const GeneralPage = React.lazy(() =>  import('./screens/gen'));
-// const SusGenPage = withSuspense(GeneralPage);
 const darkTheme = createMuiTheme({
   palette: {
     primary: { 
@@ -88,7 +75,6 @@ const lightTheme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-      // display: 'flex',
       width: '100%',
   },
   container: {
@@ -98,24 +84,17 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-//glav control
 const App = () => { 
   const [darkThemeS, setDarkThemeS] = useState(true);
   const classes = useStyles(); 
 
-  console.log('rerender App');
-  
   const setTheme = () => {
     setDarkThemeS(!darkThemeS);
     
   }
 
-
-
   return (
-    // <div className="App">
     <div className={clsx(classes.root )} >
-      {/* <CssBaseline /> */}
       <ThemeProvider theme={darkThemeS ? darkTheme : lightTheme}>
       <TransitionGroup  timeout={150} >
           <Router>
@@ -164,15 +143,8 @@ const App = () => {
   );
 }
 
-// export default App;
-
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrentUser: (id) => dispatch(fetchCurrentUserAsync(id)),
 });
-
-
-// const mapStateToProps = createStructuredSelector ({ 
-//   curTheme: selectCurTheme,
-// });
 
 export default connect(null,mapDispatchToProps)(App);

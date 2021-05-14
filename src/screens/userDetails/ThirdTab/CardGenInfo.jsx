@@ -3,16 +3,12 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Divider from "@material-ui/core/Divider";
@@ -98,10 +94,7 @@ export default function CardGenInfo({curUser, userData}) {
 
   if (!curUser) return (<div>loading..</div>);
   
-  const {  user_name, user_shortname, user_org_id, org_name, user_post} = curUser ;
-  // const { user_id, user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen } = userData ;
-  // console.log('8989 CardGenInfo curUser', curUser);
-  // console.log('8989 CardGenInfo org_name', org_name);
+  // const {  user_name, user_shortname, user_org_id, org_name, user_post} = curUser ;
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

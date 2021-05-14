@@ -54,12 +54,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const filterSearchTextUser = (selectAllUsers=[], filterUser) => {   
-  // console.log('filterSearchTextUser',filterUser)
-  return [{user_name:'va'},{user_name:'vs'}].filter((elem) => elem.user_name.includes(filterUser))
-  // return selectAllUsers.filter((elem) => elem.user_name.includes(filterUser))
-  
-} 
+// const filterSearchTextUser = (selectAllUsers=[], filterUser) => {
+//   // console.log('filterSearchTextUser',filterUser)
+//   return [{user_name:'va'},{user_name:'vs'}].filter((elem) => elem.user_name.includes(filterUser))
+//   // return selectAllUsers.filter((elem) => elem.user_name.includes(filterUser))
+//
+// }
 /////////////////////////////////////////////////////////////////////
 
 const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
@@ -91,11 +91,11 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
   // console.log('Page',page); 
   // console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
 
-  const setObjsValue = () => {
-      if (amObjsValue < selectAllUsers.length) {
-        setAmObjsValue(selectAllUsers.length)
-      }
-  }
+  // const setObjsValue = () => {
+  //     if (amObjsValue < selectAllUsers.length) {
+  //       setAmObjsValue(selectAllUsers.length)
+  //     }
+  // }
 
   const fetchSearchObj = () => { console.log('sd')}
 

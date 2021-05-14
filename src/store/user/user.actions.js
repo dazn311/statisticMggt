@@ -1,5 +1,5 @@
 import { UserActionTypes, userData } from './user.types'; 
-import {FetchData, FetchDataUsersPage} from '../adminPanelTrest/adminPanelTrest.types';
+import {FetchData} from '../adminPanelTrest/adminPanelTrest.types';
 import axios from "axios";
 
 export const putDataUsersOnlineError = (errorMessage) => ({
@@ -26,13 +26,11 @@ export const setCurUserAllData = user => ({
 
 /////////////// for User Card Page 050521 ///////////////////////////////////  
 export const setCurUserShortAsync = (data)  => {
-  console.log('👉 setCurUserShortAsync start:' );
+  // console.log('👉 setCurUserShortAsync start:' );
   return (dispatch) => { 
           dispatch(setCurUserShort(data));
   };
 };
-
-
 
 /////////////////////////
 
@@ -79,11 +77,11 @@ export const fetchCurrentUserAsync = (id)  => {
 
 //290421 UsersPage page - TabOneMenu
 export const fetchUserById = (userID)  => {
-  console.log('👉 fetchUserById start:',userID );
+  // console.log('👉 fetchUserById start:',userID );
   return (dispatch) => {
     postData('https://ismggt.ru/query/user/info', userID,'post') //work
         .then((user) => {
-          console.log('👉 fetchUserById then:',user );
+          // console.log('👉 fetchUserById then:',user );
           dispatch(setCurUserAllData(user));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -92,7 +90,7 @@ export const fetchUserById = (userID)  => {
 
 //290421 UsersPage page - TabOneMenu
 export const updateCurUserFullData = (userData)  => {
-  console.log('👉 updateCurUserFullData start:',userData );
+  // console.log('👉 updateCurUserFullData start:',userData );
   return (dispatch) => {
           dispatch(setCurUserAllData(userData));
   };

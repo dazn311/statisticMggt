@@ -1,12 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 
 import { useLocation } from "react-router-dom";
 
@@ -15,18 +12,6 @@ import TabMenu from './TabMenu'
    
 import './userDetails.styles.scss';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" component={'span'} color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mggt.ru/">
-        МосГеоТрест
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
  
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,16 +37,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     display: 'flex',
     overflow: 'auto',
-    // flexDirection: 'column',
   }, 
 }));
-//<HistoryChanges eventShortPoints={eventShortPoints}/>
  
 export default function UserCard({eventShortPoints, idUser}) {
   const classes = useStyles();
   const location = useLocation();
   const curUser = location.row;
-  // console.log('8989 UserCard idUser', idUser); 
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -70,7 +52,6 @@ export default function UserCard({eventShortPoints, idUser}) {
         <div className={classes.appBarSpacer} />
         <Container 
           maxWidth={false}
-          // maxWidth="xl" 
           className={classes.container}>
           <Grid container >
             
@@ -80,11 +61,7 @@ export default function UserCard({eventShortPoints, idUser}) {
                 <TabMenu idUser={idUser} curUser={curUser} />
               </Paper>
             </Grid>
-
           </Grid>
-          {/*<Box pt={4}> */}
-          {/*  <Copyright />*/}
-          {/*</Box>*/}
         </Container>
       </main>
     </div>

@@ -10,9 +10,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
 
-
-import SelectorMggt from '../../../components/selectorMggt';
-
 import DatePicker from './DatePicker';
 import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
@@ -75,9 +72,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
-const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
-const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
+// const valueForBtnMggt = {'смежные':'0','МГГТ':'1','Всем':'2'};
+// const valueForBtnInWork = {'Новые':'0','В работе':'1','согласованные':'2','Все':'10'};
+// const valueForBtnOgh = {'ОДХ':'ОДХ','ОО':'ОО','ДТ':'ДТ','Все':'allKind'};
 
 const filterInitial = () => {
   const endDate = new Date().toISOString().split('T')[0];
@@ -110,21 +107,21 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
   const classes = useStyles();
 
-  console.log('TabOneMenu -- selectObjs ', selectObjs)
-  console.log('TabOneMenu -- isLoading ', isLoading)
+  // console.log('TabOneMenu -- selectObjs ', selectObjs)
+  // console.log('TabOneMenu -- isLoading ', isLoading)
 
   const setPageT = useCallback((val) => {
 
     setOffsetSt(val.toString());
     setIsLoading(true);
 
-    const startDate = new Date(stFilterVal.dateStart).toISOString();
-    const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
+    // const startDate = new Date(stFilterVal.dateStart).toISOString();
+    // const endDate = new Date(stFilterVal.dateEnd).toISOString();
+    // const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
 
-    const limitPlus = stFilterVal.limit;
-    let newOffset = (val -1) * stFilterVal.limit;
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    // const limitPlus = stFilterVal.limit;
+    // let newOffset = (val -1) * stFilterVal.limit;
+    // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
     // console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
     // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
 
@@ -151,14 +148,14 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 ///////////////////////////////////////////
   const fetchSearchObj = useCallback((offset) => {
     setIsLoading(true);
-    const startDate = new Date(stFilterVal.dateStart).toISOString();
-    const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
-    const limitPlus = stFilterVal.limit;
+    // const startDate = new Date(stFilterVal.dateStart).toISOString();
+    // const endDate = new Date(stFilterVal.dateEnd).toISOString();
+    // const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
+    // const limitPlus = stFilterVal.limit;
     setOffsetSt('0');
     let newOffset = '0';
     if (offset !== '0'){newOffset = offset;}
-    let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
+    // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
     // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
     // console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);

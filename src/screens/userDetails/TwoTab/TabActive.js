@@ -69,8 +69,7 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
   const [page, setPage] = React.useState(1); 
   const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false); 
-  
-  const history = useHistory(); 
+
  
 
   useEffect(() => { 

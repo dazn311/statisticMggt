@@ -16,8 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
   
 import MessAlert from './Messages.alert'
- 
-import { fetchEventFromPeriodAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
+
  
 import { selectEventShortPoints, selectStatusEventPoint, selectStatusEnumEventPointColor, fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 
@@ -36,7 +35,6 @@ let rows = [];
 const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor) => {
   rows = [];
   let nodesEvent = eventShortPoints;
-  // console.log('refactData -- nodesEvent',nodesEvent);
   if (Array.isArray(eventShortPoints) ) {
       nodesEvent = _.orderBy(eventShortPoints, ['date'], ['desc']);
       rows = nodesEvent;
@@ -45,7 +43,6 @@ const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor)
     rows = []
   }
 
-  // console.log('rerender refactData');
   rows = [];
   nodesEvent.map((nodeE) => {
     const dateFormatt =  nodeE.date || '02-02-2021';
@@ -67,16 +64,9 @@ const UserComponent = ({username,orgname}) => (<>
 ////////////////////////////
 
 const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, searchValue, fieldValue }) => {
-  // const [tabValue, settabValue] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const classes = useStyles();
-
-  // console.log('rerender Tab1 : selectEventShort.data.nodes',selectEventShort);
-  // console.log('rerender Tab1 : selectEventShort:',selectEventShort);
-  // console.log('rerender Tab1 : node_local:',selectEventShort[0].node_local.info);
-
-  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
     console.log('newPage',newPage);
@@ -84,7 +74,6 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
   };
 
   const handleChangeRowsPerPage = (event) => {
-    // setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
     setRowsPerPage(parseInt(event.target.value, 10));
   };
@@ -95,14 +84,11 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
  
   React.useEffect(() => {
     refactData(selectEventShort, statusEventPoint, statusEnumEventPointColor);
-    // settabValue(rows);
-    // console.log('useEffect selectEventShort');
   },[selectEventShort, statusEventPoint, statusEnumEventPointColor]);
  
   let openRed, openGreen;
  
   if (!selectEventShort.length){
-    // return (<div>Выберите период, чтобы получить данные. Или перейдите на Главную страницу и вернитесь сюда...</div>)
     openRed = true; openGreen=false;
   } else {
     openRed = false; openGreen=true;
@@ -121,11 +107,8 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {tabValue && tabValue */}
-          {/* {refactData(selectEventShort, statusEventPoint, statusEnumEventPointColor)} */}
           {rowsPerPage > 0
             && rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          
           .filter((item) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
           // .filter(( _ , index) => index <= 10)
           .map((row, index) => (
@@ -142,7 +125,6 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
         </TableBody>
       </Table> 
       <div style={{display:'flex'}}>
-        {/* <div style={{alignSelf: 'center',marginLeft:10}}> объектов в таблице: <span style={{color:'red'}}>  {tabValue.length} </span>  </div> */}
         <TablePagination
                 rowsPerPageOptions={[5, 15, 30, 1000]}
                 // rowsPerPageOptions={[15, 25, 40, { label: 'Все', value: -1 }]}

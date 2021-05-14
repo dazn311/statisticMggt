@@ -1,7 +1,5 @@
 import React from 'react';
-// import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
 
@@ -46,7 +44,6 @@ export default function StateElements({curUser}) {
           <div className={classes.amObjs}> {curUser.org_name}</div>
         <Divider orientation="vertical" flexItem />
           <div className={classes.amObjs}>статус: <span style={{color:'#efecec'}}>Активный</span> </div>
-        {/*<Divider orientation="vertical" flexItem />  */}
           
       </div>
     </React.Fragment> 

@@ -122,7 +122,11 @@ const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setP
     // openGreen = true;
   }
 
-  const pages = parseInt(selectObjs.length / 6);
+  let pages = 1;
+  if(selectObjs){
+    pages = parseInt(selectObjs.length / 6);
+  }
+
   //  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
   return ( 
     <>

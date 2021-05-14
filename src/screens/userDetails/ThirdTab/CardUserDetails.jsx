@@ -1,51 +1,28 @@
 import React, { useEffect }  from 'react';
- 
+
+import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import generator from 'generate-password';
-// let generator = require('generate-password');
 
-import { makeStyles, useTheme } from '@material-ui/core/styles'; 
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import Fab from '@material-ui/core/Fab';
 import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-
-// import Input from '@material-ui/core/Input';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import InputAdornment from '@material-ui/core/InputAdornment';
-// import FormControl from '@material-ui/core/FormControl';
-// import AddIcon from '@material-ui/icons/Add';
-// import NativeSelect from '@material-ui/core/NativeSelect';
-// import SyncIcon from '@material-ui/icons/Sync';
-// import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 
 import EditIcon from '@material-ui/icons/Edit';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import PhoneIcon from '@material-ui/icons/Phone';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import BuildIcon from '@material-ui/icons/Build';
-import SecurityIcon from '@material-ui/icons/Security';
-import WorkIcon from '@material-ui/icons/Work';
 
 import CheckBox from '../../../components/checkBox/CheckBox'; 
 import DialogSetDate from '../../../components/dialogSetDate/DialogSetDate'; 
 import { LoginField, PostField, TxtField, MailField, PhoneField, RoleField, PasswordField } from '../../../components/tabcells/TabCells';
-
-
+import { refPhoneNumber } from '../../../hoc/refPhoneNumber';
 
 import { selectAllOrgFromUsersDb } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 import { updateCurUserFullData } from '../../../store/user/user.actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // width: '95%',
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     maxHeight: 500,
     overflow: 'auto',
@@ -118,6 +95,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
     const classes = useStyles();
     const curTheme = useTheme();
+    const history = useHistory();
     //   curTheme.palette.primary.main
 
     const updateUserData = () => {
@@ -233,10 +211,11 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
     useEffect(() => {
 
-        if (userData !== {}){
+        if (userData && userData !== {}){
+            // console.log('9999 userData',userData)
             const {  user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen, user_org_id, org_name, user_shortname } = userData ;
             setUserShortName(user_shortname);
-            setUserTel(user_tel);
+            setUserTel(refPhoneNumber(user_tel));
             setUserMail(user_email);
             setOrgID(user_org_id);
             setOrg(org_name);
@@ -246,10 +225,13 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
             }
             setUserLastSeen(user_last_seen);
             setUserRole(user_role);
+        }else {
+            history.push({
+                pathname: '/stats/users'
+            })
         }
 
     },[userData]);
-
 
   return (
     <div className="row">

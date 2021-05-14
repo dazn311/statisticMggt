@@ -613,7 +613,7 @@ export const fetchAllUsersFromDB2 = (limit=20)  => {
 
  //290421 UsersPage page - TabOneMenu
 export const fetchAllUsersFromDB = (limit=20)  => {
-  console.log('👉 fetchAllUsersFromDB start:' );
+  // console.log('👉 fetchAllUsersFromDB start:' );
   return (dispatch) => {
     postDataAx('https://ismggt.ru/query/users/list', {},'post') //work
         .then((user) => {
