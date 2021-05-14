@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
+  divider: {
+    height: 2,
+    marginTop: 4,
+  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -159,7 +163,7 @@ export default function CardGenInfo({ curUser, allData }) {
         <Typography variant="body2" color="textSecondary" component="p">
           Статус: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? allData.user_status :  user_status}</span>
         </Typography>
-        <Divider />
+        <Divider className={classes.divider} />
         <Typography variant="body2" color="textSecondary" component="p">
           Огранизация: <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.org_name :  org_name} </span>
           {/* Сотрудник огранизации № {user_org_id}. */}
@@ -175,14 +179,14 @@ export default function CardGenInfo({ curUser, allData }) {
         <Typography variant="body2" color="textSecondary" component="p">
           Роль: <span style={{ color: themess.palette.type === 'dark' && 'white' }} >{ allData ? allData.user_role :  user_role}</span>
         </Typography>
-        <Divider />
+        <Divider className={classes.divider} />
         <Typography variant="body2" color="textSecondary" component="p">
           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_tel :  'user_tel'}</span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? allData.user_email : 'user@email'}</span>
         </Typography>
-        <Divider />
+        <Divider className={classes.divider} />
         <Typography variant="body2" color="textSecondary" component="p">
           Дата рег.:           <span style={{ color: themess.palette.type === 'dark' && 'white' }} > { allData ? formatDateISO(allData.user_reg_date) : '01.01.21'}</span>
         </Typography>
@@ -214,15 +218,15 @@ export default function CardGenInfo({ curUser, allData }) {
           <Typography variant="body2" color="textSecondary" component="p">
             Добавлен в систему
             </Typography>
-          <Divider />
+          <Divider className={classes.divider} />
           <Typography variant="body2" color="textSecondary" component="p">
             Приостановлен.
             </Typography>
-          <Divider />
+          <Divider className={classes.divider} />
           <Typography variant="body2" color="textSecondary" component="p">
             Смена контактов.
             </Typography>
-          <Divider />
+          <Divider className={classes.divider} />
           <Typography variant="body2" color="textSecondary" component="p">
             Изменение в должности
             </Typography>

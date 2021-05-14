@@ -20,8 +20,6 @@ import { fetchObjectsListAsync  } from '../../../store/adminPanelTrest/adminPane
 
 import { selectObjsPage, selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
 import { selectCurrentUserShort } from '../../../store/user/user.selectors';
-import {GridRow} from "@material-ui/data-grid";
-import Grid from "@material-ui/core/Grid";
 
 
   
@@ -197,42 +195,26 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectCur
   ///////////////////////////////////////////
   // const valueItems = {val:10, smeg: 'смежные'};
   return (
-      <React.Fragment>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+      <React.Fragment> 
+        <div className={classes.seeMore}>
+              <StateElements curUser={selectCurrentUserShort}  />
+              <div className={classes.datePick}>
+                  <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
+                  <div style={{display: 'flex'}} >
+                      <div  style={{display:'flex', flexWrap:'nowrap', width:'100%', justifyContent: 'center'}}  >
+                        <SelectorMggt caption={'Тип'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}  />
+                      </div>
+                  </div>
+                  <div  style={{display:'flex', flexWrap:'wrap',margin:'4px 8px'}}  >
+                    <DatePicker setDateStart={setDateStart} />
+                    <DatePickerEnd setDateEnd={setDateEnd} />
+                  </div>
+                  <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px'}} variant="contained" color="primary" disabled={isLoading} >
+                    Поиск
+                  </Button>
 
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <StateElements curUser={selectCurrentUserShort}  />
-          </div>
-
-          <div style={{display: 'flex', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent: 'flex-start', gap: 0}}>
-
-
-              <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
-
-
-
-
-
-            <div style={{display: 'flex' , flexWrap: 'nowrap', flexDirection:  'row', justifyContent: 'space-between', gap: 0}}>
-              <div >
-                <DatePicker setDateStart={setDateStart} />
               </div>
-              <div >
-                <DatePickerEnd setDateEnd={setDateEnd} />
-              </div>
-            </div>
-
-            <div style={{display: 'flex' , flexWrap: 'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent: 'flex-start', gap: 0}}>
-              <SelectorMggt caption={'Тип'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}  />
-              <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px', marginTop: 8 , marginRight: 0, maxWidth: window.innerWidth < 500 ? '100%' : 200}} variant="contained" color="primary" disabled={isLoading} >
-                Поиск
-              </Button>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 4}}>
-            <TabActive tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
-          </div>
+              <TabActive tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   setPageT={setPageT}  offset={offsetSt} />
         </div>
       </React.Fragment>
   );

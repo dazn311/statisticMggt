@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     marginTop: 4,
   },
   table: {
-    minWidth: 650,
+    // minWidth: 650,
     borderTop: '1px solid rgb(130 119 119 / 47%)'
   },
   cell: {
@@ -124,8 +124,12 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
         <TableHead>
           <TableRow>
             <TableCell style={{padding: '6px 0px 6px 0px', width: '4px', maxWidth: '2px'}}></TableCell>
-            <TableCell align="right">Тип действия</TableCell> 
-            <TableCell align="right">Дата</TableCell>
+
+            { window.innerWidth < 500 && <TableCell align="right">Тип действия / Дата</TableCell> }
+
+            { window.innerWidth > 500 && <TableCell align="right">Тип действия</TableCell> }
+            { window.innerWidth > 500 && <TableCell align="right">Дата</TableCell> }
+
             <TableCell align="right">Информация</TableCell>  
           </TableRow>
         </TableHead>
@@ -136,20 +140,27 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
+
+              { window.innerWidth < 500 &&
               <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
                 {!isLoading ? row.objName : <Random text={row.objName}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
-              </TableCell>
-              <TableCell align="right">
-              {!isLoading ? row.objName : <Random text={row.organization.orgname}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
-                          </TableCell>
+              </TableCell>}
+
+              { window.innerWidth > 500 && <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
+                {!isLoading ? row.objName : <Random text={row.objName}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+              </TableCell> }
+              { window.innerWidth > 500 && <TableCell align="right">
+                {!isLoading ? row.objName : <Random text={row.organization.orgname}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+              </TableCell> }
+
               <TableCell align="right">
               {!isLoading ? row.objType : <Random text={row.objType}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />} 
               </TableCell> 
             </TableRow>
           )) : [{typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
-          {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
+          {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
+          {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'done_rec', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'},
@@ -157,15 +168,18 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
           {typeEv: 'new_msg', dateEvent:'02.05.21', messData:'новое событие'}].map((num, index) => (
             <TableRow key={index}    style={ {backgroundColor: index % 2 === 0 ? '#80808038': '' }} >
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="left" style={{ width: '4px', maxWidth: '4px'}}><LinearIndeterminate /></TableCell>
-              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row"> {num.typeEv} <LinearIndeterminate />  </TableCell>
-              <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{num.dateEvent}<LinearIndeterminate /></TableCell>
+              { window.innerWidth < 500 && <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row"> {num.typeEv} / {num.dateEvent} <LinearIndeterminate />  </TableCell> }
+
+              { window.innerWidth > 500 && <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} component="th" scope="row"> {num.typeEv} <LinearIndeterminate />  </TableCell> }
+              { window.innerWidth > 500 && <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{num.dateEvent}<LinearIndeterminate /></TableCell> }
+
               <TableCell className={index % 2 === 0 ? classes.cell : classes.cellOpacity} align="right">{num.messData}<LinearIndeterminate /></TableCell> 
             </TableRow>))   
         }
         </TableBody> 
       </Table>
       <div style={{display:'flex',margin: 18, opacity: isLoading ? .3 : 1}}> 
-         <Pagination count={selectObjsInfo.totalPages} page={page} onChange={handleChangePage} color="primary" /> 
+         <Pagination count={1} page={page} onChange={handleChangePage} color="primary" />
       </div>
      
     </TableContainer>

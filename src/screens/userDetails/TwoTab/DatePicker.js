@@ -17,8 +17,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 4,
     padding: 6,
     marginRight: theme.spacing(1),
-    width: '45%',
+    marginTop: theme.spacing(1),
+    // width: '45%',
     minWidth: 160,
+    maxWidth: 185
   },
   textField: {
     marginLeft: theme.spacing(1),

@@ -44,9 +44,11 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
+  formControl: {
     margin: theme.spacing(1),
-    minWidth: 285,
+    marginLeft: window.innerWidth < 500 ? 0 : theme.spacing(1),
+    marginRight: window.innerWidth < 500 ? 0 : theme.spacing(2),
+    minWidth: 300,
   },
 }));
 
@@ -61,15 +63,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   const classes = useStyles();
 
-  const [filterObj, setFilterObj] = React.useState('');
+  // const [filterObj, setFilterObj] = React.useState('');
   const [filterOrg, setFilterOrg] = React.useState('');
 
   // console.log('rerender SearchPanel');
 
-  const handleFilterObj = (event) => { 
-    setFilterObj(event.target.value);
-    setSearchTextObj(event.target.value); 
-  };
+  // const handleFilterObj = (event) => {
+  //   setFilterObj(event.target.value);
+  //   setSearchTextObj(event.target.value);
+  // };
 
   const handleFilterOrg = (event) => {
     setFilterOrg(event.target.value);
@@ -81,19 +83,8 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   // const fetchSearchObjHandle = () => {fetchSearchObj()};
 
   return (
-    <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-around'}}>
-      <FormControl className={classes.margin}>
-        <BootstrapInput id="input-obj" placeholder='Поиск по типу' value={filterObj} onChange={handleFilterObj}/>
-       
-      </FormControl>
-      
-      <FormControl className={classes.margin}>
+      <FormControl className={classes.formControl}>
         <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по информации' value={filterOrg} onChange={handleFilterOrg}/>
       </FormControl>
-      
-        {/* <Button onClick={fetchSearchObjHandle} style={{height: '43px'}} variant="contained" color="primary">
-          Запрос в бд
-        </Button> */}
-    </div>
   );
 }

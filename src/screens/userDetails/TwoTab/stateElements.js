@@ -10,9 +10,10 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    justifyContent: 'center',
-    flexWrap:'wrap',
-    width: 'auto',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    flexDirection: window.innerWidth < 500 ? 'column': 'row',
+    width: '100%',
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     // minWidth:1400,
   },
-  amObjs:{alignSelf: 'center',marginLeft:10, padding: '4px 16px'},
+  amObjs:{alignSelf: 'center', padding: '4px 16px', width: window.innerWidth <500 ? '100%' : 350},
   btnUpdateAll: {backgroundColor: 'bisque'},
   
 }));
@@ -39,15 +40,15 @@ export default function StateElements({curUser}) {
 
   return ( 
     <React.Fragment>
-      <Grid container alignItems="center" className={classes.root}>
+      <div className={classes.root}>
           <div className={classes.amObjs}> {curUser.user_name}</div>
         <Divider orientation="vertical" flexItem  />
           <div className={classes.amObjs}> {curUser.org_name}</div>
         <Divider orientation="vertical" flexItem />
           <div className={classes.amObjs}>статус: <span style={{color:'#efecec'}}>Активный</span> </div>
-        <Divider orientation="vertical" flexItem />  
+        {/*<Divider orientation="vertical" flexItem />  */}
           
-      </Grid>
+      </div>
     </React.Fragment> 
   );
 }

@@ -9,27 +9,33 @@ import generator from 'generate-password';
 import { makeStyles, useTheme } from '@material-ui/core/styles'; 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Select from '@material-ui/core/Select';
-// import NativeSelect from '@material-ui/core/NativeSelect';
 import Fab from '@material-ui/core/Fab';
-// import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
 // import InputAdornment from '@material-ui/core/InputAdornment';
 // import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+// import AddIcon from '@material-ui/icons/Add';
+// import NativeSelect from '@material-ui/core/NativeSelect';
+// import SyncIcon from '@material-ui/icons/Sync';
+// import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+
+import EditIcon from '@material-ui/icons/Edit';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import Button from '@material-ui/core/Button';
-import SyncIcon from '@material-ui/icons/Sync';
+import BuildIcon from '@material-ui/icons/Build';
+import SecurityIcon from '@material-ui/icons/Security';
+import WorkIcon from '@material-ui/icons/Work';
 
 import CheckBox from '../../../components/checkBox/CheckBox'; 
 import DialogSetDate from '../../../components/dialogSetDate/DialogSetDate'; 
+import { LoginField, PostField, TxtField, MailField, PhoneField, RoleField, PasswordField } from '../../../components/tabcells/TabCells';
 
 
 
@@ -69,126 +75,7 @@ const EditBtn = () => (<Fab color="secondary" size='small' aria-label="edit">
 <EditIcon fontSize='small' />
 </Fab>);
 
-// .MuiFormControl-root
 
-const themeText = createMuiTheme({
-    overrides: {
-        MuiFormControl: {
-            root: {
-                minWidth: 220,
-                width: 300, 
-            }
-        }, 
-        MuiInputBase : {
-            input: {
-                // color: 'white'
-            },
-        },
-        MuiGrid: {
-            Container: {
-                flexWrap:'nowrap'
-            }
-        }
-    }, 
-  });
-
-  
-
-const TxtField = ({txt, changeText, dis}) => {
-    // const classes = useStyles();
-    const theme = useTheme();
-
-    return( 
-        <Grid container spacing={1} alignItems="flex-end">
-                <Grid item style={{flexWrap: 'nowrap'}} >
-                <AccountCircle color='primary' />
-                </Grid>
-                <Grid item   >
-                <MuiThemeProvider theme={themeText}>
-                    <TextField
-                        onChange={changeText}
-                        inputProps={{ style: {   color: dis ? 'grey' : theme.palette.primary.main}}}
-                        disabled={dis} id="input-with-icon-grid"
-                        //label="Ф.И.О."
-                        value={txt}
-                        type={'string'}
-                    /> 
-                </MuiThemeProvider>
-                </Grid>
-        </Grid>
-)};
-
-const PasswordField = ({txt, changeText, dis, genPassWord}) => {
-    // const classes = useStyles();
-    const theme = useTheme();
-
-    return( 
-        <Grid container spacing={1} alignItems="flex-end" style={{flexWrap: 'nowrap'}} >
-                <Grid item style={{flexWrap: 'nowrap'}} >
-                    <LockOpenIcon color='primary' />
-                </Grid>
-                <Grid item   >
-                    <MuiThemeProvider theme={themeText}>
-                        <TextField
-                            onChange={changeText}
-                        inputProps={{ style: {   color: dis ? 'grey' : theme.palette.primary.main}}}
-                          disabled={dis} id="input-with-icon-grid"
-                        //   label="Ф.И.О."
-                        value={txt}
-                        />
-                    </MuiThemeProvider>
-                </Grid>
-                <Grid item   >
-                    <Button disabled={dis} onClick={genPassWord} variant="outlined"  color="secondary" style={{ maxHeight: 30}}> Ген.</Button>
-                </Grid>
-        </Grid>
-)};
-
-const PhoneField = ({txt, changeText, dis}) => {
-    // const classes = useStyles();
-    const themess = useTheme();
-
-    return( 
-        <Grid container spacing={1} alignItems="flex-end">
-                <Grid item style={{flexWrap: 'nowrap'}} >
-                <PhoneIcon color='primary' />
-                </Grid>
-                <Grid item   >
-                <MuiThemeProvider theme={themeText}>
-                    <TextField
-                        onChange={changeText}
-                    inputProps={{ style: {   color: dis ? 'grey' : themess.palette.primary.main}}}
-                      disabled={dis} id="input-with-icon-grid" 
-                    //   label="Ф.И.О." 
-                    value={txt}
-                    /> 
-                </MuiThemeProvider>
-                </Grid>
-        </Grid>
-)};
-
-const MailField = ({txt, changeText, dis}) => {
-    // const classes = useStyles();
-    const themess = useTheme();
-
-    return( 
-        <Grid container spacing={1} alignItems="flex-end">
-                <Grid item style={{flexWrap: 'nowrap'}} >
-                    <MailOutlineIcon color='primary' />
-                </Grid>
-                <Grid item   >
-                <MuiThemeProvider theme={themeText}>
-                    <TextField
-                        onChange={changeText}
-                    inputProps={{ style: {   color: dis ? 'grey' : themess.palette.primary.main}}}
-                      disabled={dis} id="input-with-icon-grid" 
-                    //   label="Ф.И.О." 
-                    value={txt}
-                    /> 
-                </MuiThemeProvider>
-                </Grid>
-        </Grid>
-)};
 
 const SwitchBtn = ({handleChange, state}) => (<Switch
     checked={state.checkedA}
@@ -226,7 +113,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
     const [ userEndDate, setUserEndDate] = React.useState('2021-09-28'); // дата окончания регистрации
 
-    const [textS, setTextS] = React.useState('');
+    // const [textS, setTextS] = React.useState('');
     const [checkS, setCheckS] = React.useState({checkedA: false, checkedB: true, });
 
     const classes = useStyles();
@@ -263,13 +150,19 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
     }
     
       const setUserDateActive = (event) => {
-          // console.log('event.target.value',event.toLocaleString().split(',')[0])
           setUserEndDate( event.toLocaleString().split(',')[0] );
       };
 
-      const changeUserNam = (event) => {
-          // console.log('event.target.value',event.target.value)
+      const changeUserName = (event) => {
           setUserName( event.target.value );
+      };
+
+      const changeUserShortName = (event) => {
+          setUserShortName( event.target.value );
+      };
+
+      const changeUserRole = (event) => {
+          setUserRole( event.target.value );
       };
 
 
@@ -314,9 +207,9 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
       };
 
-      const changeText = (event) => {
-        setTextS( event.target.value );
-      };
+      // const changeText = (event) => {
+      //   setTextS( event.target.value );
+      // };
 
       const genPassWord = (event) => {
           let password2 = generator.generate({
@@ -338,12 +231,11 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
 
 
 
-
-
     useEffect(() => {
 
         if (userData !== {}){
-            const {  user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen, user_org_id, org_name } = userData ;
+            const {  user_role, user_status, user_email, user_tel, user_reg_date, user_end_date, user_last_seen, user_org_id, org_name, user_shortname } = userData ;
+            setUserShortName(user_shortname);
             setUserTel(user_tel);
             setUserMail(user_email);
             setOrgID(user_org_id);
@@ -356,19 +248,14 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
             setUserRole(user_role);
         }
 
-
-
     },[userData]);
 
 
-
- 
   return (
     <div className="row">
         <div className="col-md-5">
             <div className="panel">
                 <div className="panel-heading">
-                    {/* <span className="panel-icon"> <i className="fa fa-star"/> </span> */}
                     <span className={classes.panelTitle}> Редактировать организацию</span>
                 </div>
                 <div className="panel-body pn">
@@ -382,7 +269,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                         </thead>
                         <tbody>
                             <tr>
-                                <td> </td>
+                                <td></td>
                                 <td>Организация</td>
                                 <td> 
                                 <Select
@@ -395,9 +282,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-
-                                </td>
+                                <td></td>
                                 <td>Вышесоящия</td>
                                 <td>
                                     <Select
@@ -431,46 +316,52 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-
-                                </td>
+                                <td></td>
                                 <td>Ф.И.О.</td>
                                 <td> 
-                                    <TxtField changeText={changeUserNam} dis={!checkS.checkedA} txt={userName} />
-                                    {/* {curUser.user_name} (*)    */}
+                                    <TxtField changeText={changeUserName} dis={!checkS.checkedA} txt={userName} />
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>ФИО</td>
+                                <td>
+                                    <TxtField changeText={changeUserShortName} dis={!checkS.checkedA} txt={userShortName} />
                                     </td>
                             </tr>
                              <tr>
-                                <td>
-
-                                </td>
+                                <td></td>
                                 <td>Должность</td>
                                 <td> 
-                                    <TxtField changeText={changeUserPost} dis={!checkS.checkedA} txt={userPost} />
-                                    {/* {curUser.user_name} (*)    */}
+                                    <PostField changeText={changeUserPost} dis={!checkS.checkedA} txt={userPost} />
                                     </td>
                             </tr>
                             <tr>
-                                <td> </td>
+                                <td></td>
                                 <td>Логин: </td>
-                                <td> <TxtField changeText={changeUserLogin} dis={!checkS.checkedA} txt={userLogin} /></td>
+                                <td> <LoginField changeText={changeUserLogin} dis={!checkS.checkedA} txt={userLogin} /></td>
                             </tr>
                             <tr>
-                                <td>  </td>
+                                <td></td>
                                 <td>Пароль: </td>
                                 <td style={{display:'flex'}} >
                                     <PasswordField changeText={changeUserPassword} dis={!checkS.checkedA} txt={userPassword} genPassWord={genPassWord} />
                                 </td>
                             </tr>
                             <tr >
-                                <td>  </td>
+                                <td></td>
                                 <td style={{borderTop:'1px solid #5f5f5f'}}>телефон</td>
                                 <td>  <PhoneField changeText={changeUserTel} dis={!checkS.checkedA} txt={userTel} /></td>
                             </tr>
                             <tr>
-                                <td>  </td>
+                                <td></td>
                                 <td>Почта</td>
                                 <td>  <MailField changeText={changeUserMail} dis={!checkS.checkedA} txt={userMail} /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Роль</td>
+                                <td>  <RoleField changeText={changeUserRole} dis={!checkS.checkedA} txt={userRole} /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -491,9 +382,7 @@ const CardUserDetails = ({ curUser, selectAllOrgFromUsers, userData, updateCurUs
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-
-                                </td>
+                                <td></td>
                                 <td>Активировать</td>
                                 <td> <CheckBox checked={userStatus} setChecked={setChecked} /></td>
                             </tr>
