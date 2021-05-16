@@ -35,7 +35,7 @@ import './eventDetail.styles.scss';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
+// objsPage add selectors
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
