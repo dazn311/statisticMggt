@@ -22,11 +22,11 @@ const useStyles = makeStyles({
 });
 
  
-const GenDeposits = ({amountOGH, data }) => {
-    const classes = useStyles(); 
+const GenDeposits = React.memo(({amountOGH, data }) => {
+    const classes = useStyles();
 
     const {total_objects, total_mggt_objects, total_users} = data;
- 
+
 
     let tt = moment(amountOGH.dataTime).toISOString();
     let lastDate = tt.split('T')[0].split('-');
@@ -38,7 +38,7 @@ const GenDeposits = ({amountOGH, data }) => {
             <hr color="white" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
 
             <Typography component="span" variant="h6">
-                {total_mggt_objects} 
+                {total_mggt_objects}
             </Typography>
             <Typography component="span"  >
                 Всего принадлежащих нам
@@ -54,7 +54,7 @@ const GenDeposits = ({amountOGH, data }) => {
             <hr color="gray" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}}/>
 
             <Typography component="span" variant="h6">
-                {total_users} 
+                {total_users}
             </Typography>
             <Typography component="span"  >
                 Кол-во пользователей
@@ -67,7 +67,7 @@ const GenDeposits = ({amountOGH, data }) => {
 
         </React.Fragment>
     );
-}
+})
 
 
 const mapStateToProps = createStructuredSelector ({

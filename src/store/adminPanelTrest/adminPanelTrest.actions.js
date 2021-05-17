@@ -662,11 +662,11 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 // Для страницы  "objects" - /stats/objs
 // первая вкладка Список событий на объекте
 // Адрес: https://ismggt.ru/query/object/recs/list
- //290421 ObjPage page - EventDetail
-export const fetchObjRectListAsync = (objectID, limit=60, offset=0) => {
+ //170521 ObjCard page - Tab1
+export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => {
    return (dispatch) => {
 
-     postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:60, offset:offset})
+     postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})
         .then((eventss) => {
            dispatch(setObjForObjRectPage(eventss));
         })

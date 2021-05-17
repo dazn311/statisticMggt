@@ -183,7 +183,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ currentUser, children, window, setTheme }) => {
+const Header = React.memo(({ currentUser, children, window, setTheme }) => {
     const [open, setOpen] = React.useState(false);
     const [headerTitle, setHeaderTitle] = React.useState('Главная страница');
     const classes = useStyles();
@@ -300,7 +300,7 @@ const Header = ({ currentUser, children, window, setTheme }) => {
         </div>
     )
 
-}
+})
 
 
 // const mapDispatchToProps = dispatch => ({

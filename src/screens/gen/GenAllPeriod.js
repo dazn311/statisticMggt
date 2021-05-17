@@ -17,14 +17,14 @@ const useStyles = makeStyles({
 
 
 
-const GenAllPeriod = ({ data, selectAmountUsers, amountOGH,selectEvent ,selectObjsInfo, fetchEventsPointShort, fetchObjectsList}) => {
+const GenAllPeriod = React.memo(({ data, selectAmountUsers, amountOGH,selectEvent ,selectObjsInfo, fetchEventsPointShort, fetchObjectsList}) => {
     const classes = useStyles();
     let tt = new Date().toISOString();
     let lastDate = tt.split('T')[0].split('-');
 
     const {total_recs,total_messages, total_sogl_objects, total_sogl_recs} = data;
 
-   
+
     return (
         <React.Fragment>
             <Title>Данные за весь период</Title>
@@ -64,7 +64,7 @@ const GenAllPeriod = ({ data, selectAmountUsers, amountOGH,selectEvent ,selectOb
 
         </React.Fragment>
     );
-}
+})
 
 
  

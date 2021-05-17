@@ -62,9 +62,9 @@ const useStyles = makeStyles((theme) => ({
 // }
 /////////////////////////////////////////////////////////////////////
 
-const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
- 
-  const [page, setPage] = React.useState(1); 
+const TabOneMenu = React.memo(({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
+
+  const [page, setPage] = React.useState(1);
   const [amObjsValue, setAmObjsValue] = React.useState(0);
 
   const classes = useStyles();
@@ -79,16 +79,16 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
 
   useEffect(() => {
     if (!selectAllUsers.length){
-      setPage(1); 
+      setPage(1);
     }
     if (amObjsValue < selectAllUsers.length) {
       setAmObjsValue(selectAllUsers.length)
     }
 
   },[selectAllUsers.length])
- 
-  // console.log('selectAllUsers',selectAllUsers); 
-  // console.log('Page',page); 
+
+  // console.log('selectAllUsers',selectAllUsers);
+  // console.log('Page',page);
   // console.log('parseInt selectAllUsers.length',parseInt(selectAllUsers.length / 10));
 
   // const setObjsValue = () => {
@@ -111,10 +111,10 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
     history.push({ pathname: `/stats/user/${row.user_id}`, row: row });
 
     fetchUserById(row.user_id);
-}
-  
+  }
+
   return (
-      <React.Fragment> 
+      <React.Fragment>
         <div className={classes.seeMore}>
           <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={selectAllUsers.length} />
           <div className={classes.searchPanel}>
@@ -122,9 +122,9 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
             <Button onClick={()=>{fetchSearchObj('0')}} style={{height: '43px', marginLeft: 8}} variant="contained" color="primary">
               Поиск
             </Button>
-  
+
           </div>
-          <TabUsersComponent 
+          <TabUsersComponent
               tabValue={selectAllUsers}
               showEvents={showEvents}
               handleChangePage={handleChangePage}
@@ -134,7 +134,7 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
         </div>
       </React.Fragment>
   );
-}
+})
 
 
 // const mapStateToProps = createStructuredSelector ({

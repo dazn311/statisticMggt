@@ -36,7 +36,7 @@ const INITIAL_STATE = {
     objs: ORGANIZATIONS_DATA.objs,// for Objects Page
     objsInfo: ORGANIZATIONS_DATA.objsInfo,// for Objects Page
     objCurrent: ORGANIZATIONS_DATA.objCurrent,// for Objects Page
-    objRect: ORGANIZATIONS_DATA.objRect,// for Objects Page
+    objRect: ORGANIZATIONS_DATA.objRect,// for Object Card Page события для tab2
     genStats: ORGANIZATIONS_DATA.genStats,// for Objects Page
     filterTextUserForUsersPage: ORGANIZATIONS_DATA.filterTextUserForUsersPage,// for User Page for filters
     filterTextOrgNameForUsersPage: ORGANIZATIONS_DATA.filterTextOrgNameForUsersPage,// for User Page for filters

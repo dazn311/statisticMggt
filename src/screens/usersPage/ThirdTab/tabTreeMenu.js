@@ -26,23 +26,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function TabOne() { 
-  const classes = useStyles();
- 
-  return (
-    <React.Fragment>
-      <div className={classes.seeMore}>
-            <div className={classes.datePick}>
-                {/* <FormUsersAdd setField={setField} /> */}
-                <FormUsersAdd />
+const TabOne = React.memo(() => {
+    const classes = useStyles();
+
+    return (
+        <React.Fragment>
+            <div className={classes.seeMore}>
+                <div className={classes.datePick}>
+                    {/* <FormUsersAdd setField={setField} /> */}
+                    <FormUsersAdd />
+                </div>
+                <div className={classes.datePick}>
+                    Last add Users
+                </div>
+
+                <TabUsersList />
+                {/* <TabUsersList fieldValue={fieldValue} searchValue={''}/> */}
             </div>
-            <div className={classes.datePick}>
-                Last add Users
-            </div>
-        
-            <TabUsersList />
-            {/* <TabUsersList fieldValue={fieldValue} searchValue={''}/> */}
-      </div>
-    </React.Fragment>
-  );
-}
+        </React.Fragment>
+    );
+})
+export default TabOne;

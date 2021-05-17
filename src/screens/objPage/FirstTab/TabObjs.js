@@ -28,7 +28,8 @@ import { Random, Wave  } from 'react-animated-text';
 import MessAlert from './Messages.alert';
   
 import { setObjCurrForDetailPageAsync  } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
- 
+import { setCurObjAsync  } from '../../../store/objs/obj.actions';
+
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
   
@@ -70,7 +71,7 @@ const LinearIndeterminate = () => {
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset, isLoading }) => {
+const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset, isLoading, setCurObj }) => {
 
   const [page, setPage] = React.useState(1);
   // const [setPage] = React.useState(0);
@@ -115,8 +116,9 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
 
   const showEvents = (row) => { 
       setOrgName(row);
-      setObjCurrForDetailPage(row); 
-      // history.push(`/stats/objs/${row.objID}`); 
+      setObjCurrForDetailPage(row);
+      setCurObj(row);
+      // history.push(`/stats/objs/${row.objID}`);
       
       history.push({
         pathname: `/stats/obj/${row.objID}`,
@@ -269,6 +271,7 @@ const mapStateToProps = createStructuredSelector ({
     // Для  
     // fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate)),
     setObjCurrForDetailPage: (object ) => dispatch(setObjCurrForDetailPageAsync(object )),
+    setCurObj: (object ) => dispatch(setCurObjAsync(object )),
   });
 
   export default connect(mapStateToProps,mapDispatchToProps)(TabObjs);

@@ -68,8 +68,12 @@ const LinearIndeterminate = () => {
   );
 }
 
-const CellTab = ({org, name}) => {
-  return (<div style={{display: 'flex',flexDirection: 'column'}} > <div style={{wordWrap: 'normal'}} > {org}</div> <div>{name} </div> </div>)
+const CellTab = ({obj, org, name}) => {
+  return (<div style={{display: 'flex',flexDirection: 'column'}} >
+            <div style={{maxWidth: 400, textAlign:'end'}} > {obj}</div>
+            <div style={{maxWidth: 400, color:'#9ac8ef', textAlign:'end'}}>{org} </div>
+            <div style={{maxWidth: 400, color:'#d8d8d8', textAlign:'end'}}>{name} </div>
+          </div>)
 }
 
 ////////////////////////////
@@ -83,7 +87,7 @@ const CellTab = ({org, name}) => {
 
 
 ////////////////////////////////
-const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setPageT,offset, isLoading, stFilterSearch }) => {
+const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterSearch }) => {
 
   const [page, setPage] = React.useState(1);
   const [orgRow, setOrgName] = useState({});
@@ -91,11 +95,6 @@ const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setP
 
   const history = useHistory();
 
-  useEffect(() => {
-    if (offset === '0'){
-      setPage(1);
-    }
-  },[offset])
 
   const classes = useStyles();
    
@@ -124,7 +123,7 @@ const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setP
 
   let pages = 1;
   if(selectObjs){
-    pages = parseInt(selectObjs.length / 6);
+    pages = Math.ceil(selectObjs.length / 6);
   }
 
   //  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
@@ -144,8 +143,8 @@ const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setP
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectObjs && selectObjs.length ?
-              selectObjs
+          {tabValue && tabValue.length ?
+              tabValue
           .filter((row,i) => i < (page*6) && i >= (page*6 -6) )
           .filter((row,i) => row.sender.username.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) || row.sender.orgname.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) )
           .map((row, index) => (
@@ -160,16 +159,16 @@ const TabObjsEvent = ({ tabValue, selectObjsInfo, selectObjs, isOpenD=true, setP
                           />}
               </TableCell>
               <TableCell align="right">
-              {!isLoading ? <CellTab org={row.sender.orgname} name={row.sender.username} />  : <Random
-                            text={row.sender.orgname}
+              {!isLoading ? <CellTab obj={row.sender.objname} org={row.sender.orgname} name={row.sender.username} />  : <Random
+                            text={row.sender.objname}
                             effect="verticalFadeOut"
                             effectDirection="down"
                             effectChange={3.0}
                           />}
                           </TableCell>
               <TableCell align="right">
-              {!isLoading ? <CellTab org={row.receip.orgname} name={row.receip.username} /> : <Random
-                            text={row.receip.orgname}
+              {!isLoading ? <CellTab obj={row.receip.objname} org={row.receip.orgname} name={row.receip.username} /> : <Random
+                            text={row.receip.objname}
                             effect="verticalFadeOut"
                             effectDirection="down"
                             effectChange={3.0}

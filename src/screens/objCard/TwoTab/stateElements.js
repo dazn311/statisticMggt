@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 export default function StateElements({amObjsValue, amObjsValueCurrent, selectObjs}) {
 
   const classes = useStyles();
-  console.log('999 StateElements selectObjs',selectObjs)
   if (!selectObjs) {
     return (<div>Нет данных..</div>)
   }

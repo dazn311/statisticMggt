@@ -17,15 +17,15 @@ let endDate = new Date();
 endDate = endDate.toISOString();
 let lastDate = endDate.split('T')[0].split('-');
  
-const GenOneDayPeriod = ({ data }) => {
+const GenOneDayPeriod = React.memo(({ data }) => {
     const classes = useStyles();
 
     const {daily_recs,daily_messages, daily_sogl_recs} = data;
 
     return (
-        <React.Fragment> 
+        <React.Fragment>
             <Title>Данные за последние сутки</Title>
-            <hr color="white" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} /> 
+            <hr color="white" style={{width: '100%',opacity: 0.5, marginTop: 0, marginBottom: 0}} />
             <Typography component="span" variant="h6">
                 {daily_recs}
             </Typography>
@@ -54,7 +54,7 @@ const GenOneDayPeriod = ({ data }) => {
 
         </React.Fragment>
     );
-}
+})
 
  
 export default GenOneDayPeriod;

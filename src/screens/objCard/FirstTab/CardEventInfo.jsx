@@ -51,9 +51,7 @@ const CardEventInfo = ({orgRow, currObj, objRect, selectObjCurr}) => {
   useEffect(() => {
 
   },[currObj])
- 
-  // const objCurr = selectObjCurr !== {} ? selectObjCurr.filter(ob => ob.objID === orgRow) : 
-  console.log('currObj',currObj);
+
 
   const formatDate = (data) => {
     // console.log('999 data',data);

@@ -10,18 +10,14 @@ import { fetchObjRectListAsync } from '../../../store/adminPanelTrest/adminPanel
 import './eventDetail.styles.scss';
 import CartGenInfo from './CardGenInfo';
 import CardEventInfo from './CardEventInfo';
- 
- 
-  
-const EventDetail = ({ idObj,currObj, selectObjs, orgRow, fetchObjRectList, selectObjRect, isOpen=false, closeDetail }) => {
+
+const EventDetail = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
 
   useEffect(() => {
-    console.log(' fetchObjRectList idObj', idObj);
+    // console.log(' fetchObjRectList idObj', idObj);
     if (idObj ){
       fetchObjRectList(idObj);
     }
-      
-
   },[idObj,fetchObjRectList])
 
     // console.log('444selectObjRect',selectObjRect)
@@ -29,7 +25,6 @@ const EventDetail = ({ idObj,currObj, selectObjs, orgRow, fetchObjRectList, sele
     <div style={{display:'flex',flexWrap:'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'flex-start'}} >
           <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo>
         {selectObjRect && <CardEventInfo currObj={currObj} objRect={selectObjRect} ></CardEventInfo>}
-
     </div>
   );
 }
@@ -40,7 +35,7 @@ const mapStateToProps = createStructuredSelector ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchObjRectList: (start,end) => dispatch(fetchObjRectListAsync(start,end)),
+  fetchObjRectList: (objectID, limit, offset) => dispatch(fetchObjRectListAsync(objectID, limit, offset)),
 }); 
  
 export default connect(mapStateToProps,mapDispatchToProps)(EventDetail);  

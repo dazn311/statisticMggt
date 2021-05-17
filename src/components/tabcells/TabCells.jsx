@@ -34,7 +34,7 @@ const themeText = createMuiTheme({
 });
 
 
-export const LoginField = ({txt, changeText, dis}) => {
+export const LoginField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const theme = useTheme();
 
@@ -56,9 +56,9 @@ export const LoginField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const PostField = ({txt, changeText, dis}) => {
+export const PostField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const theme = useTheme();
 
@@ -80,9 +80,9 @@ export const PostField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const TxtField = ({txt, changeText, dis}) => {
+export const TxtField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const theme = useTheme();
 
@@ -104,9 +104,9 @@ export const TxtField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const PasswordField = ({txt, changeText, dis, genPassWord}) => {
+export const PasswordField = React.memo(({txt, changeText, dis, genPassWord}) => {
     // const classes = useStyles();
     const theme = useTheme();
 
@@ -130,9 +130,9 @@ export const PasswordField = ({txt, changeText, dis, genPassWord}) => {
                 <Button disabled={dis} onClick={genPassWord} variant="outlined"  color="secondary" style={{ maxHeight: 30}}> Ген.</Button>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const PhoneField = ({txt, changeText, dis}) => {
+export const PhoneField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const themess = useTheme();
 
@@ -153,9 +153,9 @@ export const PhoneField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const MailField = ({txt, changeText, dis}) => {
+export const MailField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const themess = useTheme();
 
@@ -176,9 +176,9 @@ export const MailField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});
 
-export const RoleField = ({txt, changeText, dis}) => {
+export const RoleField = React.memo(({txt, changeText, dis}) => {
     // const classes = useStyles();
     const themess = useTheme();
 
@@ -199,4 +199,4 @@ export const RoleField = ({txt, changeText, dis}) => {
                 </MuiThemeProvider>
             </Grid>
         </Grid>
-    )};
+    )});

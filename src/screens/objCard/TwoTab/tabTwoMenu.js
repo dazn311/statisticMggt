@@ -23,9 +23,11 @@ import {
 } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
 import {  selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';
+import {  selectCurrentObj } from '../../../store/objs/obj.selectors';
 import { selectErrorFetch } from '../../../store/adminPanelTrest/adminPanelTrest.selectors';
 
 
+import { setCurFilterSenderAsync, setCurFilterOwnAsync, setCurDateStartAsync, setCurDateEndAsync} from '../../../store/objs/obj.actions'
   
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,7 +96,7 @@ const analizeObjs = (objs) => {
 
 //idObj={idObj} currObj={currObj} />
 ////////////////////////////////////////////////
-const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErrorFetch, setMessageError,idObj }) => {
+const TabTwoMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErrorFetch, setMessageError,idObj, selectCurrentObj, setCurFilterSender, setCurFilterOwn, setCurDateStart, setCurDateEnd }) => {
 
   const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
   const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
@@ -107,8 +109,9 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
   const classes = useStyles();
 
-  // console.log('TabOneMenu -- selectObjs ', selectObjs)
-  // console.log('TabOneMenu -- isLoading ', isLoading)
+  console.log('888 TabTwoMenu -- selectCurrentObj ', selectCurrentObj)
+  // console.log('TabTwoMenu -- selectObjs ', selectObjs)
+  // console.log('TabTwoMenu -- isLoading ', isLoading)
 
   const setPageT = useCallback((val) => {
 
@@ -157,7 +160,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
     if (offset !== '0'){newOffset = offset;}
     // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
     // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
-    // console.log('TabOneMenu -- 4  fetchObjectsList  offset',offset);
+    // console.log('TabTwoMenu -- 4  fetchObjectsList  offset',offset);
   },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);
 
   ///////////////////////////////////////////
@@ -171,7 +174,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
   useEffect(() => {
 
     if ( selectObjs && selectObjs.length < 1){
-      // console.log('TabOneMenu -- 444  fetchObjectsList  offset');
+      // console.log('TabTwoMenu -- 444  fetchObjectsList  offset');
       setIsLoading(true);
       // fetchSearchObj('0');
     }else {
@@ -185,21 +188,25 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
 
   const setSearchTextObj = useCallback((val) => {
-    setStFilterSearch({...stFilterSearch, objName: val });
+    const lowText = val.toLowerCase();
+    setCurFilterSender(lowText);
+    // setStFilterSearch({...stFilterSearch, objName: val });
     // setStFilterVal({...stFilterVal, offset: '0' } );
-  } ,[stFilterSearch,stFilterVal]);
+  } ,[setCurFilterSender]);
 
   const setSearchTextOrg = useCallback((val) => {
-    setStFilterSearch({...stFilterSearch, orgName: val } );
-    // setStFilterVal({...stFilterVal, offset: '0' } );
-  } ,[stFilterSearch,stFilterVal]);
+    const lowText = val.toLowerCase();
+    setCurFilterOwn(lowText);
+  } ,[setCurFilterOwn]);
 
   const setDateStart = useCallback((val) => {
-    setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );
-  },[stFilterVal]);
+    setCurDateStart(val);
+    // setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );
+  },[setCurDateStart]);
   const setDateEnd = useCallback((val) => {
-    setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );
-  },[stFilterVal]);
+    setCurDateEnd(val)
+    // setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );
+  },[setCurDateEnd]);
 
   ///////////////////////////////////////////
   // const valueItems = {val:10, smeg: 'смежные'};
@@ -221,7 +228,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
             </Button>
 
           </div>
-            <TabObjsEvent tabValue={selectObjs} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true} stFilterSearch={stFilterSearch}  setPageT={setPageT}  offset={offsetSt} />
+            <TabObjsEvent tabValue={selectCurrentObj} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true} stFilterSearch={stFilterSearch}  setPageT={setPageT}  offset={offsetSt} />
            
         </div>
         <Grid item xs={12} style={{display: selectErrorFetch ? 'block': 'none'}} >
@@ -242,12 +249,17 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
 const mapStateToProps = createStructuredSelector ({
   // selectObjs: selectObjsPage, // события короткие данные для таблицы
+  selectCurrentObj: selectCurrentObj, // события короткие данные для таблицы
   selectObjsInfoPage: selectObjsInfoPage, // события короткие данные для таблицы
   selectErrorFetch: selectErrorFetch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    setCurFilterSender: (filter) => dispatch(setCurFilterSenderAsync(filter)),
+    setCurFilterOwn: (filter) => dispatch(setCurFilterOwnAsync(filter)),
+    setCurDateStart: (date) => dispatch(setCurDateStartAsync(date)),
+    setCurDateEnd: (date) => dispatch(setCurDateEndAsync(date)),
     setMessageError: () => dispatch(setMessageError()),
     fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
 });
-export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu); 
+export default connect(mapStateToProps,mapDispatchToProps)(TabTwoMenu);
