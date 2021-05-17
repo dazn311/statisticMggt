@@ -382,7 +382,7 @@ export const fetchAmountOGHToWeekAsync = () => {
 // Для нежней таблицы "новых событий" на Главной странице  
 // 290421 Dashboard page
 export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => {
-    console.log('start fetchEventsPointShortAsync');
+    // console.log('start fetchEventsPointShortAsync');
 
   return (dispatch) => {
     postData('https://ismggt.ru/query/events/last/short', {
@@ -391,7 +391,7 @@ export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => {
         // limit:135120
     })
         .then((eventss) => {
-          console.log('fetchEventsPointShortAsync -- events',eventss);
+          // console.log('fetchEventsPointShortAsync -- events',eventss);
           dispatch(putEventsPointShort(eventss));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -423,13 +423,13 @@ export const fetchEventForPeriodAsync = ({startDate, endDate}) => {
 // Для страницы отчетов "новых событий" - /stats/ogh
 // первая вкладка  //290421 Dashboard page
 export const fetchEventFromPeriodAsync = (start, end) => {
-  console.log('fetchEventFromPeriodAsync run: ',start,end);
+  // console.log('fetchEventFromPeriodAsync run: ',start,end);
   return (dispatch) => {
     const startDate = start;
     const endDate = end;
     postData('https://ismggt.ru/query/events/last/short', {limit:51160, startDate:startDate, endDate:endDate})
         .then((eventss) => {
-          console.log('fetchEventFromPeriodAsync then: ',eventss);
+          // console.log('fetchEventFromPeriodAsync then: ',eventss);
           dispatch(putEventsForPeriodShort(eventss));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
@@ -499,7 +499,7 @@ export const fetchAllUsersGraphicAsync = (startDate='2021-02-08T08:00:00.000Z',e
 // Для страницы 2 отчетов "tab 3"
 //290421 не используется
 export const fetchUsersThirdTabStaticPageGraphicAsync = (type, startDate='2021-02-08T08:00:00.000Z',endDate='2021-02-15T18:00:00.000Z')  => {
-  console.log('fetchUsersThirdTabStaticPageGraphicAsync --type:', type);
+  // console.log('fetchUsersThirdTabStaticPageGraphicAsync --type:', type);
   return (dispatch) => {
   
     postData('https://ismggt.ru/query/events/last/short', {type: type, startDate: startDate, endDate: endDate})
@@ -601,7 +601,7 @@ export const fetchAllUsersFromDB0 = (limit=20)  => {
 };
 // work with func & proc in postgress fetchAllUsersFromDB 18.03.21
 export const fetchAllUsersFromDB2 = (limit=20)  => {
-  console.log('👉 fetchAllUsersFromDB start:' );
+  // console.log('👉 fetchAllUsersFromDB start:' );
   return (dispatch) => {
      postDataAx('http://localhost:3005/query/users', {'login':'s333',"password":"s333"},'post') //work
         .then((user) => {
@@ -646,13 +646,18 @@ export const fetchUpdateUsersFromDB = (userData)  => {
 
 
 // fetchObjectsList(2,0,1000 , 0 , startDate, endDate, 'A');  //290421 ObjPage page - TabOneMenu
-export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' , offset='0', startDate='2021-01-01T10:00:00.000Z', endDate='2021-05-15T22:00:00.000Z', objName='',  orgName='',  objKind='' , objStatus=10, sortCol='date' , sortType='desc') => {
-    console.log('lll88')
+export const fetchObjectsListAsync = (objectType='2', organization='0', limit='100' ,
+                                      offset='0', startDate='2021-01-01T10:00:00.000Z',
+                                      endDate='2021-05-15T22:00:00.000Z', objName='',
+                                      orgName='',  objKind='' , objStatus=10,
+                                      sortCol='date' , sortType='desc') => {
+  // console.log('999 fetchObjectsListAsync -- objectType, organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType', objectType, organization, limit, offset, startDate, endDate, objName, orgName,  objKind, objStatus, sortCol, sortType);
+
   return (dispatch) => {
     postData('https://ismggt.ru/query/objects/list', {objectType:objectType, organization:organization, limit:limit , offset:offset, startDate:startDate, endDate:endDate ,objName:objName , orgName: orgName , objKind:objKind , objStatus:objStatus , sortCol:sortCol , sortType:sortType })
-        .then((eventss) => {
-           dispatch(setObjForObjsPage(eventss));
-          dispatch(setObjForObjsInfoPage(eventss));
+        .then((eventsList) => {
+           dispatch(setObjForObjsPage(eventsList));
+          dispatch(setObjForObjsInfoPage(eventsList));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
@@ -678,7 +683,7 @@ export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => {
   
  //290421 ObjPage page - TabObjs
 export const setObjCurrForDetailPageAsync = ( object ) => {
-  console.log('setObjCurrForDetailPageAsync run: ',object );
+  // console.log('setObjCurrForDetailPageAsync run: ',object );
   return (dispatch) => {
     dispatch(setObjCurrentForDetailPage(object));
   };
@@ -690,7 +695,7 @@ export const setObjCurrForDetailPageAsync = ( object ) => {
 
 //290421 Dashboard page
 export const setMessageError = (mess) => {
-  console.log('setMessageError run: ',mess );
+  // console.log('setMessageError run: ',mess );
   return (dispatch) => {
      dispatch(putDataUsersOnlineError(mess));
   };

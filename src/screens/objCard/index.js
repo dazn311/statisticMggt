@@ -15,7 +15,7 @@ const ObjCardPage = ({eventShortPoints, match}) => {
      
     let { idobj } = useParams();
 
-    console.log('HistoryPage idobj', idobj);
+    // console.log('HistoryPage idobj', idobj);
     return (
             <ObjCard idObj={idobj} /> 
             // <div  style={{height:300, backgroundColor:'red'}} >sdfdsf card {match} </div>

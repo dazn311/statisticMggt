@@ -88,10 +88,10 @@ const filterInitial = () => {
 
 
 
-const analizeObjs = (objs) => {
-  // selectObjs
-  console.log('analizeObjs', objs.length);
-}
+// const analizeObjs = (objs) => {
+//   // selectObjs
+//   // console.log('analizeObjs', objs.length);
+// }
 
 
 
@@ -177,7 +177,7 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
       setIsLoading(true);
       fetchSearchObj('0');
     }else {
-      analizeObjs(selectObjs);
+      // analizeObjs(selectObjs);
     }
 
   },[fetchSearchObj,selectObjs]);

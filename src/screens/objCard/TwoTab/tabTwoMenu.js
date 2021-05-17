@@ -128,8 +128,6 @@ const TabTwoMenu = ({ selectObjs,selectObjsInfoPage, selectErrorFetch, setMessag
   const setSearchTextObj = useCallback((val) => {
     const lowText = val.toLowerCase();
     setCurFilterSender(lowText);
-    // setStFilterSearch({...stFilterSearch, objName: val });
-    // setStFilterVal({...stFilterVal, offset: '0' } );
   } ,[setCurFilterSender]);
 
   const setSearchTextOrg = useCallback((val) => {
@@ -139,20 +137,15 @@ const TabTwoMenu = ({ selectObjs,selectObjsInfoPage, selectErrorFetch, setMessag
 
   const setDateStart = useCallback((val) => {
     setCurDateStart(val);
-    // setStFilterVal({...stFilterVal, dateStart: val, offset: '0' } );
   },[setCurDateStart]);
   const setDateEnd = useCallback((val) => {
     setCurDateEnd(val)
-    // setStFilterVal({...stFilterVal, dateEnd: val, offset: '0' } );
   },[setCurDateEnd]);
 
-  ///////////////////////////////////////////
-  // const valueItems = {val:10, smeg: 'смежные'};
-  // uniq objs
   return (
       <React.Fragment> 
         <div className={classes.seeMore}>
-          <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} selectObjs={selectObjs} />
+          <StateElements   selectObjs={selectObjs} />
           <div className={classes.datePick}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
@@ -168,8 +161,6 @@ const TabTwoMenu = ({ selectObjs,selectObjsInfoPage, selectErrorFetch, setMessag
         </div>
         <Grid item xs={12} style={{display: selectErrorFetch ? 'block': 'none'}} >
           <Paper className={classes.paper}>
-            {/* <TabLoader  /> */}
-
             <Snackbar open={selectErrorFetch} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error">
                 {selectErrorFetch}
@@ -183,7 +174,6 @@ const TabTwoMenu = ({ selectObjs,selectObjsInfoPage, selectErrorFetch, setMessag
 
 
 const mapStateToProps = createStructuredSelector ({
-  // selectObjs: selectObjsPage, // события короткие данные для таблицы
   selectCurrentObj: selectCurrentObj, // события короткие данные для таблицы
   selectObjsInfoPage: selectObjsInfoPage, // события короткие данные для таблицы
   selectErrorFetch: selectErrorFetch,
@@ -195,6 +185,5 @@ const mapDispatchToProps = (dispatch) => ({
     setCurDateStart: (date) => dispatch(setCurDateStartAsync(date)),
     setCurDateEnd: (date) => dispatch(setCurDateEndAsync(date)),
     setMessageError: () => dispatch(setMessageError()),
-    fetchObjectsList: (objectType, organization, limit, offset, startDate, endDate,objName, orgName,   objKind, objStatus, sortCol, sortType) => dispatch(fetchObjectsListAsync(objectType, organization, limit, offset, startDate, endDate, objName, orgName,   objKind, objStatus, sortCol, sortType)),
 });
 export default connect(mapStateToProps,mapDispatchToProps)(TabTwoMenu);

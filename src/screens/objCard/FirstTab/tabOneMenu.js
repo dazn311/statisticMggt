@@ -11,7 +11,7 @@ import './eventDetail.styles.scss';
 import CartGenInfo from './CardGenInfo';
 import CardEventInfo from './CardEventInfo';
 
-const EventDetail = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
+const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
 
   useEffect(() => {
     // console.log(' fetchObjRectList idObj', idObj);
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchObjRectList: (objectID, limit, offset) => dispatch(fetchObjRectListAsync(objectID, limit, offset)),
 }); 
  
-export default connect(mapStateToProps,mapDispatchToProps)(EventDetail);  
+export default connect(mapStateToProps,mapDispatchToProps)(TabOneMenu);

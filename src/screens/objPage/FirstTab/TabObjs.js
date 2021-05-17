@@ -180,7 +180,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
                           />}
               </TableCell>
               <TableCell align="right">
-              {!isLoading ? row.objName : <Random
+              {!isLoading ? row.organization.orgname : <Random
                             text={row.organization.orgname} 
                             effect="verticalFadeOut"
                             effectDirection="down"

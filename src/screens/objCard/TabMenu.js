@@ -1,6 +1,8 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
@@ -15,10 +17,12 @@ import Box from '@material-ui/core/Box';
 // import TabOGH from './TabOGH' 
 import TabOneMenu from './FirstTab/tabOneMenu'
 import TabTwoMenu from './TwoTab/tabTwoMenu'
+import {selectObjsInfoPage, selectObjsPage} from "../../store/adminPanelTrest/StatisticPage.selectors";
+import {selectCurrentObj} from "../../store/objs/obj.selectors";
+import {selectErrorFetch} from "../../store/adminPanelTrest/adminPanelTrest.selectors";
+import {fetchObjectsListAsync, setMessageError} from "../../store/adminPanelTrest/adminPanelTrest.actions";
 // import TabThirdMenu from './ThirdTab/tabThirdMenu'
 
-
-// import { fetchEventForPeriodAsync } from '../../store/adminPanelTrest/adminPanelTrest.actions'; 
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,18 +65,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabMenu = ({idObj, currObj}) => {
-  const classes = useStyles();
-  const [value, setValue] = useState(0);
+const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    // console.log(newValue); 
-  };
+    const [value, setValue] = useState(0);
+    const [showTab2, setShowTab2] = useState(false);
+    const classes = useStyles();
+     const handleChange = (event, newValue) => {
+        setValue(newValue);
+        // console.log(newValue);
+    };
 
 
- 
-  return (
+
+    useEffect(() => {
+        console.log('6666 selectCurrentObj', selectCurrentObj);
+        if (selectCurrentObj) {
+            if (selectCurrentObj.length) {
+                setShowTab2(true);
+            }
+        }
+    },[selectCurrentObj])
+
+    return (
     <div className={classes.root}>
       {/* <AppBar position="static" color="default"> */}
         <Tabs
@@ -86,7 +100,7 @@ const TabMenu = ({idObj, currObj}) => {
           aria-label="scrollable auto tabs example"
         >
           <Tab label="Карточка объекта" {...a11yProps(0)} />
-           <Tab label="События объекта" {...a11yProps(1)} />
+          {showTab2 && <Tab  label="События объекта" {...a11yProps(1)} />}
           {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
           {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
@@ -108,19 +122,11 @@ const TabMenu = ({idObj, currObj}) => {
 }
 
 
+const mapStateToProps = createStructuredSelector ({
+    selectCurrentObj: selectCurrentObj, // события короткие данные для таблицы
+    selectObjsInfoPage: selectObjsInfoPage, // события короткие данные для таблицы
+    selectErrorFetch: selectErrorFetch,
+});
 
 
-// const mapStateToProps = createStructuredSelector ({
-//     eventShortPoints: selectEventShortPoints, // события короткие данные для таблицы
-//     statusEventPoint: selectStatusEventPoint, // классификация статусов "new_msg"
-//     statusEnumEventPointColor: selectStatusEnumEventPointColor, // for color elements
-//   });
-  
-// const mapDispatchToProps = (dispatch) => ({
-//     // Для событий новых и закрытых
-//     fetchEventForPeriod: (startDate, endDate) => dispatch(fetchEventForPeriodAsync(startDate, endDate)),
-// });  
-
-export default TabMenu;
-
-  // export default connect(null, mapDispatchToProps)(TabMenu);
+export default connect(mapStateToProps)(TabMenu);

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 ///////////////////////////////////////////
-export default function StateElements({amObjsValue, amObjsValueCurrent, selectObjs}) {
+export default function StateElements({ selectObjs}) {
 
   const classes = useStyles();
   if (!selectObjs) {
@@ -44,7 +44,7 @@ export default function StateElements({amObjsValue, amObjsValueCurrent, selectOb
       <Grid container alignItems="center" className={classes.root}>
           <div className={classes.amObjs}>   <span style={{color:'#5a809e'}}>{selectObjs && selectObjs.objName}</span><span style={{color:'grey'}}> (objID: {selectObjs && selectObjs.objID})</span></div>
         <Divider orientation="vertical" flexItem  />
-          <div className={classes.amObjs}>имеют события: <span style={{color:'green'}}>{selectObjs.objRelatives.length}</span> <span style={{color:'grey'}}> ({selectObjs.objRelatives.length})</span></div>
+          <div className={classes.amObjs}>Всего событий: <span style={{color:'green'}}>{selectObjs.objRelatives.length}</span> <span style={{color:'grey'}}> ({selectObjs.objRelatives.length})</span></div>
         {/*<Divider orientation="vertical" flexItem />*/}
         {/*  <div className={classes.amObjs}>не имеют события: <span style={{color:'red'}}>{amObjsValue.withoutRecs}</span> <span style={{color:'grey'}}> ({amObjsValueCurrent.withoutRecs})</span></div>*/}
         {/*<Divider orientation="vertical" flexItem />  */}

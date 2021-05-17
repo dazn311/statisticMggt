@@ -71,8 +71,8 @@ const LinearIndeterminate = () => {
 const CellTab = ({obj, org, name}) => {
   return (<div style={{display: 'flex',flexDirection: 'column'}} >
             <div style={{maxWidth: 400, textAlign:'end'}} > {obj}</div>
-            <div style={{maxWidth: 400, color:'#9ac8ef', textAlign:'end'}}>{org} </div>
-            <div style={{maxWidth: 400, color:'#d8d8d8', textAlign:'end'}}>{name} </div>
+            <div style={{maxWidth: 400, color:'#9ac8ef', textAlign:'end', borderTop: '1px solid grey'}}>{org} </div>
+    {org !== name ? <div style={{maxWidth: 400, color:'#d8d8d8', textAlign:'end'}}>{name} </div> : ''}
           </div>)
 }
 
