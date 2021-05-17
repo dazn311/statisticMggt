@@ -40,12 +40,13 @@ export const selectCurrentObj = createSelector(
             const filter0 = selectAdmin.objRect.data.recs.filter(elem => {
                 const recDate = new Date(elem.rec_date);
                 const startDate = new Date(selectObj.curObjFilterDateStart);
-                const endDate = new Date(selectObj.curObjFilterDateEnd);
+                const endDate = new Date(selectObj.curObjFilterDateEnd + 'T23:23');
 
                 return recDate >= startDate && recDate <= endDate && elem
                 // (elem.rec_date || '').includes(selectObj.curObjFilterDateStart)
             }) ;
-            // console.log('35555 filter0 length',filter0);
+            // console.log('35555 selectAdmin.objRect.data.recs length',selectAdmin.objRect.data.recs);
+            // console.log('35555 filter0 length',filter0.length);
             const filter11 = filter0.filter(elem => (elem.sender.objname || '').toLowerCase().includes(selectObj.curObjFilterSender)) ;
             const filter12 = filter0.filter(elem => (elem.sender.orgname || '').toLowerCase().includes(selectObj.curObjFilterSender)) ;
             const filter13 = filter0.filter(elem => (elem.sender.username || '').toLowerCase().includes(selectObj.curObjFilterSender)) ;
@@ -66,9 +67,9 @@ export const selectCurrentObj = createSelector(
                 const filter21 = filter01.filter(elem => (elem.receip.objname || '').toLowerCase().includes(selectObj.curObjFilterOwn)) ;
                 const filter22 = filter01.filter(elem => (elem.receip.orgname || '').toLowerCase().includes(selectObj.curObjFilterOwn)) ;
                 const filter23 = filter01.filter(elem => (elem.receip.username || '').toLowerCase().includes(selectObj.curObjFilterOwn)) ;
-                console.log('45555 filter21',filter21.length);
-                console.log('45555 filter22',filter22.length);
-                console.log('45555 filter23',filter23.length);
+                // console.log('45555 filter21',filter21.length);
+                // console.log('45555 filter22',filter22.length);
+                // console.log('45555 filter23',filter23.length);
                 if (filter21.length) {
                     filter01 = filter21;
                 }else if (filter22.length) {

@@ -28,7 +28,7 @@ import { Random, Wave  } from 'react-animated-text';
 import MessAlert from './Messages.alert';
 
 
-import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
+// import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
   
@@ -87,20 +87,28 @@ const CellTab = ({obj, org, name}) => {
 
 
 ////////////////////////////////
-const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterSearch }) => {
+const TabObjsEvent = ({ tabValue, isOpenD=true, isLoading }) => {
 
   const [page, setPage] = React.useState(1);
-  const [orgRow, setOrgName] = useState({});
+  const [pages, setPages] = React.useState(1);
+  // const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false);
 
   const history = useHistory();
 
+
+  useEffect(() => {
+    const newPages = Math.ceil(tabValue.length / 6);
+    setPages(newPages);
+
+  },[tabValue])
 
   const classes = useStyles();
    
   const handleChangePage = (event, newPage) => {
       setPage(newPage);
   };
+
   // для детальной информации
   const closeDetail = () => {
     setIsOpenDetail(false);
@@ -108,25 +116,15 @@ const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterS
   const showEvents = (row) => {
   }
 
-  // console.log('selectObjs selectObjs selectObjs',selectObjs)
   let openRed = false, openGreen = false;
 
   if (!tabValue) { 
     openRed = true;
-    // openGreen = false;
-    // return (<><div >Нет данных с таким фильтом</div><MessAlert  openRed={openRed} openGreen={openGreen} /></>);
-    // return (<BackDrop isOpen={true} />);
   }else {
     openRed = false;
     // openGreen = true;
   }
 
-  let pages = 1;
-  if(selectObjs){
-    pages = Math.ceil(selectObjs.length / 6);
-  }
-
-  //  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
   return ( 
     <>
     <TableContainer component={Paper}>
@@ -146,10 +144,10 @@ const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterS
           {tabValue && tabValue.length ?
               tabValue
           .filter((row,i) => i < (page*6) && i >= (page*6 -6) )
-          .filter((row,i) => row.sender.username.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) || row.sender.orgname.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) )
+          // .filter((row,i) => row.sender.username.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) || row.sender.orgname.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) )
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
-              <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
+              <TableCell align="left" style={{backgroundColor:row.rec_status === 2? '#337ab7bf': '#166d16', padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
               <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
                 {!isLoading  ? row.rec_name : <Random
                             text={row.rec_name}
@@ -175,9 +173,6 @@ const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterS
                           />}
                  
               </TableCell>
-              {/*<TableCell align="right">{row.objRecsAmount}</TableCell>*/}
-              {/* <TableCell align="right">{row.objOwn > 0 ? 'МГГТ' : 'Смежн'}</TableCell> */}
-              {/*<TableCell align="right">{new Intl.DateTimeFormat('ru-Ru').format(new Date(row.rec_date)) }</TableCell>*/}
               <TableCell align="right">{formatDateISO(row.rec_date) }</TableCell>
 
             </TableRow>
@@ -223,17 +218,20 @@ const TabObjsEvent = ({ tabValue, selectObjs, isOpenD=true, isLoading, stFilterS
       <div style={{display:'flex',margin: 18, opacity: isLoading ? .3 : 1}}> 
          <Pagination count={ pages } page={ page } onChange={handleChangePage} color="primary" />
       </div>
+      <div style={{display:'flex',margin: 28, opacity: isLoading ? .3 : 1}}>
+        <div> <span style={{backgroundColor: '#337ab7bf', padding: '4px 6px'}} >* в работе</span>  , <span style={{backgroundColor: '#166d16', padding: '4px 6px'}} >* завершенные</span>  </div>
+      </div>
      
     </TableContainer>
      
-    <EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />
+    {/*<EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />*/}
     <MessAlert  openRed={openRed} openGreen={openGreen} />
     </>
   );
 }
 
 const mapStateToProps = createStructuredSelector ({
-    selectObjs: selectObjRectPage, // события короткие данные для таблицы
+    // selectObjs: selectObjRectPage, // события короткие данные для таблицы
     selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
   });

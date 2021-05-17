@@ -96,41 +96,16 @@ const analizeObjs = (objs) => {
 
 //idObj={idObj} currObj={currObj} />
 ////////////////////////////////////////////////
-const TabTwoMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErrorFetch, setMessageError,idObj, selectCurrentObj, setCurFilterSender, setCurFilterOwn, setCurDateStart, setCurDateEnd }) => {
+const TabTwoMenu = ({ selectObjs,selectObjsInfoPage, selectErrorFetch, setMessageError, selectCurrentObj, setCurFilterSender, setCurFilterOwn, setCurDateStart, setCurDateEnd }) => {
 
   const [amObjsValue, setAmObjsValue] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
   const [amObjsValueCurrent, setAmObjsValueCurrent] = useState({totalAmount: 0, withRecs: 0, withoutRecs: 0, tabFiltValueLength: 0, tabValueLength: 0, inWork: 0,inEndWork: 0 }); // выводить статистику
-  // const [tabValue, setTabValue] = useState([]); // выводить статистику
+
   const [isLoading, setIsLoading] = useState(false); // выводить статистику
-  const [offsetSt, setOffsetSt] = useState('0'); // выводить статистику
-  // 19.03.21
-  const [stFilterVal, setStFilterVal] = useState(filterInitial); // выводить статистику
-  const [stFilterSearch, setStFilterSearch] = useState({ objName:'', orgName:''}); // выводить статистику
 
   const classes = useStyles();
 
-  console.log('888 TabTwoMenu -- selectCurrentObj ', selectCurrentObj)
-  // console.log('TabTwoMenu -- selectObjs ', selectObjs)
-  // console.log('TabTwoMenu -- isLoading ', isLoading)
-
-  const setPageT = useCallback((val) => {
-
-    setOffsetSt(val.toString());
-    setIsLoading(true);
-
-    // const startDate = new Date(stFilterVal.dateStart).toISOString();
-    // const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    // const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
-
-    // const limitPlus = stFilterVal.limit;
-    // let newOffset = (val -1) * stFilterVal.limit;
-    // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    // console.log('88888 stFilterSearch.objName, stFilterSearch.orgName',stFilterSearch.objName, stFilterSearch.orgName);
-    // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
-
-
-  },[stFilterVal,stFilterSearch,fetchObjectsList]);
-
+  // console.log('888 TabTwoMenu -- selectCurrentObj ', selectCurrentObj)
 
   useEffect(() => {
 
@@ -148,44 +123,7 @@ const TabTwoMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
     setIsLoading(false);
   };
 
-///////////////////////////////////////////
-  const fetchSearchObj = useCallback((offset) => {
-    setIsLoading(true);
-    // const startDate = new Date(stFilterVal.dateStart).toISOString();
-    // const endDate = new Date(stFilterVal.dateEnd).toISOString();
-    // const endDatePlus = endDate.split("T")[0] + 'T22:22:00.000Z';
-    // const limitPlus = stFilterVal.limit;
-    setOffsetSt('0');
-    let newOffset = '0';
-    if (offset !== '0'){newOffset = offset;}
-    // let newAllKind = stFilterVal.objKind === 'allKind' ? '' : stFilterVal.objKind;
-    // fetchObjectsList(stFilterVal.objectType, stFilterVal.organization, limitPlus, newOffset, startDate, endDatePlus, stFilterSearch.objName, stFilterSearch.orgName, newAllKind , stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType)
-    // console.log('TabTwoMenu -- 4  fetchObjectsList  offset',offset);
-  },[stFilterVal.objectType, stFilterVal.organization, stFilterVal.limit,   stFilterVal.dateStart, stFilterVal.dateEnd, stFilterSearch.objName, stFilterSearch.orgName, stFilterVal.objKind, stFilterVal.objStatus, stFilterVal.sortCol, stFilterVal.sortType, fetchObjectsList]);
-
   ///////////////////////////////////////////
-  useEffect(() => {
-    // setTabValue(selectObjs);
-    // setIsLoading(false);
-
-  },[selectObjs]);
-
-///////////////////////////////////////////
-  useEffect(() => {
-
-    if ( selectObjs && selectObjs.length < 1){
-      // console.log('TabTwoMenu -- 444  fetchObjectsList  offset');
-      setIsLoading(true);
-      // fetchSearchObj('0');
-    }else {
-      analizeObjs(selectObjs);
-    }
-
-  },[fetchSearchObj,selectObjs]);
-
-  ///////////////////////////////////////////
-
-
 
   const setSearchTextObj = useCallback((val) => {
     const lowText = val.toLowerCase();
@@ -223,12 +161,9 @@ const TabTwoMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
               <DatePickerEnd setDateEnd={setDateEnd} />
             </div>
 
-            <Button  onClick={()=>{fetchSearchObj('0')}} className={window.innerWidth < 500 ? classes.btnSearchMobile : classes.btnSearch} >
-              Поиск 
-            </Button>
 
           </div>
-            <TabObjsEvent tabValue={selectCurrentObj} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true} stFilterSearch={stFilterSearch}  setPageT={setPageT}  offset={offsetSt} />
+            <TabObjsEvent tabValue={selectCurrentObj} isLoading={isLoading} amObjsValue={amObjsValue} isOpenD={true}   />
            
         </div>
         <Grid item xs={12} style={{display: selectErrorFetch ? 'block': 'none'}} >
