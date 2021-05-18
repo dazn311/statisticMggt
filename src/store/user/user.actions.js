@@ -24,6 +24,11 @@ export const setCurUserAllData = user => ({
   payload: user
 });
 
+export const setCurUserStatData = user => ({
+  type: userData.FETCH_USER_STATS_FOR_USER_CARD_DETAILS_PAGE,
+  payload: user
+});
+
 /////////////// for User Card Page 050521 ///////////////////////////////////  
 export const setCurUserShortAsync = (data)  => {
   // console.log('👉 setCurUserShortAsync start:' );
@@ -83,6 +88,19 @@ export const fetchUserById = (userID)  => {
         .then((user) => {
           // console.log('👉 fetchUserById then:',user );
           dispatch(setCurUserAllData(user));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+  };
+};
+
+//180521 UsersPage page - TabOneMenu
+export const fetchUserStatsAsyncLocal = (userId)  => {
+  // console.log('👉 fetchUserById start:',userID );
+  return (dispatch) => {
+    postData('http://localhost:3005/query/user', userId,'post') //work
+        .then((userData) => {
+          // console.log('👉 fetchUserById then:',user );
+          dispatch(setCurUserStatData(userData));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };

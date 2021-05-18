@@ -151,4 +151,4 @@ const mapStateToProps = createStructuredSelector ({
 });
 
 
-export default connect(mapStateToProps)(TableList);
+export default connect(mapStateToProps)(React.memo(TableList));

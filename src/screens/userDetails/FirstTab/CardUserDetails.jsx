@@ -23,19 +23,11 @@ const useStyles = makeStyles((theme) => ({
     color: 'red'
   },
 }));
-// curUser={curUser} objRect={selectObjRect}
-const CardUserDetails = ({ curUser }) => {
+
+const CardUserDetails = ({ curUser, selectUserAllStats }) => {
     const classes = useStyles();
     const themess =  useTheme();
 
-//   console.log('curUser', curUser); 
-
- 
- 
-  // const formatDate = (data) => {
-  //   // console.log('999 data',data);
-  //   return new Intl.DateTimeFormat('ru-Ru').format(new Date(data))
-  // }
  
   return (
     <div className="row">
@@ -58,19 +50,19 @@ const CardUserDetails = ({ curUser }) => {
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
                                 <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Все объектов</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>29(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats && (selectUserAllStats.userAmObjs || '42(*)')}</td>
                             </tr>
                             <tr>
                                 <td>
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
                                 <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Объектов в работе</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>14(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.userAmObjs || '14(*)') : '14(*)'}</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
                                 <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Согласованных объектов</td>
-                                <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>15(*)</td>
+                                <td> <i className="fa fa-caret-down text-danger pr10"  style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.userAmObjs || '8(*)') : '8(*)'}</td>
                             </tr>
                             
                         </tbody>
@@ -97,22 +89,22 @@ const CardUserDetails = ({ curUser }) => {
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
                                 <td style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >За все время</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>140(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats && (selectUserAllStats.userAmAllMes || '23(*)')}</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>
                                 <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque', borderBottom: '1px solid #ffe4c469', paddingBottom: 4}}  >Вложений файлов</td>
-                                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>18(*)</td>
+                                <td style={{minWidth: 140, borderBottom: '1px solid #7c985b', paddingBottom: 4}}> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.userAmMesFile || '2(*)') : '2(*)'}</td>
                             </tr>
                             <tr  >
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
                                 <td  style={{minWidth: 120, color: themess.palette.type === 'dark' && 'bisque' }} >Соощений за сутки</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>221(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.mesOfDay || '22(*)') : '22(*)'}</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-newspaper-o text-info"></span></td>
                                 <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Вложений за сутки</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>2(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.mesOfDayFile || '2(*)') : '2(*)'}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -138,7 +130,7 @@ const CardUserDetails = ({ curUser }) => {
                                     <span className="fa fa-desktop text-warning"></span>
                                 </td>
                                 <td style={{minWidth: 174, color: themess.palette.type === 'dark' && 'bisque' }} >Всего созданных</td>
-                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>14(*)</td>
+                                <td> <i className="fa fa-caret-up text-info pr10" style={{paddingRight:10}}/>{selectUserAllStats ? (selectUserAllStats.resUserEvents || '25(*)') : '25(*)'}</td>
                             </tr>
                             <tr>
                                 <td> <span className="fa fa-microphone text-primary"></span></td>

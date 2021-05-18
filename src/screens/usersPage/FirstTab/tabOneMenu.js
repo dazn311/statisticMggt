@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 // }
 /////////////////////////////////////////////////////////////////////
 
-const TabOneMenu = React.memo(({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
+const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFilter, setCurUserShort, fetchUserById }) => {
 
   const [page, setPage] = React.useState(1);
   const [amObjsValue, setAmObjsValue] = React.useState(0);
@@ -134,7 +134,7 @@ const TabOneMenu = React.memo(({ fetchAllUsers, selectAllUsers, setUsersFilter,s
         </div>
       </React.Fragment>
   );
-})
+}
 
 
 // const mapStateToProps = createStructuredSelector ({

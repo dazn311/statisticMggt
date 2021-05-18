@@ -2,23 +2,38 @@ const express = require('express');
 const cors = require('cors')
 const PORT =  '3005';
 // const PORT = process.env.PORT || '3005';
+// const bodyParser = require('body-parser');
+
+
 const app = express();
+
+// create application/json parser
+// parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+// app.use(bodyParser.json())
+
 app.use(express.json()); //work
+
+// app.use(cors({origin: 'http://localhost:3004'})); //work
 
 app.use(cors()); //work
 app.options('*', cors());
+
+// app.options('http://localhost:3004', cors);
+
+// app.use(express.json);
 
 //Вызов библиотеки
 const { Pool } = require('pg');
 
 //Покдючение пула
 const pool = new Pool({
-	// user: "mggt_polygon",
 	user: "mggt_alex",
 	password: "79y7BdJFtmqJVtJn",
 	host: "176.53.160.74",
 	port: "5432",
-	// database: "ismggt_geo",
 	database: "test_polygon_2",
 	max: 25,
 	idleTimeoutMillis: 30000,
@@ -51,12 +66,20 @@ async function query(q,data){
 }
 
 
+// router.post('/users', UsersController.getAllUsers);
+// http://localhost:3005/api/users
+//Всего пользователей
+// RETURN QUERY select count(*)::bigint from mggt_users   GROUP BY  mggt_users.user_id;
+
+
 async function getUsersAll(){
 
 	return new Promise ((resolve, reject) => {
+		// let queryText  = ` SELECT count (*) as amount FROM mggt_users; `; // good
 		let queryText  = ` SELECT * FROM get_users_all(); `; // good
 		query(queryText)
 			.then(function(data){
+				console.log('getUsersAmount -- data.rows[0]:',data.rows[5] ,data.rows[6] );
 				let result = {
 					usersAll: data.rows // get 276
 				}
@@ -73,6 +96,7 @@ async function getUserById(userId){
 		let queryText  = ` SELECT * FROM mggt_users WHERE user_id = ${userId};`; // good
 		query(queryText)
 			.then(function(data){
+				console.log('getUserById -- data.rows[0]:',data.rows[0] );
 				let result = {
 					user: data.rows[0] // get 276
 				}
@@ -83,87 +107,14 @@ async function getUserById(userId){
 }
 //180521
 async function getUserAmountObjs(userId){
+	// console.log('getUserAmountObjs -- userId :',userId || 1110 );
 	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(DISTINCT rec_obj_id) FROM public.mggt_recombination WHERE rec_send_id = ${userId};`;
+		let queryText  = `SELECT count(DISTINCT rec_obj_id) FROM public.mggt_recombination  ;`;
 		query(queryText)
 			.then(function(data){
+				console.log('getUserAmountObjs then-- data.rows[0].count :',data.rows[0].count );
 				let result = {
 					amObjs: data.rows[0].count // get 276
-				}
-				resolve(result);
-			})
-			.catch(function(err){console.log(err)});
-	});
-}
-
-//180521
-async function getUserAmountAllMessages(userId){
-	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(*) FROM public.mggt_message WHERE msg_user_id = ${userId};`;
-		query(queryText)
-			.then(function(data){
-				let result = {
-					amAllMessages: data.rows[0].count // get 276
-				}
-				resolve(result);
-			})
-			.catch(function(err){console.log(err)});
-	});
-}
-
-//180521
-async function getUserAmountMessagesWithFile(userId){
-	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(*) FROM public.mggt_message WHERE msg_user_id = ${userId} and msg_file IS NOT NULL;`;
-		query(queryText)
-			.then(function(data){
-				let result = {
-					amMessagesWithFile: data.rows[0].count // get 276
-				}
-				resolve(result);
-			})
-			.catch(function(err){console.log(err)});
-	});
-}
-
-//180521
-async function getUserAmountMessagesOfDay(userId){
-	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(*) FROM public.mggt_message WHERE msg_user_id = ${userId} and msg_date > (now() - interval '1 day');`;
-		query(queryText)
-			.then(function(data){
-				let result = {
-					mesOfDay: data.rows[0].count // get 276
-				}
-				resolve(result);
-			})
-			.catch(function(err){console.log(err)});
-	});
-}
-
-//180521
-async function getUserAmountMessagesOfDayWithFile(userId){
-	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(*) FROM public.mggt_message WHERE msg_user_id = ${userId} and msg_date > (now() - interval '1 day')  and  msg_file IS NOT NULL;`;
-		query(queryText)
-			.then(function(data){
-				let result = {
-					mesOfDayFile: data.rows[0].count // get 276
-				}
-				resolve(result);
-			})
-			.catch(function(err){console.log(err)});
-	});
-}
-
-//180521
-async function getUserAmountEvents(userId){
-	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT count(*) FROM public.mggt_recombination WHERE rec_send_id = ${userId} and  rec_status = 2;`;
-		query(queryText)
-			.then(function(data){
-				let result = {
-					userEvents: data.rows[0].count // get 276
 				}
 				resolve(result);
 			})
@@ -423,7 +374,7 @@ app.post('/query/users', cors(), async function(req, res){
 		let resultAll = {
 			usersAll: resUsersAll.usersAll || 0,
 		}
-		// console.log('resultAll',resultAll);
+		console.log('resultAll',resultAll);
 
 
 		res.send(resultAll);
@@ -434,24 +385,13 @@ app.post('/query/users', cors(), async function(req, res){
 
 //API endpoint 180521
 app.post('/query/user', cors(), async function(req, res){
-	// console.log( 'Запрос /query/user/:userId  req.body',req.body.userId);
-	const { userID } = req.body;
+	console.log( 'Запрос /query/user/:userId  req.body',req.body.userId);
 	try {
-		let resUser = 		await getUserById(userID);
-		let resUserAmObjs = await getUserAmountObjs(userID);
-		let resUserAmAllMessages = await getUserAmountAllMessages(userID);
-		let resUserAmMessagesWithFile = await getUserAmountMessagesWithFile(userID);
-		let resUserAmMessagesOfDay = await getUserAmountMessagesOfDay(userID);
-		let resUserAmMessagesOfDayWithFile = await getUserAmountMessagesOfDayWithFile(userID);
-		let resUserEvents = await getUserAmountEvents(userID);
+		let resUser = 		await getUserById(258);
+		let resUserAmObjs = await getUserAmountObjs(req.body.userId);
 		let result = {
 			user: resUser.user || 'vasya',
 			userAmObjs: resUserAmObjs.amObjs || 0,
-			userAmAllMes: resUserAmAllMessages.amAllMessages || 0,
-			userAmMesFile: resUserAmMessagesWithFile.amMessagesWithFile || 0,
-			mesOfDay: resUserAmMessagesOfDay.mesOfDay || 0,
-			mesOfDayFile: resUserAmMessagesOfDayWithFile.mesOfDayFile || 0,
-			resUserEvents: resUserEvents.userEvents || 0,
 		}
 		// console.log('/query/user/:userId  result',result);
 

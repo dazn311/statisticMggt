@@ -56,15 +56,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-const GenDashboard = ({fetchGenStats, genStatsAll}) => {
+const GenDashboard = React.memo(({fetchGenStats, genStatsAll}) => {
   const classes = useStyles();
    
   useEffect(() => {
     fetchGenStats();
   }, [ fetchGenStats ])
- 
-  // console.log('genStatsAll',genStatsAll);
- 
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
  
   return (
@@ -97,7 +95,7 @@ const GenDashboard = ({fetchGenStats, genStatsAll}) => {
       </main>
     </div>
   );
-}
+})
 
 const mapStateToProps = createStructuredSelector ({ 
   genStatsAll: selectGenStats,

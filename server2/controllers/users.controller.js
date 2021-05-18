@@ -64,11 +64,51 @@ class UsersController {
         });
     }
 
+    //Вызываем функцию для выполнения нашего запроса.
+    async  getUserById(vars){
+        console.log(vars);
+
+        return new Promise ((resolve, reject) => {
+
+            //Проверяем входные параметры и добавляем к строке в случае наличия
+            let queryText, functionVars;
+
+            if(typeof vars != 'undefined'){
+                functionVars = "";
+                if(typeof vars.startDate != 'undefined'){
+                    functionVars += "'"+vars.startDate+"'";
+                }
+                if(typeof vars.endDate != 'undefined'){
+                    functionVars += ",'"+vars.endDate+"'";
+                }
+                queryText = `
+				SELECT * FROM get_online_byinterval(`+functionVars+`);
+			`;
+            } else {
+                queryText = `
+				SELECT * FROM get_online_byinteval();
+			`;
+
+            }
+            console.log(queryText);
+            this.query(queryText)
+                .then(function(data){
+                    //console.log(data.rows[0]);
+                    let result = {
+                        startTime: data.rows[0].starttime,
+                        endTime: data.rows[0].endtime,
+                        online: data.rows[0].online
+                    }
+                    resolve(result);
+                })
+                .catch(function(err){console.log(err)});
+        });
+    }
+
 
     // post http://localhost:3005/api/users
     async getAllUsers (req, res) {
-        console.log('44 post http://localhost:3005/api/users',req.body.data); 
-
+        console.log('44 post http://localhost:3005/api/users',req.body.data);
         const {login, password} = req.body.data;
         console.log(req.body);
         try {
@@ -79,7 +119,23 @@ class UsersController {
             console.log(e);
         }
 
-    }    
+    }
+
+    // post http://localhost:3005/api/user
+    async getUser (req, res) {
+        console.log('44 post http://localhost:3005/api/user',req.body.data);
+        const {userID} = req.body.data;
+        console.log('req.body.data',req.body.data);
+        try {
+            let result = await this.getUserById(userID);
+            console.log(result);
+            res.send(result);
+
+        } catch (e){
+            console.log(e);
+        }
+
+    }
 
 
 

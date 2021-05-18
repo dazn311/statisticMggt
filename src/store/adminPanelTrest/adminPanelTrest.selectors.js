@@ -199,33 +199,6 @@ export const selectAllOrgFromUsersDb = createSelector(
     }     
 )
 
-// export const selectAllUsersFromDb = createSelector(
-//     getSelectPoints,
-//     (allUsersOfDB, filterTextUserForUsersPage) => allUsersOfDB.filter(usr => usr.user_name.include(filterTextUserForUsersPage))
-// )
-            
-
-
-// const getVisibilityFilter = (state, props) =>
-//   state.todoLists[props.listId].visibilityFilter;
-
-/// UsersTab
-//  export const selectAllUsersFromDb = createSelector( 
-//     getSelectPoints,
-//     adminPanel => adminPanel.allUsersOfDB
-// ) 
- //////////////////////////////////////////////////// 
- //////////////////////////////////////////////////// 
-   
- 
-/// ObjsTab
-//  export const selectAllUsersFromDb = createSelector( 
-//     getSelectPoints,
-//     adminPanel => adminPanel.allUsersOfDB
-// ) 
- //////////////////////////////////////////////////// 
- //////////////////////////////////////////////////// 
-
 
 ////////////////////////////////////////////////////
 /// UsersTab
@@ -243,13 +216,13 @@ export const selectUserId0 = (id) => createSelector(
      allUsersOfDB => console.log(allUsersOfDB)
     // allUsersOfDB => allUsersOfDB.find(user => user.user_id === id)
 )
+
 export const selectUserId = (id) => {
     return  createSelector(
         selectAllUser,
         state => {
             if (state.allUsersOfDB.length > 0){
-                return state.allUsersOfDB.find(elem => (elem.user_id || 0) === id) ; 
-                 
+                return state.allUsersOfDB.find(elem => (elem.user_id || 0) === id);
             }else { return 0; }
         }     
     )

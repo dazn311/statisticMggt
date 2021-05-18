@@ -18,7 +18,7 @@ import CardUserDetails from './CardUserDetails';
  
  
   
-const TabThirdMenu = React.memo(({ idUser,selectCurrentUserShort, allData ,   orgRow,  isOpen=false, closeDetail }) => {
+const TabThirdMenu = ({ idUser,selectCurrentUserShort, allData ,   orgRow,  isOpen=false, closeDetail }) => {
 
     const [userData, setUserData] = useState({});
 
@@ -54,7 +54,7 @@ const TabThirdMenu = React.memo(({ idUser,selectCurrentUserShort, allData ,   or
 
         </div>
     );
-})
+}
 
 const mapStateToProps = createStructuredSelector ({
   selectCurrentUserShort: selectCurrentUserShort, // события короткие данные для таблицы

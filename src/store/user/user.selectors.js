@@ -17,3 +17,9 @@ export const selectCurrentUserAllData = createSelector(
   [selectCurUserShort],
   user => user.curUserAllData[0]
 );
+
+
+export const selectUserAllStatsData = createSelector(
+  [selectCurUserShort],
+  user => user.curUserStatsData
+);

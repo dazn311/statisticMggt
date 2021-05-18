@@ -1,12 +1,12 @@
 const Router = require('express');
-const orgsController = require('../controllers/organisations.controller');
+const orgController = require('../controllers/organisations.controller');
 
 const router = new Router()
 
-router.post('/org', orgsController.creatOrg);
-router.get('/orgs', orgsController.getAllOrgs);
-router.get('/org/:id', orgsController.getOrg);
-router.put('/org', orgsController.updateOrg);
-router.delete('/org/:id', orgsController.deleteOrg);
+router.post('/org', orgController.creatOrg);
+router.get('/orgs', orgController.getAllOrgs);
+router.get('/org/:id', orgController.getOrg);
+router.put('/org', orgController.updateOrg);
+router.delete('/org/:id', orgController.deleteOrg);
 
 module.exports = router;
