@@ -1,6 +1,6 @@
-
+import React from "react";
 import axios from "axios";
-
+import memoize from 'lodash/_memoizeCapped'
 
 import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage, dataUsersPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
@@ -381,7 +381,7 @@ export const fetchAmountOGHToWeekAsync = () => {
 
 // Для нежней таблицы "новых событий" на Главной странице  
 // 290421 Dashboard page
-export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => {
+export const fetchEventsPointShortAsync0 = ({limit= 1000, offset= 0}) => {
     // console.log('start fetchEventsPointShortAsync');
 
   return (dispatch) => {
@@ -397,6 +397,28 @@ export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => {
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
+
+// Для нежней таблицы "новых событий" на Главной странице
+// 290421 Dashboard page
+export const fetchEventsPointShortAsync = ({limit= 1000, offset= 0}) => dispatch => {
+    console.log('start fetchEventsPointShortAsync');
+    _fetchEventsPointShortAsync(limit, offset, dispatch);
+};
+
+const _fetchEventsPointShortAsync = memoize(
+    async  ( limit, offset, dispatch) => {
+            postData('https://ismggt.ru/query/events/last/short', {
+                limit: limit,
+                offset: offset
+            })
+                .then((eventsShort) => {
+                    console.log('fetchEventsPointShortAsync -- eventsShort', eventsShort);
+                    dispatch(putEventsPointShort(eventsShort));
+                })
+                .catch(error => dispatch(putDataUsersOnlineError(error.message)))
+        }
+
+);
 
 
 
@@ -664,6 +686,7 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 };
 
 
+
 // Для страницы  "objects" - /stats/objs
 // первая вкладка Список событий на объекте
 // Адрес: https://ismggt.ru/query/object/recs/list
@@ -715,7 +738,7 @@ export const fetchAmountUsersAsync = () => {
 };
 
 //290421 Dashboard page
-export const fetchGenStatsAsync = () => {
+export const fetchGenStatsAsync0 = () => {
    return (dispatch) => {
     postData('https://ismggt.ru/query/stats/daily', {})
         .then((data) => {
@@ -724,6 +747,19 @@ export const fetchGenStatsAsync = () => {
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   };
 };
+
+//180521 Dashboard page
+export const fetchGenStatsAsync = () => dispatch => {
+    _fetchGenStatsAsync(dispatch);
+};
+//180521 Dashboard page
+const _fetchGenStatsAsync = memoize(async (dispatch) => {
+    postData('https://ismggt.ru/query/stats/daily', {})
+        .then((data) => {
+           dispatch(setGenStatsPage(data));
+        })
+        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+});
 
 
 ///////for users page //////////////
