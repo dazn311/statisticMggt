@@ -70,25 +70,23 @@ const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
     const [value, setValue] = useState(0);
     const [showTab2, setShowTab2] = useState(false);
     const classes = useStyles();
+
      const handleChange = (event, newValue) => {
         setValue(newValue);
-        // console.log(newValue);
     };
 
-
-
     useEffect(() => {
-        console.log('6666 selectCurrentObj', selectCurrentObj);
         if (selectCurrentObj) {
             if (selectCurrentObj.length) {
                 setShowTab2(true);
+            }else {
+                setShowTab2(false);
             }
         }
     },[selectCurrentObj])
 
     return (
     <div className={classes.root}>
-      {/* <AppBar position="static" color="default"> */}
         <Tabs
           orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
           value={value}
@@ -101,22 +99,13 @@ const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
         >
           <Tab label="Карточка объекта" {...a11yProps(0)} />
           {showTab2 && <Tab  label="События объекта" {...a11yProps(1)} />}
-          {/* <Tab label="Статистика по ОГХ" {...a11yProps(2)} /> */}
-          {/* <Tab label="Пользователи онлайн" {...a11yProps(3)} /> */}
         </Tabs>
-      {/* </AppBar> */}
       <TabPanel   value={value} index={0}>
           <TabOneMenu idObj={idObj} currObj={currObj} /> 
       </TabPanel>
       <TabPanel value={value} index={1}>
            <TabTwoMenu idObj={idObj} selectObjs={currObj} />
-      </TabPanel> 
-      <TabPanel value={value} index={2}>
-        {/* <TabThirdMenu /> */}
       </TabPanel>
-      {/* <TabPanel value={value} index={3}>
-      таб 4
-      </TabPanel> */}
     </div>
   );
 }

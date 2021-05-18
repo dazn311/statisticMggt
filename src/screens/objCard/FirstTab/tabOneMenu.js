@@ -20,7 +20,9 @@ const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
     }
   },[idObj,fetchObjRectList])
 
-    // console.log('444selectObjRect',selectObjRect)
+    console.log('444 idObj',idObj)
+    console.log('444 selectObjRect',selectObjRect) // return []
+    console.log('444 currObj',currObj)
   return (
     <div style={{display:'flex',flexWrap:'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'flex-start'}} >
           <CartGenInfo currObj={currObj}  objRect={selectObjRect} ></CartGenInfo>
