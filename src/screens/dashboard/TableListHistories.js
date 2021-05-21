@@ -137,10 +137,10 @@ const TableList = ({ eventShortPoints, statusEventPoint }) => {
 //////////////////////////
 
     return (
-        <>
+        <React.Fragment>
         <TableListHistories dataTab={dataTab}  handleClickOpenFmConfigForm={handleClickOpenFmConfigForm} /> 
         <MessAlert currentMess={currentMess} setOpenGreen={setOpenGreen} openGreen={openGreenf} />
-        </>
+        </React.Fragment>
     );
 }
 

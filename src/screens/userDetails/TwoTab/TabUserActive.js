@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 // import _ from "lodash";
 
 import { connect } from 'react-redux';
@@ -25,8 +25,10 @@ import { setObjCurrForDetailPageAsync  } from '../../../store/adminPanelTrest/ad
  
 import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors'; 
 import { selectObjsInfoPage } from '../../../store/adminPanelTrest/StatisticPage.selectors';  
-  
+import { selectErrorFetchUserData } from '../../../store/user/user.selectors';
+
 import EventDetail from './EventDetail';
+import {formatDateISO} from "../../../hoc/formatDate";
  
 const useStyles = makeStyles({
   progress: {
@@ -64,10 +66,10 @@ const LinearIndeterminate = () => {
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset, isLoading }) => {
+const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData }) => {
 
   const [page, setPage] = React.useState(1); 
-  const [orgRow, setOrgName] = useState({});
+  // const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false); 
 
  
@@ -96,7 +98,7 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
   }
 
 
-  const showEvents = (row) => { 
+  // const showEvents = (row) => {
       // setOrgName(row);
       // setObjCurrForDetailPage(row);  
       
@@ -104,57 +106,55 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
       //   pathname: `/stats/obj/${row.objID}`, 
       //    row: row
       // });
-  }
- 
-  let openRed = false, openGreen = false;
+  // }
 
- 
-  if (!tabValue) { 
-    openRed = true; 
-  }else {
-    openRed = false; 
-  }
-  
-  const tabValue2 = []
-  return ( 
-    <>
+  console.log('allStatsData 777',allStatsData)
+  console.log('errorFetchUserData 777',errorFetchUserData)
+
+
+  return (
+    <React.Fragment>
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell style={{padding: '6px 0px 6px 0px', width: '4px', maxWidth: '2px'}}></TableCell>
 
-            { window.innerWidth < 500 && <TableCell align="right">Тип действия / Дата</TableCell> }
+            { window.innerWidth < 500 && <TableCell align="center">Тип действия / Дата</TableCell> }
 
-            { window.innerWidth > 500 && <TableCell align="right">Тип действия</TableCell> }
-            { window.innerWidth > 500 && <TableCell align="right">Дата</TableCell> }
+            { window.innerWidth > 500 && <TableCell align="center">Тип действия</TableCell> }
+            { window.innerWidth > 500 && <TableCell align="center">Дата</TableCell> }
 
-            <TableCell align="right">Информация</TableCell>  
+            <TableCell align="center">Объект</TableCell>
+            <TableCell align="center">Ответчик</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tabValue2.length ?
-           tabValue
+          {  allStatsData && allStatsData.length  ?
+           allStatsData
           .filter((row,i) => i < 11)
           .map((row, index) => (
-            <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
-              <TableCell align="left" style={{backgroundColor:row.color, padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
+            <TableRow key={index}   style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
+              <TableCell align="left" style={{backgroundColor: row.rec_status === 2 ? 'cornflowerblue' : 'indianred', padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
 
               { window.innerWidth < 500 &&
               <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
-                {!isLoading ? row.objName : <Random text={row.objName}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+                {!isLoading ? row.rec_name : <Random text={row.rec_name}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
               </TableCell>}
 
               { window.innerWidth > 500 && <TableCell component="th" scope="row" style={ {  scale: isLoading  ? .3 : 1}}>
-                {!isLoading ? row.objName : <Random text={row.objName}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+                {!isLoading ? row.rec_name : <Random text={row.rec_name}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
               </TableCell> }
               { window.innerWidth > 500 && <TableCell align="right">
-                {!isLoading ? row.objName : <Random text={row.organization.orgname}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+                {!isLoading ? (row.rec_date_interval ? row.rec_date_interval : formatDateISO(row.rec_date))  : <Random text={row.rec_date}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
               </TableCell> }
 
               <TableCell align="right">
-              {!isLoading ? row.objType : <Random text={row.objType}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />} 
-              </TableCell> 
+              {!isLoading ? row.rec_obj_name : <Random text={row.rec_obj_name}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+              </TableCell>
+              <TableCell align="right">
+              {!isLoading ? row.rec_recip_fio : <Random text={row.rec_recip_fio}  effect="verticalFadeOut" effectDirection="down" effectChange={3.0} />}
+              </TableCell>
             </TableRow>
           )) : [{typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
           {typeEv: 'new_rec', dateEvent:'02.05.21', messData:'новое событие'},
@@ -183,18 +183,19 @@ const TabActive = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=
      
     </TableContainer>
      
-    <EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />
-    <MessAlert  openRed={openRed} openGreen={openGreen} />
-    </>
+    {/*<EventDetail  orgRow={errorFetchUserData}  isOpen={!!errorFetchUserData} closeDetail={closeDetail} />*/}
+    <MessAlert  openRed={!!errorFetchUserData} openGreen={false} />
+    </React.Fragment>
   );
 }
 
 const mapStateToProps = createStructuredSelector ({ 
     selectObjsInfo: selectObjsInfoPage, // события короткие данные для таблицы
     datesOfFetchForEvent: fetchDataForEventShortPoints, //  дата начала и конца для запроса
+    errorFetchUserData: selectErrorFetchUserData, //  дата начала и конца для запроса
   });
   
   const mapDispatchToProps = (dispatch) => ({ 
     setObjCurrForDetailPage: (object ) => dispatch(setObjCurrForDetailPageAsync(object )),
   });  
-  export default connect(mapStateToProps,mapDispatchToProps)(TabActive); 
+  export default connect(mapStateToProps,mapDispatchToProps)(TabUserActive);

@@ -29,10 +29,75 @@ export const setCurUserStatData = user => ({
   payload: user
 });
 
-/////////////// for User Card Page 050521 ///////////////////////////////////  
-export const setCurUserShortAsync = (data)  => {
+////////////////  for User Card Details Page Tab2 Active 210521 ///////////////////////////////////////
+
+export const setErrorFetchUserData = erStr => ({
+  type: userData.ERROR_FETCH_USER_DATA_CUR_FOR_USER_DETAILS_PAGE,
+  payload: erStr
+});
+
+export const setRecTypeActive = type => ({
+  type: userData.FILTER_USER_REC_TYPE_FOR_USER_ACTIVE_CARD_DETAILS_PAGE,
+  payload: type
+});
+
+export const setFilterFieldObjActive = txt => ({
+  type: userData.FILTER_USER_FIELD_FOR_USER_ACTIVE_CARD_DETAILS_PAGE,
+  payload: txt
+});
+
+export const setFilterDateStartActive = date => ({
+  type: userData.FILTER_USER_DATE_START_FOR_USER_ACTIVE_CARD_DETAILS_PAGE,
+  payload: date
+});
+
+export const setFilterDateEndActive = date => ({
+  type: userData.FILTER_USER_DATE_END_FOR_USER_ACTIVE_CARD_DETAILS_PAGE,
+  payload: date
+});
+
+/////////////// for User Details Card Tab2 Actives 210521 ///////////////////////////////////
+
+export const setErrorFetchUserDataAsync = (data)  => {
   // console.log('👉 setCurUserShortAsync start:' );
   return (dispatch) => { 
+          dispatch(setErrorFetchUserData(data));
+  };
+};
+
+export const setRecTypeActiveAsync = (data)  => {
+  // console.log('👉 setCurUserShortAsync start:' );
+  return (dispatch) => {
+          dispatch(setRecTypeActive(data));
+  };
+};
+
+export const setFilterFieldObjActiveAsync = (data)  => {
+  // console.log('👉 setCurUserShortAsync start:' );
+  return (dispatch) => {
+    dispatch(setFilterFieldObjActive(data));
+  };
+};
+
+export const setFilterDateStartActiveAsync = (data)  => {
+  // console.log('👉 setCurUserShortAsync start:' );
+  return (dispatch) => {
+          dispatch(setFilterDateStartActive(data));
+  };
+};
+
+
+export const setFilterDateEndActiveAsync = (data)  => {
+  // console.log('👉 setCurUserShortAsync start:' );
+  return (dispatch) => {
+          dispatch(setFilterDateEndActive(data));
+  };
+};
+
+/////////////// for User Card Page 050521 ///////////////////////////////////
+export const setCurUserShortAsync = (data)  => {
+  // console.log('👉 setCurUserShortAsync start:' );
+  return (dispatch) => {
           dispatch(setCurUserShort(data));
   };
 };
@@ -40,13 +105,11 @@ export const setCurUserShortAsync = (data)  => {
 /////////////////////////
 
 async function postData(url = '', userID = '') {
-    
   try {
     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
     const response = await axios.post(url, 
       { userID: userID },
       {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'cors'});
-
     return response.data;
   } catch (e) {
     console.log(`😱 Axios request failed: ${e}`);
@@ -88,8 +151,9 @@ export const fetchUserById = (userID)  => {
         .then((user) => {
           // console.log('👉 fetchUserById then:',user );
           dispatch(setCurUserAllData(user));
+          dispatch(setErrorFetchUserDataAsync(null));
         })
-        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(setErrorFetchUserDataAsync(error.message)));
   };
 };
 
@@ -99,10 +163,16 @@ export const fetchUserStatsAsyncLocal = (userId)  => {
   return (dispatch) => {
     postData('http://localhost:3005/query/user', userId,'post') //work
         .then((userData) => {
-          // console.log('👉 fetchUserById then:',user );
-          dispatch(setCurUserStatData(userData));
+          // console.log('👉 fetchUserStatsAsyncLocal then:',userData );
+          if (userData === 'demo'){
+              dispatch(setErrorFetchUserDataAsync('нет данных с сервера'));
+          }else {
+              dispatch(setCurUserStatData(userData));
+              dispatch(setErrorFetchUserDataAsync(null));
+          }
+
         })
-        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+        .catch(error => dispatch(setErrorFetchUserDataAsync(error.message)));
   };
 };
 

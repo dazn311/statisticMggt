@@ -15,18 +15,7 @@ import TabMenu from './TabMenu'
    
 import './historyChanges.styles.scss';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" component={'span'} color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mggt.ru/">
-        МосГеоТрест
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
  
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,9 +66,6 @@ export default function ObjCard({eventShortPoints, idObj}) {
               </Paper>
             </Grid>
           </Grid>
-          {/*<Box pt={4}> */}
-          {/*  <Copyright />*/}
-          {/*</Box>*/}
         </Container>
       </main>
     </div>

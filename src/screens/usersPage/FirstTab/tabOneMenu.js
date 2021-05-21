@@ -75,7 +75,7 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
       fetchAllUsers();
       // console.log('fetchAllUsers');
     }
-  },[fetchAllUsers])
+  },[fetchAllUsers,selectAllUsers.length])
 
   useEffect(() => {
     if (!selectAllUsers.length){
@@ -85,7 +85,7 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
       setAmObjsValue(selectAllUsers.length)
     }
 
-  },[selectAllUsers.length])
+  },[selectAllUsers.length, amObjsValue])
 
   // console.log('selectAllUsers',selectAllUsers);
   // console.log('Page',page);
@@ -108,9 +108,10 @@ const TabOneMenu = ({ fetchAllUsers, selectAllUsers, setUsersFilter,setOrgNameFi
 
   const showEvents = (row) => {
     setCurUserShort(row);
+    fetchUserById(row.user_id); // to local bd
     history.push({ pathname: `/stats/user/${row.user_id}`, row: row });
 
-    fetchUserById(row.user_id);
+
   }
 
   return (

@@ -170,6 +170,28 @@ async function getUserAmountEvents(userId){
 			.catch(function(err){console.log(err)});
 	});
 }
+//210521
+async function getUserActives(userId){
+	return new Promise ((resolve, reject) => {
+		let queryText  = `SELECT rec_name, 
+(SELECT obj_name FROM public.mggt_objects WHERE obj_id = rec_obj_id) AS rec_obj_name, 
+\t rec_send_id, 
+\t (SELECT user_fio FROM public.mggt_users WHERE user_id = rec_recip_id) AS rec_recip_fio, 
+\t rec_status, rec_descrip, rec_date  
+\t FROM public.mggt_recombination 
+\t WHERE rec_send_id  = 228  ;`;
+// \t WHERE rec_send_id  = ${userId}  ;`;
+		query(queryText)
+			.then(function(data){
+				console.log('getUserActives -- data.rows[0]:',data.rows[0]  );
+				let result = {
+					userActive: data.rows // get 276
+				}
+				resolve(result);
+			})
+			.catch(function(err){console.log(err)});
+	});
+}
 
 async function getUsersAmount(){
 	return new Promise ((resolve, reject) => {
@@ -444,14 +466,16 @@ app.post('/query/user', cors(), async function(req, res){
 		let resUserAmMessagesOfDay = await getUserAmountMessagesOfDay(userID);
 		let resUserAmMessagesOfDayWithFile = await getUserAmountMessagesOfDayWithFile(userID);
 		let resUserEvents = await getUserAmountEvents(userID);
+		let resUserActives = await getUserActives(userID);
 		let result = {
-			user: resUser.user || 'vasya',
+			user: resUser.user || '',
 			userAmObjs: resUserAmObjs.amObjs || 0,
 			userAmAllMes: resUserAmAllMessages.amAllMessages || 0,
 			userAmMesFile: resUserAmMessagesWithFile.amMessagesWithFile || 0,
 			mesOfDay: resUserAmMessagesOfDay.mesOfDay || 0,
 			mesOfDayFile: resUserAmMessagesOfDayWithFile.mesOfDayFile || 0,
 			resUserEvents: resUserEvents.userEvents || 0,
+			resUserActives: resUserActives.userActive || {},
 		}
 		// console.log('/query/user/:userId  result',result);
 
@@ -459,6 +483,64 @@ app.post('/query/user', cors(), async function(req, res){
 		res.send(result);
 	} catch (e){
 		console.log(e);
+	}
+})
+
+// for objCard page 190521
+
+//190521
+async function getObjById(objId){
+	return new Promise ((resolve, reject) => {
+		let queryText  = `SELECT * FROM public.mggt_objects WHERE obj_id = ${objId};`; // good
+		query(queryText)
+			.then(function(data){
+				let result = {
+					obj: data.rows[0]
+				}
+				resolve(result);
+			})
+			.catch(function(err){console.log(err)});
+	});
+}
+app.post('/query/obj/data', cors(), async function(req, res){
+	const { objId } = req.body;
+	try {
+		let resObj =  await getObjById(objId);
+		let result = {
+			objId: objId,
+			objData: resObj.obj || {},
+		}
+		res.send(result);
+	} catch (e){
+		console.log('/query/obj/data',e);
+	}
+})
+
+//190521
+async function getBoundObjById(objId){
+	return new Promise ((resolve, reject) => {
+		let queryText  = `SELECT * FROM public.mggt_bounds WHERE bnd_obj_id = ${objId};`; // good
+		query(queryText)
+			.then(function(data){
+				let result = {
+					obj: data.rows[0]
+				}
+				resolve(result);
+			})
+			.catch(function(err){console.log(err)});
+	});
+}
+app.post('/query/obj/bound', cors(), async function(req, res){
+	const { objId } = req.body;
+	try {
+		let resObjBound =  await getBoundObjById(objId);
+		let result = {
+			objId: objId,
+			objBoundData: resObjBound.obj || {},
+		}
+		res.send(result);
+	} catch (e){
+		console.log('/query/obj/data',e);
 	}
 })
 

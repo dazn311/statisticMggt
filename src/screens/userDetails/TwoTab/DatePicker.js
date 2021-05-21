@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -6,8 +6,8 @@ import { createStructuredSelector } from 'reselect';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-// import { dataStartforFetchEventsForPeriod, fetchObjectsListAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions'; 
-import { fetchDataForEventShortPoints } from '../../../store/adminPanelTrest/adminPanelTrest.selectors' //'./adminPanelTrest.selectors'; 
+
+import { selectFilterRecDateStart } from '../../../store/user/user.selectors';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -31,19 +31,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // 
-const initional = () => {
-    return '2021-01-01'
-}
+// const initional = () => {
+//     return '2021-01-01'
+// }
 
 
 
-const DatePickers =({setDateStart}) => {
-  const [Data] = useState(initional);
+const DatePickers =({setDateStart, filterRecDateStart}) => {
+  const [Data, setData] = useState(filterRecDateStart);
   const classes = useStyles();
 
   const setDateOnBlur = async(e) => {
     setDateStart(e.target.value) ;
-  } 
+  }
+
+  useEffect(() => {setData(filterRecDateStart)},[filterRecDateStart])
  
   return (
     <form className={classes.container} noValidate>
@@ -64,7 +66,7 @@ const DatePickers =({setDateStart}) => {
 }
 
 const mapStateToProps = createStructuredSelector ({
-  dataOfFetchForEventShort: fetchDataForEventShortPoints, 
+  filterRecDateStart: selectFilterRecDateStart,
   });
 
 // const mapDispatchToProps = (dispatch) => ({

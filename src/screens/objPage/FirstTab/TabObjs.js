@@ -74,18 +74,10 @@ const LinearIndeterminate = () => {
 const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=true, setPageT,offset, isLoading, setCurObj }) => {
 
   const [page, setPage] = React.useState(1);
-  // const [setPage] = React.useState(0);
   const [orgRow, setOrgName] = useState({});
   const [isOpenDetail, setIsOpenDetail] = useState(false);
-  // const [locale, setLocale] = React.useState('ruRU');
   
   const history = useHistory();
-  
-  // const {currentPage, totalPages, amount} = amObjsValue;
-  // console.log('TabObjs -- currentPage, totalPages, amount',currentPage, totalPages, amount);
-  // console.log('TabObjs -- page',page);
-  // console.log('TabObjs -- tabValue:',tabValue);
- 
 
   useEffect(() => {
     // console.log('TabObjs --offset',offset);
@@ -98,14 +90,8 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
   const classes = useStyles();
    
   const handleChangePage = (event, newPage) => {
-    // if (newPage === 1) {
-      // pageCoutnt += newPage;
       setPageT(newPage);
       setPage(newPage);
-   // }
-     
-    console.log('handleChangePage --newPage',newPage);
-    // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
   }; 
 
   // для детальной информации
@@ -150,7 +136,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
   }
   
   return ( 
-    <>
+    <React.Fragment>
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -257,7 +243,7 @@ const TabObjs = ({ setObjCurrForDetailPage, tabValue, selectObjsInfo, isOpenD=tr
      
     <EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />
     <MessAlert  openRed={openRed} openGreen={openGreen} />
-    </>
+    </React.Fragment>
   );
 }
 

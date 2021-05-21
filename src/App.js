@@ -49,6 +49,8 @@ const darkTheme = createMuiTheme({
       // default: lightGreen[900],
       // paper: 'grey', 
     },
+    redLight: 'rgb(234 128 128 / 60%)',
+    purple: '#a4a5d8',
     type: 'dark' 
   },
   
@@ -68,6 +70,8 @@ const lightTheme = createMuiTheme({
       // default: lightGreen[900],
       // paper: 'grey', 
     },
+    redLight: 'rgb(234 128 128 / 60%)',
+    purple: '#a4a5d8',
     type: 'light'
   },
   

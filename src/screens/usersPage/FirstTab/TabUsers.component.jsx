@@ -81,7 +81,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page, amO
 
   if ( widthW < 420) {
     return ( 
-      <>
+      <React.Fragment>
       <TableContainer style={{ overflowX: 'unset', marginTop: 8, maxWidth:'100%'}} component={Paper}>
         <Table  className={classes.table} size="small" aria-label="a dense table">
           <TableHead>
@@ -130,13 +130,13 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page, amO
        
       {/*<EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />*/}
       {/*<MessAlert  openRed={openRed} openGreen={openGreen} />*/}
-      </>
+      </React.Fragment>
     );
   }
  
  
   return ( 
-    <>
+    <React.Fragment>
     <TableContainer style={{ overflowX: 'unset', marginTop: 8, maxWidth:'100%'}} component={Paper}>
       <Table  className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -187,7 +187,7 @@ const TabUsersComponent = ({  tabValue, showEvents, handleChangePage,  page, amO
      
     {/*<EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />*/}
     {/*<MessAlert  openRed={openRed} openGreen={openGreen} />*/}
-    </>
+    </React.Fragment>
   );
 }
  

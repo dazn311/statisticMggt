@@ -36,9 +36,9 @@ const ColomsChart = ({dataArr}) => {
     data.labels[1] = 'ВОГХ смежников (' + dataArr[1] +')';
 
     return (
-        <>
+        <React.Fragment>
           <Doughnut data={data} />
-        </>
+        </React.Fragment>
       )
 }
 

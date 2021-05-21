@@ -2,7 +2,7 @@ import React, { useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 
-import { useHistory, useRouteMatch } from 'react-router';
+import { useHistory } from 'react-router';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
@@ -70,12 +70,9 @@ const TabMenu = ({idUser, curUser}) => {
   const [value, setValue] = useState(0);
 
 
-  const match = useRouteMatch();
+  // const match = useRouteMatch();
   const history = useHistory();
    
-
-  // console.log('match', match);
-  // console.log('history', history.location.pathname);
 
   const location = history.location.pathname.split('/')[4];
   // console.log('location', location);
@@ -95,7 +92,6 @@ const TabMenu = ({idUser, curUser}) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // console.log('Tabs handleChange newValue',newValue);
   };
 
 
@@ -137,18 +133,4 @@ const TabMenu = ({idUser, curUser}) => {
 
 
 
-
-// const mapStateToProps = createStructuredSelector ({
-//     eventShortPoints: selectEventShortPoints, // события короткие данные для таблицы
-//     statusEventPoint: selectStatusEventPoint, // классификация статусов "new_msg"
-//     statusEnumEventPointColor: selectStatusEnumEventPointColor, // for color elements
-//   });
-  
-// const mapDispatchToProps = (dispatch) => ({
-//     // Для событий новых и закрытых
-//     fetchEventForPeriod: (startDate, endDate) => dispatch(fetchEventForPeriodAsync(startDate, endDate)),
-// });  
-
 export default TabMenu;
-
-  // export default connect(null, mapDispatchToProps)(TabMenu);

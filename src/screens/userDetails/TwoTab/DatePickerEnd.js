@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
- 
+
+import {  setFilterDateEndActiveAsync } from '../../../store/user/user.actions';
+import { selectFilterRecDateEnd } from '../../../store/user/user.selectors';
+import {createStructuredSelector} from "reselect";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,21 +31,23 @@ const useStyles = makeStyles((theme) => ({
     // width: 200,
   },
 }));
+//
+// const initional = () => {
+//     let newDate = new Date();//.toISOString().split('T')[0];
+//     // console.log('initional endDate',newDate); //2021-03-13T23:54:10.763Z // Sun Mar 14 2021 02:55:04 GMT+0300 (Moscow Standard Time)
+//     return newDate.toISOString().split('T')[0];
+// }
 
-const initional = () => {
-    let newDate = new Date();//.toISOString().split('T')[0];
-    // console.log('initional endDate',newDate); //2021-03-13T23:54:10.763Z // Sun Mar 14 2021 02:55:04 GMT+0300 (Moscow Standard Time)
-    return newDate.toISOString().split('T')[0];
-}
 
- 
-const DatePickerEnd =({setDateEnd}) => {
-  const [Data] = useState(initional);
+const DatePickerEnd =({setFilterDateEndActive, filterRecDateEnd}) => {
+  const [Data, setData] = useState(filterRecDateEnd);
   const classes = useStyles();
- 
-  const setDate = (e) => {
-    setDateEnd(e.target.value); 
+
+  const setDateOnBlur = async(e) => {
+    setFilterDateEndActive(e.target.value);
   }
+
+  useEffect(() => {setData(filterRecDateEnd)},[filterRecDateEnd]);
 
   return (
     <form className={classes.container} noValidate>
@@ -54,17 +60,21 @@ const DatePickerEnd =({setDateEnd}) => {
         InputLabelProps={{
           shrink: true,
         }}
-        onBlur={setDate}
+        onBlur={setDateOnBlur}
       />
     </form>
   );
 }
 //
-// const mapStateToProps = createStructuredSelector ({
-//   });
-//
-// const mapDispatchToProps = (dispatch) => ({
-//
-// });
-// export default connect(mapStateToProps, mapDispatchToProps)(DatePickerEnd);
-export default  DatePickerEnd;
+
+const mapStateToProps = createStructuredSelector ({
+  filterRecDateEnd: selectFilterRecDateEnd,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  setFilterDateEndActive: (date) => dispatch(setFilterDateEndActiveAsync(date)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickerEnd);
+// export default  DatePickerEnd;

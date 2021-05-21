@@ -62,7 +62,7 @@ export default function MessagesAlert({openRed, openGreen}) {
       <Snackbar open={openRedf} autoHideDuration={6000} onClose={handleClose}>
 
         <Alert onClose={handleClose} severity="error">
-          Нет данных с этим фильтром!
+          Нет соединение с сервером!
         </Alert>
 
       </Snackbar>

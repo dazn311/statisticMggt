@@ -93,8 +93,12 @@ const TabObjsEvent = ({ tabValue, isOpenD=true, isLoading }) => {
 
 
   useEffect(() => {
-    const newPages = Math.ceil(tabValue.length / 6);
-    setPages(newPages);
+
+    if ( tabValue ) {
+      const newPages = Math.ceil(tabValue.length / 6);
+      setPages(newPages);
+    }
+
 
   },[tabValue])
 
@@ -121,17 +125,15 @@ const TabObjsEvent = ({ tabValue, isOpenD=true, isLoading }) => {
   }
 
   return ( 
-    <>
+    <React.Fragment>
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell style={{padding: '6px 0px 6px 0px', width: '4px', maxWidth: '2px'}}></TableCell>
-            <TableCell align="right">Наименование</TableCell> 
-            <TableCell align="right">Инициатор</TableCell>
-            <TableCell align="right">Получатель</TableCell>
-            {/*<TableCell align="right">Количество событий</TableCell>*/}
-            {/* <TableCell align="right">Принадлежит</TableCell> */}
+            <TableCell align="center">Наименование</TableCell>
+            <TableCell  align="center">Инициатор</TableCell>
+            <TableCell   align="center">Получатель</TableCell>
             <TableCell align="right">Дата создания</TableCell>
           </TableRow>
         </TableHead>
@@ -139,7 +141,6 @@ const TabObjsEvent = ({ tabValue, isOpenD=true, isLoading }) => {
           {tabValue && tabValue.length ?
               tabValue
           .filter((row,i) => i < (page*6) && i >= (page*6 -6) )
-          // .filter((row,i) => row.sender.username.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) || row.sender.orgname.toLowerCase().includes(stFilterSearch.objName.toLowerCase()) )
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { showEvents(row)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': '', opacity: isLoading  ? .3 : 1, scale: isLoading  ? .3 : 1}} >
               <TableCell align="left" style={{backgroundColor:row.rec_status === 2? '#337ab7bf': '#166d16', padding: '6px 0px 6px 0px', width: '4px', maxWidth: '4px'}}></TableCell>
@@ -221,7 +222,7 @@ const TabObjsEvent = ({ tabValue, isOpenD=true, isLoading }) => {
      
     {/*<EventDetail  orgRow={orgRow}  isOpen={isOpenDetail} closeDetail={closeDetail} />*/}
     <MessAlert  openRed={openRed} openGreen={openGreen} />
-    </>
+    </React.Fragment>
   );
 }
 

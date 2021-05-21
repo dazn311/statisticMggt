@@ -1,12 +1,7 @@
 import React  from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-// import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-// import Button from '@material-ui/core/Button';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -54,19 +49,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
   const classes = useStyles();
-
   // const [filterObj, setFilterObj] = React.useState('');
   const [filterOrg, setFilterOrg] = React.useState('');
-
-  // console.log('rerender SearchPanel');
 
   // const handleFilterObj = (event) => {
   //   setFilterObj(event.target.value);
@@ -78,13 +66,9 @@ export default function SearchPanel({setSearchTextObj, setSearchTextOrg}) {
     setSearchTextOrg(event.target.value); 
   };
 
-  // const fetchSearchObjHandle = useCallback(() => {fetchSearchObj()},[fetchSearchObj]);
-
-  // const fetchSearchObjHandle = () => {fetchSearchObj()};
-
   return (
       <FormControl className={classes.formControl}>
-        <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по информации' value={filterOrg} onChange={handleFilterOrg}/>
+        <BootstrapInput style={{minWidth: 250}} id="input-org" placeholder='поиск  по Объектов' value={filterOrg} onChange={handleFilterOrg}/>
       </FormControl>
   );
 }

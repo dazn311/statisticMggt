@@ -263,13 +263,6 @@ export const fetchAmountUsersForGraphicsAsync = (startDate='2021-02-12T00:00:00.
 
 
 
-
-
-
-
-
-
-
 // Для верхней таблицы "graphics" пользователей он-лайн
 // putDataUsersOfStartDayOnline  putDataUsersOfEndDayOnline
 //290421 не используется
@@ -682,9 +675,11 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
 // Адрес: https://ismggt.ru/query/object/recs/list
  //170521 ObjCard page - Tab1
 export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => {
+    console.log('fetchObjRectListAsync run', objectID)
    return (dispatch) => {
      postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})
         .then((objRecs) => {
+            console.log('fetchObjRectListAsync then', objRecs)
            dispatch(setObjForObjRectPage(objRecs));
         })
         .catch(error => dispatch(putDataUsersOnlineError(error.message)));

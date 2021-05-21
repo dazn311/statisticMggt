@@ -6,14 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import DatePicker from './DatePicker.thirdTab';
 import DatePickerEnd from './DatePickerEnd.thirdTab';
- 
-import ColomsChart from './ColomsChart';
+import ColumnsChart from './ColumnsChart';
 
 
 import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
 import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors';
-
 import { selectObjRectPage } from '../../../store/adminPanelTrest/objsPage.selectors';
 
 const initionalDateStart = () => {
@@ -72,7 +70,7 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH, selectObjRect })=> {
     setGraphicValue(DataOGH);
 
   },[selectAmountNewOGH])
- 
+
   return (
     <React.Fragment>
       {/* <Title>Статистика по ОГХ за период</Title> */}
@@ -81,7 +79,13 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH, selectObjRect })=> {
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
-            <ColomsChart dataArr={graphicValue} />
+        <div style={{ display: 'flex', justifyContent: 'center' , position: 'relative', height:'95vh', width:'80vw'}} >
+          <div style={{position: 'relative', height:'50%', width:'50%'}} >
+            <ColumnsChart  dataArr={graphicValue} />
+          </div>
+
+        </div>
+
       </div>
     </React.Fragment>
   );

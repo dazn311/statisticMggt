@@ -74,6 +74,9 @@ const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
      const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    // console.log('selectCurrentObj', selectCurrentObj)
+    // console.log('currObj', currObj)
+    // console.log('idObj', idObj)
 
     useEffect(() => {
         if (selectCurrentObj) {
@@ -82,32 +85,34 @@ const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
             }else {
                 setShowTab2(false);
             }
+        }else {
+            setShowTab2(false);
         }
     },[selectCurrentObj])
 
     return (
-    <div className={classes.root}>
-        <Tabs
-          orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
-          <Tab label="Карточка объекта" {...a11yProps(0)} />
-          {showTab2 && <Tab  label="События объекта" {...a11yProps(1)} />}
-        </Tabs>
-      <TabPanel   value={value} index={0}>
-          <TabOneMenu idObj={idObj} currObj={currObj} /> 
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-           <TabTwoMenu idObj={idObj} selectObjs={currObj} />
-      </TabPanel>
-    </div>
-  );
+            <div className={classes.root}>
+                <Tabs
+                  orientation={ window.innerWidth < 450 ? 'vertical': 'horizontal'}
+                  value={value}
+                  onChange={handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                  aria-label="scrollable auto tabs example"
+                >
+                  <Tab label="Карточка объекта" {...a11yProps(0)} />
+                  {showTab2 && <Tab  label="События объекта" {...a11yProps(1)} />}
+                </Tabs>
+              <TabPanel   value={value} index={0}>
+                  <TabOneMenu idObj={idObj} currObj={currObj} />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                   <TabTwoMenu idObj={idObj} selectObjs={currObj} />
+              </TabPanel>
+            </div>
+          );
 }
 
 

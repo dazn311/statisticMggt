@@ -55,12 +55,13 @@ const refactData = (eventShortPoints,statusEventPoint,statusEnumEventPointColor)
   return rows;
 }
 
-const UserComponent = ({username,orgname}) => (<>
-  <div style={{display: 'flex', flexDirection:'column'}} >
-    <div>{username}</div>
-    <div style={{fontSize:'12', color:'gray'}}>{orgname}</div>
-  </div>
-</>)
+const UserComponent = ({username,orgname}) =>
+    (<React.Fragment>
+        <div style={{display: 'flex', flexDirection:'column'}} >
+          <div>{username}</div>
+          <div style={{fontSize:'12', color:'gray'}}>{orgname}</div>
+        </div>
+    </React.Fragment>)
 ////////////////////////////
 
 const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, searchValue, fieldValue }) => {
@@ -109,7 +110,8 @@ const TabOGH = ({ selectEventShort, statusEventPoint,statusEnumEventPointColor, 
         <TableBody>
           {rowsPerPage > 0
             && rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .filter((item) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
+          .filter((item) => item.nameEvent.toLowerCase().includes(searchValue.toLowerCase()))
+          // .filter((item) => item.[fieldValue].toLowerCase().includes(searchValue.toLowerCase()))
           // .filter(( _ , index) => index <= 10)
           .map((row, index) => (
             <TableRow key={index} onClick={()=> { printUserId(row.userID)}}  style={ {backgroundColor: index % 2 === 0 ? '#80808038': ''}} >

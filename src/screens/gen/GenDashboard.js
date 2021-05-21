@@ -19,9 +19,6 @@ import {  fetchGenStatsAsync  } from '../../store/adminPanelTrest/adminPanelTres
  
 import './dashboard.styles.scss';
 
- 
-  
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',

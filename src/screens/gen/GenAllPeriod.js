@@ -3,7 +3,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-
 import Title from './Title';
 
 
@@ -17,7 +16,7 @@ const useStyles = makeStyles({
 
 
 
-const GenAllPeriod = React.memo(({ data, selectAmountUsers, amountOGH,selectEvent ,selectObjsInfo, fetchEventsPointShort, fetchObjectsList}) => {
+const GenAllPeriod = React.memo(({ data}) => {
     const classes = useStyles();
     let tt = new Date().toISOString();
     let lastDate = tt.split('T')[0].split('-');

@@ -12,7 +12,8 @@ import ColomsChart from './ColomsChart';
 
 import { fetchNewOGHThirdTabStaticPageGraphicAsync } from '../../../store/adminPanelTrest/adminPanelTrest.actions';
 
-import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors'; 
+import { selectAmountNewOGH } from '../../../store/adminPanelTrest/StatisticPage.selectors';
+import ColumnsChart from "../../objCard/ThirdTab/ColumnsChart";
 
 
 const initionalDateStart = () => {
@@ -81,7 +82,13 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
                 <DatePicker setDataStart={setDateStartFromPicker}/>
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
-            <ColomsChart dataArr={graphicValue} />
+        <div style={{ display: 'flex', justifyContent: 'center' , position: 'relative', height:'95vh', width:'80vw'}} >
+          <div style={{position: 'relative', height:'50%', width:'50%'}} >
+            <ColumnsChart  dataArr={graphicValue} />
+          </div>
+
+        </div>
+
       </div>
     </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,7 +19,8 @@ import StarHalfIcon from '@material-ui/icons/StarHalf';
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 
-import { selectObjCurrObj } from '../../../store/adminPanelTrest/objspages.selectors';  
+import { selectObjCurrObj } from '../../../store/adminPanelTrest/objspages.selectors';
+import {useHistory, useLocation} from "react-router-dom";
 // import BackdropForAllPage from '../../../components/blackDrop/black-drop.component';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,45 +40,59 @@ const useStyles = makeStyles((theme) => ({
     color:'red',
 
   },
-  burlywood:  {backgroundColor: "burlywood"}
+  burlywood:  {backgroundColor: "burlywood"},
+  purple: {
+    color: theme.palette.purple //'#a4a5d8'
+  }
 }));
 
 const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
   const classes = useStyles();
-
-  // useEffect(() => {
-  //
-  // },[currObj])
-  // const objCurr = selectObjCurr !== {} ? selectObjCurr.filter(ob => ob.objID === orgRow) : 
-  
-  
-  if (!currObj) {
-    return(<div>нет данных об организации</div>)
-    
-  }
-  if (!selectObjCurr) {
-    return(<div>нет данных об организации</div>)
-  }
-
+  const history = useHistory();
   let smegObjList = null;
+  smegObjList = useCallback( selectObjCurr.objRelatives && selectObjCurr.objRelatives.map((objIdSmeg, index)  => {
 
-
-  smegObjList = selectObjCurr.objRelatives && selectObjCurr.objRelatives.map((objIdSmeg, index)  => {
-    
     const newRec = objRect && objRect.find(rec  => {
       if (objIdSmeg === rec.receip.objectID){
         return true
       }else {
-        return  false //objIdSmeg + ', ' 
-      } 
+        return  false //objIdSmeg + ', '
+      }
     })
 
     if(newRec){
       return <p key={index} style={{margin: '0 4px', borderBottom:'1px solid grey'}} >{newRec.receip.objname} </p>
     } else {
-      return <p key={index} style={{margin: '0 4px', borderBottom:'1px solid grey'}} >{objIdSmeg} <span className={classes.red} >(нет событий)</span> </p>
+      return <p key={index} style={{margin: '0 4px', borderBottom:'1px solid grey'}} >{objIdSmeg} <span className={classes.purple} >(нет событий)</span> </p>
     }
-  })
+  }),[selectObjCurr]);
+  // useEffect(() => {
+  //
+  // },[currObj])
+  // const objCurr = selectObjCurr !== {} ? selectObjCurr.filter(ob => ob.objID === orgRow) : 
+
+
+  // const location = useLocation();
+  // const currObj2 = location.pathname.split('/')[3] || '';
+  // console.log('000 currObj2',currObj2);
+  // console.log('000 selectObjCurr',selectObjCurr);
+  // console.log('000 currObj',currObj);
+  // console.log('000 document.lastModified).toLocaleString()',new Date(document.lastModified).toLocaleString());
+
+  if (!currObj) {
+    // history.push('/stats/objs' );
+    return(<div>нет данных об организации</div>)
+    
+  }
+  if (!selectObjCurr) {
+    // history.push('/stats/objs' );
+    return(<div>нет данных об организации.</div>)
+  }
+
+
+
+
+
 
  
   return (
@@ -89,9 +104,8 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
           </Avatar>
         </ListItemAvatar>
         <div style={{display:'flex', flexDirection:'column', borderBottom:'1px solid #ff000021'}}>
-          <ListItemText primary={currObj.objName } secondary={currObj.organization.orgname  } />
-          <div><span className={classes.span} > objID: {currObj.objID } / orgID: {currObj.organization.orgID }</span> </div>
-          {/*<div><span className={classes.span} > orgID: {currObj.organization.orgID }</span> </div>*/}
+          <ListItemText primary={currObj && currObj.objName } secondary={currObj && currObj.organization.orgname  } />
+          <div><span className={classes.purple} > objID: {currObj && currObj.objID } / orgID: {currObj && currObj.organization.orgID }</span> </div>
         </div>
       </ListItem>
       <Divider variant="inset" component="hr"  className={classes.span} />
