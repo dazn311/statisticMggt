@@ -13,6 +13,7 @@ import './map-widget.css';
 import CartGenInfo from './CardGenInfo';
 import CardEventInfo from './CardEventInfo';
 import CardMapInfo from "./CardMapInfo";
+import CardYandexMap from "./CardYandexMap";
 
 // parrent data idObj={idObj} currObj={currObj} -- local.row ///
 const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
@@ -31,11 +32,8 @@ const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
             // selectObjRect &&
         // <CardEventInfo currObj={currObj} objRect={selectObjRect} ></CardEventInfo>
         }
-      <div ref={mapContainer} id="map" style={{display:'flex',flexWrap:'nowrap', justifyContent:'center',
-          // border: '1px solid red',
-           position: 'relative', overflow: 'unset'}} >
-        <CardMapInfo />
-        {/*  <GoogleMapInfo />*/}
+      <div  style={{display:'flex',flexWrap:'nowrap', justifyContent:'center', position: 'relative', overflow: 'unset'}} >
+        {currObj && <CardYandexMap objAdress={currObj.objName} />}
       </div>
 
     </div>

@@ -68,7 +68,7 @@ const LinearIndeterminate = () => {
 ////////////////////////////
 
 // let pageCoutnt = 0;
-const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData, curUser}) => {
+const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData }) => {
 
   const [page, setPage] = React.useState(1); 
   const [recData, setRecData] = React.useState(0);
@@ -87,7 +87,11 @@ const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData, cu
    
   const handleChangePage = (event, newPage) => { 
       // setPageT(newPage);
-      // setPage(newPage); 
+      // setPage(newPage);
+   // }
+     
+    // console.log('handleChangePage --newPage',newPage);
+    // console.log('handleChangePage -- pageCoutnt',pageCoutnt);
   }; 
 
   // для детальной информации
@@ -95,13 +99,38 @@ const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData, cu
     setIsOpenDetail(false);
   }
 
-  const setCurUserEventData = (row) => { 
-    setRecData(row); 
+  const setCurUserEventData = (row) => {
+    console.log('row',row);
+    setRecData(row);
+    // setIsOpenDetail(false);
   }
-  const setEmptyRecData = () => {
-    setRecData(0); 
+  const setEmtyRecData = () => {
+    setRecData(0);
+    // setIsOpenDetail(false);
   }
 
+  //rec_date: "2021-03-10T14:05:31.000Z"
+  // rec_descrip: "Описание заявки"
+  // rec_id: 496
+  // rec_name: "Согласование: границ 2855->2858"
+  // rec_obj_name: "Высоцкого ул."
+  // rec_recip_fio: "ГБУ \"Автомобильные Дороги\""
+  // rec_send_id: 228
+  // rec_status: 2
+
+
+  // const showEvents = (row) => {
+      // setOrgName(row);
+      // setObjCurrForDetailPage(row);  
+      
+      // history.push({
+      //   pathname: `/stats/obj/${row.objID}`, 
+      //    row: row
+      // });
+  // }
+
+  // console.log('allStatsData 777',allStatsData)
+  // console.log('errorFetchUserData 777',errorFetchUserData)
 
 
   return (
@@ -113,6 +142,7 @@ const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData, cu
             <TableCell style={{padding: '6px 0px 6px 0px', width: '4px', maxWidth: '2px'}}></TableCell>
 
             { window.innerWidth < 500 && <TableCell align="center">Тип действия / Дата</TableCell> }
+
             { window.innerWidth > 500 && <TableCell align="center">Тип действия</TableCell> }
             { window.innerWidth > 500 && <TableCell align="center">Дата</TableCell> }
 
@@ -173,9 +203,10 @@ const TabUserActive = ({ allStatsData, offset, isLoading, errorFetchUserData, cu
       </div>
      
     </TableContainer>
-
+     
+    {/*<EventDetail  orgRow={errorFetchUserData}  isOpen={!!errorFetchUserData} closeDetail={closeDetail} />*/}
     <MessAlert  openRed={!!errorFetchUserData} openGreen={false} />
-    <RectData  recData={recData} setEmptyRecData={setEmptyRecData} curUser={curUser} />
+    <RectData  recData={recData} setEmtyRecData={setEmtyRecData} />
     </React.Fragment>
   );
 }

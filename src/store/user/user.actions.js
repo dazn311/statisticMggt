@@ -58,169 +58,83 @@ export const setFilterDateEndActive = date => ({
 
 /////////////// for User Details Card Tab2 Actives 210521 ///////////////////////////////////
 
-export const setErrorFetchUserDataAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => { 
+export const setErrorFetchUserDataAsync = (data)  =>   (dispatch) => {
           dispatch(setErrorFetchUserData(data));
-  };
 };
 
-export const setRecTypeActiveAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => {
+export const setRecTypeActiveAsync = (data)  =>  (dispatch) => {
           dispatch(setRecTypeActive(data));
-  };
 };
 
-export const setFilterFieldObjActiveAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => {
+export const setFilterFieldObjActiveAsync = (data)  =>  (dispatch) => {
     dispatch(setFilterFieldObjActive(data));
-  };
 };
 
-export const setFilterDateStartActiveAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => {
+export const setFilterDateStartActiveAsync = (data)  =>   (dispatch) => {
           dispatch(setFilterDateStartActive(data));
-  };
 };
 
 
-export const setFilterDateEndActiveAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => {
+export const setFilterDateEndActiveAsync = (data)  =>  (dispatch) => {
           dispatch(setFilterDateEndActive(data));
-  };
 };
+
 
 /////////////// for User Card Page 050521 ///////////////////////////////////
-export const setCurUserShortAsync = (data)  => {
-  // console.log('👉 setCurUserShortAsync start:' );
-  return (dispatch) => {
+export const setCurUserShortAsync = (data)  => (dispatch) => {
           dispatch(setCurUserShort(data));
-  };
 };
+
 
 /////////////////////////
 
 async function postData(url = '', userID = '') {
   try {
     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-    const response = await axios.post(url, 
-      { userID: userID },
-      {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'cors'});
+    const response = await axios.post(url,{ userID: userID } );
     return response.data;
   } catch (e) {
     console.log(`😱 Axios request failed: ${e}`);
+    return  'demo'; // parses JSON response into native JavaScript objects
   }
-  
-  return  'demo'; // parses JSON response into native JavaScript objects
+
 }
 
-// fetch for App.js get logined user in this app
-export const fetchCurrentUserAsync = (id)  => {
-  // console.log('👉 fetchCurrentUserAsync start:' );
-  // return (dispatch) => {
-  //   postData('http://localhost:3003/api/users', {'id':id})
-  //     .then((user) => {
-  //         dispatch(setCurrentUser(user.name))
-  //       })
-  //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  // };
-};
-
-// fetch for App.js get logined user in this app
-// export const fetchCurrentUserAllDataAsync = (id)  => {
-//   console.log('👉 fetchCurrentUserAllDataAsync start:' );
-//   return (dispatch) => {
-//     postData('http://localhost:3004/api/users', {'id':id})
-//       .then((user) => {
-//           dispatch(setCurUserAllData(user))
-//         })
-//       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-//   };
-// };
-
 
 //290421 UsersPage page - TabOneMenu
-export const fetchUserById = (userID)  => {
-  // console.log('👉 fetchUserById start:',userID );
-  return (dispatch) => {
-    postData('https://ismggt.ru/query/user/info', userID,'post') //work
-        .then((user) => {
-          // console.log('👉 fetchUserById then:',user );
-          dispatch(setCurUserAllData(user));
-          dispatch(setErrorFetchUserDataAsync(null));
-        })
-        .catch(error => dispatch(setErrorFetchUserDataAsync(error.message)));
-  };
+export const fetchUserById = (userID)  => async (dispatch) => {
+    try {
+        let user = await postData('https://ismggt.ru/query/user/info', userID,'post') //work
+        dispatch(setCurUserAllData(user));
+        dispatch(setErrorFetchUserDataAsync(null));
+    }catch (e) {
+        dispatch(setErrorFetchUserDataAsync('no data user by id'));
+    }
+
 };
+
 
 //180521 UsersPage page - TabOneMenu
-export const fetchUserStatsAsyncLocal = (userId)  => {
-  // console.log('👉 fetchUserById start:',userID );
-  return (dispatch) => {
-    postData('http://localhost:3005/query/user', userId,'post') //work
-        .then((userData) => {
-          // console.log('👉 fetchUserStatsAsyncLocal then:',userData );
-          if (userData === 'demo'){
-              dispatch(setErrorFetchUserDataAsync('нет данных с сервера'));
-          }else {
-              dispatch(setCurUserStatData(userData));
-              dispatch(setErrorFetchUserDataAsync(null));
-          }
-
-        })
-        .catch(error => dispatch(setErrorFetchUserDataAsync(error.message)));
-  };
+export const fetchUserStatsAsyncLocal = (userId)  =>  async (dispatch) => {
+    try {
+        let userData = await postData('http://localhost:3005/query/user', userId,'post') //work
+        if (userData === 'demo'){
+            dispatch(setErrorFetchUserDataAsync('нет данных с сервера'));
+        }else {
+            dispatch(setCurUserStatData(userData));
+            dispatch(setErrorFetchUserDataAsync(null));
+        }
+    }catch (e) {
+        dispatch(setErrorFetchUserDataAsync('no data user by id'));
+    }
 };
+
 
 //290421 UsersPage page - TabOneMenu
-export const updateCurUserFullData = (userData)  => {
-  // console.log('👉 updateCurUserFullData start:',userData );
-  return (dispatch) => {
+export const updateCurUserFullData = (userData)  =>  (dispatch) => {
           dispatch(setCurUserAllData(userData));
-  };
 };
 
-
-
-
-
-  
-// async function postData2(url = '', data = {}) {
-//   // Default options are marked with *
-//   const response = await fetch(url, {
-//     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-//     // mode: 'cors', // no-cors, *cors, same-origin
-//     mode: 'no-cors', // no-cors, *cors, same-origin
-//     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-//     credentials: 'same-origin', // include, *same-origin, omit
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type':'application/x-www-form-urlencoded'
-//       // 'Content-Type': 'application/json'
-
-//       // 'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     redirect: 'follow', // manual, *follow, error
-//     referrerPolicy: 'no-referrer', // no-referrer, *client
-//     body: JSON.stringify(data) // body data type must match "Content-Type" header
-//   });
-//   // let text = await response.json();
-//   // console.log('fetchCurrentUserAsync text',text);
-//   // let json = await text.json();
-//   // console.log('fetchCurrentUserAsync json',json);
-//   // return  await response.json(); // parses JSON response into native JavaScript objects
-//   return  response; // parses JSON response into native JavaScript objects
-// }
- 
-
-
-// Для страницы 2 отчетов "tab 3"
-
- 
 
 
 
@@ -244,3 +158,28 @@ export const fetchCurrentUserAsyncOld = (id)  => {
   //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
   // };
 };
+
+
+// fetch for App.js get logined user in this app
+export const fetchCurrentUserAsync = (id)  => {
+    // console.log('👉 fetchCurrentUserAsync start:' );
+    // return (dispatch) => {
+    //   postData('http://localhost:3003/api/users', {'id':id})
+    //     .then((user) => {
+    //         dispatch(setCurrentUser(user.name))
+    //       })
+    //     .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+    // };
+};
+
+// fetch for App.js get logined user in this app
+// export const fetchCurrentUserAllDataAsync = (id)  => {
+//   console.log('👉 fetchCurrentUserAllDataAsync start:' );
+//   return (dispatch) => {
+//     postData('http://localhost:3004/api/users', {'id':id})
+//       .then((user) => {
+//           dispatch(setCurUserAllData(user))
+//         })
+//       .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+//   };
+// };

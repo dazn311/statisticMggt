@@ -11,7 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
 
 
-import SelectorMggt from '../../../components/selectorMggt';
+import SelectorType from '../../../components/selectorObjsPage';
+// import SelectorType from '../../../components/selectorMggt';
 
 import DatePicker from './DatePicker';
 import DatePickerEnd from './DatePickerEnd';
@@ -180,9 +181,9 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
 
 
             <div style={{display: 'flex', flexDirection: 'row' , flexWrap:'nowrap', justifyContent: 'center', marginLeft: '0px', width: window.innerWidth < 500 ? '100%': 'auto'}} >
-                  <SelectorMggt caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
-                  <SelectorMggt caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
-                  <SelectorMggt caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
+                  <SelectorType caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
+                  <SelectorType caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
+                  <SelectorType caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />
             </div>
 
 

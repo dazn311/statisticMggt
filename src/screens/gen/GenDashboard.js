@@ -56,11 +56,24 @@ const useStyles = makeStyles((theme) => ({
 const GenDashboard = React.memo(({fetchGenStats, genStatsAll}) => {
   const classes = useStyles();
    
+  // useEffect(() => {
+  //   window.addEventListener('load', handleLoad);
+  // }, [])
+  //
+  // const handleLoad =() => {
+  //   window.ymaps.ready(() => {
+  //     let localMap = new window.ymaps.Map('mapYandex', {center: [55.77876611979373, 37.51221102764416], zoom: 16}, {
+  //       searchControlProvider: 'yandex#search'});
+  //   });
+  // }
+
   useEffect(() => {
     fetchGenStats();
   }, [ fetchGenStats ])
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+
  
   return (
     <div className={classes.root}>
@@ -71,10 +84,14 @@ const GenDashboard = React.memo(({fetchGenStats, genStatsAll}) => {
           <Grid container spacing={1}>
 
             {/* <Grid item xs={12} md={3} lg={3} style={{minWidth: 292, marginLeft: 8, marginRight: 8}} > */}
+            <Grid item xs={12} md={12} lg={12} >
+              {/*<div id="mapYandex" style={{width: 600, height: 400}} ></div>*/}
+            </Grid>
+
             <Grid item xs={12} md={4} lg={4} >
               <Paper className={fixedHeightPaper}>
                 <GenDeposits data={genStatsAll} /> {/* Количество ОГХ */}
-              </Paper> 
+              </Paper>
             </Grid>
             
             <Grid item xs={12} md={4} lg={4}   >

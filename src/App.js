@@ -1,5 +1,5 @@
 import React,{ useState} from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +17,7 @@ import './App.styles.scss';
 
 import Header from './components/header/header.component';
 
-import { fetchCurrentUserAsync } from './store/user/user.actions'
+// import { fetchCurrentUserAsync } from './store/user/user.actions'
 
 import clsx from 'clsx';
 
@@ -147,8 +147,9 @@ const App = () => {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCurrentUser: (id) => dispatch(fetchCurrentUserAsync(id)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchCurrentUser: (id) => dispatch(fetchCurrentUserAsync(id)),
+// });
 
-export default connect(null,mapDispatchToProps)(App);
+export default App
+// export default connect(null,mapDispatchToProps)(App);

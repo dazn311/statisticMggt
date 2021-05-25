@@ -5,6 +5,7 @@ import memoize from 'lodash/_memoizeCapped'
 import AdminActionTypes,{ FetchData, FetchDataStaticPage, FetchDataUsersPage, FetchDataObjsPage, FetchDataGenPage, dataUsersPage } from './adminPanelTrest.types';
 // import Moment from 'react-moment';
 import moment from 'moment';
+import {setCurUserAllData, setErrorFetchUserDataAsync} from "../user/user.actions";
 
 
 export const appendUser = (item) => ({
@@ -619,12 +620,15 @@ export const fetchAllUsersFromDB2 = (limit=20)  => {
 export const fetchAllUsersFromDB = (limit=20)  => dispatch => {
     _fetchAllUsersFromDB(limit, dispatch);
 };
+
 const _fetchAllUsersFromDB = memoize(async (limit=20, dispatch)  => {
-    postDataAx('https://ismggt.ru/query/users/list', {},'post') //work
-        .then((user) => {
-           dispatch(appendAllUsers(user));
-        })
-        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+    try {
+        let user = await postData('https://ismggt.ru/query/users/list', {},'post') //work
+        dispatch(appendAllUsers(user));
+        dispatch(setErrorFetchUserDataAsync(null));
+    }catch (e) {
+        dispatch(putDataUsersOnlineError(e.message))
+    }
 });
 
 
@@ -668,23 +672,30 @@ export const fetchObjectsListAsync = (objectType='2', organization='0', limit='1
   };
 };
 
-
+//170521 ObjCard page - Tab1
+export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => async (dispatch) => {
+    try {
+        let objRecs = await postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})
+        return dispatch(setObjForObjRectPage(objRecs));
+    }catch (e) {
+        return dispatch(putDataUsersOnlineError(e.message))
+    }
+};
 
 // Для страницы  "objects" - /stats/objs
 // первая вкладка Список событий на объекте
 // Адрес: https://ismggt.ru/query/object/recs/list
  //170521 ObjCard page - Tab1
-export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => {
-    console.log('fetchObjRectListAsync run', objectID)
-   return (dispatch) => {
-     postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})
-        .then((objRecs) => {
-            console.log('fetchObjRectListAsync then', objRecs)
-           dispatch(setObjForObjRectPage(objRecs));
-        })
-        .catch(error => dispatch(putDataUsersOnlineError(error.message)));
-  };
-};
+// export const fetchObjRectListAsync = (objectID, limit=1060, offset=0) => {
+//    return (dispatch) => {
+//      postData('https://ismggt.ru/query/object/recs/list', {objectID:objectID, limit:limit, offset:offset})
+//         .then((objRecs) => {
+//             console.log('fetchObjRectListAsync then', objRecs)
+//            dispatch(setObjForObjRectPage(objRecs));
+//         })
+//         .catch(error => dispatch(putDataUsersOnlineError(error.message)));
+//   };
+// };
 
 
   

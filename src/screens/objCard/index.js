@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import ObjCard from './ObjCard';
 
-const ObjCardPage = ({eventShortPoints, match}) => {
+const ObjCardPage = () => {
      
     let { idobj } = useParams();
     return (

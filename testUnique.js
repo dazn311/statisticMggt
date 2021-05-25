@@ -501,10 +501,14 @@ function onlyUnique(value, index, self) {
 
 let unique = testTest.filter(onlyUnique);
 const res3 = unique.length;
-console.log(unique.length);
-console.log(res2 - res3);
+// console.log(unique.length);
+// console.log(res2 - res3);
 // console.log('test',newArr);
 
 let unique2 = newArr.filter(onlyUnique);
-console.log('unique2',unique2);
-console.log('unique2 length',unique2.length);
+// console.log('unique2',unique2);
+// console.log('unique2 length',unique2.length);
+
+const dateStamp =  Date.now() - 1000*60*60*21;
+console.log('dateStamp',dateStamp);
+console.log('date', new Date(dateStamp).toISOString());

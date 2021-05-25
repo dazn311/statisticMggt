@@ -109,7 +109,8 @@ const TabMenu = ({idObj, currObj, selectCurrentObj}) => {
                   <TabOneMenu idObj={idObj} currObj={currObj} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                   <TabTwoMenu idObj={idObj} selectObjs={currObj} />
+                  {showTab2 && <TabTwoMenu idObj={idObj} selectObjs={currObj} />}
+
               </TabPanel>
             </div>
           );

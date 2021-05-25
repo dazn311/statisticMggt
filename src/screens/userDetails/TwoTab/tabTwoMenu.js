@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import SelectorMggt from '../../../components/selectorMggt';
 
+
 import DatePicker from './DatePicker';
 import DatePickerEnd from './DatePickerEnd';
 import SearchPanel from './SearchPanel';
@@ -106,7 +107,7 @@ const TabTwoMenu = ({ selectCurrentUserShort, selectUserActiveData, setRecTypeAc
           </div>
 
           <div style={{ marginTop: 4}}>
-            <TabActive allStatsData={selectUserActiveData} isLoading={isLoading}  isOpenD={true}   offset={offsetSt} />
+            <TabActive allStatsData={selectUserActiveData} isLoading={isLoading}  isOpenD={true}   offset={offsetSt} curUser={selectCurrentUserShort} />
           </div>
         </div>
       </React.Fragment>

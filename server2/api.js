@@ -2,10 +2,17 @@ const express = require('express');
 const cors = require('cors')
 const PORT =  '3005';
 // const PORT = process.env.PORT || '3005';
+
+const proj4 =require('proj4');
+const def_msk = '+proj=tmerc +lat_0=55.6666666667 +lon_0=37.5 +x_0=0 +y_0=0 +k_0=1. +a=6377397 +rf=299.15 +towgs84=396,165,557.7,-0.05,0.04,0.01,0 +no_defs';
+const def_wgs = '+proj=tmerc +lat_0=0 +lon_0=60.05 +k=1 +x_0=1500000 +y_0=-5911057.63 +ellps=krass +towgs84=24,-123,-94,-0.02,0.25,0.13,1.1 +units=m +no_defs';
 const app = express();
 app.use(express.json()); //work
 
-app.use(cors()); //work
+app.use(cors({
+	origin: "http://localhost:3004",
+	methods: ["POST"],
+})); //work
 app.options('*', cors());
 
 //Вызов библиотеки
@@ -173,17 +180,17 @@ async function getUserAmountEvents(userId){
 //210521
 async function getUserActives(userId){
 	return new Promise ((resolve, reject) => {
-		let queryText  = `SELECT rec_name, 
+		let queryText  = `SELECT rec_id, rec_name, rec_descrip,rec_send_id, rec_status, rec_date,
 (SELECT obj_name FROM public.mggt_objects WHERE obj_id = rec_obj_id) AS rec_obj_name, 
-\t rec_send_id, 
-\t (SELECT user_fio FROM public.mggt_users WHERE user_id = rec_recip_id) AS rec_recip_fio, 
-\t rec_status, rec_descrip, rec_date  
+(SELECT user_fio FROM public.mggt_users WHERE user_id = rec_recip_id) AS rec_recip_fio, 
+(SELECT user_post FROM public.mggt_users WHERE user_id = rec_recip_id) AS rec_recip_post, 
+(SELECT user_fio FROM public.mggt_users WHERE user_id = rec_send_id) AS rec_send_fio ,
+(SELECT user_post FROM public.mggt_users WHERE user_id = rec_send_id) AS rec_send_post
 \t FROM public.mggt_recombination 
-\t WHERE rec_send_id  = 228  ;`;
+\t WHERE rec_send_id  = 228 OR rec_recip_id  = 228;`;
 // \t WHERE rec_send_id  = ${userId}  ;`;
 		query(queryText)
 			.then(function(data){
-				console.log('getUserActives -- data.rows[0]:',data.rows[0]  );
 				let result = {
 					userActive: data.rows // get 276
 				}
@@ -510,7 +517,7 @@ app.post('/query/obj/data', cors(), async function(req, res){
 			objId: objId,
 			objData: resObj.obj || {},
 		}
-		res.send(result);
+		res.json(result);
 	} catch (e){
 		console.log('/query/obj/data',e);
 	}
@@ -580,6 +587,40 @@ async function getUsersAmount0(){
 }
 
 
+const msk = proj4(def_msk).inverse([-3275.55278220851,-23936.9026103005]);// rec благовещенский - деревня Луковня, городской округ Подольск улетает
+// const msk = proj4(def_msk).inverse([6138.0886328379,-11053.3608273561]);// rec благовещенский - старокачаловский улетает
+// const msk = proj4(def_msk).inverse([-36795,7465519071],[19659,4970837786]);
+// const msk = proj4(def_msk).inverse([2204.885946, -21782.821940]);
+console.log('msk',msk);
+
+
+//API endpoint 240521 Для Карточки пользователя Tab2 actives
+async function getUserEventByRecId(recId){
+	return new Promise ((resolve, reject) => {
+		let queryText  = `SELECT * FROM public.mggt_recombination WHERE rec_id = ${recId};`;
+		query(queryText)
+			.then(function(data){
+				let result = {
+					userEvent: data.rows[0] // get 276
+				}
+				resolve(result);
+			})
+			.catch(function(err){console.log(err)});
+	});
+}
+
+app.post('/query/rec/data', cors(), async function(req, res){
+	const { recId } = req.body;
+	try {
+		let resUserEvent = 							await getUserEventByRecId(recId);
+		let result = {
+			userEvent: resUserEvent.userEvent || '',
+		}
+		res.send(result);
+	} catch (e){
+		console.log(' error - ',e);
+	}
+})
 
 
 app.listen(PORT, () => console.log('==============Server start on port:',PORT,'======================'))
@@ -602,3 +643,19 @@ app.listen(PORT, () => console.log('==============Server start on port:',PORT,'=
 //     rec_read: 0,
 //     rec_smej_obj_id: 101
 //   },
+
+
+//const def_msk2 = '+proj=tmerc +lat_0=55.6666666667 +lon_0=37.5 +x_0=0 +y_0=0 +k_0=1. +a=6377397 +rf=299.15 +towgs84=396,165,557.7,-0.05,0.04,0.01,0 +no_defs';
+// const def_wgs2 = '+proj=tmerc +lat_0=0 +lon_0=60.05 +k=1 +x_0=1500000 +y_0=-5911057.63 +ellps=krass +towgs84=24,-123,-94,-0.02,0.25,0.13,1.1 +units=m +no_defs';
+//
+// let def_wgs84 = "+proj=gnom +lat_0=90 +lon_0=0 +x_0=6300000 +y_0=6300000 +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+// let wgs84_2 = "+proj=longlat +datum=WGS84 +no_defs ";
+// const msk2 = '+proj=tmerc +ellps=bessel +towgs84=316.151,78.924,589.65,-1.57273,2.69209,2.34693,8.4507 +units=m +lon_0=37.5 +lat_0=55.66666666667 +k_0=1 +x_0=0 +y_0=0';
+//
+// firstProjection = 'PROJCS["NAD83 / Massachusetts Mainland",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],UNIT["metre",1,AUTHORITY["EPSG","9001"]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["standard_parallel_1",42.68333333333333],PARAMETER["standard_parallel_2",41.71666666666667],PARAMETER["latitude_of_origin",41],PARAMETER["central_meridian",-71.5],PARAMETER["false_easting",200000],PARAMETER["false_northing",750000],AUTHORITY["EPSG","26986"],AXIS["X",EAST],AXIS["Y",NORTH]]';
+//
+// // const msk = proj4(msk2,def_wgs84 ,[2204.885946, -21782.821940]);
+// // proj4(firstProjection).inverse([242075.00535055372, 750123.32090043]);
+
+
+// const msk = proj4(def_msk).inverse([55.77876611979373, 37.51221102764416]); // MosGeoTrest

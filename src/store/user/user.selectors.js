@@ -96,6 +96,19 @@ export const selectUserActiveData = createSelector(
 
 
       const newFilterFieldRec = selectUserActiveStatsData2.filter(rec => rec.rec_obj_name.toLowerCase().includes(selectFilterFieldRecObj.toLowerCase()));
+        console.log('778 8 newFilterFieldRec',newFilterFieldRec);
+        if (newFilterFieldRec.length === 0){
+            return [{
+                rec_date: selectFilterRecDateStart + 'T01:01:01.296Z',
+                rec_date_interval: formatDate(selectFilterRecDateStart) + ' - ' + formatDate(selectFilterRecDateEnd),
+                rec_descrip: "Нет данных по фильтру",
+                rec_name: "Нет данных по фильтру",
+                rec_obj_name: "Нет данных по фильтру",
+                rec_recip_fio: "Нет данных по фильтру",
+                rec_send_id: 0,
+                rec_status: 0}]
+        }
+
 
       if (selectFilterRecStatus === '0' || selectFilterRecStatus === 0){
           return newFilterFieldRec
