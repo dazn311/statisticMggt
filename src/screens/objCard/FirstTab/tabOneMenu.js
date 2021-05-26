@@ -14,16 +14,26 @@ import CartGenInfo from './CardGenInfo';
 import CardEventInfo from './CardEventInfo';
 import CardMapInfo from "./CardMapInfo";
 import CardYandexMap from "./CardYandexMap";
+import {useHistory} from "react-router-dom";
 
 // parrent data idObj={idObj} currObj={currObj} -- local.row ///
 const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
   const  mapContainer = createRef();
+    const history = useHistory();
   useEffect(() => {
     // console.log(' fetchObjRectList idObj', idObj);
     if (idObj ){
-      fetchObjRectList(idObj);
+        // if (history.location.pathname.split('/')[3] !== currObj.objID.toString()){
+            fetchObjRectList(idObj);
+        // }
+
     }
   },[idObj,fetchObjRectList])
+
+
+//     console.log('333 history',history.location.pathname.split('/')[3])
+//     console.log('333 currObj',currObj)
+// console.log('333 selectCurrentUserAllData == history.location.pathname',history.location.pathname.split('/')[3] === currObj.objID.toString())
 
   return (
     <div style={{display:'flex',flexWrap:'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent:'flex-start'}} >
@@ -39,6 +49,7 @@ const TabOneMenu = ({ idObj,currObj, fetchObjRectList, selectObjRect  }) => {
     </div>
   );
 }
+
 
 const mapStateToProps = createStructuredSelector ({
   selectObjRect: selectObjRectPage, // события короткие данные для таблицы 

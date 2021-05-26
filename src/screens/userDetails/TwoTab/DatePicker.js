@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    border:'1px solid rgb(228 228 228)',
+    // border:'1px solid rgb(228 228 228)',
     borderRadius: 4,
     padding: 6,
     marginRight: theme.spacing(1),

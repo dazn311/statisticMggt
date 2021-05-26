@@ -83,7 +83,7 @@ const TabThirdMenu = ({ fetchNewOGH, selectAmountNewOGH })=> {
                 <DatePickerEnd setDataEndforFetchEvents={setDateEndFromPicker}/>
             </div>
         <div style={{ display: 'flex', justifyContent: 'center' , position: 'relative', height:'95vh', width:'80vw'}} >
-          <div style={{position: 'relative', height:'50%', width:'50%'}} >
+          <div style={{position: 'relative', height:'50%', width:'50%', maxHeight: 470, maxWidth: 470}} >
             <ColumnsChart  dataArr={graphicValue} />
           </div>
 

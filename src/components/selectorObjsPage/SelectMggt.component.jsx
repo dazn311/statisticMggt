@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  // MuiFilledInput: {
+  //     root: {
+  //         backgroundColor: 'red'
+  //     }
+  // }
 }));
 
 export default function SelectMggt({caption, defaultVal, valueItems, setType}) {

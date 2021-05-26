@@ -50,6 +50,7 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
   const classes = useStyles();
   const history = useHistory();
   let smegObjList = null;
+
   smegObjList = useCallback( selectObjCurr.objRelatives && selectObjCurr.objRelatives.map((objIdSmeg, index)  => {
 
     const newRec = objRect && objRect.find(rec  => {
@@ -75,8 +76,10 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
   // const location = useLocation();
   // const currObj2 = location.pathname.split('/')[3] || '';
   // console.log('000 currObj2',currObj2);
+
   // console.log('000 selectObjCurr',selectObjCurr);
   // console.log('000 currObj',currObj);
+  //
   // console.log('000 document.lastModified).toLocaleString()',new Date(document.lastModified).toLocaleString());
 
   if (!currObj) {
@@ -104,7 +107,7 @@ const CartGenInfo = ({orgRow, currObj, selectObjCurr, objRect}) => {
           </Avatar>
         </ListItemAvatar>
         <div style={{display:'flex', flexDirection:'column', borderBottom:'1px solid #ff000021'}}>
-          <ListItemText primary={currObj && currObj.objName } secondary={currObj && currObj.organization.orgname  } />
+          <ListItemText primary={selectObjCurr && selectObjCurr.objName } secondary={currObj && currObj.organization.orgname  } />
           <div><span className={classes.purple} > objID: {currObj && currObj.objID } / orgID: {currObj && currObj.organization.orgID }</span> </div>
         </div>
       </ListItem>

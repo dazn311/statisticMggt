@@ -3,9 +3,9 @@ import React,{ useState, useCallback,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeStyles } from '@material-ui/core/styles';  
+// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import MuiAlert from '@material-ui/lab/Alert';
+// import MuiAlert from '@material-ui/lab/Alert';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -176,11 +176,11 @@ const TabOneMenu = ({ fetchObjectsList, selectObjs,selectObjsInfoPage, selectErr
       <React.Fragment> 
         <div className={classes.seeMore}>
           <StateElements amObjsValue={amObjsValue} amObjsValueCurrent={amObjsValueCurrent} />
-          <div className={classes.datePick}>
+          <div style={{display: 'flex', alignItems: 'end', flexWrap: window.innerWidth < 1140 ? 'wrap': 'nowrap', justifyContent: window.innerWidth < 1060 ?'center':'flex-start'}}>
             <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
 
 
-            <div style={{display: 'flex', flexDirection: 'row' , flexWrap:'nowrap', justifyContent: 'center', marginLeft: '0px', width: window.innerWidth < 500 ? '100%': 'auto'}} >
+            <div style={{display: 'flex', flexDirection: 'row' , flexWrap:'nowrap', alignItems: 'flex-end', justifyContent: 'center', marginLeft: '0px', width: window.innerWidth < 500 ? '100%': 'auto'}} >
                   <SelectorType caption={'Принадлежат'} defaultVal={stFilterVal.objectType} valueItems={valueForBtnMggt} setType={setRadioValue}   />
                   <SelectorType caption={'Статус'} defaultVal={stFilterVal.objStatus} valueItems={valueForBtnInWork} setType={setRadioValInWork}  />
                   <SelectorType caption={'Типы'} defaultVal={stFilterVal.objKind} valueItems={valueForBtnOgh} setType={setRadioValOdh}  />

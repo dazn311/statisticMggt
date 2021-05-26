@@ -87,7 +87,7 @@ const TabTwoMenu = ({ selectCurrentUserShort, selectUserActiveData, setRecTypeAc
             <StateElements curUser={selectCurrentUserShort}  />
           </div>
 
-          <div style={{display: 'flex', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent: 'flex-start', gap: 0}}>
+          <div style={{display: 'flex', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent: 'flex-start', gap: 0,    alignItems: 'center'}}>
               <SearchPanel  setSearchTextObj={setSearchTextObj} setSearchTextOrg={setSearchTextOrg} />
             <div style={{display: 'flex' , flexWrap: 'nowrap', flexDirection:  'row', justifyContent: 'space-between', gap: 0}}>
               <div >
@@ -100,7 +100,7 @@ const TabTwoMenu = ({ selectCurrentUserShort, selectUserActiveData, setRecTypeAc
 
             <div style={{display: 'flex' , flexWrap: 'nowrap', flexDirection: window.innerWidth < 500 ? 'column' : 'row', justifyContent: 'flex-start', gap: 0}}>
               <SelectorMggt caption={'Тип'} defaultVal={filterRecStatus} valueItems={filterRecStatus} setType={setRadioValue}  />
-              <Button  style={{height: '43px', marginTop: 8 , marginRight: 0, maxWidth: window.innerWidth < 500 ? '100%' : 200}} variant="contained" color="primary" disabled={isLoading} >
+              <Button  style={{height: '41px', marginTop: 8 , marginRight: 0, maxWidth: window.innerWidth < 500 ? '100%' : 200}} variant="contained" color="primary" disabled={isLoading} >
                 Поиск
               </Button>
             </div>

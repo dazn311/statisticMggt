@@ -117,7 +117,8 @@ export const fetchUserById = (userID)  => async (dispatch) => {
 //180521 UsersPage page - TabOneMenu
 export const fetchUserStatsAsyncLocal = (userId)  =>  async (dispatch) => {
     try {
-        let userData = await postData('http://localhost:3005/query/user', userId,'post') //work
+        let userData = await postData('http://89.108.88.125:3005/query/user', userId,'post') //work
+        // let userData = await postData('http://localhost:3005/query/user', userId,'post') //work
         if (userData === 'demo'){
             dispatch(setErrorFetchUserDataAsync('нет данных с сервера'));
         }else {
